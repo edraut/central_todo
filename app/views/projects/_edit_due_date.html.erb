@@ -1,0 +1,18 @@
+<h2>Due Date</h2>
+<div class="span-18 last section">
+	<%= form_for @project, :url => plan_url(@project), :html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_method' => 'PUT',
+		:'data-ajax_success_element' => 'project_due_date',
+		:'data-ajax_error_element' => 'project_due_date'
+	} do |f| %>
+		<%= f.datetime_select :due_date, :class => 'span-9' %>
+		<%= hidden_field_tag 'attribute', 'due_date' %>
+		<%= f.submit 'save' %>
+		<%= link_to 'cancel', plan_url(@project),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'project_due_date',
+			:'data-ajax_data' => "{attribute: 'due_date'}"%>
+	<% end %>
+</div>

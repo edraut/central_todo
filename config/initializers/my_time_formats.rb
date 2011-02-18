@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:full] = "%I:%M %p on %b %d, %Y"

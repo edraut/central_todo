@@ -9,6 +9,51 @@ CentralTodo::Application.routes.draw do
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
+  match 'sign_in' => 'user_sessions#new'
+  match 'sign_out' => 'user_sessions#destroy'
+  resource :user_session
+  resources :users do
+    member do
+      get 'activate'
+      post 'request_password_reset'
+      get 'forgot_password'
+    end
+  end
+  match 'sign_up' => 'users#new'
+  match 'my_account' => 'users#show'
+
+  resources :plans, :controller => 'projects' do
+    collection do
+      get 'sort'
+      get 'retired'
+      get 'retire_completed'
+    end
+    member do
+      get 'retire_completed_tasks'
+      get 'sort_tasks'
+    end
+  end
+  resources :situations do
+    member do
+      get 'retire_completed_tasks'
+    end
+  end
+  
+  resources :tasks do
+    collection do
+      get 'priority'
+      get 'one_off'
+      get 'cooler'
+      get 'scheduled'
+      get 'retire_completed'
+      get 'retired_one_off'
+    end
+    member do
+      get 'convert'
+    end
+  end
+  resources :pages
+  match 'dashboard' => 'tasks#index'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
@@ -49,6 +94,7 @@ CentralTodo::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
+  root :to => "pages#show", :id => 1
 
   # See how all your routes lay out with "rake routes"
 

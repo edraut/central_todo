@@ -5,3 +5,4 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+home_page = Page.create({ :name => 'Home', :template => 'main', :description => "This is your to-do list. It's always there, and you can look at it from the angle that help most in the moment. "})

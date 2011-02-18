@@ -38,5 +38,14 @@ module CentralTodo
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      :address              => "smtp.gmail.com",
+      :port                 => 587,
+      :domain               => 'central-list.com',
+      :user_name            => 'notifications',
+      :password             => 'n0t1f1c4tions',
+      :authentication       => 'plain',
+      :enable_starttls_auto => true  }
   end
 end

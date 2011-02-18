@@ -1,0 +1,77 @@
+<div class="span-18" id="header_wrapper">
+  <div class="span-18 last section_margin_top">
+  	<h1>Plan: <%= @project.title %></h1>
+  </div>
+  <div class="span-18 last text-right">
+    <div class="list_action attach_above last"><%= link_to 'edit plan', edit_plan_url(@project) %></div>
+  </div>
+</div>
+<div class="span-19 last page_content">
+	<div class="span-18 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
+		<%= form_for @task do |f| %>
+			<div class="span-9">
+				<%= f.text_area :title, :id => "inbox_text_area", :class => "span-9" %>
+			</div>
+			<div class="span-6 last">
+				<%= f.hidden_field :user_id %>
+				<%= f.hidden_field :project_id %>
+				<%= f.hidden_field :state, :value => 'active' %>
+				<%= hidden_field_tag :app_context, 'project' %>
+				<%= f.submit "Add task to this Plan", :id => "inbox_submit_button" %>
+				<a href="#" data-behavior="expander" data-action="contract" data-id="new_task_form">cancel</a>
+			</div>
+		<% end %>
+	</div>
+
+	<div id="unretired_item_list" class="span-18 last">
+		<div id="task_list_heading" class="span-18 last">
+			<div id="unretired_item_heading" class="span-6">
+				<h2><% if @project.tasks.unretired.any? %>Get these done.<% else %>No active tasks.<% end %></h2>
+			</div>
+			<div class="span-12 last">
+      	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
+				<% if @project.tasks.unretired.with_due_date.count > 0 %>
+			  <div class="list_action attach_above">
+      		<%= link_to ('sort by due date', sort_tasks_plan_url(@project) + '?by_due_date=true') %>
+        </div>
+        <% end %>
+			</div>
+		</div>
+		<div id="unretired_items_wrapper" class="span-18 last section_wrapper" data-behavior="sortable" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-role="list">
+			<% for task in @project.tasks.unretired.ordered %>
+				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+					<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+  <div class="span-18 last">
+    <div class="span-12 prepend-6 last">
+      <div id="retire_completed_items" class="list_action attach_below" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
+    	<%= link_to 'retire completed tasks', retire_completed_tasks_plan_url(@project),
+    	 	:'data-ajax_behavior' => 'ajax_link',
+    		:'data-ajax_method' => 'GET',
+    		:'data-ajax_success_callback' => "handleRetirementSuccess();",
+    		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't retire those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %> &darr;
+    	</div>
+    </div>
+  </div>
+	<div id="retired_item_list" <% unless @project.tasks.retired.any? %>style="display:none;"<% end %> class="span-18 last section_margin_top" data-role="list">
+		<div id="retired_item_heading" class="span-18 last">
+			<h2 style="margin-bottom: 0;">You got these done.</h2>
+		</div>
+		<div id="retired_items_wrapper" class="span-18 last retired section_wrapper">
+			<% for task in @project.tasks.retired %>
+				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+					<%= render :partial => '/tasks/show', :locals => {:task => task} %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+<%= javascript_tag do %>
+	bindExpanders();
+	jQuery(document).ready(function(){
+		bindSortables();
+	})
+<% end -%>

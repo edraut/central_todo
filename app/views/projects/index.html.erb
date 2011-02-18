@@ -1,0 +1,59 @@
+<div class="span-18 last section_margin_top" id="header_wrapper">
+	<h1>My Big Plans.</h1>
+</div>
+<div class="span-19 last page_content">
+	<div class="span-18 last">
+		<% form_for @project, :url => plans_url do |f| %>
+			<div class="span-10">
+				<%= f.text_field :title, :class => "span-9" %>
+			</div>
+			<div class="span-8 last">
+				<%= f.hidden_field :user_id %>
+				<%= f.hidden_field :state, :value => 'active' %>
+				<%= f.submit "Make a new plan.", :id => "plan_submit_button" %>
+			</div>
+		<% end %>
+	</div>
+	<div class="span-18 last section_margin_top">
+    <div class="span-6">
+  		<h2>Active Plans</h2>
+  	</div>
+  	<div class="span-12 last">
+      <div id="retire_completed_items" class="list_action attach_above" <% unless @this_user.projects.complete.any? %>style="display: none;"<% end %>>
+      	<%= link_to 'retire completed plans', retire_completed_plans_url,
+      	 	:'data-ajax_behavior' => 'ajax_link',
+      		:'data-ajax_method' => 'GET',
+      		:'data-ajax_success_callback' => "handleRetirementSuccess();" %>
+      </div>
+    </div>
+	</div>
+	<div id="unretired_items_wrapper" data-role="list" class="span-18 last section_wrapper" data-behavior="sortable" data-sort_url="<%= sort_plans_url %>">
+		<% for project in @this_user.projects.unretired.ordered %>
+			<div id="project_<%= project.id %>" class="span-18 last" data-role="list_item">
+  			<%= render :partial => 'show', :locals => {:project => project, :sortable => true} %>
+			</div>
+		<% end %>
+	</div>
+	<div id="retired_item_list" <% unless @this_user.projects.retired.any? %>style="display:none;"<% end %> class="span-18 last section_margin_top" data-role="list">
+		<div id="retired_item_heading" class="span-18 last">
+			<h2>You got these done.</h2>
+		</div>
+		<div id="retired_items_wrapper" class="span-18 last retired section_wrapper">
+			<% for project in @this_user.projects.retired.twenty_five %>
+				<div class="span-18 last" id="project_<%= project.id %>" data-role="list_item">
+					<%= render :partial => '/projects/show', :locals => {:project => project} %>
+				</div>
+			<% end %>
+      <% if @this_user.projects.retired.count > 25 %>
+      <div class="span-18 last text-right">
+        <%= link_to 'show more', retired_projects_url %> &rarr;
+      </div>
+      <% end %>
+		</div>
+	</div>
+</div>
+<%= javascript_tag do %>
+	jQuery(document).ready(function(){
+		bindSortables();
+	})
+<% end -%>

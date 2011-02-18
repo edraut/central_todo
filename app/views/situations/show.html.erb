@@ -1,0 +1,58 @@
+<div class="span-18 last" id="header_wrapper">
+  <div class="span-18 last section_margin_top">
+  	<h1>Situation: <%= @situation.title %></h1>
+  </div>
+  <div class="span-18 last text-right">
+    <div class="list_action attach_above last"><%= link_to 'edit situation', edit_situation_url(@situation) %></div>
+  </div>
+</div>
+<div class="span-19 last page_content">
+	<div class="span-18 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
+		<%= form_for @task do |f| %>
+			<div class="span-9">
+				<%= f.text_area :title, :id => "inbox_text_area", :class => "span-9" %>
+			</div>
+			<div class="span-6 last">
+				<%= f.hidden_field :user_id %>
+				<%= f.hidden_field :situation_id %>
+				<%= f.hidden_field :state, :value => 'active' %>
+				<%= hidden_field_tag :app_context, 'situation' %>
+				<%= f.submit "Add task to this Situation", :id => "inbox_submit_button" %>
+				<a href="#" data-behavior="expander" data-action="contract" data-id="new_task_form">cancel</a>
+			</div>
+		<% end %>
+	</div>
+	<div id="unretired_item_list" <% unless @situation.tasks.unretired.any? %>style="display:none;"<% end %> class="span-18 last">
+		<div id="task_list_heading" class="span-18 last">
+			<div id="unretired_item_heading" class="span-6">
+				<h2>Get these done.</h2>
+			</div>
+			<div class="span-12 last">
+      	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
+      </div>
+		</div>
+		<div id="unretired_items_wrapper" class="span-18 last section_wrapper" data-role="list">
+			<% for task in @situation.tasks.incomplete.ordered %>
+				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+					<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+<%= javascript_tag do %>
+	bindExpanders();
+	function handleTaskLists(){
+		if( jQuery('#unretired_items_wrapper').find("form").length < 0){
+			jQuery('#unretired_item_list').hide();
+		}
+		if( jQuery('#retired_items_wrapper').find("form").length < 0){
+			jQuery('#retired_item_list').hide();
+		}
+	}
+	jQuery(document).ready(function(){
+		vertCenterDiv(jQuery('#unretired_item_heading'),jQuery('#task_list_heading'));
+		vertCenterDiv(jQuery('#retire_completed_tasks'),jQuery('#task_list_heading'));
+		bindSortables();
+	})
+<% end -%>

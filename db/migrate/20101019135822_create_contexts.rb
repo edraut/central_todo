@@ -1,6 +1,6 @@
-class CreateContexts < ActiveRecord::Migration
+class CreateSituations < ActiveRecord::Migration
   def self.up
-    create_table :contexts do |t|
+    create_table :situations do |t|
       t.string :title
       t.integer :user_id
       t.timestamps
@@ -8,6 +8,6 @@ class CreateContexts < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :contexts
+    drop_table :situations
   end
 end

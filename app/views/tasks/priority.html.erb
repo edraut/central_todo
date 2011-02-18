@@ -1,0 +1,35 @@
+<div class="span-15 last">
+	<h1>High Priority Tasks</h1>
+</div>
+<div class="span-15 last">
+	<div class="span-15 last">
+		<% form_for @task do |f| %>
+			<div class="span-9">
+				<%= f.text_area :title, :id => "inbox_text_area", :class => "span-9" %>
+			</div>
+			<div class="span-6 last">
+				<%= f.hidden_field :user_id %>
+				<%= f.hidden_field :priority, true %>
+				<%= f.hidden_field :state, 'active' %>
+				<%= hidden_field_tag :app_context, 'priority' %>
+				<%= f.submit "Add a priority task.", :id => "inbox_submit_button" %>
+			</div>
+		<% end %>
+	</div>
+	<% if @this_user.tasks.incomplete.high_priority.count > 0 %>
+		<div data-role="list" class="span-15 last section_wrapper">
+			<h2>Hot stuff.</h2>
+			<% for task in @this_user.tasks.incomplete.high_priority %>
+				<div class="span-15 last" id="task_<%= task.id %>" data-role="list_item">
+				<%= render :partial => 'show', :locals => {:task => task} %>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+<% javascript_tag do %>
+	jQuery(document).ready(function(){
+		new_margin = ((jQuery("#inbox_text_area").height() + 10) - jQuery('#inbox_submit_button').height())/2 + 'px';
+		jQuery('#inbox_submit_button').css('margin-top',new_margin);
+	})
+<% end %>

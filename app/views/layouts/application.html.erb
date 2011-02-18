@@ -1,14 +1,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CentralTodo</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <title><%= @html_page_title %></title>
+  <%= render :partial => '/layouts/base_stylesheets' %>
+  <%= render :partial => '/layouts/base_javascripts' %>
+<% if @sortable %>
+	<%= javascript_include_tag "jquery-ui-1.8.7.custom.min.js" %>
+<% end %>
   <%= csrf_meta_tag %>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
-
-<%= yield %>
-
+	<div id="top_nav">
+		<div class="container">
+			<div id="top_nav_wrapper" class="span-24 vertical-padding">
+				<div class="span-5 text-right" data-role="top_nav_element">
+					<div class="vert-line-nav-wrapper-header">
+						<%= link_to 'Home', root_url, :class => 'loud' %>
+					</div>
+				</div>
+				<div class="span-9" data-role="top_nav_element">&nbsp;</div>
+				<div class="span-8 last text-center" data-role="top_nav_element">
+					<% if current_user %>
+						hello <%= @this_user.email %>
+						<%= link_to '(sign out)', sign_out_url, :class => 'quiet' %>
+						<%= link_to 'account', user_url(@this_user) %>
+					<% else %>
+						<%= link_to 'Sign Up', sign_up_url %> or
+						<%= link_to 'Sign in', sign_in_url %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="main_content" class="container">
+		<div class="span-24">
+			<div class="span-3 append-1">
+			  <div class="span-3 last" id="left_nav_spacer">&nbsp;</div>
+				<div class="span-3 last">
+					<div class="vert-line-nav-wrapper-main<% if controller_name == 'projects' %> selected<% end %>">
+						<%= link_to 'Plans', plans_url, :class => (controller_name == 'projects' and action_name == 'index') ? 'selected loud' : 'loud' %>
+						<div id="project_subnav"<% unless controller_name == 'projects' %>style="display:none;"<% end %>>
+							<div class="vert-line-subnav-wrapper">
+								<%= link_to 'Retired', retired_plans_url, :class => (action_name == 'retired') ? 'selected' : '' %>
+							</div>
+            </div>
+					</div>
+				</div>
+				<div class="span-3 last">
+					<div class="vert-line-nav-wrapper-main<% if controller_name == 'situations' %> selected<% end %>">
+						<%= link_to 'Situations', situations_url, :class => (controller_name == 'situations' and action_name == 'index') ? 'selected loud' : 'loud' %>
+					</div>
+				</div>
+				<div class="span-3 last">
+					<div class="vert-line-nav-wrapper-main<% if controller_name == 'tasks' %> selected<% end %>">
+						<%= link_to 'Tasks', tasks_url, :class => (controller_name == 'tasks' and action_name == 'index') ? 'selected loud' : 'loud' %>
+						<div id="task_subnav"<% unless controller_name == 'tasks' %>style="display:none;"<% end %>>
+							<div class="vert-line-subnav-wrapper">
+								<%= link_to 'Sundry', one_off_tasks_url, :class => (action_name == 'one_off') ? 'selected' : '' %>
+							</div>
+							<% if @this_user.tasks.one_off.retired.count > 25 %>
+							<div class="vert-line-subnav-wrapper">
+								<%= link_to 'Retired', retired_one_off_tasks_url, :class => (action_name == 'retired_one_off') ? 'selected' : '' %>
+							</div>
+							<% end %>
+							<div class="vert-line-subnav-wrapper">
+								<%= link_to 'Ideas', cooler_tasks_url, :class => (action_name == 'cooler') ? 'selected' : '' %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="span-20 last">
+				<%= yield %>
+			</div>
+		</div>
+	</div>
+<%= javascript_tag do %>
+	jQuery(document).ready(function(){
+		bindHoverShowMore();
+		jQuery("[data-role='top_nav_element']").each(function(i){
+			vertCenterDiv(jQuery(this),jQuery('#top_nav_wrapper'));
+		});
+		jQuery("#left_nav_spacer").height(jQuery("#header_wrapper").outerHeight(true));
+		<% unless flash[:notice].blank? %>
+			function clearFlash(){
+				jQuery('#flash_notice').fadeOut(1000);
+				setTimeout("jQuery('#flash_notice').remove();",1000);
+			}
+			jQuery('#main_content').before('<div id="flash_notice" style="display:none;margin-top: -17px;" class="container flash_notice"><%= flash[:notice] %></div>');
+			jQuery('#flash_notice').fadeIn(500);
+			setTimeout(clearFlash,3000);
+		<% end %>
+	})
+<% end %>
 </body>
 </html>

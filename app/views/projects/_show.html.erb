@@ -1,0 +1,38 @@
+<% sortable = false unless defined? sortable
+	needs_organization = false unless defined? needs_organization %>
+<%= form_for project, :url => plan_url(project), :html => {
+	:'data-ajax_behavior' => 'ajax_form',
+	:'data-ajax_method' => 'PUT',
+	:'data-ajax_success_callback' => "handleRetirementLink();",
+	:'data-ajax_error_callback' => "jQuery('#project_#{project.id}').append('<div class=\"flash_notice span-15 last\">Ooops! Something went wrong. We're looking into it, but feel free to contact customer support with any concerns.</div>'); setTimeout(\"jQuery('.flash_notice').fadeOut(1000)\",3000);",
+	:'data-ajax_success_element' => "project_#{project.id}"} do |f| %>
+	<div class="span-15">
+		<div class="text_with_check_box_proxy" <% unless project.all_complete %>style="display:none;" data-role="hidden_checkbox"<% end %>>
+  		<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, project.retired? ? 'retired' : 'complete', 'active' %>
+    </div>
+    <% unless project.all_complete %><div data-role="checkbox_placeholder"  class="text_with_check_box_proxy text-center"><a href="<%= plan_url(project) %>">+</a></div><% end %>
+		<div class="text_with_check_box_proxy span-8 last">
+  		<%= link_to project.title, plan_url(project), :style => project.complete? ? 'text-decoration:line-through;' : nil %>
+		</div>
+	</div>
+	<div class="span-3 last text-right">
+		<a href="<%= plan_url(project) %>"
+			data-ajax_behavior="ajax_link"
+			data-ajax_method="DELETE"
+			data-ajax_success_callback="jQuery('#project_<%= project.id %>').remove();handleListDisplay();"
+			data-ajax_data="{_method: 'DELETE'}"
+			class="delete" data-role="delete">&otimes;</a>
+		<% if sortable == true %><span data-role="sortable_drag_handle" class="sortable_drag_handle">&equiv;</span><% end %>
+		<%= hidden_field_tag ('sortable', true) if (controller_name == 'projects' or sortable == true) %>
+		<%= hidden_field_tag 'partial', true %>
+		<%= hidden_field_tag '_method', 'PUT' %>
+	</div>
+<% end %>
+<% unless project.all_complete %>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    jQuery("[data-role='checkbox_placeholder']")
+      .width(jQuery("[data-role='hidden_checkbox']").width());
+  });
+<% end %>
+<% end %>

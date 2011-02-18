@@ -1,0 +1,52 @@
+<div class="span-18 last section_margin_top" id="header_wrapper">
+	<h1>Jot it down.</h1>
+</div>
+<div class="span-19 last page_content">
+	<div class="span-18 last">
+		<%= form_for @task do |f| %>
+			<div class="span-9">
+				<%= f.text_area :title, :id => "inbox_text_area", :class => "span-9" %>
+			</div>
+			<div class="span-6 last">
+				<%= f.hidden_field :user_id %>
+				<%= f.hidden_field :state, :value => 'active' %>
+				<%= f.submit "Add it to the list.", :id => "inbox_submit_button" %>
+			</div>
+		<% end %>
+	</div>
+	<% if @this_user.tasks.active.one_off.count > 0 and @this_user.projects.incomplete.count > 0 %>
+	<div class="span-18 last section_margin_top">
+		<h2>Organize these.</h2>
+	</div>
+	<div data-role="list" class="span-18 last section_wrapper" id="organize_these_wrapper">
+		<% for task in @this_user.tasks.active.one_off.recent.five %>
+			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+			<%= render :partial => 'show', :locals => {:task => task, :needs_organization => true} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.one_off.count > 5 %>
+      <div class="span-18 last text-right section_margin_top">
+        <%= link_to 'See all', one_off_tasks_url %> &rarr;
+      </div>
+		<% end %>
+	</div>
+	<% end %>
+	<% if @this_user.tasks.active.high_priority.count > 0 %>
+	<div class="span-18 last section_margin_top">
+		<h2>High Priority Tasks.</h2>
+	</div>
+	<div data-role="list" class="span-18 last section_wrapper">
+		<% for task in @this_user.tasks.active.high_priority %>
+			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+				<%= render :partial => 'show', :locals => {:task => task} %>
+			</div>
+		<% end %>
+	</div>
+	<% end %>
+</div>
+<%= javascript_tag do %>
+	jQuery(document).ready(function(){
+		new_margin = ((jQuery("#inbox_text_area").height() + 10) - jQuery('#inbox_submit_button').height())/2 + 'px';
+		jQuery('#inbox_submit_button').css('margin-top',new_margin);
+	})
+<% end %>

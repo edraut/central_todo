@@ -1,0 +1,23 @@
+<div class="span-18 last" id="header_wrapper">
+	<h1>The Situations.</h1>
+</div>
+<div class="span-19 last page_content">
+	<div class="span-18 last">
+		<% form_for @situation, :url => situations_url do |f| %>
+			<div class="span-10">
+				<%= f.text_field :title, :class => "span-9" %>
+			</div>
+			<div class="span-8 last">
+				<%= f.hidden_field :user_id %>
+				<%= f.submit "Create a new situation.", :id => "situation_submit_button" %>
+			</div>
+		<% end %>
+	</div>
+	<div class="span-18 last section_wrapper section_margin_top">
+		<% for situation in @this_user.situations %>
+			<div id="situation_<%= situation.id %>" class="span-18 last">
+				<%= link_to situation.title, situation_url(situation) %>
+			</div>
+		<% end %>
+	</div>
+</div>

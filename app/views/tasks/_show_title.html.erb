@@ -1,0 +1,15 @@
+<div class="span-3">
+	<h2>Title</h2>
+</div>
+<div class="span-15 last">
+  <div class="list_action attach_above">
+		<%= link_to 'edit title', edit_task_url(@task, :attribute => 'title'),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'task_title'
+		%>
+  </div>
+</div>
+<div class="span-18 last section">
+	<%= @task.title %>
+</div>

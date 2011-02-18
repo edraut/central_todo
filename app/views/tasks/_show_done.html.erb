@@ -1,0 +1,12 @@
+<%= form_for task, :html => {
+	:'data-ajax_behavior' => 'ajax_form',
+	:'data-ajax_method' => 'PUT',
+	:'data-ajax_success_element' => "show_done"} do |f| %>
+	<div class="text_with_check_box_proxy">
+	<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, task.retired? ? 'retired' : 'complete', 'active' %>
+  <%= hidden_field_tag 'attribute','done' %>
+  </div>
+  <div class="text_with_check_box_proxy">
+    finished
+  </div>
+<% end %>

@@ -1,0 +1,219 @@
+body {
+  background-color: #edece8;
+  color: #6d6c68;
+  font-size: 16px;
+  line-height: 30px; }
+
+a {
+  color: black;
+  text-decoration: none; }
+
+a:hover {
+  color: #bdbcb8;
+  text-decoration: none; }
+
+a.quiet, div.quiet, span.quiet {
+  font-size: 12px; }
+
+a.loud, div.loud, span.loud {
+  font-size: 18px; }
+
+hr {
+  color: #6d6c68; }
+
+h1 {
+  margin-left: 22px;
+  margin-bottom: 20px; }
+
+h2 {
+  line-height: 30px; }
+
+input[type=text], textarea {
+  background-color: #fcfcfa; }
+
+input {
+  font-size: 16px;
+  height: 30px;
+  vertical-align: bottom;
+  position: relative;
+  top: -3px; }
+
+textarea {
+  height: 7em; }
+
+input[type="submit"] {
+  color: #ee3434;
+  height: 26px; }
+
+select {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: normal; }
+
+#inbox_text_area {
+  width: 335px;
+  height: 78px; }
+
+.index_add_text_box {
+  width: 300px; }
+
+#top_nav {
+  background-color: #6d6c68;
+  color: #fffff3; }
+  #top_nav a {
+    color: #fffff3; }
+  #top_nav a:hover {
+    color: #bdbcb8; }
+
+.page_content {
+  padding: 30px 0 30px 38px;
+  margin: 0 -16px;
+  # border: 1px solid #bdbcb8;
+  background-color: #dddcd8; }
+
+.section_wrapper {
+  margin-left: -16px;
+  padding: 16px;
+  background-color: #bdbcb8; }
+  .section_wrapper a:hover {
+    color: #edece8; }
+
+.section_margin_top {
+  margin-top: 20px; }
+
+.section {
+  background-color: #f0f8f8;
+  margin-left: -16px;
+  padding-left: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px; }
+
+.vert-line-nav-wrapper-main {
+  padding-left: 12px;
+  margin-bottom: 7px;
+  line-height: 30px;
+  background-color: #fffff3; }
+  .vert-line-nav-wrapper-main .vert-line-subnav-wrapper {
+    padding-left: 30px;
+    margin-right: 0;
+    font-size: 16px;
+    padding-left: 8px; }
+    .vert-line-nav-wrapper-main .vert-line-subnav-wrapper a {
+      color: #557777; }
+    .vert-line-nav-wrapper-main .vert-line-subnav-wrapper a:hover {
+      color: #bdbcb8; }
+    .vert-line-nav-wrapper-main .vert-line-subnav-wrapper a.selected {
+      font-weight: bold;
+      color: #557777; }
+
+.vert-line-nav-wrapper-second {
+  padding-left: 12px;
+  margin-bottom: 7px;
+  background-color: #fffff3; }
+
+.vert-line-nav-wrapper-header {
+  padding-left: 12px; }
+
+div.selected {
+  background-color: #90b0b0;
+  margin-right: -7px;
+  padding-right: 19px; }
+
+.selected a {
+  color: #111111; }
+
+.selected a:hover {
+  color: #bdbcb8; }
+
+a.selected {
+  font-weight: bold; }
+
+a:hover.selected {
+  color: #111111; }
+
+.list_action {
+  position: relative;
+  float: right;
+  padding: 0 20px;
+  margin-right: 20px; }
+  .list_action a {
+    color: #6d6c68; }
+  .list_action a:hover {
+    color: #bdbcb8; }
+
+.list_action.last {
+  margin-right: 0; }
+
+.attach_above {
+  border-top: 1px solid #bdbcb8;
+  border-left: 1px solid #bdbcb8;
+  border-right: 1px solid #bdbcb8; }
+
+.attach_below {
+  border-bottom: 1px solid #bdbcb8;
+  border-left: 1px solid #bdbcb8;
+  border-right: 1px solid #bdbcb8; }
+
+.item_action {
+  position: relative;
+  float: right;
+  border: 1px solid #bdbcb8;
+  margin-left: 20px;
+  padding: 0 20px; }
+
+.item_controls {
+  position: absolute;
+  bottom: 0;
+  right: 0; }
+
+.retired, .retired a {
+  color: #edece8; }
+
+.flash_notice {
+  background-color: #ddf5f5;
+  text-align: center;
+  width: 100%;
+  position: relative; }
+
+.checked {
+  color: #ee3434; }
+
+.check_box_proxy {
+  font-size: 22px;
+  line-height: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: relative;
+  float: left;
+  vertical-align: bottom;
+  top: -3px; }
+
+.check_box_proxy:hover {
+  color: #ee3434; }
+
+.text_with_check_box_proxy {
+  position: relative;
+  float: left;
+  height: 30px;
+  overflow: hidden; }
+
+.sortable_drag_handle {
+  cursor: move; }
+
+.delete {
+  line-height: 18px;
+  padding-top: 6px;
+  font-size: 18px; }
+
+a:hover[data-role=delete].delete {
+  color: #ee3434; }
+
+.text-right {
+  text-align: right; }
+
+.text-center {
+  text-align: center; }
+
+.vertical-padding {
+  padding-top: 14px;
+  padding-bottom: 14px; }

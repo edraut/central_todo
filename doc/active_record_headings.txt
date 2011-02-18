@@ -1,0 +1,16 @@
+#constants
+
+#associations
+
+#named_scopes
+
+#special behaviors
+
+#validations
+
+#callbacks
+
+#class methods
+
+#instance methods
+

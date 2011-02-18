@@ -1,0 +1,28 @@
+<div class="span-18 last" id="header_wrapper">
+<div class="span-18 last text-right quiet">Does this task involve multiple steps or parts? <%= link_to 'Convert it to plan.', convert_task_url(@task) %></div>
+<div class="span-18 last" style="position:relative;">
+  <div class="span-3"><h1>Task:</h1></div>
+  <div class="span-15 last item_controls">
+    <div id="show_delete" class="list_action attach_above last"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
+    <div id="show_cooler" class="list_action attach_above"><%= render :partial => 'show_cooler', :locals => {:task => @task} %></div>
+    <div id="show_done" class="list_action attach_above"><%= render :partial => 'show_done', :locals => {:task => @task} %></div>
+  </div>
+</div>
+</div>
+<div class="span-19 last page_content">
+  <div id="task_title" class="span-18 last">
+  	<%= render :partial => 'show_title' %>
+  </div>
+  <div id="task_description" class="span-18 last section_margin_top">
+  	<%= render :partial => 'show_description' %>
+  </div>
+  <div id="task_due_date" class="span-18 last section_margin_top">
+  	<%= render :partial => 'show_due_date' %>
+  </div>
+  <div id="task_project" class="span-18 last section_margin_top">
+  	<%= render :partial => 'show_project_id' %>
+  </div>
+  <div id="task_situation" class="span-18 last section_margin_top">
+  	<%= render :partial => 'show_situation_id' %>
+  </div>
+</div>

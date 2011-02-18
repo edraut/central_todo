@@ -1,0 +1,12 @@
+<%= form_for task, :html => {
+	:'data-ajax_behavior' => 'ajax_form',
+	:'data-ajax_method' => 'PUT',
+	:'data-ajax_success_element' => "show_cooler"} do |f| %>
+	<div class="text_with_check_box_proxy">
+	<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, 'cooler', task.cooler? ? 'active' : task.state %>
+  <%= hidden_field_tag 'attribute','cooler' %>
+  </div>
+  <div class="text_with_check_box_proxy">
+    idea
+  </div>
+<% end %>

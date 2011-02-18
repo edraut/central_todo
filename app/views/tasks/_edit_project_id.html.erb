@@ -1,0 +1,18 @@
+<h2>Project</h2>
+<div class="span-18 last section">
+	<%= form_for @task, :html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_method' => 'PUT',
+		:'data-ajax_success_element' => 'task_project',
+		:'data-ajax_error_element' => 'task_project'
+	} do |f| %>
+		<%= f.select :project_id, Project.all.map{|p| [p.title,p.id]},:class => 'span-9' %>
+		<%= hidden_field_tag 'attribute', 'project_id' %>
+		<%= f.submit 'save' %>
+		<%= link_to 'cancel', task_url(@task),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'task_project',
+			:'data-ajax_data' => "{attribute: 'project_id'}"%>
+	<% end %>
+</div>

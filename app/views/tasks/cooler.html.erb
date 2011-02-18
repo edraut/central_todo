@@ -1,0 +1,17 @@
+<div class="span-18 last section_margin_top" id="header_wrapper">
+	<h1>Ideas</h1>
+</div>
+<div class="span-19 last page_content">
+	<% if @this_user.tasks.incomplete.cooler.count > 0 %>
+  <div class="span-18 last">
+	<h2>Maybe someday</h2>
+	</div>
+		<div data-role="list" class="span-18 last section_wrapper">
+			<% for task in @this_user.tasks.incomplete.cooler %>
+				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+				<%= render :partial => 'show', :locals => {:task => task} %>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+</div>

@@ -1,0 +1,21 @@
+<% unless @task.project %>
+	<%= link_to 'add to a project', edit_task_url(@task, :attribute => 'project_id'),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'task_project'
+	%> &rarr;
+<% else %>
+	<div class="span-3">
+		<h2>Project</h2>
+	</div>
+	<div class="span-15 last">
+    <div class="list_action attach_above">
+  		<%= link_to 'change project', edit_task_url(@task, :attribute => 'project_id'),
+  		 	:'data-ajax_behavior' => 'ajax_link',
+  			:'data-ajax_method' => 'GET',
+  			:'data-ajax_success_element' => 'task_project'
+  		%>
+    </div>
+	</div>
+	<div class="span-18 last section"><%= @task.project.title %> <%= link_to '(view project)', plan_url(@task.project_id), :class => 'quiet'%> </div>
+<% end %>

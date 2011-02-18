@@ -1,0 +1,16 @@
+<div class="span-18 last section_margin_top" id="header_wrapper">
+	<h1>Retired Projects</h1>
+</div>
+<div class="span-19 last page_content">
+  <div id="retired_item_heading" class="span-18 last">
+		<h2>You got these done.</h2>
+	</div>
+	<div id="retired_items_wrapper" class="span-18 last retired section_wrapper" data-role="list">
+		<% for project in @projects %>
+			<div class="span-18 last" id="project_<%= project.id %>" data-role="list_item">
+				<%= render :partial => '/projects/show', :locals => {:project => project} %>
+			</div>
+		<% end %>
+	</div>
+	<%= will_paginate @projects %>
+</div>
