@@ -42,18 +42,17 @@ CentralTodo::Application.routes.draw do
   resources :tasks do
     collection do
       get 'priority'
-      get 'one_off'
-      get 'cooler'
-      get 'scheduled'
+      get 'unorganized'
+      get 'due_date'
       get 'retire_completed'
-      get 'retired_one_off'
+      get 'retired_unorganized'
     end
     member do
       get 'convert'
     end
   end
   resources :pages
-  match 'dashboard' => 'tasks#index'
+  match 'dashboard' => 'dashboard#index'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

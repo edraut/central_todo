@@ -1,15 +1,9 @@
-<div class="span-3">
-	<h2>Title</h2>
-</div>
-<div class="span-15 last">
-  <div class="list_action attach_above">
-		<%= link_to 'edit title', edit_plan_url(@project, :attribute => 'title'),
-		 	:'data-ajax_behavior' => 'ajax_link',
-			:'data-ajax_method' => 'GET',
-			:'data-ajax_success_element' => 'project_title'
-		%>
-  </div>
-</div>
-<div class="span-18 last section">
-	<%= @project.title %>
+<div class="span-16"><h1>Plan: <%= @project.title %>
+</h1></div>
+<div class="span-2 last">
+	<%= link_to 'edit title', edit_plan_url(@project, :attribute => 'title'),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'project_title'
+	%>
 </div>

@@ -10,7 +10,7 @@
 		<div class="text_with_check_box_proxy" <% unless project.all_complete %>style="display:none;" data-role="hidden_checkbox"<% end %>>
   		<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, project.retired? ? 'retired' : 'complete', 'active' %>
     </div>
-    <% unless project.all_complete %><div data-role="checkbox_placeholder"  class="text_with_check_box_proxy text-center"><a href="<%= plan_url(project) %>">+</a></div><% end %>
+    <% unless project.all_complete %><div data-role="checkbox_placeholder"  class="text_with_check_box_proxy text-center"><a href="<%= plan_url(project) %>">-</a></div><% end %>
 		<div class="text_with_check_box_proxy span-8 last">
   		<%= link_to project.title, plan_url(project), :style => project.complete? ? 'text-decoration:line-through;' : nil %>
 		</div>

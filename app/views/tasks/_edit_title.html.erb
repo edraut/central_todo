@@ -1,18 +1,20 @@
-<h2>Title</h2>
-<div class="span-18 last section">
-<%= form_for @task, :html => {
-	:'data-ajax_behavior' => 'ajax_form',
-	:'data-ajax_method' => 'PUT',
-	:'data-ajax_success_element' => 'task_title',
-	:'data-ajax_error_element' => 'task_title'
-} do |f| %>
-	<%= f.text_field :title, :class => 'span-9' %>
-	<%= hidden_field_tag 'attribute', 'title' %>
-	<%= f.submit 'save' %>
-	<%= link_to 'cancel', task_url(@task),
-	 	:'data-ajax_behavior' => 'ajax_link',
-		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'task_title',
-		:'data-ajax_data' => "{attribute: 'title'}"%>
-<% end %>
+<div class="span-3"><h1>Task:
+</h1></div>
+<div class="span-15 last">
+  <%= form_for @task, :html => {
+  	:'data-ajax_behavior' => 'ajax_form',
+  	:'data-ajax_method' => 'PUT',
+  	:'data-ajax_success_element' => 'task_title',
+  	:'data-ajax_error_element' => 'task_title'
+  } do |f| %>
+  	<%= f.text_field :title, :class => 'span-11' %>
+  	<%= hidden_field_tag 'attribute', 'title' %>
+  	<span class="span-2"><%= f.submit 'save' %></span>
+  	<%= link_to 'cancel', task_url(@task),
+  	 	:'data-ajax_behavior' => 'ajax_link',
+  		:'data-ajax_method' => 'GET',
+  		:'data-ajax_success_element' => 'task_title',
+  		:'data-ajax_data' => "{attribute: 'title'}",
+  		:class => 'span-2 last'%>
+  <% end %>
 </div>

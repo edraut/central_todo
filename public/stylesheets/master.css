@@ -23,9 +23,11 @@ hr {
 
 h1 {
   margin-left: 22px;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  font-size: 32px; }
 
 h2 {
+  font-size: 22px;
   line-height: 30px; }
 
 input[type=text], textarea {
@@ -59,9 +61,9 @@ select {
 
 #top_nav {
   background-color: #6d6c68;
-  color: #fffff3; }
+  color: #fdfcf8; }
   #top_nav a {
-    color: #fffff3; }
+    color: #fdfcf8; }
   #top_nav a:hover {
     color: #bdbcb8; }
 
@@ -88,11 +90,17 @@ select {
   padding-top: 16px;
   padding-bottom: 16px; }
 
+.left_nav_wrapper {
+  position: relative;
+  float: left;
+  margin-right: 22px;
+  width: 138px; }
+
 .vert-line-nav-wrapper-main {
   padding-left: 12px;
   margin-bottom: 7px;
   line-height: 30px;
-  background-color: #fffff3; }
+  background-color: #fdfcf8; }
   .vert-line-nav-wrapper-main .vert-line-subnav-wrapper {
     padding-left: 30px;
     margin-right: 0;
@@ -106,18 +114,8 @@ select {
       font-weight: bold;
       color: #557777; }
 
-.vert-line-nav-wrapper-second {
-  padding-left: 12px;
-  margin-bottom: 7px;
-  background-color: #fffff3; }
-
 .vert-line-nav-wrapper-header {
   padding-left: 12px; }
-
-div.selected {
-  background-color: #90b0b0;
-  margin-right: -7px;
-  padding-right: 19px; }
 
 .selected a {
   color: #111111; }
@@ -144,6 +142,11 @@ a:hover.selected {
 .list_action.last {
   margin-right: 0; }
 
+.list_action.selected {
+  background-color: #dddcd8;
+  color: #111111;
+  font-weight: bold; }
+
 .attach_above {
   border-top: 1px solid #bdbcb8;
   border-left: 1px solid #bdbcb8;
@@ -165,6 +168,9 @@ a:hover.selected {
   position: absolute;
   bottom: 0;
   right: 0; }
+
+.overdue, .overdue a {
+  color: #ee3434; }
 
 .retired, .retired a {
   color: #edece8; }

@@ -1,5 +1,6 @@
 <% sortable = false unless defined? sortable
-	needs_organization = false unless defined? needs_organization %>
+	needs_organization = false unless defined? needs_organization
+	due_date = false unless defined? due_date %>
 <%= form_for task, :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
@@ -21,6 +22,9 @@
 		<%= f.select :project_id, [['select project',nil]] + @this_user.projects.incomplete.map{|p| [p.title,p.id]}, {}, :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :class => "span-4" %>
 		<%= f.select :situation_id, [['select situation',nil]] + @this_user.situations.map{|s| [s.title,s.id]}, {}, :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :class => "span-4" %>
 		<%= hidden_field_tag 'needs_organization', true, :'data-role' => 'organize_item' %>
+		<% end %>
+		<% if due_date %>
+      <%= task.due_date.to_formatted_s(:short) %>
 		<% end %>
 		<a href="<%= task_url(task) %>"
 			data-ajax_behavior="ajax_link"

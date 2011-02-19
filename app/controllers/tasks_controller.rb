@@ -4,22 +4,24 @@ class TasksController < ApplicationController
   before_filter :handle_broken_browser_methods, :only => [:show, :create]
   
   def index
-    @task = Task.new(:user_id => @this_user.id)
+    unorganized
+    render :action => 'unorganized'
   end
   
   def priority
+    @tasks = @this_user.tasks.active.priority.paginate(:page => params[:page],:per_page => 40)
   end
   
-  def one_off
-    @filter = 'one_off'
+  def unorganized
+    @filter = 'unorganized'
   end
   
-  def retired_one_off
-    @tasks = @this_user.tasks.one_off.retired.paginate(:page => params[:page],:per_page => 40)
+  def retired_unorganized
+    @tasks = @this_user.tasks.unorganized.retired.paginate(:page => params[:page],:per_page => 40)
   end
 
-  def cooler
-    @filter = 'cooler'
+  def due_date
+    @tasks = @this_user.tasks.active.with_due_date.by_due_date.paginate(:page => params[:page],:per_page => 40)
   end
   
   def retire_completed

@@ -31,12 +31,12 @@
 		<% end %>
 	</div>
 	<% end %>
-	<% if @this_user.tasks.active.high_priority.count > 0 %>
+	<% if @this_user.tasks.active.priority.count > 0 %>
 	<div class="span-18 last section_margin_top">
 		<h2>High Priority Tasks.</h2>
 	</div>
 	<div data-role="list" class="span-18 last section_wrapper">
-		<% for task in @this_user.tasks.active.high_priority %>
+		<% for task in @this_user.tasks.active.priority %>
 			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
 				<%= render :partial => 'show', :locals => {:task => task} %>
 			</div>

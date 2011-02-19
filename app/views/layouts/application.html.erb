@@ -35,9 +35,38 @@
 	</div>
 	<div id="main_content" class="container">
 		<div class="span-24">
-			<div class="span-3 append-1">
-			  <div class="span-3 last" id="left_nav_spacer">&nbsp;</div>
-				<div class="span-3 last">
+			<div class="left_nav_wrapper">
+			  <div class="left_nav_wrapper last" id="left_nav_spacer">&nbsp;</div>
+        <% if @this_user %>
+				<div class="left_nav_wrapper last">
+					<div class="vert-line-nav-wrapper-main<% if controller_name == 'dashboard' %> selected<% end %>">
+						<%= link_to 'Dashboard', dashboard_url, :class => (controller_name == 'dashboard' and action_name == 'index') ? 'selected loud' : 'loud' %>
+					</div>
+				</div>
+				<div class="left_nav_wrapper last">
+					<div class="vert-line-nav-wrapper-main<% if controller_name == 'tasks' %> selected<% end %>">
+						<%= link_to 'Tasks', tasks_url, :class => (controller_name == 'tasks') ? 'selected loud' : 'loud' %>
+						<div id="task_subnav"<% unless controller_name == 'tasks' %>style="display:none;"<% end %>>
+							<div class="vert-line-subnav-wrapper">
+								<%= link_to "Unorganized(#{@this_user.tasks.active.unorganized.count})", tasks_url, :class => (action_name == 'index') ? 'selected' : '' %>
+							</div>
+							<div class="vert-line-subnav-wrapper">
+								<%= link_to "Priority(#{@this_user.tasks.active.priority.count})", priority_tasks_url, :class => (action_name == 'priority') ? 'selected' : '' %>
+							</div>
+							<% if @this_user.tasks.unorganized.retired.count > 0 %>
+							<div class="vert-line-subnav-wrapper">
+								<%= link_to "Retired(#{@this_user.tasks.retired.unorganized.count})", retired_unorganized_tasks_url, :class => (action_name == 'retired_unorganized') ? 'selected' : '' %>
+							</div>
+							<% end %>
+							<% if @this_user.tasks.active.with_due_date.count > 0 %>
+							<div class="vert-line-subnav-wrapper">
+								<%= link_to "By Due Date(#{@this_user.tasks.active.with_due_date.count})", due_date_tasks_url, :class => (action_name == 'due_date') ? 'selected' : '' %>
+							</div>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'projects' %> selected<% end %>">
 						<%= link_to 'Plans', plans_url, :class => (controller_name == 'projects' and action_name == 'index') ? 'selected loud' : 'loud' %>
 						<div id="project_subnav"<% unless controller_name == 'projects' %>style="display:none;"<% end %>>
@@ -47,30 +76,13 @@
             </div>
 					</div>
 				</div>
-				<div class="span-3 last">
+				<div class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'situations' %> selected<% end %>">
 						<%= link_to 'Situations', situations_url, :class => (controller_name == 'situations' and action_name == 'index') ? 'selected loud' : 'loud' %>
 					</div>
 				</div>
-				<div class="span-3 last">
-					<div class="vert-line-nav-wrapper-main<% if controller_name == 'tasks' %> selected<% end %>">
-						<%= link_to 'Tasks', tasks_url, :class => (controller_name == 'tasks' and action_name == 'index') ? 'selected loud' : 'loud' %>
-						<div id="task_subnav"<% unless controller_name == 'tasks' %>style="display:none;"<% end %>>
-							<div class="vert-line-subnav-wrapper">
-								<%= link_to 'Sundry', one_off_tasks_url, :class => (action_name == 'one_off') ? 'selected' : '' %>
-							</div>
-							<% if @this_user.tasks.one_off.retired.count > 25 %>
-							<div class="vert-line-subnav-wrapper">
-								<%= link_to 'Retired', retired_one_off_tasks_url, :class => (action_name == 'retired_one_off') ? 'selected' : '' %>
-							</div>
-							<% end %>
-							<div class="vert-line-subnav-wrapper">
-								<%= link_to 'Ideas', cooler_tasks_url, :class => (action_name == 'cooler') ? 'selected' : '' %>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
+			<% end %>
 			<div class="span-20 last">
 				<%= yield %>
 			</div>

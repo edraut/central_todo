@@ -6,7 +6,10 @@
 		:'data-ajax_success_element' => 'task_project',
 		:'data-ajax_error_element' => 'task_project'
 	} do |f| %>
-		<%= f.select :project_id, Project.all.map{|p| [p.title,p.id]},:class => 'span-9' %>
+	  <%  project_array = Project.active
+	      (project_array = project_array | [@task.project]) if @task.project
+	      %>
+		<%= f.select :project_id, [['none',nil]] + project_array.map{|p| [p.title,p.id]}, :class => 'span-9' %>
 		<%= hidden_field_tag 'attribute', 'project_id' %>
 		<%= f.submit 'save' %>
 		<%= link_to 'cancel', task_url(@task),

@@ -1,12 +1,12 @@
 <div class="span-18 last section_margin_top" id="header_wrapper">
-	<h1>Sundry Tasks</h1>
+	<h1>Unorganized Tasks</h1>
 </div>
 <div class="span-19 last page_content">
-  <% if @this_user.tasks.unretired.one_off.count > 0 %>
+  <% if @this_user.tasks.unretired.unorganized.count > 0 %>
   <div class="span-18 last">
     <div class="span-6"><h2>Get these done.</h2></div>
     <div class="span-12 last">
-      <div id="retire_completed_items" class="list_action attach_above" <% unless @this_user.tasks.complete.one_off.any? %>style="display: none;"<% end %>>
+      <div id="retire_completed_items" class="list_action attach_above" <% unless @this_user.tasks.complete.unorganized.any? %>style="display: none;"<% end %>>
       	<%= link_to 'retire completed tasks', retire_completed_tasks_url,
       	 	:'data-ajax_behavior' => 'ajax_link',
       		:'data-ajax_method' => 'GET',
@@ -15,26 +15,26 @@
     </div>
   </div>
   <div  id="unretired_items_wrapper" data-role="list" class="span-18 last section_wrapper">
-  	<% for task in @this_user.tasks.unretired.one_off %>
+  	<% for task in @this_user.tasks.unretired.unorganized %>
   		<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
   		<%= render :partial => 'show', :locals => {:task => task, :needs_organization => true} %>
   		</div>
   	<% end %>
   </div>
   <% end %>
-	<div id="retired_item_list" <% unless @this_user.tasks.retired.one_off.any? %>style="display:none;"<% end %> class="span-18 last section_margin_top">
+	<div id="retired_item_list" <% unless @this_user.tasks.retired.unorganized.any? %>style="display:none;"<% end %> class="span-18 last section_margin_top">
 		<div id="retired_item_heading" class="span-18 last">
 			<h2>You got these done.</h2>
 		</div>
 		<div id="retired_items_wrapper" class="span-18 last retired section_wrapper" data-role="list">
-			<% for task in @this_user.tasks.retired.one_off.twenty_five %>
+			<% for task in @this_user.tasks.retired.unorganized.twenty_five %>
 				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
 					<%= render :partial => '/tasks/show', :locals => {:task => task} %>
 				</div>
 			<% end %>
-      <% if @this_user.tasks.retired.one_off.count > 25 %>
+      <% if @this_user.tasks.retired.unorganized.count > 25 %>
       <div class="span-18 last text-right">
-        <%= link_to 'show more', retired_one_off_tasks_url %> &rarr;
+        <%= link_to 'show more', retired_unorganized_tasks_url %> &rarr;
       </div>
       <% end %>
 		</div>

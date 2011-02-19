@@ -1,0 +1,128 @@
+<div class="span-18 last section_margin_top" id="header_wrapper">
+	<h1>Dashboard</h1>
+</div>
+<div class="span-19 last page_content">
+	<div class="span-18 last">
+		<%= form_for @task do |f| %>
+			<div class="span-9">
+				<%= f.text_area :title, :id => "inbox_text_area", :class => "span-9" %>
+			</div>
+			<div class="span-6 last">
+				<%= f.hidden_field :user_id %>
+				<%= f.hidden_field :state, :value => 'active' %>
+				<%= f.submit "Add it to the list.", :id => "inbox_submit_button" %>
+			</div>
+		<% end %>
+	</div>
+  <% if @this_user.tasks.active.priority.any? %>
+  <div class="span-18 last section_margin_top">
+    <h2>High Priority</h2>
+  </div>
+  <div class="span-18 last section_wrapper">
+		<% for task in @this_user.tasks.active.priority.recent.five %>
+			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.priority.count > 5 %>
+      <div class="span-18 last text-right section_margin_top">
+        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+      </div>
+		<% end %>
+  </div>
+  <% else %>
+  <div class="span-18 last section_margin_top">
+    There are no high priority tasks.
+  </div>
+  <% end %>
+  <% if @this_user.tasks.active.unorganized.any? %>
+  <div class="span-18 last section_margin_top">
+    <h2>Unorganized</h2>
+  </div>
+  <div class="span-18 last section_wrapper">
+		<% for task in @this_user.tasks.active.unorganized.recent.five %>
+			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+			<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.unorganized.count > 5 %>
+      <div class="span-18 last text-right section_margin_top">
+        <%= link_to 'See all', tasks_url %> &rarr;
+      </div>
+		<% end %>
+  </div>
+  <% else %>
+  <div class="span-18 last section_margin_top">
+    There are no unorganized tasks.
+  </div>
+  <% end %>
+  <% if @this_user.tasks.active.overdue.any? %>
+  <div class="span-18 last section_margin_top">
+    <h2>Overdue</h2>
+  </div>
+  <div class="span-18 last section_wrapper">
+		<% for task in @this_user.tasks.active.overdue.recent.five %>
+			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.overdue.count > 5 %>
+      <div class="span-18 last text-right section_margin_top">
+        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+      </div>
+		<% end %>
+  </div>
+  <% elsif @this_user.tasks.active.due_today.any? %>
+  <div class="span-18 last section_margin_top">
+    <h2>Due Today</h2>
+  </div>
+  <div class="span-18 last section_wrapper">
+		<% for task in @this_user.tasks.active.due_today.recent.five %>
+			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.due_today.count > 5 %>
+      <div class="span-18 last text-right section_margin_top">
+        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+      </div>
+		<% end %>
+  </div>
+  <% elsif @this_user.tasks.active.due_7_days.any? %>
+  <div class="span-18 last section_margin_top">
+    <h2>Due in 7 days</h2>
+  </div>
+  <div class="span-18 last section_wrapper">
+    <% for task in @this_user.tasks.active.due_7_days.recent.five %>
+			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.due_7_days.count > 5 %>
+      <div class="span-18 last text-right section_margin_top">
+        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+      </div>
+		<% end %>
+  </div>
+  <% elsif @this_user.tasks.active.due_30_days.any? %>
+  <div class="span-18 last section_margin_top">
+    <h2>Due in 30 days</h2>
+  </div>
+  <div class="span-18 last section_wrapper">
+		<% for task in @this_user.tasks.active.due_30_days.recent.five %>
+			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.due_30_days.count > 5 %>
+      <div class="span-18 last text-right section_margin_top">
+        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+      </div>
+		<% end %>
+  </div>
+  <% else %>
+  <div class="span-18 last section_margin_top">
+    There are no due dates in the next 30 days.
+  </div>
+  <% end %>
+</div>
