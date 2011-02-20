@@ -21,22 +21,11 @@
   		</div>
   	<% end %>
   </div>
+  <% else %>
+  <h2>You don't have any unorganized tasks right now.</h2>
+    <div class="span-18 last section_wrapper explanatory">
+      <p>When you use the dashboard to add a task, it's a quick way to get it into the system. Later when you have more time, preferably daily, you should come back and review the tasks you've added. You'll find them here, in the Unorganized Task list. At that time, if you have completed a task, you can check it off and consider yourself accomplished. If you haven't completed a task, consider adding it to a plan or a situation, or if it is a task that involves multiple steps itself, you can convert it to a plan and add tasks to that plan to list the steps.</p>
+      
+    </div>
   <% end %>
-	<div id="retired_item_list" <% unless @this_user.tasks.retired.unorganized.any? %>style="display:none;"<% end %> class="span-18 last section_margin_top">
-		<div id="retired_item_heading" class="span-18 last">
-			<h2>You got these done.</h2>
-		</div>
-		<div id="retired_items_wrapper" class="span-18 last retired section_wrapper" data-role="list">
-			<% for task in @this_user.tasks.retired.unorganized.twenty_five %>
-				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
-					<%= render :partial => '/tasks/show', :locals => {:task => task} %>
-				</div>
-			<% end %>
-      <% if @this_user.tasks.retired.unorganized.count > 25 %>
-      <div class="span-18 last text-right">
-        <%= link_to 'show more', retired_unorganized_tasks_url %> &rarr;
-      </div>
-      <% end %>
-		</div>
-	</div>
 </div>

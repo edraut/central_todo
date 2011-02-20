@@ -2,7 +2,7 @@
 <h2>Description</h2>
 </div>
 <div class="span-15 last">
-  <div class="list_action attach_above">
+  <div class="list_action">
 		<%= link_to (@task.description.blank? ? 'add description' : 'edit description'), edit_task_url(@task, :attribute => 'description'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',

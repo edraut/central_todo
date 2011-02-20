@@ -3,13 +3,12 @@
   <div id="task_title" class="span-18 last">
   	<%= render :partial => 'show_title' %>
   </div>
-  <div class="span-18 last">
-    <div id="show_delete" class="list_action attach_above last"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
-    <div id="show_cooler" class="list_action attach_above"><%= render :partial => 'show_cooler', :locals => {:task => @task} %></div>
-    <div id="show_done" class="list_action attach_above"><%= render :partial => 'show_done', :locals => {:task => @task} %></div>
-  </div>
 </div>
 <div class="span-19 last page_content">
+  <div class="span-18 last">
+    <div id="show_delete" class="list_action attributes last"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
+    <div id="show_done" class="list_action attributes"><%= render :partial => 'show_done', :locals => {:task => @task} %></div>
+  </div>
   <div id="task_description" class="span-18 last section_margin_top">
   	<%= render :partial => 'show_description' %>
   </div>

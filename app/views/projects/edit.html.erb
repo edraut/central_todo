@@ -2,14 +2,11 @@
   <div id="project_title" class="span-18 last section_margin_top">
   	<%= render :partial => 'show_title' %>
   </div>
-  <div class="span-18 last">
-    <div class="list_action attach_above last"><%= link_to 'edit plan', edit_plan_url(@project) %></div>
-    <div class="list_action attach_above"><%= link_to 'show task list', plan_url(@project) %></div>
-  </div>
+  <%= render :partial => 'tabs' %>
 </div>
 <div class="span-19 last page_content">
-  <div id="show_delete" class="list_action attach_below last"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
-  <div id="show_done" class="list_action attach_below"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
+  <div id="show_delete" class="list_action last"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
+  <div id="show_done" class="list_action"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
   <div id="project_description" class="span-18 last section_margin_top">
   	<%= render :partial => 'show_description' %>
   </div>

@@ -2,7 +2,7 @@
 	<h2>Due Date</h2>
 </div>
 <div class="span-15 last">
-  <div class="list_action attach_above">
+  <div class="list_action">
 		<%= link_to (@task.due_date.blank? ? 'add due date' : 'edit due_date'), edit_task_url(@task, :attribute => 'due_date'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
@@ -10,4 +10,4 @@
 		%>
   </div>
 </div>
-<div class="span-18 last section"><% if @task.due_date.blank? %>&nbsp;<% else %><%= @task.due_date.to_formatted_s(:full) + ' ' + @task.due_date.zone %><% end %></div>
+<div class="span-18 last section<% if @task.overdue? %> overdue<% end %>"><% if @task.due_date.blank? %>&nbsp;<% else %><%= @task.due_date.to_formatted_s(:full) + ' ' + @task.due_date.zone %><% end %></div>

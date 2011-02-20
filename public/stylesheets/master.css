@@ -30,6 +30,9 @@ h2 {
   font-size: 22px;
   line-height: 30px; }
 
+p {
+  line-height: 22px; }
+
 input[type=text], textarea {
   background-color: #fcfcfa; }
 
@@ -83,7 +86,7 @@ select {
 .section_margin_top {
   margin-top: 20px; }
 
-.section {
+.section, .explanatory {
   background-color: #f0f8f8;
   margin-left: -16px;
   padding-left: 16px;
@@ -98,6 +101,7 @@ select {
 
 .vert-line-nav-wrapper-main {
   padding-left: 12px;
+  position: relative;
   margin-bottom: 7px;
   line-height: 30px;
   background-color: #fdfcf8; }
@@ -116,6 +120,21 @@ select {
 
 .vert-line-nav-wrapper-header {
   padding-left: 12px; }
+
+.hover_nav {
+  position: absolute;
+  left: 138px;
+  top: -1px;
+  z-index: 10;
+  width: 130px;
+  background-color: #fdfcf8;
+  padding: 0px 12px 5px 12px;
+  border: 1px solid #bdbcb8; }
+
+.hover_nav_pointer {
+  position: absolute;
+  left: -30px;
+  top: -2px; }
 
 .selected a {
   color: #111111; }
@@ -156,6 +175,9 @@ a:hover.selected {
   border-bottom: 1px solid #bdbcb8;
   border-left: 1px solid #bdbcb8;
   border-right: 1px solid #bdbcb8; }
+
+.attributes {
+  border: 1px solid #bdbcb8; }
 
 .item_action {
   position: relative;

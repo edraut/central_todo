@@ -47,13 +47,10 @@ class TasksController < ApplicationController
       when 'project'
         flash[:notice] = "Another task well organized!"
         redirect_to plan_url(@task.project) and return
-      when 'cooler'
-        flash[:notice] = "That one can wait."
-        redirect_to cooler_tasks_url and return
       end
     else
-      index
-      render :action => 'index' and return
+      unorganized
+      render :action => 'unorganized'
     end
   end
 

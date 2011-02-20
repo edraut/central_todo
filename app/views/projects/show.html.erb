@@ -2,10 +2,7 @@
   <div class="span-18 last section_margin_top">
   	<h1>Plan: <%= @project.title %></h1>
   </div>
-  <div class="span-18 last">
-    <div class="list_action attach_above last<% if action_name == 'edit' %> selected<% end %>"><%= link_to 'edit plan', edit_plan_url(@project) %></div>
-    <div class="list_action attach_above<% if action_name == 'show' %> selected<% end %>"><%= link_to 'show task list', plan_url(@project) %></div>
-  </div>
+  <%= render :partial => 'tabs' %>
 </div>
 <div class="span-19 last page_content">
 	<div class="span-18 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">

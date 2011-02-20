@@ -66,7 +66,7 @@ class Task < ActiveRecord::Base
   end
   
   def overdue?
-    self.due_date < Time.now
+    !self.due_date.nil? and self.due_date < Time.now
   end
   
   def set_position

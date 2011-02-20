@@ -2,7 +2,7 @@
 	<h2>Project</h2>
 </div>
 <div class="span-15 last">
-  <div class="list_action attach_above">
+  <div class="list_action">
 		<%= link_to (@task.project ? 'change project' : 'add to project'), edit_task_url(@task, :attribute => 'project_id'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
