@@ -12,14 +12,14 @@ require 'capistrano/ext/multistage'
 set :scm, :git
 set :repository, 'git@github.com:edraut/central_todo.git'
 
-set :application, "central_todo"
+set :application, "my-ti.me"
 set :user, 'nobody'
 set :runner, 'nobody'
 ssh_options[:paranoid] = false
 set :ssh_options, {:forward_agent => true}
 set :use_sudo, false
 
-set (:deploy_to) {"/var/www/central_todo/#{stage}"}
+set (:deploy_to) {"/var/www/my-ti.me/#{stage}"}
 set :keep_releases, 2
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
