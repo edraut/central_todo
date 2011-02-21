@@ -20,11 +20,11 @@ class ProjectsController < ApplicationController
   end
   
   def retire_completed
-    if @this_user.projects.complete.update_all :state => 'retired'
-      render :nothing => true and return
-    else
-      render :text => "Oops! We couldn't retire those completed projects, please contact customer support.", :status => 500
+    @this_user.projects.complete.each do |project|
+      project.retire
+      project.save
     end
+    render :nothing => true and return
   end
   
   def create
@@ -55,8 +55,8 @@ class ProjectsController < ApplicationController
     else
       render_type = :action
     end
-    @project.attributes = (params[:project])
-    @state_changed = @project.state_changed?
+    @these_params = params[:project].dup
+    @state_changed = @project.handle_attributes(@these_params)
     @project.save
     if params[:attribute]
       render :partial => 'show_' + params[:attribute], :locals => {:project => @project}, :layout => 'ajax_section' and return
@@ -74,11 +74,11 @@ class ProjectsController < ApplicationController
   end
   
   def retire_completed_tasks
-    if @project.tasks.complete.update_all :state => 'retired'
-      render :nothing => true and return
-    else
-      render :text => "Oops! We couldn't retire those completed tasks, please contact customer support.", :status => 500
+    @project.tasks.complete.each do |task|
+      task.retire
+      task.save
     end
+    render :nothing => true and return
   end
   
   def sort_tasks

@@ -51,7 +51,7 @@
 						  <div class="hover_nav_pointer">&rarr;</div>
 						  <% end %>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Unorganized(#{@this_user.tasks.active.unorganized.count})", tasks_url, :class => (action_name == 'index' and controller_name == 'tasks') ? 'selected' : '' %>
+								<%= link_to "Unorganized(#{@this_user.tasks.unretired.unorganized.count})", tasks_url, :class => (action_name == 'index' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
 							<div class="vert-line-subnav-wrapper">
 								<%= link_to "Priority(#{@this_user.tasks.active.priority.count})", priority_tasks_url, :class => (action_name == 'priority' and controller_name == 'tasks') ? 'selected' : '' %>
@@ -77,10 +77,10 @@
 						  <div class="hover_nav_pointer">&rarr;</div>
 						  <% end %>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to 'Active', plans_url, :class => (controller_name == 'projects' and action_name == 'index') ? 'selected' : '' %>
+								<%= link_to "Active(#{@this_user.projects.unretired.count})", plans_url, :class => (controller_name == 'projects' and action_name == 'index') ? 'selected' : '' %>
 							</div>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to 'Retired', retired_plans_url, :class => (controller_name == 'projects' and action_name == 'retired') ? 'selected' : '' %>
+								<%= link_to "Retired(#{@this_user.projects.retired.count})", retired_plans_url, :class => (controller_name == 'projects' and action_name == 'retired') ? 'selected' : '' %>
 							</div>
             </div>
 					</div>

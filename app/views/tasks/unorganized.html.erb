@@ -4,8 +4,8 @@
 <div class="span-19 last page_content">
   <% if @this_user.tasks.unretired.unorganized.count > 0 %>
   <div class="span-18 last">
-    <div class="span-6"><h2>Get these done.</h2></div>
-    <div class="span-12 last">
+    <div class="span-10"><h2>Current Tasks</h2></div>
+    <div class="span-8 last">
       <div id="retire_completed_items" class="list_action attach_above" <% unless @this_user.tasks.complete.unorganized.any? %>style="display: none;"<% end %>>
       	<%= link_to 'retire completed tasks', retire_completed_tasks_url,
       	 	:'data-ajax_behavior' => 'ajax_link',
@@ -24,7 +24,7 @@
   <% else %>
   <h2>You don't have any unorganized tasks right now.</h2>
     <div class="span-18 last section_wrapper explanatory">
-      <p>When you use the dashboard to add a task, it's a quick way to get it into the system. Later when you have more time, preferably daily, you should come back and review the tasks you've added. You'll find them here, in the Unorganized Task list. At that time, if you have completed a task, you can check it off and consider yourself accomplished. If you haven't completed a task, consider adding it to a plan or a situation, or if it is a task that involves multiple steps itself, you can convert it to a plan and add tasks to that plan to list the steps.</p>
+      <p>When you use the dashboard to add a task, it's a quick way to get it into the system. Later when you have more time, preferably daily, you should come back and review the tasks you've added. You'll find them here, in the Unorganized Task list.<br/>&nbsp;<br/>While you're reviewing your new tasks you can check off any you've already completed and consider yourself accomplished. If you haven't completed a task, consider adding it to a plan or a situation. If it is a task that involves multiple steps itself, you can convert it to a plan and add tasks to that plan to list the steps.</p>
       
     </div>
   <% end %>

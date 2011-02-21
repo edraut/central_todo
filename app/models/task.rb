@@ -33,15 +33,11 @@ class Task < ActiveRecord::Base
   scope :done, :conditions => "(tasks.state = 'complete' or tasks.state = 'retired')"
   #special behaviors
   state_machine :action => nil do
-    state :cooler
     state :active
     state :complete
     state :retired
     event :activate do
       transition all => :active
-    end
-    event :cool do
-      transition :active => :cooler
     end
     event :finish do
       transition :active => :complete
@@ -73,6 +69,25 @@ class Task < ActiveRecord::Base
     self.position = self.project_id.nil? ? ((self.user.tasks.projectless.count < 1) ? 0 : self.user.tasks.projectless.maximum(:position) + 1) : ((self.project.tasks.count < 1) ? 0 : self.project.tasks.maximum(:position) + 1)
   end
   
+  def handle_attributes(new_attributes)
+    new_state = new_attributes.delete(:state)
+    self.attributes = (new_attributes)
+    if new_state == self.state
+      return false
+    else
+      case new_state
+      when 'retired'
+        self.retire
+      when 'complete'
+        self.finish
+      when 'active'
+        self.activate
+      end
+      return true
+    end
+    
+  end
+
   def handle_ownership
     if self.situation and self.situation.user_id != self.user_id
       self.situation_id = nil

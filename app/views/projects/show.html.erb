@@ -1,6 +1,6 @@
 <div class="span-18" id="header_wrapper">
   <div class="span-18 last section_margin_top">
-  	<h1>Plan: <%= @project.title %></h1>
+  	<h1>Plan: <% if @project.done? %><span style="text-decoration:line-through;"><% end %> <%= @project.title %><% if @project.done? %></span><% end %></h1>
   </div>
   <%= render :partial => 'tabs' %>
 </div>
@@ -21,18 +21,19 @@
 		<% end %>
 	</div>
 
+  <% unless @project.done? %>
 	<div id="unretired_item_list" class="span-18 last">
 		<div id="task_list_heading" class="span-18 last">
 			<div id="unretired_item_heading" class="span-6">
 				<h2><% if @project.tasks.unretired.any? %>Get these done.<% else %>No active tasks.<% end %></h2>
 			</div>
 			<div class="span-12 last">
-      	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
-				<% if @project.tasks.unretired.with_due_date.count > 0 %>
-			  <div class="list_action attach_above">
-      		<%= link_to ('sort by due date', sort_tasks_plan_url(@project) + '?by_due_date=true') %>
-        </div>
-        <% end %>
+        	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
+  				<% if @project.tasks.unretired.with_due_date.count > 0 %>
+  			  <div class="list_action attach_above">
+        		<%= link_to ('sort by due date', sort_tasks_plan_url(@project) + '?by_due_date=true') %>
+          </div>
+          <% end %>
 			</div>
 		</div>
 		<div id="unretired_items_wrapper" class="span-18 last section_wrapper" data-behavior="sortable" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-role="list">
@@ -43,13 +44,14 @@
 			<% end %>
 		</div>
 	</div>
+	<% end %>
   <div class="span-18 last">
     <div class="span-12 prepend-6 last">
       <div id="retire_completed_items" class="list_action attach_below" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
     	<%= link_to 'retire completed tasks', retire_completed_tasks_plan_url(@project),
     	 	:'data-ajax_behavior' => 'ajax_link',
     		:'data-ajax_method' => 'GET',
-    		:'data-ajax_success_callback' => "handleRetirementSuccess();",
+    		:'data-ajax_success_callback' => "handleRetirementSuccess(true);",
     		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't retire those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %> &darr;
     	</div>
     </div>

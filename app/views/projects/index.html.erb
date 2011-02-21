@@ -1,7 +1,8 @@
 <div class="span-18 last section_margin_top" id="header_wrapper">
-	<h1>My Big Plans.</h1>
+	<div class="span-4"><h1>Plans</h1></div><% if (@help_text = true) and @this_user.projects.count > 0%><div class="span-14 last quiet text-right">You can add tasks to a plan, add a plan description, and more by clicking on the plan title in any list</div><% end %>
 </div>
 <div class="span-19 last page_content">
+  <h2>Make a new plan.</h2>
 	<div class="span-18 last">
 		<% form_for @project, :url => plans_url do |f| %>
 			<div class="span-10">
@@ -10,7 +11,7 @@
 			<div class="span-8 last">
 				<%= f.hidden_field :user_id %>
 				<%= f.hidden_field :state, :value => 'active' %>
-				<%= f.submit "Make a new plan.", :id => "plan_submit_button" %>
+				<%= f.submit "Save", :id => "plan_submit_button" %>
 			</div>
 		<% end %>
 	</div>
@@ -33,23 +34,6 @@
   			<%= render :partial => 'show', :locals => {:project => project, :sortable => true} %>
 			</div>
 		<% end %>
-	</div>
-	<div id="retired_item_list" <% unless @this_user.projects.retired.any? %>style="display:none;"<% end %> class="span-18 last section_margin_top" data-role="list">
-		<div id="retired_item_heading" class="span-18 last">
-			<h2>You got these done.</h2>
-		</div>
-		<div id="retired_items_wrapper" class="span-18 last retired section_wrapper">
-			<% for project in @this_user.projects.retired.twenty_five %>
-				<div class="span-18 last" id="project_<%= project.id %>" data-role="list_item">
-					<%= render :partial => '/projects/show', :locals => {:project => project} %>
-				</div>
-			<% end %>
-      <% if @this_user.projects.retired.count > 25 %>
-      <div class="span-18 last text-right">
-        <%= link_to 'show more', retired_projects_url %> &rarr;
-      </div>
-      <% end %>
-		</div>
 	</div>
 </div>
 <%= javascript_tag do %>

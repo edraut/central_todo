@@ -67,8 +67,14 @@ class TasksController < ApplicationController
     else
       render_type = :action
     end
-    @task.attributes = (params[:task])
-    @state_changed = @task.state_changed?
+    @these_params = params[:task].dup
+    @state_changed = @task.handle_attributes(@these_params)
+    if(params.has_key? :app_context)
+      @app_context = params[:app_context]
+      if (params[:app_context] == 'project')
+        @move = true
+      end
+    end
     @task.save
     if params[:attribute]
       render :partial => 'show_' + params[:attribute], :locals => {:task => @task}, :layout => 'ajax_section' and return

@@ -36,5 +36,8 @@
 		<%= hidden_field_tag ('sortable', true) if (controller_name == 'projects' or sortable == true) %>
 		<%= hidden_field_tag 'partial', true %>
 		<%= hidden_field_tag '_method', 'PUT' %>
+		<% if (controller_name == 'projects' and action_name == 'show') or @app_context == 'project' %>
+  		<%= hidden_field_tag 'app_context', 'project' %>
+		<% end %>
 	</div>
 <% end %>

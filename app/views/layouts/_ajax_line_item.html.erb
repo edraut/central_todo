@@ -1,9 +1,8 @@
 <%= yield %>
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
-	  <% if @state_changed and @item.active?%>
+	  <% if @state_changed and @item.active? and @move %>
       jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>').moveToParent('#unretired_items_wrapper');
-      setTimeout(handleListDisplay,1500);
 	  <% else %>
     	flashBackground('<%= @item.class.name.underscore %>_<%= @item.id %>');
     <% end %>

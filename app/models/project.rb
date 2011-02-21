@@ -19,15 +19,12 @@ class Project < ActiveRecord::Base
   #special behaviors
 
   state_machine :action => nil do
-    state :cooler
+    after_transition :on => :retire, :do => :handle_task_state
     state :active
     state :complete
     state :retired
     event :activate do
       transition all => :active
-    end
-    event :cool do
-      transition :active => :cooler
     end
     event :finish do
       transition :active => :complete
@@ -43,7 +40,39 @@ class Project < ActiveRecord::Base
   #class methods
 
   #instance methods
+  def done?
+    self.complete? or self.retired?
+  end
+  
   def all_complete
     self.tasks.count == self.tasks.done.count
+  end
+  
+  def handle_attributes(new_attributes)
+    new_state = new_attributes.delete(:state)
+    self.attributes = (new_attributes)
+    if new_state == self.state
+      Rails.logger.info("NO CHANGE")
+      return false
+    else
+      Rails.logger.info("NEW_STATE: #{state}")
+      case new_state
+      when 'retired'
+        self.retire
+      when 'complete'
+        self.finish
+      when 'active'
+        self.activate
+      end
+      return true
+    end
+    
+  end
+  
+  def handle_task_state
+    self.tasks.each do |task|
+      task.state = 'retired'
+      task.save
+    end
   end
 end
