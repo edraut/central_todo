@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(params[:user].merge(:time_zone => Time.zone))
+    @user = User.new(params[:user].merge(:time_zone => Time.zone.name))
     if @user.save
       @user_session = UserSession.new(:email => @user.email, :password => params[:user][:password])
       @user_session.save

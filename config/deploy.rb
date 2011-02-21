@@ -1,7 +1,7 @@
 before "deploy:cold", "config_files:create"
 after "deploy:update_code", "config_files:symlink"
 after "deploy:update", "deploy:cleanup"
-after 'deploy:update_code', 'bundler:bundle_new_release'
+# after 'deploy:update_code', 'bundler:bundle_new_release'
 
 require 'erb'
 
