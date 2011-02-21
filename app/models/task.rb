@@ -15,7 +15,7 @@ class Task < ActiveRecord::Base
   scope :overdue, :conditions => ["tasks.due_date < :now",{:now => Time.now}]
   scope :due_today, :conditions => ["tasks.due_date > :now and tasks.due_date < :end_today",{:now => Time.now,:end_today => Date.today.to_time + 1.day}]
   scope :due_7_days, :conditions => ["tasks.due_date > :now and tasks.due_date < :seven_days",{:now => Time.now,:seven_days => Date.today.to_time + 7.day}]
-  scope :due_30_days, :conditions => ["tasks.due_date > :now and tasks.due_date < :thirty_days",{:now => Time.now,:end_today => Date.today.to_time + 30.day}]
+  scope :due_30_days, :conditions => ["tasks.due_date > :now and tasks.due_date < :thirty_days",{:now => Time.now,:thirty_days => Date.today.to_time + 30.day}]
   scope :priority, :conditions => {:priority => true}
   scope :one_off, :conditions => {:project_id => nil}
   scope :cooler, :conditions => "tasks.state = 'cooler'"
