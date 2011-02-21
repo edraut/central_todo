@@ -2,6 +2,7 @@
 	<h1>Dashboard</h1>
 </div>
 <div class="span-19 last page_content">
+  <h2>Enter a task</h2>
 	<div class="span-18 last">
 		<%= form_for @task do |f| %>
 			<div class="span-9">
@@ -32,7 +33,7 @@
   </div>
   <% else %>
   <div class="span-18 last section_margin_top">
-    There are no high priority tasks.
+    You don't have any high priority tasks.
   </div>
   <% end %>
   <% if @this_user.tasks.active.unorganized.any? %>
@@ -53,7 +54,7 @@
   </div>
   <% else %>
   <div class="span-18 last section_margin_top">
-    There are no unorganized tasks.
+    You've organized all your current tasks.
   </div>
   <% end %>
   <% if @this_user.tasks.active.overdue.any? %>

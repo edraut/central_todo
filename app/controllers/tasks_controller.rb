@@ -49,8 +49,7 @@ class TasksController < ApplicationController
         redirect_to plan_url(@task.project) and return
       end
     else
-      unorganized
-      render :action => 'unorganized'
+      redirect_to dashboard_url
     end
   end
 
