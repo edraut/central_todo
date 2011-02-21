@@ -18,7 +18,7 @@ class Project < ActiveRecord::Base
   scope :by_create_date, :order => 'created_at desc'
   #special behaviors
 
-  state_machine :action => nil do
+  state_machine :initial => :active, :action => nil do
     after_transition :on => :retire, :do => :handle_task_state
     state :active
     state :complete
@@ -52,10 +52,8 @@ class Project < ActiveRecord::Base
     new_state = new_attributes.delete(:state)
     self.attributes = (new_attributes)
     if new_state == self.state
-      Rails.logger.info("NO CHANGE")
       return false
     else
-      Rails.logger.info("NEW_STATE: #{state}")
       case new_state
       when 'retired'
         self.retire

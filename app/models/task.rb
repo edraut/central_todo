@@ -32,7 +32,7 @@ class Task < ActiveRecord::Base
   scope :retired, :conditions => {:state => 'retired'}
   scope :done, :conditions => "(tasks.state = 'complete' or tasks.state = 'retired')"
   #special behaviors
-  state_machine :action => nil do
+  state_machine :initial => :active, :action => nil do
     state :active
     state :complete
     state :retired
