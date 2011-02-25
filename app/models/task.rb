@@ -18,7 +18,6 @@ class Task < ActiveRecord::Base
   scope :due_30_days, :conditions => ["tasks.due_date > :now and tasks.due_date < :thirty_days",{:now => Time.now,:thirty_days => Date.today.to_time + 30.day}]
   scope :priority, :conditions => {:priority => true}
   scope :one_off, :conditions => {:project_id => nil}
-  scope :cooler, :conditions => "tasks.state = 'cooler'"
   scope :ordered, :order => 'position'
   scope :by_due_date, :order => 'due_date'
   scope :by_create_date, :order => 'created_at desc'
@@ -26,7 +25,6 @@ class Task < ActiveRecord::Base
   scope :five, :limit => 5
   scope :twenty_five, :limit => 25
   scope :active, :conditions => "tasks.state = 'active'"
-  scope :incomplete, :conditions => "tasks.state != 'complete' and tasks.state != 'retired'"
   scope :complete, :conditions => {:state => 'complete'}
   scope :unretired, :conditions => "tasks.state != 'retired' and tasks.state != 'cooler'"
   scope :retired, :conditions => {:state => 'retired'}
@@ -52,7 +50,6 @@ class Task < ActiveRecord::Base
   #callbacks
   before_create :set_position
   before_save :handle_ownership
-
   #class methods
 
   #instance methods
@@ -71,7 +68,10 @@ class Task < ActiveRecord::Base
   
   def handle_attributes(new_attributes)
     new_state = new_attributes.delete(:state)
-    self.attributes = (new_attributes)
+    if new_attributes.has_key? :'due_date(1i)' and !new_attributes.has_key? :'due_date(4i)'
+      new_attributes[:'due_date(4i)'] = '12'
+    end
+    self.attributes = new_attributes
     if new_state == self.state
       return false
     else
@@ -85,7 +85,6 @@ class Task < ActiveRecord::Base
       end
       return true
     end
-    
   end
 
   def handle_ownership
@@ -96,4 +95,5 @@ class Task < ActiveRecord::Base
       self.project_id = nil
     end
   end
+  
 end

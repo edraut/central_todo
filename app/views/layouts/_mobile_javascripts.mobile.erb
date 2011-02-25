@@ -1,0 +1,18 @@
+<%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js" %>
+<%= javascript_include_tag "fix_jquery_mobile.js" %>
+<%= javascript_include_tag "jquery.mobile-1.0a3.js" %>
+<%= javascript_include_tag "ajax_bindings.js" %>
+<%= javascript_include_tag "mobile.js" %>
+<%= javascript_include_tag "common.js" %>
+<%= javascript_include_tag "common_ui_bindings.js" %>
+<%= javascript_include_tag "jquery.color.js" %>
+<script>
+  jQuery.noConflict();
+</script>
+<%= javascript_tag do %>
+	var authenticity_token = '<%= form_authenticity_token %>';
+	var preload_date = new Date();
+	<% unless session[:time_zone_offset] %>
+		document.location.href = '<%= user_session_url %>?time_zone_offset='+(preload_date.getTimezoneOffset()/60);
+	<% end %>
+<% end %>

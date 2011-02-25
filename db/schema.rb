@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110209005527) do
+ActiveRecord::Schema.define(:version => 20110223225046) do
 
   create_table "pages", :force => true do |t|
     t.string   "name"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20110209005527) do
     t.boolean  "card_valid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "show_help_text",      :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

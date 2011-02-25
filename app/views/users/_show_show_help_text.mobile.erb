@@ -1,0 +1,20 @@
+<div class="row">
+<div class="row_item">
+<h3>Help Text</h3>
+</div>
+<div class="row_item last h3_padding list_action">
+		<%= link_to 'change setting', user_url(@user, :attribute => 'show_help_text'),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'PUT',
+			:'data-ajax_success_element' => 'account_show_help_text',
+			:'data-ajax_data' => "{'attribute':'show_help_text','user[show_help_text]':'#{@user.show_help_text ? '0' : '1'}'}"
+		%>
+	</div>
+</div>
+  <p>
+	<% if @user.show_help_text %>
+	  <strong>Help text is on.</strong> You will see help text throughout the application. You can change this setting if you are comfortable with the application and would like to conserve screen space by removing the help text.
+	<% else %>
+	  <strong>Help text is off</strong> You will not see any help text in the application. If you're feeling lost when using the application you can change this setting to get help text throughout.
+	<% end %>
+	</p>

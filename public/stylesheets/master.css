@@ -30,6 +30,10 @@ h2 {
   font-size: 22px;
   line-height: 30px; }
 
+h3 {
+  font-size: 20px;
+  line-height: 26px; }
+
 p {
   line-height: 22px; }
 
@@ -218,6 +222,9 @@ a:hover.selected {
 
 .check_box_proxy:hover {
   color: #ee3434; }
+
+.check_box_proxy.in_header {
+  font-size: 33px; }
 
 .text_with_check_box_proxy {
   position: relative;

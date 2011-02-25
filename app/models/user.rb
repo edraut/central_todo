@@ -2,9 +2,9 @@ class User < ActiveRecord::Base
   #constants
 
   #associations
-  has_many :tasks
-  has_many :projects
-  has_many :situations
+  has_many :tasks, :dependent => :destroy
+  has_many :projects, :dependent => :destroy
+  has_many :situations, :dependent => :destroy
 
 
   #named_scopes

@@ -7,15 +7,15 @@
 <div class="span-19 last page_content">
 	<div class="span-18 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
 		<%= form_for @task do |f| %>
-			<div class="span-9">
-				<%= f.text_area :title, :id => "inbox_text_area", :class => "span-9" %>
+			<div class="span-12">
+				<%= f.text_field :title, :id => "primary_input", :class => "span-12" %>
 			</div>
 			<div class="span-6 last">
 				<%= f.hidden_field :user_id %>
 				<%= f.hidden_field :project_id %>
 				<%= f.hidden_field :state, :value => 'active' %>
 				<%= hidden_field_tag :app_context, 'project' %>
-				<%= f.submit "Add task to this Plan", :id => "inbox_submit_button" %>
+				<%= f.submit "Add task to this Plan" %>
 				<a href="#" data-behavior="expander" data-action="contract" data-id="new_task_form">cancel</a>
 			</div>
 		<% end %>

@@ -1,31 +1,32 @@
 class SituationsController < ApplicationController
   before_filter :require_user
   before_filter :get_situation, :only => [:show,:edit,:update,:destroy,:retire_completed_tasks,:sort_tasks]
+  before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
+  respond_to :html, :mobile
   
   def index
     @situation = Situation.new(:user_id => @this_user.id)
+    respond_with(@situation) and return
   end
   
   def create
     @situation = Situation.new(params[:situation])
     @situation.save
-    index
-    render :action => 'index' and return
+    redirect_to :action => 'index' and return
   end
 
   def show
-    handle_attribute_partials('show')
+    @item = @situation
+    return if handle_attribute_partials('show')
     @sortable = true
     @task = Task.new(:user_id => @this_user.id, :situation_id => @situation.id)
-    if params[:_method]
-      if ['PUT','put'].include? params[:_method]
-        update and return
-      end
-    end
+    @tasks = @situation.tasks.active.ordered.paginate(:page => params[:page],:per_page => 40)
+    respond_with(@situation) and return
   end
   
   def edit
-    handle_attribute_partials('edit')
+    @item = @situation
+    return if handle_attribute_partials('edit')
   end
   
   def update

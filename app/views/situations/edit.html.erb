@@ -1,12 +1,9 @@
 <div class="span-18 last section_margin_top" id="header_wrapper">
-  <div class="span-3 header_wrapper"><h1>Situation:</h1></div>
-  <div class="span-15 last item_controls">
-    <div id="show_delete" class="list_action attach_above last"><%= render :partial => 'show_delete', :locals => {:situation => @situation} %></div>
-    <div id="to_task_list" class="list_action attach_above">&larr; <%= link_to 'back to task list', situation_url(@situation) %></div>
-  </div>
-</div>
-<div class="span-19 last page_content">
   <div id="situation_title" class="span-18 last">
   	<%= render :partial => 'show_title' %>
   </div>
+  <%= render :partial => 'tabs' %>
+</div>
+<div class="span-19 last page_content">
+    <div id="show_delete" class="list_action last"><%= render :partial => 'show_delete', :locals => {:situation => @situation} %></div>
 </div>

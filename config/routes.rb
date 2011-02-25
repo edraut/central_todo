@@ -17,6 +17,7 @@ CentralTodo::Application.routes.draw do
       get 'activate'
       post 'request_password_reset'
       get 'forgot_password'
+      get 'settings'
     end
   end
   match 'sign_up' => 'users#new'

@@ -1,0 +1,19 @@
+<h3>Description</h3>
+	<%= form_for @task, :html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_method' => 'PUT',
+		:'data-ajax_success_element' => 'task_description',
+		:'data-ajax_error_element' => 'task_description'
+	} do |f| %>
+		<%= f.text_area :description, :rows => 3 %>
+		<%= hidden_field_tag 'attribute', 'description' %>
+    <div class="row">
+		<%= f.submit 'save', :class => 'row_item list_action' %>
+		<%= link_to 'cancel', task_url(@task),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'task_description',
+			:'data-ajax_data' => "{attribute: 'description'}",
+			:class => 'row_item last list_action'%>
+		</div>
+	<% end %>

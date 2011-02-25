@@ -1,0 +1,7 @@
+<div id="task_priority" class="row_item"><%= render :partial => 'show_priority' %></div><div class="row_item"><h2>Task: <%= @task.title %></h2></div><div class="row_item last list_action h2_padding">
+	<%= link_to 'edit title', edit_task_url(@project, :attribute => 'title'),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'task_title'
+	%>
+	</div>

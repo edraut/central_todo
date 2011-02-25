@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => :show
-  before_filter :handle_broken_browser_methods, :only => [:show, :create]
-  
+  before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
+  respond_to :html, :mobile
   def new
     @user = User.new
     @page_heading = "Create your toDo account"
+    respond_with(@user) do |format|
+      format.mobile { render @render_type => 'new', :layout => @this_layout and return }
+    end
   end
   
   def create
@@ -15,15 +18,25 @@ class UsersController < ApplicationController
       @user_session.save
       redirect_back_or_default dashboard_url
     else
-      render :action => :new
+      respond_with(@user) do |format|
+        format.mobile { render @render_type => 'new' and return }
+        format.html {render @render_type => 'new' and return}
+      end
     end
   end
   
   def show
     @user = @this_user
-    handle_attribute_partials('show')
+    @item = @user
+    return if handle_attribute_partials('show')
+    respond_with(@user)
   end
 
+  def settings
+    @user = @this_user
+    respond_with(@user)
+  end
+  
   def edit
     if params[:reset_password]
       load_user_using_perishable_token
@@ -31,7 +44,7 @@ class UsersController < ApplicationController
     else
       require_user
       @user = @this_user
-      handle_attribute_partials('edit')
+      return if handle_attribute_partials('edit')
     end
   end
   
@@ -54,7 +67,9 @@ class UsersController < ApplicationController
       end
     elsif @user.update_attributes(params[:user])
       if params[:attribute]
-        render :partial => 'show_' + params[:attribute] and return
+        respond_with(@user) do |format|
+          format.any {render :partial => 'show_' + params[:attribute], :layout => 'ajax_section' and return}
+        end
       else
         redirect_to user_url(@this_user)
       end

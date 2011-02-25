@@ -1,0 +1,18 @@
+<div class="row">
+<div class="row_item">
+<h3>Description</h3>
+</div>
+<div class="row_item last h3_padding list_action">
+	<%= link_to (@task.description.blank? ? 'add description' : 'edit description'), edit_task_url(@task),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'task_description',
+		:'data-ajax_data' => "{'attribute':'description'}"
+	%>
+</div>
+</div>
+<% unless @task.description.blank? %>
+<p>
+  <%= @task.description %>
+</p>
+<% end %>  

@@ -1,21 +1,22 @@
 class TasksController < ApplicationController
   before_filter :require_user
   before_filter :get_task, :only => [:show,:edit,:update,:destroy,:convert]
-  before_filter :handle_broken_browser_methods, :only => [:show, :create]
+  before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
+  respond_to :html, :mobile
   
   def index
-    unorganized
-    render :action => 'unorganized'
+    @page_title = "Tasks"
+    @tasks = @this_user.tasks.unretired.unorganized.paginate(:page => params[:page],:per_page => 40)
+    respond_with(@tasks) do |format|
+      format.mobile { render @render_type => 'index', :layout => @this_layout}
+      format.html {render @render_type => 'index'}
+    end
   end
   
   def priority
     @tasks = @this_user.tasks.active.priority.paginate(:page => params[:page],:per_page => 40)
   end
-  
-  def unorganized
-    @filter = 'unorganized'
-  end
-  
+    
   def retired_unorganized
     @tasks = @this_user.tasks.unorganized.retired.paginate(:page => params[:page],:per_page => 40)
   end
@@ -54,19 +55,17 @@ class TasksController < ApplicationController
   end
 
   def show
-    handle_attribute_partials('show')
+    @item = @task
+    return handle_attribute_partials('show')
+    respond_with(@task)
   end
   
   def edit
-    handle_attribute_partials('edit')
+    @item = @task
+    return if handle_attribute_partials('edit')
   end
   
   def update
-    if params[:partial]
-      render_type = :partial
-    else
-      render_type = :action
-    end
     @these_params = params[:task].dup
     @state_changed = @task.handle_attributes(@these_params)
     if(params.has_key? :app_context)
@@ -75,12 +74,16 @@ class TasksController < ApplicationController
         @move = true
       end
     end
-    @task.save
+    @task.update_attributes(@these_params)
     if params[:attribute]
-      render :partial => 'show_' + params[:attribute], :locals => {:task => @task}, :layout => 'ajax_section' and return
+      respond_with(@task) do | format |
+        format.any {render :partial => 'show_' + params[:attribute], :locals => {:task => @task}, :layout => 'ajax_section' and return}
+      end
     else
       @item = @task
-      render render_type => 'show', :locals => {:task => @task, :sortable => (params.has_key? :sortable), :needs_organization => (params.has_key? :needs_organization)}, :layout => 'ajax_line_item' and return
+      respond_with(@task) do | format |
+        format.any {render @render_type => 'show', :layout => "ajax_line_item", :locals => {:task => @task, :sortable => (params.has_key? :sortable), :needs_organization => (params.has_key? :needs_organization)} and return}
+      end
     end
   end
   
@@ -93,11 +96,10 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     if request.xhr?
-      render :nothing => true and return
+      render :nothing => true, :status => 200 and return
     end
-    index
     flash[:notice] = "Your task was successfully deleted."
-    render :action => 'index' and return
+    redirect_to dashboard_url and return
   end
   
   def get_task

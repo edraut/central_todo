@@ -1,5 +1,5 @@
-<div class="span-16"><h1>Task: <%= @task.title %>
-</h1></div>
+<div class="span-16"><span id="task_priority"><%= render :partial => 'show_priority' %></span>
+<h1>Task: <% if @task.done? %><span style="text-decoration:line-through;"><% end %><%= @task.title %><% if @task.done? %></span><% end %></h1></div>
 <div class="span-2 last">
 	<%= link_to 'edit title', edit_task_url(@project, :attribute => 'title'),
 	 	:'data-ajax_behavior' => 'ajax_link',

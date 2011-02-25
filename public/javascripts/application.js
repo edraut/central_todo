@@ -1,15 +1,3 @@
-function bindCheckBoxProxy(){
-	jQuery("[data-behavior='check_box_proxy']").live('click',function(e){
-		target = jQuery(e.target)
-		checkbox = jQuery('#' + target.attr('data-check_box'));
-		if(checkbox.val() == 'f'){
-			checkbox.val('t');
-		}else{
-			checkbox.val('f')
-		}
-		checkbox.change();
-	});
-}
 function roundCorners(){
 	jQuery(".section_wrapper").corner("20px");
 	jQuery(".section").corner("13px");
@@ -19,16 +7,9 @@ jQuery(document).ready(function(){
 	roundCorners();
 	bindAutoSubmit();		
     bindLinkToForm();
+	bindExpanders();
+	bindFocusTaskInput();
 });
-function handleRetirementLink(){
-	if( jQuery('#unretired_items_wrapper').find(
-		"input[type='checkbox'][name='task[state]']:checked,input[type='checkbox'][name='project[state]']:checked").length > 0)
-	{
-		jQuery('#retire_completed_items').show();
-	} else {
-		jQuery('#retire_completed_items').hide();
-	}
-}
 function handleRetirementSuccess(move){
 	move = typeof(move) != 'undefined' ? move : false;
 	if(move){

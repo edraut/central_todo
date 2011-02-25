@@ -1,0 +1,14 @@
+<div class="row">
+<div class="row_item">
+	<h3>Situation</h3>
+</div>
+<div class="row_item last list_action h3_padding">
+		<%= link_to (@task.situation ? 'change situation' : 'add to situation'), edit_task_url(@task, :attribute => 'situation_id'),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'task_situation'
+		%>
+</div>
+</div>
+<% if @task.situation %><div class="section"><%= @task.situation.title%>  <%= link_to '(view situation)', situation_url(@task.situation_id), :class => 'quiet'%></div><% end %>
+

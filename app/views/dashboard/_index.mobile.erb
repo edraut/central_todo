@@ -1,0 +1,119 @@
+<h2>Enter a task</h2>
+	<%= form_for @task do |f| %>
+			<%= f.text_field :title, :id => "inbox_text_field" %>
+			<%= f.hidden_field :user_id %>
+			<%= f.hidden_field :state, :value => 'active' %>
+			<%= f.submit "Add it to the list.", :id => "inbox_submit_button" %>
+	<% end %>
+<% if @this_user.tasks.active.unorganized.any? %>
+<div data_role="list">
+  <h2>Unorganized Tasks</h2>
+  <% if @this_user.show_help_text %>
+  <div class="section">
+    <p>
+  Consider adding these tasks to a plan, situation, or both for organization. You can tap the title of the task below to view full controls for that task, including plan and situation controls.
+  </p>
+  </div>
+  <% end %>
+	<% for task in @this_user.tasks.active.unorganized.recent.five %>
+		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>">
+		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized'} %>
+		</div>
+	<% end %>
+	<% if @this_user.tasks.active.unorganized.count > 5 %>
+    <div class="text-right">
+      <%= link_to 'See all', tasks_url %> &rarr;
+    </div>
+	<% end %>
+	</div>
+<% else %>
+  <div class="section section_margin_top">
+    <% if @this_user.tasks.count > 0 %>You've organized all your current tasks.<% else %>
+    <p>You don't have any tasks yet<span class="quiet">You can add a task in the box above.</span></p>
+    <% end %>
+  </div>
+<% end %>
+<% if @this_user.tasks.active.priority.any? %>
+  <div data-role="list">
+    <h2>High Priority</h2>
+		<% for task in @this_user.tasks.active.priority.recent.five %>
+			<div id="priority_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>">
+			<%= render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'priority'} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.priority.count > 5 %>
+      <div class="text-right section_margin_top">
+        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+      </div>
+		<% end %>
+	</div>
+<% elsif @this_user.show_help_text %>
+  <div class="section section_margin_top">
+    <h2>High Priority</h2>
+    <p>
+    You don't have any high priority tasks.<br/> <span class="quiet">You can make any task a priority by taping on the star to the left of the check box in any task list.</span>
+    </p>
+  </div>
+<% end %>
+<% if @this_user.tasks.active.overdue.any? %>
+  <div data-role="list">
+    <h2>Overdue</h2>
+		<% for task in @this_user.tasks.active.overdue.recent.five %>
+			<div id="overdue_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
+			<%= render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'overdue'} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.overdue.count > 5 %>
+      <div class="text-right">
+        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+      </div>
+		<% end %>
+	</div>
+<% elsif @this_user.tasks.active.due_today.any? %>
+  <div data-role="list">
+    <h2>Due Today</h2>
+		<% for task in @this_user.tasks.active.due_today.recent.five %>
+			<div id="due_today_task_<%= task.id %>" data-role="list_item" class="section" data-id="task_<%= task.id %>">
+			<%= render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'overdue'} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.due_today.count > 5 %>
+      <div class="text-right">
+        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+      </div>
+		<% end %>
+  </div>
+<% elsif @this_user.tasks.active.due_7_days.any? %>
+  <div data-role="list">
+    <h2>Due in 7 days</h2>
+    <% for task in @this_user.tasks.active.due_7_days.recent.five %>
+			<div id="due_7_days_task_<%= task.id %>" data-role="list_item" class="section" data-id="task_<%= task.id %>">
+			<%= render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'due_7_days'} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.due_7_days.count > 5 %>
+        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+		<% end %>
+  </div>
+<% elsif @this_user.tasks.active.due_30_days.any? %>
+  <div data-role="list">
+    <h2>Due in 30 days</h2>
+		<% for task in @this_user.tasks.active.due_30_days.recent.five %>
+			<div id="due_30_days_task_<%= task.id %>" data-role="list_item" class="section" data-id="task_<%= task.id %>">
+			<%= render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'due_30_days'} %>
+			</div>
+		<% end %>
+		<% if @this_user.tasks.active.due_30_days.count > 5 %>
+      <div class="text-right">
+        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+      </div>
+		<% end %>
+  </div>
+<% elsif @this_user.show_help_text %>
+  <h2>Scheduled Tasks</h2>
+  <div class="section section_margin_top">
+    <p>
+    There are no due dates in the next 30 days.<br/>
+    <span class="quiet">You can add a due date to any task by taping on the task title in a task list to get to the task editing page</span>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+development:
+  adapter: mysql
+  database: quackbaq_<%= stage %>
+  username: <%= db_user %>
+  password: <%= db_pass %>
+  host: 184.106.135.19
+  port: 3306
+
+production:
+  development

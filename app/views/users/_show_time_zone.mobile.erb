@@ -1,0 +1,15 @@
+<div class="row">
+<div class="row_item">
+<h3>Time Zone</h3>
+</div>
+<div class="row_item last h3_padding list_action">
+		<%= link_to 'edit time_zone', edit_user_url(@user, :attribute => 'time_zone'),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'account_time_zone'
+		%>
+	</div>
+</div>
+<div class="span-18 last section">
+	<%= @user.time_zone.blank? ? ActiveSupport::TimeZone[-session[:time_zone_offset].to_i] : @user.time_zone %>
+</div>

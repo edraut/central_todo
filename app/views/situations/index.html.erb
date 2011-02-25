@@ -5,12 +5,12 @@
   <h2>Create a new situation.</h2>
 	<div class="span-18 last">
 		<% form_for @situation, :url => situations_url do |f| %>
-			<div class="span-10">
-				<%= f.text_field :title, :class => "span-9" %>
+			<div class="span-12">
+				<%= f.text_field :title, :id => 'primary_input', :class => "span-12" %>
 			</div>
 			<div class="span-8 last">
 				<%= f.hidden_field :user_id %>
-				<%= f.submit "Save", :id => "situation_submit_button" %>
+				<%= f.submit "Save"%>
 			</div>
 		<% end %>
 	</div>
@@ -26,6 +26,7 @@
 	<div class="span-18 last section_margin_top">
   	<h2>You haven't created any situations yet</h2>
   </div>
+  <% if @this_user.show_help_text %>
 	<div class="span-18 last section_wrapper explanatory">
     <p>
     Situations are places or objects which are necessary to complete a task. They are different from projects because tasks that belong to a project are related by a common goal, while tasks that belong to a situation are only related by the place or object required.<br/>&nbsp;<br/>
@@ -34,5 +35,11 @@
     If I've added all the party planning and dining table tasks to the appropriate situations, the next time I've got some time at my desk I could design my table and invite my guests. Later I have some time with my phone so I research dining table materials and party supplies. The next day I have some time in my car so I buy the materials for my table and party supplies. I've become more efficient by using Situations.
     </p>
   </div>
+  <% end %>
 	<% end %>
 </div>
+<%= javascript_tag do %>
+	jQuery(document).ready(function(){
+		focusPrimaryInput();
+	})
+<% end %>

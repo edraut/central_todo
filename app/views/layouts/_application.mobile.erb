@@ -1,0 +1,48 @@
+<div data-role="page" data-cache="never">
+  <div id="top_nav" data-role="header" class="mytime" data-position="inline">
+  		<% if current_user %>
+  			<%= link_to 'account', user_url(@this_user), :class => 'mytime' %>
+  			<h1><%= @page_title %></h1>
+  			<%= link_to 'sign out', sign_out_url, :class => 'mytime', :rel => 'external' %>
+  		<% else %>
+  			<%= link_to 'sign up', sign_up_url %>
+  			<h1><%= @page_title %></h1>
+  			<%= link_to 'sign in', sign_in_url %>
+  		<% end %>
+  </div>
+  <div id="main_content" class="container" data-role="content">
+	<%= yield %>
+	</div>
+	<div data-role="footer" data-position="fixed">
+    <% if @this_user %>
+    <div data-role="navbar">
+    <ul>
+    <li>
+				<%= link_to 'Dashboard', dashboard_url, :rel => 'external', :class => 'mytime' %>
+		</li>
+		<li>
+				<%= link_to 'Tasks', tasks_url, :rel => 'external', :class => 'mytime' %>
+		</li>
+		<li>
+				<%= link_to 'Plans', plans_url, :rel => 'external', :class => 'mytime' %>
+		</li>
+		<li>
+				<%= link_to 'Situations', situations_url, :rel => 'external', :class => 'mytime' %>
+		</li>
+		</ul>
+		</div>
+	</div>
+	<% end %>
+<%= javascript_tag do %>
+	jQuery(document).ready(function(){
+		<% unless flash[:notice].blank? %>
+			function clearFlash(){
+				jQuery('#flash_notice').fadeOut(1000);
+				setTimeout("jQuery('#flash_notice').remove();",1000);
+			}
+			jQuery('#main_content').prepend('<div id="flash_notice" style="display:none;" class="flash_notice"><%= flash[:notice] %></div>');
+			jQuery('#flash_notice').fadeIn(500);
+			setTimeout(clearFlash,3000);
+		<% end %>
+	})
+<% end %>

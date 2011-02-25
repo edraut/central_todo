@@ -1,0 +1,22 @@
+<div class="span-18 last">
+	<div class="span-14">
+		<h2>Help Text</h2>
+	</div>
+	<div class="span-4 last">
+		<%= link_to 'change setting', user_url(@user, :attribute => 'show_help_text'),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'PUT',
+			:'data-ajax_success_element' => 'account_show_help_text',
+			:'data-ajax_data' => "{'attribute':'show_help_text','user[show_help_text]':'#{@user.show_help_text ? '0' : '1'}'}"
+		%>
+	</div>
+</div>
+<div class="span-18 last section">
+  <p>
+	<% if @user.show_help_text %>
+	  <strong>Help text is on.</strong> You will see help text throughout the application. You can change this setting if you are comfortable with the application and would like to conserve screen space by removing the help text.
+	<% else %>
+	  <strong>Help text is off</strong> You will not see any help text in the application. If you're feeling lost when using the application you can change this setting to get help text throughout.
+	<% end %>
+	</p>
+</div>

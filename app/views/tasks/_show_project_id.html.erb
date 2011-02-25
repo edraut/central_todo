@@ -1,13 +1,15 @@
-<div class="span-3">
-	<h2>Project</h2>
-</div>
-<div class="span-15 last">
-  <div class="list_action">
-		<%= link_to (@task.project ? 'change project' : 'add to project'), edit_task_url(@task, :attribute => 'project_id'),
-		 	:'data-ajax_behavior' => 'ajax_link',
-			:'data-ajax_method' => 'GET',
-			:'data-ajax_success_element' => 'task_project'
-		%>
-  </div>
-</div>
-<div class="span-18 last section"><% if @task.project %><%= @task.project.title %> <%= link_to '(view project)', plan_url(@task.project_id), :class => 'quiet'%><% else %>&nbsp;<% end %></div>
+	<div class="span-3">
+		<h2>Plan</h2>
+	</div>
+	<div class="span-15 last">
+    <div class="list_action">
+  		<%= link_to (@task.project ? 'change plan' : 'add to a plan'), edit_task_url(@task, :attribute => 'project_id'),
+  		 	:'data-ajax_behavior' => 'ajax_link',
+  			:'data-ajax_method' => 'GET',
+  			:'data-ajax_success_element' => 'task_project'
+  		%>
+    </div>
+	</div>
+
+	<div class="span-18 last section"><% if @task.project %><%= @task.project.title %> <%= link_to '(view plan)', plan_url(@task.project_id), :class => 'quiet'%> <% else %>&nbsp; <% end %></div>
+  

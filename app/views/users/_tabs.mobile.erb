@@ -1,0 +1,6 @@
+<div data-role="navbar">
+  <ul>
+  <li><%= link_to 'account info', user_url(@user), :class => ((action_name == 'show') ? 'selected' : '') %></li>
+  <li><%= link_to 'settings', settings_user_url(@user), :class => ((action_name == 'settings') ? 'selected' : '') %></li>
+  </ul>
+</div>

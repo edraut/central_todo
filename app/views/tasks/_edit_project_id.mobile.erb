@@ -1,0 +1,22 @@
+<h3>Plan</h3>
+	<%= form_for @task, :html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_method' => 'PUT',
+		:'data-ajax_success_element' => 'task_project',
+		:'data-ajax_error_element' => 'task_project'
+	} do |f| %>
+  <%  project_array = @this_user.projects.active
+      (project_array = project_array | [@task.project]) if @task.project
+      %>
+	<%= f.select :project_id, [['none',nil]] + project_array.map{|p| [p.title,p.id]} %>
+		<%= hidden_field_tag 'attribute', 'project_id' %>
+    <div class="row">
+		<%= f.submit 'save', :class => 'row_item list_action' %>
+		<%= link_to 'cancel', task_url(@task),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'task_project',
+			:'data-ajax_data' => "{attribute: 'project_id'}",
+			:class => 'row_item last list_action'%>
+		</div>
+	<% end %>

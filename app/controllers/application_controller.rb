@@ -1,9 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  has_mobile_fu
   helper_method :current_user_session, :current_user
+  before_filter :handle_xhr
+  before_filter :handle_layout
+  before_filter :handle_title
+  before_filter :init_ajax_forms
   before_filter :get_this_user
   after_filter :handle_flash_header
-  
+
   def string_to_money(string)
     Money.new(string.to_f * 100)
   end
@@ -16,8 +21,12 @@ class ApplicationController < ActionController::Base
 
   def handle_attribute_partials(action)
     if params[:attribute]
-      render :partial => action + '_' + params[:attribute], :layout => 'ajax_section' and return
+      respond_with(@item) do |format|
+        format.any {render :partial => action + '_' + params[:attribute], :layout => 'ajax_section' and return true}
+      end
+      return false
     end
+    return false
   end
   
   def handle_broken_browser_methods
@@ -34,6 +43,34 @@ class ApplicationController < ActionController::Base
   def handle_flash_header
     flash.discard
   end
+  
+  def handle_xhr
+    if request.xhr?
+      @render_type = :partial
+    else
+      @render_type = :action
+    end
+  end
+  
+  def handle_layout
+    @this_layout = true
+    if request.xhr?
+      if is_mobile_device?
+        @this_layout = 'application'
+      else
+        @this_layout = false
+      end
+    end
+  end
+  
+  def handle_title
+    @page_title = controller_name.humanize
+  end
+  
+  def init_ajax_forms
+    @ajax_forms_enabled = false
+  end
+  
   private
     def get_this_user
       @this_user = current_user

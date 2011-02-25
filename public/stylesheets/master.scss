@@ -1,0 +1,301 @@
+$dark-blue: #557777;
+$blue: #90B0B0;
+$light-blue: #DDF5F5;
+$light-carmine: #E55;
+$carmine: #EE3434;
+$pale-gray: #F0F8F8;
+$light-gray: #EDECE8;
+$grayish: #DDDCD8;
+$gray: #bdbcb8;
+$middle-gray: #525a56;
+$charcoal: #4A4046;
+$black: #111;
+$taupe: #6D6C68;
+$paper: #FDFCF8;
+$yellow: #FFF8D0;
+$white: #FCFCFA;
+$normal-font-size: 16px;
+$line-height: 30px;
+@mixin text-right {
+	text-align: right;
+}
+body {
+	background-color: $light-gray;
+	color: $taupe;
+	font-size: $normal-font-size;
+	line-height: $line-height;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+a:hover {
+	color: $gray;
+	text-decoration: none;
+}
+a.quiet, div.quiet, span.quiet {
+	font-size: 12px;
+}
+a.loud, div.loud, span.loud {
+	font-size: 18px;
+}
+hr {
+	color: $taupe;
+}
+h1 {
+  margin-left: 22px;
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+h2 {
+  font-size: 22px;
+	line-height: 30px;
+}
+h3 {
+  font-size: 20px;
+	line-height: 26px;
+}
+p {
+  line-height: 22px;
+}
+//These styles handle forms
+input[type=text], textarea {
+	background-color: $white;
+}
+input {
+	font-size: $normal-font-size;
+	height: $line-height;
+	vertical-align: bottom;
+	position: relative;
+	top: -3px;
+}
+textarea {
+	height: 7em;
+}
+
+input[type="submit"] {
+	color: $carmine;
+	height: 26px;
+}
+select {
+  margin-top: 6px;
+  font-size: $normal-font-size;
+  font-weight: normal;
+}
+// These classes define layout for specific elements
+
+#inbox_text_area {
+	width: 335px;
+	height: 78px;
+}
+
+.index_add_text_box {
+	width: 300px;
+}
+#top_nav {
+	background-color: $taupe;
+	color: $paper;
+	a {
+		color: $paper;
+	}
+	a:hover {
+		color: $gray;
+	}
+}
+#header_wrapper {
+}
+// These classes define general layout rules for elements that play certain roles
+
+@mixin vert-line-nav-wrapper {
+	padding-left: 12px;
+}
+.page_content {
+  padding: $line-height 0 $line-height 38px;
+  margin: 0 -16px;
+  # border: 1px solid $gray;
+  background-color: $grayish;
+}
+.section_wrapper {
+	margin-left: -16px;
+	padding: 16px;
+	background-color: $gray;
+	a:hover {
+		color: $light-gray;
+	}
+}
+.section_margin_top{
+  margin-top: 20px;
+}
+
+.section, .explanatory {
+	background-color: $pale-gray;
+	margin-left: -16px;
+	padding-left: 16px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+}
+.left_nav_wrapper {
+  position: relative;
+  float: left;
+  margin-right: 22px;
+  width: 138px;
+}
+.vert-line-nav-wrapper-main {
+	@include vert-line-nav-wrapper;
+	position:relative;
+	margin-bottom: 7px;
+	line-height: 30px;
+	background-color: $paper;
+	.vert-line-subnav-wrapper {
+    padding-left: 30px;
+		margin-right: 0;
+		font-size: $normal-font-size;
+		padding-left: 8px;
+		a {
+			color: $dark-blue;
+		}
+		a:hover {
+			color: $gray;
+		}
+		a.selected {
+			font-weight: bold;
+			color: $dark-blue;
+		}
+	}
+}
+.vert-line-nav-wrapper-header {
+	@include vert-line-nav-wrapper;
+}
+.hover_nav {
+  position: absolute;
+  left: 138px;
+  top: -1px;
+  z-index: 10;
+  width: 130px;
+  background-color: $paper;
+  padding: 0px 12px 5px 12px;
+  border: 1px solid $gray;
+}
+.hover_nav_pointer {
+  position: absolute;
+  left: -30px;
+  top: -2px;
+}
+.selected a {
+  color: $black;
+}
+.selected a:hover {
+  color: $gray;
+}
+a.selected {
+  font-weight: bold;
+}
+a:hover.selected {
+	color: $black;
+}
+.list_action {
+  position: relative;
+  float: right;
+  padding: 0 20px;
+  margin-right: 20px;
+  a {
+    color: $taupe;
+  }
+  a:hover {
+    color: $gray;
+  }
+}
+.list_action.last{
+  margin-right: 0;
+}
+.list_action.selected {
+  background-color: $grayish;
+  color: $black;
+  font-weight: bold;
+}
+.attach_above {
+  border-top: 1px solid $gray;
+  border-left: 1px solid $gray;
+  border-right: 1px solid $gray;
+}
+.attach_below {
+  border-bottom: 1px solid $gray;
+  border-left: 1px solid $gray;
+  border-right: 1px solid $gray;
+}
+.attributes {
+  border: 1px solid $gray;
+}
+.item_action {
+  position:relative;
+  float:right;
+  border: 1px solid $gray;
+  margin-left: 20px;
+  padding: 0 20px;
+}
+.item_controls {
+  position:absolute;
+  bottom: 0;
+  right: 0;
+}
+.overdue, .overdue a {
+  color: $carmine;
+}
+.retired, .retired a {
+	color: $light-gray;
+}
+.flash_notice {
+	background-color: $light-blue;
+	text-align: center;
+	width: 100%;
+	position: relative;
+}
+.checked {
+	color: $carmine;
+}
+.check_box_proxy {
+	font-size: 22px;
+  line-height: $line-height;
+  height: $line-height;
+	cursor: pointer;
+  position:relative;
+	float:left;
+	vertical-align: bottom;
+	top: -3px;
+}
+.check_box_proxy:hover {
+	color: $carmine;
+}
+.check_box_proxy.in_header {
+  font-size: 33px;
+}
+.text_with_check_box_proxy {
+  position: relative;
+	float: left;
+	height: $line-height;
+	overflow: hidden;
+}
+.sortable_drag_handle {
+	cursor: move;
+}
+.delete {
+	line-height: 18px;
+	padding-top: 6px;
+	font-size: 18px;
+}
+a:hover[data-role=delete].delete {
+	color: $carmine;
+}
+// These classes define reusable design elements
+
+.text-right {
+	@include text-right;
+}
+.text-center {
+  text-align: center;
+}
+.vertical-padding {
+	padding-top: 14px;
+	padding-bottom: 14px;
+}

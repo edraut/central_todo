@@ -1,17 +1,17 @@
 <div class="span-18 last section_margin_top" id="header_wrapper">
-	<div class="span-5"><h1>Dashboard</h1></div><% if (@help_text = true) and @this_user.tasks.count > 0 %><div class="span-13 last text-right quiet">You can add descriptions, due dates, and more to tasks by clicking on a task title in any list.</div><% end %>
+	<div class="span-5"><h1>Dashboard</h1></div><% if @this_user.show_help_text and @this_user.tasks.count > 0 %><div class="span-13 last text-right quiet">You can add descriptions, due dates, and more to tasks by clicking on a task title in any list.</div><% end %>
 </div>
 <div class="span-19 last page_content">
   <h2>Enter a task</h2>
 	<div class="span-18 last">
 		<%= form_for @task do |f| %>
-			<div class="span-9">
-				<%= f.text_area :title, :id => "inbox_text_area", :class => "span-9" %>
+			<div class="span-12">
+				<%= f.text_field :title, :id => "primary_input", :class => "span-12" %>
 			</div>
 			<div class="span-6 last">
 				<%= f.hidden_field :user_id %>
 				<%= f.hidden_field :state, :value => 'active' %>
-				<%= f.submit "Add it to the list.", :id => "inbox_submit_button" %>
+				<%= f.submit "add it to the list." %>
 			</div>
 		<% end %>
 	</div>
@@ -20,9 +20,11 @@
     <div class="span-5">
       <h2>Unorganized</h2>
     </div>
+    <% if @this_user.show_help_text %>
     <div class="span-13 last text-right quiet">
-      Consider adding these tasks to a plan, situation, or both for organization
+      Consider adding these tasks to a plan, situation, or both for organization.
     </div>
+    <% end %>
   </div>
   <div class="span-18 last section_wrapper">
 		<% for task in @this_user.tasks.active.unorganized.recent.five %>
@@ -36,11 +38,9 @@
       </div>
 		<% end %>
   </div>
-  <% else %>
+  <% elsif @this_user.tasks.count > 0 %>
   <div class="span-18 last section_margin_top">
-    <% if @this_user.tasks.count > 0 %>You've organized all your current tasks.<% else %>
-    <p>You don't have any tasks yet<span class="quiet">You can add a task in the box above.</span></p>
-    <% end %>
+    You've organized all your current tasks.
   </div>
   <% end %>
   <% if @this_user.tasks.active.priority.any? %>
@@ -59,7 +59,7 @@
       </div>
 		<% end %>
   </div>
-  <% else %>
+  <% elsif @this_user.show_help_text %>
   <div class="span-18 last section_margin_top">
     <p>
     You don't have any high priority tasks.<br/> <span class="quiet">You can make any task a priority by clicking on the star to the left of the check box in any task list.</span>
@@ -130,7 +130,7 @@
       </div>
 		<% end %>
   </div>
-  <% else %>
+  <% elsif @this_user.show_help_text %>
   <div class="span-18 last section_margin_top">
     <p>
     There are no due dates in the next 30 days.<br/>
@@ -138,3 +138,6 @@
   </div>
   <% end %>
 </div>
+<%= javascript_tag do %>
+  focusPrimaryInput();
+<% end %>

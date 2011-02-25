@@ -8,7 +8,6 @@ class Project < ActiveRecord::Base
   #named_scopes
   scope :ordered, :order => 'projects.position'
   scope :active, :conditions => "projects.state = 'active'"
-  scope :incomplete, :conditions => "projects.state != 'complete' and projects.state != 'retired'"
   scope :complete, :conditions => {:state => 'complete'}
   scope :unretired, :conditions => "projects.state != 'retired'"
   scope :retired, :conditions => {:state => 'retired'}

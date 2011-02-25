@@ -2,9 +2,15 @@ class ProjectsController < ApplicationController
   before_filter :require_user
   before_filter :get_project, :only => [:show,:edit,:update,:destroy,:retire_completed_tasks,:sort_tasks]
   
+  respond_to :html, :mobile
+  
   def index
     @project = Project.new(:user_id => @this_user.id)
+    @projects = Project.unretired.ordered.paginate(:page => params[:page], :per_page => 40, :conditions => {:user_id => @this_user.id})
     @sortable = true
+    respond_with(@projects) do |format|
+      format.any {render :action => 'index' and return}
+    end
   end
   
   def retired
@@ -12,7 +18,7 @@ class ProjectsController < ApplicationController
   end
   
   def sort
-    projects = @this_user.projects.incomplete
+    projects = @this_user.projects.active
     projects.each do |project|
       project.position = params[:project].index(project.id.to_s)
       project.save
@@ -30,12 +36,12 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(params[:project])
     @project.save
-    index
-    render :action => 'index' and return
+    redirect_to :action => 'index' and return
   end
 
   def show
-    handle_attribute_partials('show')
+    @item = @project
+    return if handle_attribute_partials('show')
     @sortable = true
     @task = Task.new(:user_id => @this_user.id, :project_id => @project.id)
     if params[:_method]
@@ -46,7 +52,8 @@ class ProjectsController < ApplicationController
   end
   
   def edit
-    handle_attribute_partials('edit')
+    @item = @project
+    return if handle_attribute_partials('edit')
   end
   
   def update
@@ -68,9 +75,8 @@ class ProjectsController < ApplicationController
   
   def destroy
     @project.destroy
-    index
     flash[:notice] = "Your project was successfully deleted."
-    render :action => 'index' and return
+    redirect_to :action => 'index' and return
   end
   
   def retire_completed_tasks

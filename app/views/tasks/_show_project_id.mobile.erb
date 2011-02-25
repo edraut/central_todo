@@ -1,0 +1,13 @@
+<div class="row">
+<div class="row_item">
+	<h3>Plan</h3>
+</div>
+<div class="row_item last list_action h3_padding">
+		<%= link_to (@task.project ? 'change plan' : 'add to a plan'), edit_task_url(@task, :attribute => 'project_id'),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'task_project'
+		%>
+</div>
+</div>
+<% if @task.project %><div class="section"><%= @task.project.title %> <%= link_to '(view plan)', plan_url(@task.project_id), :class => 'quiet'%></div><% end %>

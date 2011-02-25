@@ -1,4 +1,4 @@
-<h2>Project</h2>
+<h2>Plan</h2>
 <div class="span-18 last section">
 	<%= form_for @task, :html => {
 		:'data-ajax_behavior' => 'ajax_form',
@@ -6,7 +6,7 @@
 		:'data-ajax_success_element' => 'task_project',
 		:'data-ajax_error_element' => 'task_project'
 	} do |f| %>
-	  <%  project_array = Project.active
+	  <%  project_array = @this_user.projects.active
 	      (project_array = project_array | [@task.project]) if @task.project
 	      %>
 		<%= f.select :project_id, [['none',nil]] + project_array.map{|p| [p.title,p.id]}, :class => 'span-9' %>

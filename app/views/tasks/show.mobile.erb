@@ -1,0 +1,20 @@
+<div class="section padding_bottom">Does this task involve multiple steps or parts? <%= link_to 'Convert it to plan.', convert_task_url(@task) %></div>
+<div id="task_title" class="section">
+	<%= render :partial => 'show_title' %>
+</div>
+<div class="row border_bottom">
+<div id="show_delete" class="list_action attributes"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
+<div id="show_done" class="list_action attributes last"><%= render :partial => 'show_done', :locals => {:task => @task} %></div>
+</div>
+<div id="task_description" class="section">
+	<%= render :partial => 'show_description' %>
+</div>
+<div id="task_due_date" class="section">
+	<%= render :partial => 'show_due_date' %>
+</div>
+<div id="task_project" class="section">
+	<%= render :partial => 'show_project_id' %>
+</div>
+<div id="task_situation" class="section">
+	<%= render :partial => 'show_situation_id' %>
+</div>

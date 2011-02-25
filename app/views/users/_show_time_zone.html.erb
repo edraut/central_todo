@@ -1,8 +1,8 @@
-<div class="span-15 last section_margin_top">
-	<div class="span-12">
+<div class="span-18 last section_margin_top">
+	<div class="span-14">
 		<h2>Time Zone</h2>
 	</div>
-	<div class="span-3 last">
+	<div class="span-4 last">
 		<%= link_to 'edit time_zone', edit_user_url(@user, :attribute => 'time_zone'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
@@ -10,6 +10,6 @@
 		%>
 	</div>
 </div>
-<div class="span-15 last section">
+<div class="span-18 last section">
 	<%= @user.time_zone.blank? ? ActiveSupport::TimeZone[-session[:time_zone_offset].to_i] : @user.time_zone %>
 </div>
