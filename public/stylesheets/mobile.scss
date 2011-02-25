@@ -8,7 +8,7 @@ $light-gray: #EDECE8;
 $grayish: #DDDCD8;
 $gray: #bdbcb8;
 $middle-gray: #5d5c58;
-$charcoal: #4A403B;
+$charcoal: #4D4C48;
 $black: #111;
 $taupe: #6D6C68;
 $light-taupe: #8E8D89;
@@ -23,6 +23,9 @@ $white: #FCFCFA;
 body {
 	background-color: $light-gray;
 	color: $taupe;
+}
+h2 {
+  color: $light-taupe;
 }
 p {
   margin: 0;
@@ -43,6 +46,10 @@ textarea {
   float:left;
   @include full-width;
   border-bottom: 1px solid $gray;
+}
+.user_title {
+  font-size: 20px;
+  color: $middle-gray;
 }
 .border_bottom {
   border-bottom: 1px solid $gray;

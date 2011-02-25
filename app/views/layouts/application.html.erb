@@ -40,7 +40,7 @@
         <% if @this_user %>
 				<div class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'dashboard' %> selected<% end %>">
-						<%= link_to 'Dashboard', dashboard_url, :class => (controller_name == 'dashboard' and action_name == 'index') ? 'selected loud' : 'loud' %>
+						<%= link_to 'Dashboard', dashboard_url, :class => (controller_name == 'dashboard') ? 'selected loud' : 'loud' %>
 					</div>
 				</div>
 				<div class="left_nav_wrapper last">
@@ -87,7 +87,7 @@
 				</div>
 				<div class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'situations' %> selected<% end %>">
-						<%= link_to 'Situations', situations_url, :class => (controller_name == 'situations' and action_name == 'index') ? 'selected loud' : 'loud' %>
+						<%= link_to 'Situations', situations_url, :class => (controller_name == 'situations') ? 'selected loud' : 'loud' %>
 					</div>
 				</div>
 			</div>

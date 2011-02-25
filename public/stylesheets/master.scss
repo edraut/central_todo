@@ -3,14 +3,15 @@ $blue: #90B0B0;
 $light-blue: #DDF5F5;
 $light-carmine: #E55;
 $carmine: #EE3434;
-$pale-gray: #F0F8F8;
+$pale-gray: #FDFCF8;
 $light-gray: #EDECE8;
 $grayish: #DDDCD8;
 $gray: #bdbcb8;
-$middle-gray: #525a56;
-$charcoal: #4A4046;
+$middle-gray: #5D5C58;
+$charcoal: #4D4C48;
 $black: #111;
 $taupe: #6D6C68;
+$light-taupe: #8E8D89;
 $paper: #FDFCF8;
 $yellow: #FFF8D0;
 $white: #FCFCFA;
@@ -44,6 +45,7 @@ hr {
 	color: $taupe;
 }
 h1 {
+  color: $light-taupe;
   margin-left: 22px;
   margin-bottom: 20px;
   font-size: 32px;
@@ -123,6 +125,9 @@ select {
 	a:hover {
 		color: $light-gray;
 	}
+}
+.user_title {
+  color: $middle-gray;
 }
 .section_margin_top{
   margin-top: 20px;

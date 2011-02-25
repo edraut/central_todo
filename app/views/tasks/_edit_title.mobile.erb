@@ -1,0 +1,17 @@
+<h2>Task:</h2>
+<%= form_for @task, :html => {
+	:'data-ajax_behavior' => 'ajax_form',
+	:'data-ajax_method' => 'PUT',
+	:'data-ajax_success_element' => 'task_title',
+	:'data-ajax_error_element' => 'task_title'
+} do |f| %>
+	<%= f.text_field :title %>
+	<%= hidden_field_tag 'attribute', 'title' %>
+	<%= f.submit 'save', :class => 'row_item list_action' %>
+	<%= link_to 'cancel', task_url(@task),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'task_title',
+		:'data-ajax_data' => "{attribute: 'title'}",
+		:class => 'row_item last list_action'%>
+<% end %>

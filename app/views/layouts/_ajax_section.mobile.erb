@@ -1,1 +1,7 @@
 <%= yield %>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    jQuery("input[type='text']").textinput();
+    jQuery("input[type='submit']").button();
+  })
+<% end %>
