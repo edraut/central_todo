@@ -6,7 +6,8 @@
 	:'data-ajax_error_element' => 'task_title'
 } do |f| %>
 	<%= f.text_field :title %>
-	<%= hidden_field_tag 'attribute', 'title' %>
+	<%= hidden_field_tag 'attribute', 'title', :id => 'attribute_title_field' %>
+	<%= hidden_field_tag '_method', 'put' %>
 	<%= f.submit 'save title', :class => 'row_item list_action' %>
 	<div class="row_item last list_action"> or
 	<%= link_to 'cancel', task_url(@task),

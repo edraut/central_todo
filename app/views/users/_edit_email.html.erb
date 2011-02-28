@@ -5,7 +5,8 @@
 	:'data-ajax_error_element' => 'account_email'
 } do |f| %>
 	<%= f.text_field :email, :class => 'span-9' %>
-	<%= hidden_field_tag 'attribute', 'email' %>
+	<%= hidden_field_tag 'attribute', 'email', :id => 'attribute_email_field' %>
+	<%= hidden_field_tag '_method', 'put' %>
 	<%= f.submit 'save' %>
 	<%= link_to 'cancel', user_url(@user),
 	 	:'data-ajax_behavior' => 'ajax_link',

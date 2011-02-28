@@ -5,7 +5,8 @@
 	:'data-ajax_error_element' => 'account_time_zone'
 } do |f| %>
 	<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Eastern Time (US & Canada)", :class => 'span-9' %>
-	<%= hidden_field_tag 'attribute', 'time_zone' %>
+	<%= hidden_field_tag '_method', 'put' %>
+	<%= hidden_field_tag 'attribute', 'time_zone', :id => 'attribute_time_zone_field' %>
 	<%= f.submit 'save' %>
 	<%= link_to 'cancel', user_url(@user),
 	 	:'data-ajax_behavior' => 'ajax_link',

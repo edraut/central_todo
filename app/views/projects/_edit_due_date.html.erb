@@ -9,6 +9,7 @@
 	} do |f| %>
 		<%= f.datetime_select :due_date, :class => 'span-9' %>
 		<%= hidden_field_tag 'attribute', 'due_date' %>
+  	<%= hidden_field_tag '_method', 'put' %>
 		<%= f.submit 'save due date' %> or
 		<%= link_to (@project.due_date.blank? ? 'leave blank' : 'cancel'), plan_url(@project),
 		 	:'data-ajax_behavior' => 'ajax_link',

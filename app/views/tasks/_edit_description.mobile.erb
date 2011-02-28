@@ -7,6 +7,7 @@
 } do |f| %>
 	<%= f.text_area :description, :rows => 3 %>
 	<%= hidden_field_tag 'attribute', 'description', :id => 'attribute_description_field' %>
+	<%= hidden_field_tag '_method', 'put' %>
   <div class="row">
 	<%= f.submit 'save description', :class => 'row_item list_action' %>
 	<div class="row_item last list_action"> or

@@ -8,6 +8,7 @@
 } do |f| %>
 	<%= f.date_select :due_date, {:use_short_month => true} %>
 	<%= hidden_field_tag 'attribute', 'due_date', :id => 'attribute_due_date_fiel' %>
+	<%= hidden_field_tag '_method', 'put' %>
   <div class="row">
 	<%= f.submit 'save due date', :class => 'row_item list_action' %>
 	<div class="row_item last list_action"> or

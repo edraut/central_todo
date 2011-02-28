@@ -7,6 +7,7 @@
 	} do |f| %>
 	<%= f.select :situation_id, [['none',nil]] + @this_user.situations.map{|p| [p.title,p.id]} %>
 		<%= hidden_field_tag 'attribute', 'situation_id' %>
+  	<%= hidden_field_tag '_method', 'put' %>
     <div class="row">
 		<%= f.submit 'save', :class => 'row_item list_action' %>
   	<div class="row_item last list_action"> or

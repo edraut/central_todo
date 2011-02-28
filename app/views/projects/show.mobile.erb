@@ -1,4 +1,4 @@
-<h1>Plan: <% if @project.done? %><span style="text-decoration:line-through;"><% end %> <%= @project.title %><% if @project.done? %></span><% end %></h1>
+<h2>Plan: <span class="user_title"<% if @project.done? %> style="text-decoration:line-through;"<% end %>> <%= @project.title %></span></h2>
 <%= render :partial => 'tabs' %>
 <h2>Enter some tasks</h2>
 <%= form_for @task do |f| %>

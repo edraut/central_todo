@@ -9,6 +9,7 @@
   	:id => 'edit_situation_title'
   } do |f| %>
   	<%= f.text_field :title, :class => 'span-9' %>
+  	<%= hidden_field_tag '_method', 'put' %>
   	<%= hidden_field_tag 'attribute', 'title' %>
   	<span class="span-2"><%= f.submit 'save' %></span>
   	<%= link_to 'cancel', situation_url(@situation),

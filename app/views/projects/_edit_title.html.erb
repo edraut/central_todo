@@ -10,6 +10,7 @@
   } do |f| %>
   	<%= f.text_field :title, :class => 'span-11' %>
   	<%= hidden_field_tag 'attribute', 'title' %>
+  	<%= hidden_field_tag '_method', 'put' %>
   	<span class="span-2"><%= f.submit 'save' %></span>
   	<%= link_to 'cancel', plan_url(@project),
   	 	:'data-ajax_behavior' => 'ajax_link',

@@ -12,6 +12,7 @@
 	      %>
 		<%= f.select :project_id, [['none',nil]] + project_array.map{|p| [p.title,p.id]}, :class => 'span-9' %>
 		<%= hidden_field_tag 'attribute', 'project_id', :id => 'attribute_project_id' %>
+  	<%= hidden_field_tag '_method', 'put' %>
 		<%= f.submit 'save' %> or
 		<%= link_to (@task.project ? 'cancel' : 'leave blank'), task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
