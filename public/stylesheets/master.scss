@@ -1,6 +1,7 @@
 $dark-blue: #557777;
 $blue: #90B0B0;
 $light-blue: #DDF5F5;
+$pale-blue: #f0f8f8;
 $light-carmine: #E55;
 $carmine: #EE3434;
 $pale-gray: #FDFCF8;
@@ -9,7 +10,7 @@ $grayish: #DDDCD8;
 $gray: #bdbcb8;
 $middle-gray: #5D5C58;
 $charcoal: #4D4C48;
-$black: #111;
+$black: #0D0C08;
 $taupe: #6D6C68;
 $light-taupe: #8E8D89;
 $paper: #FDFCF8;
@@ -37,6 +38,9 @@ a:hover {
 }
 a.quiet, div.quiet, span.quiet {
 	font-size: 12px;
+}
+div.quiet, span.quiet {
+  color: $blue
 }
 a.loud, div.loud, span.loud {
 	font-size: 18px;
@@ -134,7 +138,7 @@ select {
 }
 
 .section, .explanatory {
-	background-color: $pale-gray;
+	background-color: $pale-blue;
 	margin-left: -16px;
 	padding-left: 16px;
 	padding-top: 16px;
@@ -247,14 +251,18 @@ a:hover.selected {
 .overdue, .overdue a {
   color: $carmine;
 }
-.retired, .retired a {
+.archived, .archived a {
 	color: $light-gray;
 }
 .flash_notice {
-	background-color: $light-blue;
+  border: 1px solid $gray;
+	background-color: $paper;
 	text-align: center;
-	width: 100%;
-	position: relative;
+	position: absolute;
+	width: 90%;
+	top: 40%;
+	left: 5%;
+	z-index: 10;
 }
 .checked {
 	color: $carmine;

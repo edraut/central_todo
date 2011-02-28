@@ -21,10 +21,16 @@ textarea {
 
 .section {
   position: relative;
+  width: 100%;
   float: left;
+  border-bottom: 1px solid #bdbcb8; }
+
+div.borderless.section {
+  border: none;
   position: relative;
   width: 100%;
-  border-bottom: 1px solid #bdbcb8; }
+  float: left;
+  clear: both; }
 
 .user_title {
   font-size: 20px;
@@ -42,8 +48,7 @@ textarea {
 .row {
   position: relative;
   width: 100%;
-  height: 3.5em;
-  overflow: hidden; }
+  float: left; }
 
 .row_item {
   position: relative;
@@ -81,10 +86,13 @@ textarea {
     height: 2em;
     width: 2em; }
 
-.row_item.variable_text {
-  height: 1.2em;
-  width: 50%;
-  overflow: hidden; }
+.row_item.task_variable_text {
+  margin-bottom: 1.1em;
+  width: 50%; }
+
+.row_item.project_variable_text {
+  margin-bottom: 1.1em;
+  width: 70%; }
 
 .row_item.h2_padding {
   padding-top: 1.5em; }
@@ -106,10 +114,7 @@ textarea {
 
 .row_item.delete {
   position: relative;
-  top: -0.3em;
-  font-size: 1.8em; }
-
-.list_action .row_item.delete {
+  font-size: 1.8em;
   top: .3em; }
 
 .ui-bar-a.mytime {

@@ -9,8 +9,8 @@ class Project < ActiveRecord::Base
   scope :ordered, :order => 'projects.position'
   scope :active, :conditions => "projects.state = 'active'"
   scope :complete, :conditions => {:state => 'complete'}
-  scope :unretired, :conditions => "projects.state != 'retired'"
-  scope :retired, :conditions => {:state => 'retired'}
+  scope :unarchived, :conditions => "projects.state != 'archived'"
+  scope :archived, :conditions => {:state => 'archived'}
   scope :five, :limit => 5
   scope :twenty_five, :limit => 25
   scope :by_due_date, :order => 'due_date'
@@ -18,18 +18,18 @@ class Project < ActiveRecord::Base
   #special behaviors
 
   state_machine :initial => :active, :action => nil do
-    after_transition :on => :retire, :do => :handle_task_state
+    after_transition :on => :archive, :do => :handle_task_state
     state :active
     state :complete
-    state :retired
+    state :archived
     event :activate do
       transition all => :active
     end
     event :finish do
       transition :active => :complete
     end
-    event :retire do
-      transition :complete => :retired
+    event :archive do
+      transition :complete => :archived
     end
   end
   #validations
@@ -40,7 +40,11 @@ class Project < ActiveRecord::Base
 
   #instance methods
   def done?
-    self.complete? or self.retired?
+    self.complete? or self.archived?
+  end
+  
+  def overdue?
+    !self.due_date.nil? and self.due_date < Time.now
   end
   
   def all_complete
@@ -54,8 +58,8 @@ class Project < ActiveRecord::Base
       return false
     else
       case new_state
-      when 'retired'
-        self.retire
+      when 'archived'
+        self.archive
       when 'complete'
         self.finish
       when 'active'
@@ -68,7 +72,7 @@ class Project < ActiveRecord::Base
   
   def handle_task_state
     self.tasks.each do |task|
-      task.state = 'retired'
+      task.state = 'archived'
       task.save
     end
   end

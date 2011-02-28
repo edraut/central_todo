@@ -22,22 +22,22 @@
 	</div>
 
   <% unless @project.done? %>
-	<div id="unretired_item_list" class="span-18 last">
+	<div id="unarchived_item_list" class="span-18 last">
 		<div id="task_list_heading" class="span-18 last">
-			<div id="unretired_item_heading" class="span-6">
-				<h2><% if @project.tasks.unretired.any? %>Get these done.<% else %>No active tasks.<% end %></h2>
+			<div id="unarchived_item_heading" class="span-6">
+				<h2><% if @project.tasks.unarchived.any? %>Get these done.<% else %>No active tasks.<% end %></h2>
 			</div>
 			<div class="span-12 last">
         	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
-  				<% if @project.tasks.unretired.with_due_date.count > 0 %>
+  				<% if @project.tasks.unarchived.with_due_date.count > 0 %>
   			  <div class="list_action attach_above">
         		<%= link_to ('sort by due date', sort_tasks_plan_url(@project) + '?by_due_date=true') %>
           </div>
           <% end %>
 			</div>
 		</div>
-		<div id="unretired_items_wrapper" class="span-18 last section_wrapper" data-behavior="sortable" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-role="list">
-			<% for task in @project.tasks.unretired.ordered %>
+		<div id="unarchived_items_wrapper" class="span-18 last section_wrapper" data-behavior="sortable" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-role="list">
+			<% for task in @project.tasks.unarchived.ordered %>
 				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
 					<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
 				</div>
@@ -47,21 +47,21 @@
 	<% end %>
   <div class="span-18 last">
     <div class="span-12 prepend-6 last">
-      <div id="retire_completed_items" class="list_action attach_below" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
-    	<%= link_to 'retire completed tasks', retire_completed_tasks_plan_url(@project),
+      <div id="archive_completed_items" class="list_action attach_below" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
+    	<%= link_to 'archive completed tasks', archive_completed_tasks_plan_url(@project),
     	 	:'data-ajax_behavior' => 'ajax_link',
     		:'data-ajax_method' => 'GET',
-    		:'data-ajax_success_callback' => "handleRetirementSuccess(true);",
-    		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't retire those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %> &darr;
+    		:'data-ajax_success_callback' => "handleArchivementSuccess(true);",
+    		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %> &darr;
     	</div>
     </div>
   </div>
-	<div id="retired_item_list" <% unless @project.tasks.retired.any? %>style="display:none;"<% end %> class="span-18 last section_margin_top" data-role="list">
-		<div id="retired_item_heading" class="span-18 last">
-			<h2 style="margin-bottom: 0;">You got these done.</h2>
+	<div id="archived_item_list" <% unless @project.tasks.archived.any? %>style="display:none;"<% end %> class="span-18 last section_margin_top" data-role="list">
+		<div id="archived_item_heading" class="span-18 last">
+			<h2>You got these done.</h2>
 		</div>
-		<div id="retired_items_wrapper" class="span-18 last retired section_wrapper">
-			<% for task in @project.tasks.retired %>
+		<div id="archived_items_wrapper" class="span-18 last archived section_wrapper">
+			<% for task in @project.tasks.archived %>
 				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
 					<%= render :partial => '/tasks/show', :locals => {:task => task} %>
 				</div>

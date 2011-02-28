@@ -1,0 +1,40 @@
+<h1>Plan: <% if @project.done? %><span style="text-decoration:line-through;"><% end %> <%= @project.title %><% if @project.done? %></span><% end %></h1>
+<%= render :partial => 'tabs' %>
+<h2>Enter some tasks</h2>
+<%= form_for @task do |f| %>
+		<%= text_field_tag :title_1, '', :id => "inbox_text_field_1" %>
+		<%= text_field_tag :title_2, '', :id => "inbox_text_field_2" %>
+		<%= text_field_tag :title_3, '', :id => "inbox_text_field_3" %>
+		<%= f.hidden_field :project_id %>
+		<%= f.hidden_field :user_id %>
+		<%= f.hidden_field :state, :value => 'active' %>
+		<%= hidden_field_tag :app_context, 'project' %>
+		<%= f.submit "Add tasks to this Plan" %>
+<% end %>
+
+<% unless @project.done? %>
+	<div data-role="list" id="unarchived_items_wrapper">
+		<h2><% if @project.tasks.unarchived.any? %>Get these done.<% else %>No active tasks.<% end %></h2>
+		<% for task in @project.tasks.unarchived.ordered %>
+		  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
+				<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
+			</div>
+		<% end %>
+	</div>
+<% end %>
+<div id="archive_completed_items" class="list_action" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
+	<%= link_to 'archive completed tasks', archive_completed_tasks_plan_url(@project),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_callback' => "handleArchivementSuccess(true);",
+		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %> &darr;
+</div>
+<div id="archived_item_list" <% unless @project.tasks.archived.any? %>style="display:none;"<% end %> data-role="list">
+	<h2>You got these done.</h2>
+		<% for task in @project.tasks.archived %>
+			<div id="task_<%= task.id %>" data-role="list_item" class="section">
+				<%= render :partial => '/tasks/show', :locals => {:task => task} %>
+			</div>
+		<% end %>
+	</div>
+</div>

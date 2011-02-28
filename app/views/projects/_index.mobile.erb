@@ -1,27 +1,23 @@
 <h2>Make a new plan.</h2>
-<div>
 	<% form_for @project, :url => plans_url do |f| %>
-		<div class="span-10">
 			<%= f.text_field :title, :class => "span-9" %>
-		</div>
-		<div class="span-8 last">
 			<%= f.hidden_field :user_id %>
 			<%= f.hidden_field :state, :value => 'active' %>
 			<%= f.submit "Save", :id => "plan_submit_button" %>
-		</div>
 	<% end %>
-</div>
-<% if @this_user.projects.unretired.count > 0 %>
+<% if @this_user.projects.unarchived.count > 0 %>
+  <div class="section">
 	<h2>Active Plans</h2>
-  <div id="retire_completed_items" class="list_action" <% unless @this_user.projects.complete.any? %>style="display: none;"<% end %>>
-  	<%= link_to 'retire completed plans', retire_completed_plans_url,
+	</div>
+  <div id="archive_completed_items" class="list_action" <% unless @this_user.projects.complete.any? %>style="display: none;"<% end %>>
+  	<%= link_to 'archive completed plans', archive_completed_plans_url,
   	 	:'data-ajax_behavior' => 'ajax_link',
   		:'data-ajax_method' => 'GET',
-  		:'data-ajax_success_callback' => "handleRetirementSuccess();" %>
+  		:'data-ajax_success_callback' => "handleArchivementSuccess();" %>
   </div>
-	<div id="unretired_items_wrapper" data-role="list" class="span-18 last section_wrapper" data-behavior="sortable" data-sort_url="<%= sort_plans_url %>">
+	<div id="unarchived_items_wrapper" data-role="list">
 		<% for project in @projects %>
-			<div id="project_<%= project.id %>" class="span-18 last" data-role="list_item">
+			<div id="project_<%= project.id %>" data-role="list_item">
   			<%= render :partial => 'show', :locals => {:project => project, :sortable => true} %>
 			</div>
 		<% end %>
@@ -29,7 +25,7 @@
 	<%= will_paginate @projects %>
 <% else %>
   <h2>You don't have any current plans right now.</h2>
-  <div class="section_wrapper explanatory">
+  <div class="explanatory">
     <p>
       Plans are groups of tasks that work together to accomplish a goal. If I want to sell my old car I could make a plan 'Sell Car'. I could then add tasks 'Fix taillight', 'Research market value', and 'Place ad'. I might need to do those in order or not. For example, I could research the market value before fixing the taillight, but I can't place the ad until both of the others are done.<br/>&nbsp;<br/>
       Sometimes the tasks required to complete a plan can all be done in one sitting, other times tasks require that I be in different locations or have different tools available. In order to efficiently use your time when tools are available or when you're in a certain place like the office or the car, check out the Situations tab to the left. There you find an explanation of how to use situations to increase your efficiency in completing multiple tasks for multiple plans.

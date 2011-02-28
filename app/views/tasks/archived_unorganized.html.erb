@@ -1,11 +1,11 @@
 <div class="span-18 last section_margin_top" id="header_wrapper">
-	<h1>Retired Unorganized Tasks</h1>
+	<h1>Archived Unorganized Tasks</h1>
 </div>
 <div class="span-19 last page_content">
-  <div id="retired_item_heading" class="span-18 last">
+  <div id="archived_item_heading" class="span-18 last">
 		<h2>You got these done.</h2>
 	</div>
-	<div id="retired_items_wrapper" class="span-18 last retired section_wrapper" data-role="list">
+	<div id="archived_items_wrapper" class="span-18 last archived section_wrapper" data-role="list">
 		<% for task in @tasks %>
 			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
 				<%= render :partial => '/tasks/show', :locals => {:task => task} %>

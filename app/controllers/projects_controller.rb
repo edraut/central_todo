@@ -1,20 +1,20 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
-  before_filter :get_project, :only => [:show,:edit,:update,:destroy,:retire_completed_tasks,:sort_tasks]
+  before_filter :get_project, :only => [:show,:edit,:update,:destroy,:archive_completed_tasks,:sort_tasks]
   
   respond_to :html, :mobile
   
   def index
     @project = Project.new(:user_id => @this_user.id)
-    @projects = Project.unretired.ordered.paginate(:page => params[:page], :per_page => 40, :conditions => {:user_id => @this_user.id})
+    @projects = Project.unarchived.ordered.paginate(:page => params[:page], :per_page => 40, :conditions => {:user_id => @this_user.id})
     @sortable = true
     respond_with(@projects) do |format|
       format.any {render :action => 'index' and return}
     end
   end
   
-  def retired
-    @projects = @this_user.projects.retired.by_create_date.paginate(:page => params[:page],:per_page => 40)
+  def archived
+    @projects = @this_user.projects.archived.by_create_date.paginate(:page => params[:page],:per_page => 40)
   end
   
   def sort
@@ -25,9 +25,9 @@ class ProjectsController < ApplicationController
     end
   end
   
-  def retire_completed
+  def archive_completed
     @this_user.projects.complete.each do |project|
-      project.retire
+      project.archive
       project.save
     end
     render :nothing => true and return
@@ -57,19 +57,16 @@ class ProjectsController < ApplicationController
   end
   
   def update
-    if params[:partial]
-      render_type = :partial
-    else
-      render_type = :action
-    end
     @these_params = params[:project].dup
     @state_changed = @project.handle_attributes(@these_params)
     @project.save
+    @item = @project
     if params[:attribute]
+      flash[:ajax_notice] = "Your changes were saved"
       render :partial => 'show_' + params[:attribute], :locals => {:project => @project}, :layout => 'ajax_section' and return
     else
       @item = @project
-      render render_type => 'show', :locals => {:project => @project, :sortable => (params.has_key? :sortable)}, :layout => 'ajax_line_item' and return
+      render @render_type => 'show', :locals => {:project => @project, :sortable => (params.has_key? :sortable)}, :layout => 'ajax_line_item' and return
     end
   end
   
@@ -79,9 +76,9 @@ class ProjectsController < ApplicationController
     redirect_to :action => 'index' and return
   end
   
-  def retire_completed_tasks
+  def archive_completed_tasks
     @project.tasks.complete.each do |task|
-      task.retire
+      task.archive
       task.save
     end
     render :nothing => true and return

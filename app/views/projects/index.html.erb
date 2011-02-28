@@ -15,21 +15,21 @@
 			</div>
 		<% end %>
 	</div>
-	<% if @this_user.projects.unretired.count > 0 %>
+	<% if @this_user.projects.unarchived.count > 0 %>
 	<div class="span-18 last section_margin_top">
     <div class="span-6">
   		<h2>Active Plans</h2>
   	</div>
   	<div class="span-12 last">
-      <div id="retire_completed_items" class="list_action attach_above" <% unless @this_user.projects.complete.any? %>style="display: none;"<% end %>>
-      	<%= link_to 'retire completed plans', retire_completed_plans_url,
+      <div id="archive_completed_items" class="list_action attach_above" <% unless @this_user.projects.complete.any? %>style="display: none;"<% end %>>
+      	<%= link_to 'archive completed plans', archive_completed_plans_url,
       	 	:'data-ajax_behavior' => 'ajax_link',
       		:'data-ajax_method' => 'GET',
-      		:'data-ajax_success_callback' => "handleRetirementSuccess();" %>
+      		:'data-ajax_success_callback' => "handleArchivementSuccess();" %>
       </div>
     </div>
 	</div>
-	<div id="unretired_items_wrapper" data-role="list" class="span-18 last section_wrapper" data-behavior="sortable" data-sort_url="<%= sort_plans_url %>">
+	<div id="unarchived_items_wrapper" data-role="list" class="span-18 last section_wrapper" data-behavior="sortable" data-sort_url="<%= sort_plans_url %>">
 		<% for project in @projects %>
 			<div id="project_<%= project.id %>" class="span-18 last" data-role="list_item">
   			<%= render :partial => 'show', :locals => {:project => project, :sortable => true} %>

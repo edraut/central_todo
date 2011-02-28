@@ -2,7 +2,7 @@
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
 	  <% if @state_changed and @item.active? and @move %>
-      jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>').moveToParent('#unretired_items_wrapper');
+      jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>').moveToParent('#unarchived_items_wrapper');
 	  <% else %>
     	flashBackground('<%= @item.class.name.underscore %>_<%= @item.id %>');
     <% end %>
@@ -11,7 +11,7 @@
 			jQuery('#flash_notice').fadeOut(1000);
 			setTimeout("jQuery('#flash_notice').remove();",1000);
 		}
-		jQuery('#task_<%= task.id %>').after('<div id="flash_notice" style="display:none;" class="span-17 last flash_notice"><%= flash[:ajax_notice] %></div>');
+		jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>').after('<div id="flash_notice" style="display:none;" class="span-17 last flash_notice"><%= flash[:ajax_notice] %></div>');
 		jQuery('#flash_notice').fadeIn(500);
 		setTimeout(clearFlash,3000);
   	<% end %>

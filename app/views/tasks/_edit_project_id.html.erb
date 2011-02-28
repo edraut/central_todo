@@ -4,15 +4,16 @@
 		:'data-ajax_behavior' => 'ajax_form',
 		:'data-ajax_method' => 'PUT',
 		:'data-ajax_success_element' => 'task_project',
-		:'data-ajax_error_element' => 'task_project'
+		:'data-ajax_error_element' => 'task_project',
+		:id => 'edit_task_project_id'
 	} do |f| %>
 	  <%  project_array = @this_user.projects.active
 	      (project_array = project_array | [@task.project]) if @task.project
 	      %>
 		<%= f.select :project_id, [['none',nil]] + project_array.map{|p| [p.title,p.id]}, :class => 'span-9' %>
-		<%= hidden_field_tag 'attribute', 'project_id' %>
-		<%= f.submit 'save' %>
-		<%= link_to 'cancel', task_url(@task),
+		<%= hidden_field_tag 'attribute', 'project_id', :id => 'attribute_project_id' %>
+		<%= f.submit 'save' %> or
+		<%= link_to (@task.project ? 'cancel' : 'leave blank'), task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
 			:'data-ajax_success_element' => 'task_project',

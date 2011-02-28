@@ -1,0 +1,9 @@
+<div class="row_item"><h1>Plan: <%= @project.title %>
+</h1></div>
+<div class="row_item last list_action h2_padding">
+	<%= link_to 'edit title', edit_plan_url(@project, :attribute => 'title'),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'project_title'
+	%>
+</div>

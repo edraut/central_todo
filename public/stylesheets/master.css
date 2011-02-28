@@ -22,7 +22,6 @@ hr {
   color: #6d6c68; }
 
 h1 {
-  color: #8e8d89;
   margin-left: 22px;
   margin-bottom: 20px;
   font-size: 32px; }
@@ -30,10 +29,6 @@ h1 {
 h2 {
   font-size: 22px;
   line-height: 30px; }
-
-h3 {
-  font-size: 20px;
-  line-height: 26px; }
 
 p {
   line-height: 22px; }
@@ -88,14 +83,11 @@ select {
   .section_wrapper a:hover {
     color: #edece8; }
 
-.user_title {
-  color: #5d5c58; }
-
 .section_margin_top {
   margin-top: 20px; }
 
 .section, .explanatory {
-  background-color: #fdfcf8;
+  background-color: #f0f8f8;
   margin-left: -16px;
   padding-left: 16px;
   padding-top: 16px;
@@ -202,7 +194,7 @@ a:hover.selected {
 .overdue, .overdue a {
   color: #ee3434; }
 
-.retired, .retired a {
+.archived, .archived a {
   color: #edece8; }
 
 .flash_notice {

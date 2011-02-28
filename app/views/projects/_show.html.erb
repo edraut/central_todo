@@ -3,12 +3,12 @@
 <%= form_for project, :url => plan_url(project), :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
-	:'data-ajax_success_callback' => "handleRetirementLink();",
+	:'data-ajax_success_callback' => "handleArchivementLink();",
 	:'data-ajax_error_callback' => "jQuery('#project_#{project.id}').append('<div class=\"flash_notice span-15 last\">Ooops! Something went wrong. We're looking into it, but feel free to contact customer support with any concerns.</div>'); setTimeout(\"jQuery('.flash_notice').fadeOut(1000)\",3000);",
 	:'data-ajax_success_element' => "project_#{project.id}"} do |f| %>
 	<div class="span-15">
 		<div class="text_with_check_box_proxy" <% unless project.all_complete %>style="display:none;" data-role="hidden_checkbox"<% end %>>
-  		<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, project.retired? ? 'retired' : 'complete', 'active' %>
+  		<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, project.archived? ? 'archived' : 'complete', 'active' %>
     </div>
     <% unless project.all_complete %><div data-role="checkbox_placeholder"  class="text_with_check_box_proxy text-center"><a href="<%= plan_url(project) %>">-</a></div><% end %>
 		<div class="text_with_check_box_proxy span-8 last">

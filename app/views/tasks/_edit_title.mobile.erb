@@ -7,11 +7,12 @@
 } do |f| %>
 	<%= f.text_field :title %>
 	<%= hidden_field_tag 'attribute', 'title' %>
-	<%= f.submit 'save', :class => 'row_item list_action' %>
+	<%= f.submit 'save title', :class => 'row_item list_action' %>
+	<div class="row_item last list_action"> or
 	<%= link_to 'cancel', task_url(@task),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_element' => 'task_title',
-		:'data-ajax_data' => "{attribute: 'title'}",
-		:class => 'row_item last list_action'%>
+		:'data-ajax_data' => "{attribute: 'title'}"%>
+	</div>
 <% end %>

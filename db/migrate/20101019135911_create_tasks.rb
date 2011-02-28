@@ -5,7 +5,7 @@ class CreateTasks < ActiveRecord::Migration
       t.integer :project_id
       t.integer :situation_id
       t.boolean :complete, :default => :false, :null => :false
-      t.boolean :retired, :default => :false, :null => :false
+      t.boolean :archived, :default => :false, :null => :false
       t.datetime :due_date
       t.text :description
       t.string :type

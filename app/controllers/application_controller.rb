@@ -65,6 +65,7 @@ class ApplicationController < ActionController::Base
   
   def handle_title
     @page_title = controller_name.humanize
+    @html_page_title = controller_name.humanize
   end
   
   def init_ajax_forms

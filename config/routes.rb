@@ -26,17 +26,17 @@ CentralTodo::Application.routes.draw do
   resources :plans, :controller => 'projects' do
     collection do
       get 'sort'
-      get 'retired'
-      get 'retire_completed'
+      get 'archived'
+      get 'archive_completed'
     end
     member do
-      get 'retire_completed_tasks'
+      get 'archive_completed_tasks'
       get 'sort_tasks'
     end
   end
   resources :situations do
     member do
-      get 'retire_completed_tasks'
+      get 'archive_completed_tasks'
     end
   end
   
@@ -45,8 +45,8 @@ CentralTodo::Application.routes.draw do
       get 'priority'
       get 'unorganized'
       get 'due_date'
-      get 'retire_completed'
-      get 'retired_unorganized'
+      get 'archive_completed'
+      get 'archived_unorganized'
     end
     member do
       get 'convert'

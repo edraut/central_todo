@@ -1,6 +1,8 @@
-<h2>Enter a task</h2>
+<h2>Enter some tasks</h2>
 	<%= form_for @task do |f| %>
-			<%= f.text_field :title, :id => "inbox_text_field" %>
+			<%= text_field_tag :title_1, '', :id => "inbox_text_field_1" %>
+			<%= text_field_tag :title_2, '', :id => "inbox_text_field_2" %>
+			<%= text_field_tag :title_3, '', :id => "inbox_text_field_3" %>
 			<%= f.hidden_field :user_id %>
 			<%= f.hidden_field :state, :value => 'active' %>
 			<%= f.submit "Add it to the list.", :id => "inbox_submit_button" %>
@@ -16,7 +18,7 @@
   </div>
   <% end %>
 	<% for task in @this_user.tasks.active.unorganized.recent.five %>
-		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>">
+		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
 		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized'} %>
 		</div>
 	<% end %>
@@ -37,7 +39,7 @@
   <div data-role="list">
     <h2>High Priority</h2>
 		<% for task in @this_user.tasks.active.priority.recent.five %>
-			<div id="priority_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>">
+			<div id="priority_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
 			<%= render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'priority'} %>
 			</div>
 		<% end %>

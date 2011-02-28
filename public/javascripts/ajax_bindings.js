@@ -6,7 +6,6 @@ function bindAjaxEvents(context){
 	}
 	jQuery("[data-ajax_behavior='ajax_form']",target_document).die()
 	jQuery("[data-ajax_behavior='ajax_link']",target_document).die();
-	jQuery("[data-ajax_behavior='ajax_link']",target_document).unbind();
 	jQuery("[data-ajax_behavior='ajax_form']",target_document).live('submit', {element_type:'form'}, ajaxEvent);
 	jQuery("[data-ajax_behavior='ajax_link']",target_document).live('click', {element_type:'link'}, ajaxEvent);
 	jQuery("[data-ajax_behavior='ajax_form']").preventDoubleSubmit();
@@ -17,6 +16,9 @@ function ajaxEvent(e){
 	if( element_type == 'link' && (our_element.attr('nodeName').toUpperCase() != 'A') && (our_element.attr('nodeName').toUpperCase() != 'DIV') ){
 		our_element = our_element.parents('a');
 	};
+	if(element_type == 'form' && (our_element.attr('nodeName').toUpperCase() != 'FORM')){
+		our_element = our_element.parents('form');
+	}
 	var our_parameters = {
 		type: our_element.attr('data-ajax_method'),
 		dataType: 'html',

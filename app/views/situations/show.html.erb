@@ -20,16 +20,16 @@
 			</div>
 		<% end %>
 	</div>
-	<div id="unretired_item_list" class="span-18 last">
+	<div id="unarchived_item_list" class="span-18 last">
 		<div id="task_list_heading" class="span-18 last">
-			<div id="unretired_item_heading" class="span-6">
+			<div id="unarchived_item_heading" class="span-6">
 				<h2>Get these done.</h2>
 			</div>
 			<div class="span-12 last">
       	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
       </div>
 		</div>
-		<div id="unretired_items_wrapper" class="span-18 last section_wrapper" data-role="list">
+		<div id="unarchived_items_wrapper" class="span-18 last section_wrapper" data-role="list">
 			<% for task in @tasks %>
 				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
 					<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>

@@ -1,12 +1,13 @@
-<%= form_for task, :html => {
+<%= form_for @task, :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
-	:'data-ajax_success_element' => "show_done"} do |f| %>
+	:'data-ajax_success_element' => "task_done",
+	:id => 'edit_task_done'} do |f| %>
 	<div class="text_with_check_box_proxy">
-	<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, task.retired? ? 'retired' : 'complete', 'active' %>
-  <%= hidden_field_tag 'attribute','done' %>
+	<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, @task.archived? ? 'archived' : 'complete', 'active' %>
+  <%= hidden_field_tag 'attribute','done', :id => 'attribute_done' %>
   </div>
   <div class="text_with_check_box_proxy">
-    finished
+    task accomplished
   </div>
 <% end %>

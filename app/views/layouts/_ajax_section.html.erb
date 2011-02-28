@@ -1,4 +1,15 @@
 <%= yield %>
 <%= javascript_tag do %>
-	roundCorners();
+	jQuery(document).ready(function(){
+	  roundCorners();
+  	<% unless flash[:ajax_notice].blank? %>
+  	function clearFlash(){
+  		jQuery('#flash_notice').fadeOut(500);
+  		setTimeout("jQuery('#flash_notice').remove();",500);
+  	}
+  	jQuery('#<%= @item.class.name.underscore %>_<%= params[:attribute] %>').append('<div id="flash_notice" style="display:none;" class="flash_notice"><%= flash[:ajax_notice] %></div>');
+  	jQuery('#flash_notice').fadeIn(500);
+  	setTimeout(clearFlash,2000);
+  	<% end %>
+	});
 <% end %>

@@ -2,7 +2,9 @@ function bindLinkToForm(){
     jQuery("[data-behavior='link_to_form']").live('click',function(e){
         var form_string = jQuery('<form method="post" action="' + jQuery(e.target).attr('href') +'" style="display: none;"><input type="hidden" name="authenticity_token" value="'+ authenticity_token + '"><input type="hidden" name="_method" value="' + jQuery(e.target).attr('data-method') + '"></form>');
         jQuery(e.target).after(form_string);
-        form_string.submit();
+		if(jQuery(e.target).attr('data-confirm') && confirm(jQuery(e.target).attr('data-confirm'))){
+	        form_string.submit();
+		}
         e.preventDefault();
         return false;
     });

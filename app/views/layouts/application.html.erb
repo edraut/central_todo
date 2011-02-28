@@ -51,7 +51,7 @@
 						  <div class="hover_nav_pointer">&rarr;</div>
 						  <% end %>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Unorganized(#{@this_user.tasks.unretired.unorganized.count})", tasks_url, :class => (action_name == 'index' and controller_name == 'tasks') ? 'selected' : '' %>
+								<%= link_to "Unorganized(#{@this_user.tasks.unarchived.unorganized.count})", tasks_url, :class => (action_name == 'index' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
 							<div class="vert-line-subnav-wrapper">
 								<%= link_to "Priority(#{@this_user.tasks.active.priority.count})", priority_tasks_url, :class => (action_name == 'priority' and controller_name == 'tasks') ? 'selected' : '' %>
@@ -61,9 +61,9 @@
 								<%= link_to "By Due Date(#{@this_user.tasks.active.with_due_date.count})", due_date_tasks_url, :class => (action_name == 'due_date' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
 							<% end %>
-							<% if @this_user.tasks.unorganized.retired.count > 0 %>
+							<% if @this_user.tasks.unorganized.archived.count > 0 %>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Retired(#{@this_user.tasks.retired.unorganized.count})", retired_unorganized_tasks_url, :class => (action_name == 'retired_unorganized' and controller_name == 'tasks') ? 'selected' : '' %>
+								<%= link_to "Archived(#{@this_user.tasks.archived.unorganized.count})", archived_unorganized_tasks_url, :class => (action_name == 'archived_unorganized' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
 							<% end %>
 						</div>
@@ -77,10 +77,10 @@
 						  <div class="hover_nav_pointer">&rarr;</div>
 						  <% end %>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Active(#{@this_user.projects.unretired.count})", plans_url, :class => (controller_name == 'projects' and action_name == 'index') ? 'selected' : '' %>
+								<%= link_to "Active(#{@this_user.projects.unarchived.count})", plans_url, :class => (controller_name == 'projects' and action_name == 'index') ? 'selected' : '' %>
 							</div>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Retired(#{@this_user.projects.retired.count})", retired_plans_url, :class => (controller_name == 'projects' and action_name == 'retired') ? 'selected' : '' %>
+								<%= link_to "Archived(#{@this_user.projects.archived.count})", archived_plans_url, :class => (controller_name == 'projects' and action_name == 'archived') ? 'selected' : '' %>
 							</div>
             </div>
 					</div>

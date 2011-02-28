@@ -19,6 +19,7 @@ $white: #FCFCFA;
 @mixin full-width {
   position: relative;
   width: 100%;
+  float: left;
 }
 body {
 	background-color: $light-gray;
@@ -42,10 +43,13 @@ textarea {
   width: 100%;
 }
 .section {
-  position:relative;
-  float:left;
   @include full-width;
   border-bottom: 1px solid $gray;
+}
+div.borderless.section {
+  border: none;
+  @include full-width;
+  clear: both;
 }
 .user_title {
   font-size: 20px;
@@ -62,8 +66,6 @@ textarea {
 }
 .row {
   @include full-width;
-  height: 3.5em;
-  overflow: hidden;
 }
 .row_item {
   position: relative;
@@ -104,10 +106,16 @@ textarea {
     width: 2em;
   }
 }
-.row_item.variable_text{
-  height: 1.2em;
+@mixin variable_text {
+  margin-bottom: 1.1em;
+}
+.row_item.task_variable_text{
+  @include variable_text;
   width: 50%;
-  overflow: hidden;
+}
+.row_item.project_variable_text{
+  @include variable_text;
+  width: 70%;
 }
 .row_item.h2_padding {
   padding-top: 1.5em;
@@ -130,10 +138,7 @@ textarea {
 
 .row_item.delete{
   position:relative;
-  top: -.3em;
   font-size: 1.8em;
-}
-.list_action .row_item.delete {
   top: .3em;
 }
 .ui-bar-a.mytime {

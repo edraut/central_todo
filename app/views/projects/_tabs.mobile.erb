@@ -1,0 +1,7 @@
+<div data-role="navbar" class="borderless section">
+  <ul>
+  <li><%= link_to 'show task list', plan_url(@project), :class => ((action_name == 'show') ? 'selected' : '') %></li>
+  <li><%= link_to 'edit plan', edit_plan_url(@project), :class => ((action_name == 'edit') ? 'selected' : '') %></li>
+  </ul>
+</div>
+<div class="borderless section">&nbsp;</div>

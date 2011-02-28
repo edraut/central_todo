@@ -1,12 +1,13 @@
 <%= form_for project, :url => plan_url(project), :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
-	:'data-ajax_success_element' => "show_done"} do |f| %>
+	:'data-ajax_success_element' => "project_done",
+	:id => 'edit_project_done'} do |f| %>
 	<div class="text_with_check_box_proxy">
-	<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, project.retired? ? 'retired' : 'complete', 'active' %>
+	<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, project.archived? ? 'archived' : 'complete', 'active' %>
   <%= hidden_field_tag 'attribute','done' %>
   </div>
   <div class="text_with_check_box_proxy">
-    finished
+    mark as completed
   </div>
 <% end %>

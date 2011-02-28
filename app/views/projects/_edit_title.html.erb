@@ -5,7 +5,8 @@
   	:'data-ajax_behavior' => 'ajax_form',
   	:'data-ajax_method' => 'PUT',
   	:'data-ajax_success_element' => 'project_title',
-  	:'data-ajax_error_element' => 'project_title'
+  	:'data-ajax_error_element' => 'project_title',
+  	:id => 'edit_project_title'
   } do |f| %>
   	<%= f.text_field :title, :class => 'span-11' %>
   	<%= hidden_field_tag 'attribute', 'title' %>

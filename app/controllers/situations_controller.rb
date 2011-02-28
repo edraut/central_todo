@@ -1,6 +1,6 @@
 class SituationsController < ApplicationController
   before_filter :require_user
-  before_filter :get_situation, :only => [:show,:edit,:update,:destroy,:retire_completed_tasks,:sort_tasks]
+  before_filter :get_situation, :only => [:show,:edit,:update,:destroy,:archive_completed_tasks,:sort_tasks]
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
   respond_to :html, :mobile
   
@@ -38,11 +38,11 @@ class SituationsController < ApplicationController
     end
   end
   
-  def retire_completed_tasks
-    if @situation.tasks.complete.update_all :retired => true
+  def archive_completed_tasks
+    if @situation.tasks.complete.update_all :archived => true
       render :nothing => true and return
     else
-      render :text => "Oops! We couldn't retire those completed tasks, please contact customer support.", :status => 500
+      render :text => "Oops! We couldn't archive those completed tasks, please contact customer support.", :status => 500
     end
   end
   

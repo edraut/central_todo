@@ -2,7 +2,7 @@
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
 	  <% if @state_changed and @item.active? and @move %>
-      jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>').moveToParent('#unretired_items_wrapper');
+      jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>').moveToParent('#unarchived_items_wrapper');
 	  <% else %>
       flashBackground('<%= @item.class.name.underscore %>_<%= @item.id %>');
     <% end %>

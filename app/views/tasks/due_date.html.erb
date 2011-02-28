@@ -2,7 +2,7 @@
 	<h1>Scheduled Tasks</h1>
 </div>
 <div class="span-19 last page_content">
-	<div id="retired_items_wrapper" class="span-18 last section_wrapper" data-role="list">
+	<div id="archived_items_wrapper" class="span-18 last section_wrapper" data-role="list">
 		<% for task in @tasks %>
 			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
 				<%= render :partial => '/tasks/show', :locals => {:task => task, :due_date => true} %>

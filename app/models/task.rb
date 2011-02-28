@@ -26,22 +26,22 @@ class Task < ActiveRecord::Base
   scope :twenty_five, :limit => 25
   scope :active, :conditions => "tasks.state = 'active'"
   scope :complete, :conditions => {:state => 'complete'}
-  scope :unretired, :conditions => "tasks.state != 'retired' and tasks.state != 'cooler'"
-  scope :retired, :conditions => {:state => 'retired'}
-  scope :done, :conditions => "(tasks.state = 'complete' or tasks.state = 'retired')"
+  scope :unarchived, :conditions => "tasks.state != 'archived' and tasks.state != 'cooler'"
+  scope :archived, :conditions => {:state => 'archived'}
+  scope :done, :conditions => "(tasks.state = 'complete' or tasks.state = 'archived')"
   #special behaviors
   state_machine :initial => :active, :action => nil do
     state :active
     state :complete
-    state :retired
+    state :archived
     event :activate do
       transition all => :active
     end
     event :finish do
       transition :active => :complete
     end
-    event :retire do
-      transition :complete => :retired
+    event :archive do
+      transition :complete => :archived
     end
   end
   #validations
@@ -55,7 +55,7 @@ class Task < ActiveRecord::Base
   #instance methods
 
   def done?
-    self.complete? or self.retired?
+    self.complete? or self.archived?
   end
   
   def overdue?
@@ -72,12 +72,12 @@ class Task < ActiveRecord::Base
       new_attributes[:'due_date(4i)'] = '12'
     end
     self.attributes = new_attributes
-    if new_state == self.state
+    if new_state.nil? or new_state == self.state
       return false
     else
       case new_state
-      when 'retired'
-        self.retire
+      when 'archived'
+        self.archive
       when 'complete'
         self.finish
       when 'active'
