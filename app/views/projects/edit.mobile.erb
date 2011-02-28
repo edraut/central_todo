@@ -1,0 +1,14 @@
+<div id="project_title" class="borderless section">
+	<%= render :partial => 'show_title' %>
+</div>
+<%= render :partial => 'tabs' %>
+<div class="section">
+  <div id="project_delete" class="list_action attributes"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
+  <div id="project_done" class="list_action attributes last"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
+</div>
+<div id="project_description" class="section">
+	<%= render :partial => @project.description.blank? ? 'edit_description' : 'show_description' %>
+</div>
+<div id="project_due_date" class="section">
+	<%= render :partial => @project.due_date.blank? ? 'edit_due_date' : 'show_due_date' %>
+</div>
