@@ -1,10 +1,10 @@
-<div class="row_item delete" >
+<div class="row_item delete list_action">
 <%= form_for @task, :html => {
   :id => 'edit_task_delete'
 } do |f| %>
-<div onclick="void(0)" data-role="delete">&otimes;</div>
+<div onclick="void(0)" data-role="delete">&otimes;&nbsp;</div>
 <% end %>
 </div>
-<div class="row_item last text_with_check_box_proxy">
-delete task
+<div class="row_item last list_action text_with_check_box_proxy">
+delete task&nbsp;
 </div>

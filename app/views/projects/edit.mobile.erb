@@ -2,9 +2,13 @@
 	<%= render :partial => 'show_title' %>
 </div>
 <%= render :partial => 'tabs' %>
-<div class="section">
-  <div id="project_delete" class="list_action attributes"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
-  <div id="project_done" class="list_action attributes last"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
+<div class="section controls">
+  <div id="project_delete" class="row_item list_action last"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
+  <% if @project.all_complete %>
+  <div id="project_done" class="row_item last"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
+  <% else %>
+  <div id="project_done" class="row_item last text_with_check_box_proxy">-in progress</div>
+  <% end %>
 </div>
 <div id="project_description" class="section">
 	<%= render :partial => @project.description.blank? ? 'edit_description' : 'show_description' %>

@@ -25,10 +25,20 @@
 	<%= will_paginate @projects %>
 <% else %>
   <h2>You don't have any current plans right now.</h2>
+  <% if @this_user.show_help_text %>
   <div class="explanatory">
     <p>
       Plans are groups of tasks that work together to accomplish a goal. If I want to sell my old car I could make a plan 'Sell Car'. I could then add tasks 'Fix taillight', 'Research market value', and 'Place ad'. I might need to do those in order or not. For example, I could research the market value before fixing the taillight, but I can't place the ad until both of the others are done.<br/>&nbsp;<br/>
       Sometimes the tasks required to complete a plan can all be done in one sitting, other times tasks require that I be in different locations or have different tools available. In order to efficiently use your time when tools are available or when you're in a certain place like the office or the car, check out the Situations tab to the left. There you find an explanation of how to use situations to increase your efficiency in completing multiple tasks for multiple plans.
     </p>
   </div>
+  <% end %>
+<% end %>
+<% unless @project.all_complete %>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    jQuery("[data-role='checkbox_placeholder']").css('margin-left',jQuery("[data-role='hidden_checkbox']").find("input[type='checkbox']").position().left);
+    jQuery("[data-role='hidden_checkbox']").hide();
+  });
+<% end %>
 <% end %>

@@ -68,7 +68,8 @@ class TasksController < ApplicationController
 
   def show
     @item = @task
-    return handle_attribute_partials('show')
+    return if handle_attribute_partials('show')
+    @html_page_title = @page_title = 'Task'
     respond_with(@task)
   end
   
@@ -89,10 +90,12 @@ class TasksController < ApplicationController
     @task.update_attributes(@these_params)
     @item = @task
     if params[:attribute]
-      if @state_changed
-        flash.now[:ajax_notice] = "Saved!"
-      else
-        flash.now[:ajax_notice] = "Your changes were saved"
+      if !@state_changed
+        if params[:attribute] == 'priority'
+          flash.now[:ajax_notice] = "Saved!"
+        else
+          flash.now[:ajax_notice] = "Your changes were saved"
+        end
       end
       respond_with(@task) do | format |
         format.any {render :partial => 'show_' + params[:attribute], :locals => {:task => @task, :foo => 'bar'}, :layout => 'ajax_section' and return}

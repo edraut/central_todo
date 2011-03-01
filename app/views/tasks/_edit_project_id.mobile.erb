@@ -11,14 +11,12 @@
 	<%= f.select :project_id, [['none',nil]] + project_array.map{|p| [p.title,p.id]} %>
 		<%= hidden_field_tag 'attribute', 'project_id' %>
   	<%= hidden_field_tag '_method', 'put' %>
-    <div class="row">
-		<%= f.submit 'save', :class => 'row_item list_action' %>
-  	<div class="row_item last list_action"> or
+  	<div class="row_item last list_action">&nbsp;or
 		<%= link_to 'cancel', task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
 			:'data-ajax_success_element' => 'task_project',
 			:'data-ajax_data' => "{attribute: 'project_id'}"%>
 		</div>
-		</div>
+		<%= f.submit 'save', :class => 'row_item list_action' %>
 	<% end %>

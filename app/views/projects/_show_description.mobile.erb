@@ -10,9 +10,9 @@
 		:'data-ajax_data' => "{'attribute':'description'}"
 	%>
 </div>
-<% unless @project.description.blank? %>
-<p>
-  <%= @project.description %>
-</p>
-<% end %>  
 </div>
+<% unless @project.description.blank? %>
+<div class="block">
+  <%= @project.description %>
+</div>
+<% end %>  

@@ -289,6 +289,9 @@ a:hover.selected {
 	height: $line-height;
 	overflow: hidden;
 }
+.in_header{
+  margin-top: 3px;
+}
 .sortable_drag_handle {
 	cursor: move;
 }
@@ -299,6 +302,9 @@ a:hover.selected {
 }
 a:hover[data-role=delete].delete {
 	color: $carmine;
+}
+.completed {
+  text-decoration:line-through;
 }
 // These classes define reusable design elements
 

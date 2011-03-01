@@ -8,12 +8,12 @@
 	<%= f.text_field :title %>
 	<%= hidden_field_tag 'attribute', 'title' %>
 	<%= hidden_field_tag '_method', 'put' %>
-	<%= f.submit 'save title', :class => 'row_item list_action' %>
-	<div class="row_item last list_action"> or
+	<div class="row_item last list_action">&nbsp;or
 	<%= link_to 'cancel', plan_url(@project),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_element' => 'project_title',
 		:'data-ajax_data' => "{attribute: 'title'}"%>
 	</div>
+	<%= f.submit 'save title', :class => 'row_item list_action', :'data-role' => 'none' %>
 <% end %>

@@ -19,6 +19,7 @@ class Project < ActiveRecord::Base
 
   state_machine :initial => :active, :action => nil do
     after_transition :on => :archive, :do => :handle_task_state
+    after_transition :on => :finish, :do => :handle_task_state
     state :active
     state :complete
     state :archived
@@ -72,7 +73,7 @@ class Project < ActiveRecord::Base
   
   def handle_task_state
     self.tasks.each do |task|
-      task.state = 'archived'
+      task.archive
       task.save
     end
   end

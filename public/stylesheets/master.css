@@ -15,6 +15,9 @@ a:hover {
 a.quiet, div.quiet, span.quiet {
   font-size: 12px; }
 
+div.quiet, span.quiet {
+  color: #90b0b0; }
+
 a.loud, div.loud, span.loud {
   font-size: 18px; }
 
@@ -22,6 +25,7 @@ hr {
   color: #6d6c68; }
 
 h1 {
+  color: #8e8d89;
   margin-left: 22px;
   margin-bottom: 20px;
   font-size: 32px; }
@@ -29,6 +33,10 @@ h1 {
 h2 {
   font-size: 22px;
   line-height: 30px; }
+
+h3 {
+  font-size: 20px;
+  line-height: 26px; }
 
 p {
   line-height: 22px; }
@@ -82,6 +90,9 @@ select {
   background-color: #bdbcb8; }
   .section_wrapper a:hover {
     color: #edece8; }
+
+.user_title {
+  color: #5d5c58; }
 
 .section_margin_top {
   margin-top: 20px; }
@@ -137,7 +148,7 @@ select {
   top: -2px; }
 
 .selected a {
-  color: #111111; }
+  color: #0d0c08; }
 
 .selected a:hover {
   color: #bdbcb8; }
@@ -146,7 +157,7 @@ a.selected {
   font-weight: bold; }
 
 a:hover.selected {
-  color: #111111; }
+  color: #0d0c08; }
 
 .list_action {
   position: relative;
@@ -163,7 +174,7 @@ a:hover.selected {
 
 .list_action.selected {
   background-color: #dddcd8;
-  color: #111111;
+  color: #0d0c08;
   font-weight: bold; }
 
 .attach_above {
@@ -198,10 +209,14 @@ a:hover.selected {
   color: #edece8; }
 
 .flash_notice {
-  background-color: #ddf5f5;
+  border: 1px solid #bdbcb8;
+  background-color: #fdfcf8;
   text-align: center;
-  width: 100%;
-  position: relative; }
+  position: absolute;
+  width: 90%;
+  top: 40%;
+  left: 5%;
+  z-index: 10; }
 
 .checked {
   color: #ee3434; }
@@ -228,6 +243,9 @@ a:hover.selected {
   height: 30px;
   overflow: hidden; }
 
+.in_header {
+  margin-top: 3px; }
+
 .sortable_drag_handle {
   cursor: move; }
 
@@ -238,6 +256,9 @@ a:hover.selected {
 
 a:hover[data-role=delete].delete {
   color: #ee3434; }
+
+.completed {
+  text-decoration: line-through; }
 
 .text-right {
   text-align: right; }

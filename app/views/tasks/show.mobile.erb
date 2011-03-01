@@ -2,9 +2,8 @@
 <div id="task_title" class="section">
 	<%= render :partial => 'show_title' %>
 </div>
-<div class="section">
-<div id="task_delete" class="list_action attributes"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
-<div id="task_done" class="list_action attributes last"><%= render :partial => 'show_done', :locals => {:task => @task} %></div>
+<div class="section controls">
+<div id="task_priority"><%= render :partial => 'show_priority' %></div><div id="task_delete"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
 </div>
 <div id="task_description" class="section">
 	<%= render :partial => 'show_description' %>

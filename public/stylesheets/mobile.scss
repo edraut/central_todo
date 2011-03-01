@@ -41,15 +41,40 @@ a:hover {
 }
 textarea {
   width: 100%;
+  margin-bottom: 1em;
+}
+select {
+  margin-bottom: 2em;
+}
+.mytime input[type="text"]{
+  margin-bottom: 1em;
+}
+.mytime input[type="submit"]{
+  font-size: 1em;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 2em;
+  -moz-border-radius: 2em;
+  -webkit-border-radius: 2em;
+  -webkit-appearance: none;
+}
+.mytime input[type="submit"].list_action{
+  margin-top: -.4em;
+  margin-bottom: .5em;
 }
 .section {
-  @include full-width;
-  border-bottom: 1px solid $gray;
-}
-div.borderless.section {
   border: none;
   @include full-width;
   clear: both;
+  border-bottom: 1px solid $gray
+}
+div.section.borderless {
+  border: none;
+}
+.block {
+  position: relative;
+  float: left;
+  width: 100%;
 }
 .user_title {
   font-size: 20px;
@@ -67,27 +92,16 @@ div.borderless.section {
 .row {
   @include full-width;
 }
+.controls {
+  background-color: $gray;
+  border-left: 1px solid $gray;
+  border-right: 1px solid $gray;
+}
 .row_item {
   position: relative;
   float: left;
   z-index: 0;
   display: inline-block;
-  margin-right: .6em;
-  .ui-checkbox{
-    float: left;
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    z-index: 0;
-    input {
-      position: relative;
-      left: 0;
-      top: 0;
-      margin: 0;
-      z-index: 0;
-      width: auto;
-    }
-  }
 }
 .list_action {
   position:relative;
@@ -99,26 +113,39 @@ div.borderless.section {
 }
 .row_item.text_with_check_box_proxy{
   margin-top: 1.1em;
-  margin-right: 1.2em;
-  input[type="checkbox"] {
-    margin-top: -.1em;
+  margin-bottom: 1.1em;
+}
+.check_box{
+  width: 18%;
+  margin-right: 0;
+  margin-top: .85em;
+  input[type="checkbox"]{
     height: 2em;
     width: 2em;
   }
+  .checkbox_placeholder{
+    margin-left: 3px;
+  }
 }
+
 @mixin variable_text {
+  width: 64%;
+}
+.row_item.line_variable_text{
+  @include variable_text;
   margin-bottom: 1.1em;
 }
-.row_item.task_variable_text{
+.row_item.header_variable_text{
   @include variable_text;
-  width: 50%;
 }
-.row_item.project_variable_text{
-  @include variable_text;
-  width: 70%;
+.project_variable_text {
+  width: 82%;
 }
 .row_item.h2_padding {
   padding-top: 1.5em;
+}
+.row_item.check_box.h2_padding {
+  padding-top: .5em;
 }
 .row_item.h3_padding {
   padding-top: 1.2em;
@@ -127,19 +154,32 @@ div.borderless.section {
   margin-top: -.15em;
   font-size: 2.5em;
   line-height: 1.4em;
+  width: 18%;
 }
-.row_item .check_box_proxy.in_header {
-  margin-top: 0;
-  font-size: 40px;
+.controls .check_box_proxy {
+  width: auto;
 }
 .check_box_proxy.checked {
 	color: $carmine;
 }
-
+.control_font {
+  margin-top: .35em;
+  font-size: 2em;
+}
 .row_item.delete{
   position:relative;
   font-size: 1.8em;
   top: .3em;
+}
+.attach_bottom {
+  border-bottom: 1px solid $gray;
+  border-left: 1px solid $gray;
+  border-right: 1px solid $gray;
+  margin-top: 0;
+  margin-bottom: .5em;
+}
+.archived a{
+  color: $paper;
 }
 .ui-bar-a.mytime {
   background: $taupe;
@@ -173,7 +213,9 @@ div.borderless.section {
 .mytime div.last{
   margin-right: 0;
 }
-
+.text_center {
+  text-align: center;
+}
 .section_margin_top {
   margin-top: 1em;
 }

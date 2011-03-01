@@ -8,14 +8,13 @@
 	<%= f.select :situation_id, [['none',nil]] + @this_user.situations.map{|p| [p.title,p.id]} %>
 		<%= hidden_field_tag 'attribute', 'situation_id' %>
   	<%= hidden_field_tag '_method', 'put' %>
-    <div class="row">
-		<%= f.submit 'save', :class => 'row_item list_action' %>
-  	<div class="row_item last list_action"> or
+  	<div class="last list_action">&nbsp;or
 		<%= link_to 'cancel', task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
 			:'data-ajax_success_element' => 'task_situation',
 			:'data-ajax_data' => "{attribute: 'situation_id'}"%>
 		</div>
+		<%= f.submit 'save', :class => 'list_action' %>
 		</div>
 	<% end %>

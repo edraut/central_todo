@@ -1,31 +1,8 @@
 /* All Code Copyright 2008 Eric Draut all rights reserved
 */
-function getActualLinkTarget(alleged_link_target){
-	if (alleged_link_target.is('a')){
-		return alleged_link_target;
-	} else {
-		return alleged_link_target.parents('a');
-	}
-}
 function vertCenterDiv(div, parent){
 	div.css('margin-top',(parent.height() - div.height()) / 2)
 }
-function bindExpanders(){
-	jQuery(document).ready(function(){
-		jQuery("[data-behavior='expander'][data-action='expand']").unbind('click');
-		jQuery("[data-behavior='expander'][data-action='expand']").click(function(e){
-			actual_target = getActualLinkTarget(jQuery(e.target));
-			jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + actual_target.attr('data-id') + "']").show();
-			jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + actual_target.attr('data-id') + "']").hide();
-		});
-		jQuery("[data-behavior='expander'][data-action='contract']").unbind('click');
-		jQuery("[data-behavior='expander'][data-action='contract']").click(function(e){
-			actual_target = getActualLinkTarget(jQuery(e.target));
-			jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + actual_target.attr('data-id') + "']").hide();
-			jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + actual_target.attr('data-id') + "']").show();
-		});
-	});
-};
 function bindSortables(){
 	jQuery("[data-behavior='sortable']").sortable({
 		update: function(e,ui){
