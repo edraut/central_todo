@@ -49,7 +49,7 @@ class Project < ActiveRecord::Base
   end
   
   def all_complete
-    self.tasks.count == self.tasks.done.count
+    (self.tasks.count == self.tasks.done.count) && (self.tasks.count > 0)
   end
   
   def handle_attributes(new_attributes)

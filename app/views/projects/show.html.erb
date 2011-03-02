@@ -61,12 +61,13 @@
 			<h2>You got these done.</h2>
 		</div>
 		<div id="archived_items_wrapper" class="span-18 last archived section_wrapper">
-			<% for task in @project.tasks.archived %>
+			<% for task in @archived_tasks %>
 				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
 					<%= render :partial => '/tasks/show', :locals => {:task => task} %>
 				</div>
 			<% end %>
 		</div>
+		<%= will_paginate @archived_tasks %>
 	</div>
 </div>
 <%= javascript_tag do %>

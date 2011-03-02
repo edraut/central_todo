@@ -42,8 +42,10 @@ class ProjectsController < ApplicationController
   def show
     @item = @project
     return if handle_attribute_partials('show')
+    @html_page_title = @page_title = 'Plan'
     @sortable = true
     @task = Task.new(:user_id => @this_user.id, :project_id => @project.id)
+    @archived_tasks = @project.tasks.archived.ordered.paginate(:page => params[:page], :per_page => 40)
     if params[:_method]
       if ['PUT','put'].include? params[:_method]
         update and return
@@ -63,7 +65,10 @@ class ProjectsController < ApplicationController
     @item = @project
     if params[:attribute]
       flash[:ajax_notice] = "Your changes were saved"
-      render :partial => 'show_' + params[:attribute], :locals => {:project => @project}, :layout => 'ajax_section' and return
+      respond_with(@project) do | format |
+        format.any {render :partial => 'show_' + params[:attribute], :locals => {:project => @project}, :layout => 'ajax_section' and return}
+      end
+      return
     else
       @item = @project
       render @render_type => 'show', :locals => {:project => @project, :sortable => (params.has_key? :sortable)}, :layout => 'ajax_line_item' and return
@@ -115,5 +120,9 @@ class ProjectsController < ApplicationController
       flash[:notice] = "You don't have privileges to access that project."
       redirect_to root_url and return
     end
+  end
+  
+  def handle_title
+    @html_page_title = @page_title = 'Plans'
   end
 end

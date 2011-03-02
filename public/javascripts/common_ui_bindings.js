@@ -97,6 +97,7 @@ function bindExpanders(){
 			actual_target = getActualLinkTarget(jQuery(e.target));
 			jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + actual_target.attr('data-id') + "']").hide();
 			jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + actual_target.attr('data-id') + "']").show();
+			setTimeout('jQuery("h2:first").mouseup();',100);
 		});
 	});
 };

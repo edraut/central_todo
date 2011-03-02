@@ -50,5 +50,7 @@ function handleArchivementSuccess(move){
 						jQuery(this).remove();})
 	}
 	setTimeout(handleArchivementLink,2500);
-	setTimeout(roundCorners,1500);
+	if(typeof(roundCornders) != 'undefined'){
+		setTimeout(roundCorners,1500);
+	}
 }

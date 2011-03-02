@@ -18,6 +18,7 @@ class SituationsController < ApplicationController
   def show
     @item = @situation
     return if handle_attribute_partials('show')
+    @html_page_title = @page_title = 'Situation'
     @sortable = true
     @task = Task.new(:user_id => @this_user.id, :situation_id => @situation.id)
     @tasks = @situation.tasks.active.ordered.paginate(:page => params[:page],:per_page => 40)
@@ -30,9 +31,13 @@ class SituationsController < ApplicationController
   end
   
   def update
+    @item = @situation
     @situation.update_attributes(params[:situation])
     if params[:attribute]
-      render :partial => 'show_' + params[:attribute], :locals => {:situation => @situation}, :layout => 'ajax_section' and return
+      respond_with(@situation) do | format |
+        format.any {render :partial => 'show_' + params[:attribute], :locals => {:situation => @situation}, :layout => 'ajax_section' and return}
+      end
+      return
     else
       render :action => 'show' and return
     end

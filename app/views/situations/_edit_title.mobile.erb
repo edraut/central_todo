@@ -1,0 +1,19 @@
+<h2>Situation:</h2>
+<%= form_for @situation, :url => situation_url(@situation), :html => {
+	:'data-ajax_behavior' => 'ajax_form',
+	:'data-ajax_method' => 'PUT',
+	:'data-ajax_success_element' => 'situation_title',
+	:'data-ajax_error_element' => 'situation_title'
+} do |f| %>
+	<%= f.text_field :title %>
+	<%= hidden_field_tag 'attribute', 'title' %>
+	<%= hidden_field_tag '_method', 'put' %>
+	<div class="row_item last list_action">&nbsp;or
+	<%= link_to 'cancel', plan_url(@situation),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'situation_title',
+		:'data-ajax_data' => "{attribute: 'title'}"%>
+	</div>
+	<%= f.submit 'save title', :class => 'row_item list_action', :'data-role' => 'none' %>
+<% end %>
