@@ -7,14 +7,18 @@
 		:'data-ajax_error_element' => 'task_situation',
 		:id => 'edit_task_situation_id'
 	} do |f| %>
-		<%= f.select :situation_id, [['none',nil]] + Situation.all.map{|p| [p.title,p.id]},:class => 'span-9' %>
+	  <div class="span-13">
+		<%= f.select :situation_id, [['none',nil]] + Situation.all.map{|p| [p.title,p.id]},{},:class => 'span-9' %>
+		</div>
 		<%= hidden_field_tag 'attribute', 'situation_id', :id => 'attribute_situation_id' %>
   	<%= hidden_field_tag '_method', 'put' %>
+  	<div class="span-5 last">
 		<%= f.submit 'save' %> or
 		<%= link_to (@task.situation ? 'cancel' : 'leave blank'), task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
 			:'data-ajax_success_element' => 'task_situation',
 			:'data-ajax_data' => "{attribute: 'situation_id'}"%>
+		</div>
 	<% end %>
 </div>

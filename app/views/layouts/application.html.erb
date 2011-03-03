@@ -72,10 +72,15 @@
 				<div class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'projects' %> selected<% end %>" <% unless controller_name == 'projects' %>data-binding="hover_show_more" data-hover_div="project_subnav"<% end %>>
 						<%= link_to 'Plans', plans_url, :class => (controller_name == 'projects') ? 'selected loud' : 'loud' %>
-						<div id="project_subnav"<% unless controller_name == 'projects' %>style="display:none;" class="hover_nav"<% end %>>
+						<div id="project_subnav"<% unless controller_name == 'projects' %>style="display:none;"<% end %> class="left_subnav_wrapper<% unless controller_name == 'projects' %> hover_nav<% end %>">
               <% unless controller_name == 'projects' %>
 						  <div class="hover_nav_pointer">&rarr;</div>
 						  <% end %>
+						  <% for project in @this_user.projects.active.ordered %>
+							<div class="vert-line-subnav-wrapper">
+                <%= link_to truncate_clean(project.title,{:length => 100, :max_word_length => (controller_name == 'projects') ? 15 : nil, :omission => '-'}), plan_url(project) %>
+              </div>
+              <% end %>
 							<div class="vert-line-subnav-wrapper">
 								<%= link_to "Active(#{@this_user.projects.unarchived.count})", plans_url, :class => (controller_name == 'projects' and action_name == 'index') ? 'selected' : '' %>
 							</div>

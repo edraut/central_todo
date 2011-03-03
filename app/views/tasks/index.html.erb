@@ -4,7 +4,7 @@
 <div class="span-19 last page_content">
   <% if @this_user.tasks.unarchived.unorganized.count > 0 %>
   <div class="span-18 last">
-    <div class="span-10"><h2>Current Tasks</h2></div>
+    <div class="span-10">&nbsp;</div>
     <div class="span-8 last">
       <div id="archive_completed_items" class="list_action attach_above" <% unless @this_user.tasks.complete.unorganized.any? %>style="display: none;"<% end %>>
       	<%= link_to 'archive completed tasks', archive_completed_tasks_url,

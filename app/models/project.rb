@@ -6,13 +6,15 @@ class Project < ActiveRecord::Base
   has_many :tasks, :dependent => :destroy
 
   #named_scopes
-  scope :ordered, :order => 'projects.position'
+  scope :with_due_date, :conditions => "projects.due_date is not null"
+  scope :without_due_date, :conditions => "projects.due_date is null"
   scope :active, :conditions => "projects.state = 'active'"
   scope :complete, :conditions => {:state => 'complete'}
   scope :unarchived, :conditions => "projects.state != 'archived'"
   scope :archived, :conditions => {:state => 'archived'}
   scope :five, :limit => 5
   scope :twenty_five, :limit => 25
+  scope :ordered, :order => 'projects.position'
   scope :by_due_date, :order => 'due_date'
   scope :by_create_date, :order => 'created_at desc'
   #special behaviors
@@ -38,6 +40,9 @@ class Project < ActiveRecord::Base
   #callbacks
 
   #class methods
+  def self.display_name
+    'Plan'
+  end
 
   #instance methods
   def done?

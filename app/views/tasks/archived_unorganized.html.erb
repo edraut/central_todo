@@ -6,6 +6,11 @@
 		<h2>You got these done.</h2>
 	</div>
 	<div id="archived_items_wrapper" class="span-18 last archived section_wrapper" data-role="list">
+    <div class="span-18 last line_item">
+      <div class="span-9 text-center small">task title</div>
+      <div class="span-4 small">&nbsp;&nbsp;plan</div>
+      <div class="span-4 small">&nbsp;&nbsp;situation</div>
+    </div>
 		<% for task in @tasks %>
 			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
 				<%= render :partial => '/tasks/show', :locals => {:task => task} %>

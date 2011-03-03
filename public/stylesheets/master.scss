@@ -2,6 +2,7 @@ $dark-blue: #557777;
 $blue: #90B0B0;
 $light-blue: #DDF5F5;
 $pale-blue: #f0f8f8;
+$blue-wash: #fbffff;
 $light-carmine: #E55;
 $carmine: #EE3434;
 $pale-gray: #FDFCF8;
@@ -18,6 +19,7 @@ $yellow: #FFF8D0;
 $white: #FCFCFA;
 $normal-font-size: 16px;
 $line-height: 30px;
+$compact-line-height: 20px;
 @mixin text-right {
 	text-align: right;
 }
@@ -29,11 +31,12 @@ body {
 }
 
 a {
-	color: black;
+	color: $charcoal;
 	text-decoration: none;
 }
 a:hover {
-	color: $gray;
+  color: $gray;
+  background-color: $light-gray;
 	text-decoration: none;
 }
 a.quiet, div.quiet, span.quiet {
@@ -106,7 +109,7 @@ select {
 		color: $paper;
 	}
 	a:hover {
-		color: $gray;
+		color: $grayish;
 	}
 }
 #header_wrapper {
@@ -127,7 +130,8 @@ select {
 	padding: 16px;
 	background-color: $gray;
 	a:hover {
-		color: $light-gray;
+	  background-color: $grayish;
+		color: $taupe;
 	}
 }
 .user_title {
@@ -143,6 +147,9 @@ select {
 	padding-left: 16px;
 	padding-top: 16px;
 	padding-bottom: 16px;
+	a:hover {
+	  background-color: $blue-wash;
+	}
 }
 .left_nav_wrapper {
   position: relative;
@@ -156,32 +163,42 @@ select {
 	margin-bottom: 7px;
 	line-height: 30px;
 	background-color: $paper;
+	a:hover {
+	  color: $gray;
+	  background-color: inherit;
+	}
+	a {
+		color: $charcoal;
+	}
 	.vert-line-subnav-wrapper {
-    padding-left: 30px;
 		margin-right: 0;
-		font-size: $normal-font-size;
+    padding-bottom: 10px;
 		padding-left: 8px;
-		a {
-			color: $dark-blue;
-		}
-		a:hover {
-			color: $gray;
-		}
-		a.selected {
+		font-size: $normal-font-size;
+		line-height: $compact-line-height;
+		a.selected, a:hover.selected {
 			font-weight: bold;
-			color: $dark-blue;
+			color: $charcoal;
 		}
+    a:hover {
+	    color: $gray;
+    }
 	}
 }
 .vert-line-nav-wrapper-header {
 	@include vert-line-nav-wrapper;
 }
 .hover_nav {
+  .vert-line-subnav-wrapper {
+	  margin-top: 8px;
+	  padding-bottom: 2px;
+	}
   position: absolute;
   left: 138px;
   top: -1px;
   z-index: 10;
-  width: 130px;
+  width: auto;
+  min-width: 130px;
   background-color: $paper;
   padding: 0px 12px 5px 12px;
   border: 1px solid $gray;
@@ -195,7 +212,7 @@ select {
   color: $black;
 }
 .selected a:hover {
-  color: $gray;
+  color: $black;
 }
 a.selected {
   font-weight: bold;
@@ -203,16 +220,16 @@ a.selected {
 a:hover.selected {
 	color: $black;
 }
+.line_item {
+  border-bottom: 1px solid $taupe;
+}
 .list_action {
   position: relative;
   float: right;
   padding: 0 20px;
   margin-right: 20px;
-  a {
-    color: $taupe;
-  }
-  a:hover {
-    color: $gray;
+  a, a:hover {
+    background-color: inherit;
   }
 }
 .list_action.last{
@@ -286,8 +303,6 @@ a:hover.selected {
 .text_with_check_box_proxy {
   position: relative;
 	float: left;
-	height: $line-height;
-	overflow: hidden;
 }
 .in_header{
   margin-top: 3px;
@@ -301,6 +316,7 @@ a:hover.selected {
 	font-size: 18px;
 }
 a:hover[data-role=delete].delete {
+  background-color: inherit;
 	color: $carmine;
 }
 .completed {
@@ -314,7 +330,13 @@ a:hover[data-role=delete].delete {
 .text-center {
   text-align: center;
 }
+.text-left {
+  text-align: left;
+}
 .vertical-padding {
 	padding-top: 14px;
 	padding-bottom: 14px;
+}
+.border-top {
+  border-top: 1px solid $taupe;
 }

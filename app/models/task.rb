@@ -50,7 +50,11 @@ class Task < ActiveRecord::Base
   #callbacks
   before_create :set_position
   before_save :handle_ownership
+
   #class methods
+  def self.display_name
+    'Task'
+  end
 
   #instance methods
 

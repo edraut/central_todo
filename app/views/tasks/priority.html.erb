@@ -5,7 +5,12 @@
 	<% if @this_user.tasks.active.priority.count > 0 %>
 	<h2>Hot stuff.</h2>
 	<div data-role="list" class="span-18 last section_wrapper">
-		<% for task in @this_user.tasks.active.priority %>
+    <div class="span-18 last line_item">
+      <div class="span-9 text-center small">task title</div>
+      <div class="span-4 small">&nbsp;&nbsp;plan</div>
+      <div class="span-4 small">&nbsp;&nbsp;situation</div>
+    </div>
+		<% for task in @this_user.tasks.active.priority.by_due_date %>
 			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
 			<%= render :partial => 'show', :locals => {:task => task} %>
 			</div>

@@ -30,9 +30,14 @@
       </div>
 		</div>
 		<div id="unarchived_items_wrapper" class="span-18 last section_wrapper" data-role="list">
-			<% for task in @tasks %>
-				<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
-					<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
+      <div class="span-18 last line_item">
+        <div class="span-9 text-center small">task title</div>
+        <div class="span-4 small">&nbsp;&nbsp;</div>
+        <div class="span-4 last small">&nbsp;&nbsp;plan</div>
+      </div>
+			<% @tasks.each_with_index do |task,index| %>
+				<div class="span-18 last line_item" id="task_<%= task.id %>" data-role="list_item">
+					<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true, :needs_organization => true} %>
 				</div>
 			<% end %>
 		</div>
