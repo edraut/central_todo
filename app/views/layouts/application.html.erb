@@ -78,7 +78,7 @@
 						  <% end %>
 						  <% for project in @this_user.projects.active.ordered %>
 							<div class="vert-line-subnav-wrapper">
-                <%= link_to truncate_clean(project.title,{:length => 100, :max_word_length => (controller_name == 'projects') ? 15 : nil, :omission => '-'}), plan_url(project) %>
+                <%= link_to truncate_clean(project.title,{:length => 100, :max_word_length => (controller_name == 'projects') ? 15 : nil, :omission => '-'}), plan_url(project), :class => (controller_name == 'projects' and action_name == 'show' and @project.id == project.id) ? 'selected' : '' %>
               </div>
               <% end %>
 							<div class="vert-line-subnav-wrapper">
@@ -91,8 +91,18 @@
 					</div>
 				</div>
 				<div class="left_nav_wrapper last">
-					<div class="vert-line-nav-wrapper-main<% if controller_name == 'situations' %> selected<% end %>">
+					<div class="vert-line-nav-wrapper-main<% if controller_name == 'situations' %> selected<% end %>"<% unless controller_name == 'situations' %> data-binding="hover_show_more" data-hover_div="situation_subnav"<% end %>>
 						<%= link_to 'Situations', situations_url, :class => (controller_name == 'situations') ? 'selected loud' : 'loud' %>
+						<div id="situation_subnav"<% unless controller_name == 'situations' %>style="display:none;"<% end %> class="left_subnav_wrapper<% unless controller_name == 'situations' %> hover_nav<% end %>">
+              <% unless controller_name == 'situations' %>
+						  <div class="hover_nav_pointer">&rarr;</div>
+						  <% end %>
+						  <% for situation in @this_user.situations %>
+							<div class="vert-line-subnav-wrapper">
+                <%= link_to truncate_clean(situation.title,{:length => 100, :max_word_length => (controller_name == 'situations') ? 15 : nil, :omission => '-'}), situation_url(situation), :class => (controller_name == 'situations' and action_name == 'show' and @situation.id == situation.id) ? 'selected' : '' %>
+              </div>
+              <% end %>
+            </div>
 					</div>
 				</div>
 			</div>
