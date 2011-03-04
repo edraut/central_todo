@@ -18,16 +18,16 @@
     <div data-role="navbar">
     <ul>
     <li>
-				<%= link_to 'Dashboard', dashboard_url, :rel => 'external', :class => 'mytime' %>
+				<%= link_to 'Dashboard', dashboard_url, :rel => 'external', :class => 'mytime' + ((controller_name == 'dashboard') ? 'ui-btn-active' : '') %>
 		</li>
 		<li>
-				<%= link_to 'Tasks', tasks_url, :rel => 'external', :class => 'mytime' %>
+				<%= link_to 'Tasks', tasks_url, :rel => 'external', :class => 'mytime' + ((controller_name == 'tasks') ? 'ui-btn-active' : '') %>
 		</li>
 		<li>
-				<%= link_to 'Plans', plans_url, :rel => 'external', :class => 'mytime' %>
+				<%= link_to 'Plans', plans_url, :rel => 'external', :class => 'mytime' + ((controller_name == 'projects') ? 'ui-btn-active' : '') %>
 		</li>
 		<li>
-				<%= link_to 'Situations', situations_url, :rel => 'external', :class => 'mytime' %>
+				<%= link_to 'Situations', situations_url, :rel => 'external', :class => 'mytime' + ((controller_name == 'situations') ? 'ui-btn-active' : '') %>
 		</li>
 		</ul>
 		</div>
