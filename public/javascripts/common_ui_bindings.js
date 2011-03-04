@@ -38,12 +38,10 @@ function flashBackground(id){
 function getBackground(jqueryElement) {
     // Is current element's background color set?
     var color = jqueryElement.css("background-color");
-    
     if ((color !== 'rgba(0, 0, 0, 0)') && (color !== 'transparent')) {
         // if so then return that color
         return color;
     }
-
     // if not: are you at the body element?
     if (jqueryElement.is("body")) {
         // return known 'false' value

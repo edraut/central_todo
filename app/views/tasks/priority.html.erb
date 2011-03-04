@@ -1,17 +1,17 @@
-<div class="span-18 last section_margin_top" id="header_wrapper">
+<div class="span-17 last section_margin_top" id="header_wrapper">
 	<h1>High Priority Tasks</h1>
 </div>
 <div class="span-19 last page_content">
 	<% if @this_user.tasks.active.priority.count > 0 %>
 	<h2>Hot stuff.</h2>
-	<div data-role="list" class="span-18 last section_wrapper">
-    <div class="span-18 last line_item">
+	<div data-role="list" class="span-16 last section_wrapper">
+    <div class="span-16 last line_item">
       <div class="span-9 text-center small">task title</div>
-      <div class="span-4 small">&nbsp;&nbsp;plan</div>
-      <div class="span-4 small">&nbsp;&nbsp;situation</div>
+      <div class="span-3 small">&nbsp;&nbsp;plan</div>
+      <div class="span-3 small">&nbsp;&nbsp;situation</div>
     </div>
 		<% for task in @this_user.tasks.active.priority.by_due_date %>
-			<div class="span-18 last" id="task_<%= task.id %>" data-role="list_item">
+			<div class="span-16 last" id="task_<%= task.id %>" data-role="list_item">
 			<%= render :partial => 'show', :locals => {:task => task} %>
 			</div>
 		<% end %>
@@ -19,7 +19,7 @@
   <% else %>
   <h2>You don't have any priority tasks right now.</h2>
   <% if @this_user.show_help_text %>
-  <div class="span-15 last section_wrapper explanatory">
+  <div class="span-16 last section_wrapper explanatory">
     <p>
     When you organize your newly entered tasks each day, you can mark a task with a priority star by clicking the star at the left of each task in the list. These priority tasks will appear here in the Priority Task list until they are completed. This is a good way to highlight tasks that need to be done quickly or have a higher importance than most of your tasks.
     </p>

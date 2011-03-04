@@ -2,17 +2,22 @@
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
 	  <% if @state_changed and @item.active? and @move %>
-      jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>').moveToParent('#unarchived_items_wrapper');
+	    element = jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>');
+      parent_count = element.parents('#unarchived_items_wrapper').length;
+	    if(parent_count == 0){
+        jQuery('#<%= @item.class.name.underscore %>_<%= @item.id  %>').moveToParent('#unarchived_items_wrapper');
+        setTimeout(handleListDisplay,1200);
+      }
 	  <% else %>
     	flashBackground('<%= @item.class.name.underscore %>_<%= @item.id %>');
     <% end %>
   	<% unless flash[:ajax_notice].blank? %>
 		function clearFlash(){
-			jQuery('#flash_notice').fadeOut(1000);
-			setTimeout("jQuery('#flash_notice').remove();",1000);
+			jQuery('#flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>').fadeOut(1000);
+			setTimeout("jQuery('#flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>').remove();",1000);
 		}
-		jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>').after('<div id="flash_notice" style="display:none;" class="span-17 last flash_notice"><%= flash[:ajax_notice] %></div>');
-		jQuery('#flash_notice').fadeIn(500);
+		jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>').after('<div id="flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>" style="display:none;" class="span-17 last flash_notice"><%= flash[:ajax_notice] %></div>');
+		jQuery('#flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>').fadeIn(500);
 		setTimeout(clearFlash,3000);
   	<% end %>
 	});

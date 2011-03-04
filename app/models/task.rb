@@ -63,7 +63,7 @@ class Task < ActiveRecord::Base
   end
   
   def overdue?
-    !self.due_date.nil? and self.due_date < Time.now
+    Task.overdue?(self.due_date)
   end
   
   def set_position
@@ -71,6 +71,7 @@ class Task < ActiveRecord::Base
   end
   
   def handle_attributes(new_attributes)
+    old_state = self.state
     new_state = new_attributes.delete(:state)
     if new_attributes.has_key? :'due_date(1i)' and !new_attributes.has_key? :'due_date(4i)'
       new_attributes[:'due_date(4i)'] = '12'
@@ -87,7 +88,7 @@ class Task < ActiveRecord::Base
       when 'active'
         self.activate
       end
-      return true
+      return old_state
     end
   end
 
@@ -100,4 +101,7 @@ class Task < ActiveRecord::Base
     end
   end
   
+  def self.overdue?(date)
+    !date.nil? and date < Time.now
+  end
 end

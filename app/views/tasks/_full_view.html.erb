@@ -1,10 +1,12 @@
+<div id="close_dialog" onclick="hideDialog('#main_modal_view');">close</div>
 <div class="span-17 last" id="header_wrapper">
-  <div class="span-17 last text-right quiet">Does this task involve multiple steps or parts? <%= link_to 'Convert it to plan.', convert_task_url(@task) %></div>
+  <div class="span-17 last text-center quiet">Does this task involve multiple steps or parts? <%= link_to 'Convert it to plan.', convert_task_url(@task) %></div>
+  <div class="span-17 quiet">&nbsp;</div>
   <div id="task_title" class="span-17 last">
   	<%= render :partial => 'show_title' %>
   </div>
 </div>
-<div class="span-17 last page_content">
+<div class="span-17 last">
   <div class="span-16 last">
     <div id="task_delete" class="list_action attributes last"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
     <div id="task_priority" class="list_action attributes"><%= render :partial => 'show_priority', :locals => {:task => @task} %></div>
@@ -22,3 +24,8 @@
   	<%= render :partial => (@task.situation ? 'show_situation_id' : 'edit_situation_id') %>
   </div>
 </div>
+<%= javascript_tag do %>
+jQuery(document).ready(function(){
+  
+})
+<% end %>

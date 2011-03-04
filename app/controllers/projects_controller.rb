@@ -46,11 +46,6 @@ class ProjectsController < ApplicationController
     @sortable = true
     @task = Task.new(:user_id => @this_user.id, :project_id => @project.id)
     @archived_tasks = @project.tasks.archived.ordered.paginate(:page => params[:page], :per_page => 40)
-    if params[:_method]
-      if ['PUT','put'].include? params[:_method]
-        update and return
-      end
-    end
   end
   
   def edit

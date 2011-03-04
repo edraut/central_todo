@@ -2,4 +2,9 @@
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
 	:'data-ajax_success_element' => "task_priority",
-	:id => 'edit_task_priority'} do |f| %><%= f.hidden_field :priority, :id => "priority_#{@task.id}", :'data-behavior' => 'auto_submit' %><div data-behavior="check_box_proxy" data-check_box="priority_<%= @task.id %>" class="check_box_proxy <% if @task.priority? %>checked<% end %>">&lowast;</div>&nbsp;priority task<%= hidden_field_tag 'attribute', 'priority', :id => 'attribute_priority_field' %><%= hidden_field_tag '_method', 'put' %><% end -%>
+	:id => 'edit_task_priority'} do |f| %>
+	  <%= f.hidden_field :priority, :id => "full_view_priority_#{@task.id}", :'data-behavior' => 'auto_submit' %>
+	  <div data-behavior="check_box_proxy" data-check_box="full_view_priority_<%= @task.id %>" class="check_box_proxy <% if @task.priority? %>checked<% end %>">&lowast;</div>&nbsp;priority task
+	  <%= hidden_field_tag 'attribute', 'priority', :id => 'attribute_priority_field' %>
+	  <%= hidden_field_tag '_method', 'put' %>
+<% end -%>

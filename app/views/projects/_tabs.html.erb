@@ -1,5 +1,4 @@
-<div class="span-18 last">
+<div class="span-16 last">
   <div class="list_action attach_above last<% if action_name == 'edit' %> selected<% end %>"><%= link_to 'edit plan', edit_plan_url(@project) %></div>
   <div class="list_action attach_above<% if action_name == 'show' %> selected<% end %>"><%= link_to 'show task list', plan_url(@project) %></div>
-  <div class="list_action attach_above">&larr; <%= link_to "#{@project.archived? ? 'archived' : 'active'} plans", @project.archived? ? archived_plans_url : plans_url %></div>
 </div>

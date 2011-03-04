@@ -1,5 +1,5 @@
 <div class="span-3"><h1>Task:</h1></div>
-<div class="span-15 last">
+<div class="span-14 last">
   <%= form_for @task, :html => {
   	:'data-ajax_behavior' => 'ajax_form',
   	:'data-ajax_method' => 'PUT',
@@ -7,15 +7,20 @@
   	:'data-ajax_error_element' => 'task_title',
   	:id => 'edit_task_title'
   } do |f| %>
-  	<%= f.text_field :title, :class => 'span-11' %>
+  <div class="span-14 last">
+    <div class="span-12 center_elements">
+  	<%= f.text_field :title, :class => 'span-10' %>
   	<%= hidden_field_tag 'attribute', 'title', :id => 'attribute_title' %>
   	<%= hidden_field_tag '_method', 'put' %>
-  	<span class="span-2"><%= f.submit 'save' %></span>
+  	<%= f.submit 'save', :class => 'vertical_center' %>
+  	</div>
+  	<div class="span-2 last" style="margin-top: .15em;">or
   	<%= link_to 'cancel', task_url(@task),
   	 	:'data-ajax_behavior' => 'ajax_link',
   		:'data-ajax_method' => 'GET',
   		:'data-ajax_success_element' => 'task_title',
-  		:'data-ajax_data' => "{attribute: 'title'}",
-  		:class => 'span-2 last'%>
+  		:'data-ajax_data' => "{attribute: 'title'}"%>
+  		</div>
+  </div>
   <% end %>
 </div>

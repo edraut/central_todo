@@ -1,14 +1,14 @@
-<div class="span-18 last section_margin_top" id="header_wrapper">
-	<div class="span-10"><h1>Dashboard</h1></div><% if @this_user.show_help_text and @this_user.tasks.count > 0 %><div class="span-8 last text-right quiet">You can convert a task to a plan, add a description and more by clicking on a task title in any list.</div><% end %>
+<div class="span-16 last section_margin_top" id="header_wrapper">
+	<div class="span-8"><h1>Dashboard</h1></div><% if @this_user.show_help_text and @this_user.tasks.count > 0 %><div class="span-8 last text-right quiet">You can convert a task to a plan, add a description and more by clicking on a task title in any list.</div><% end %>
 </div>
-<div class="span-19 last page_content">
+<div class="span-17 last page_content">
   <h2>Enter a task</h2>
-	<div class="span-18 last">
+	<div class="span-16 last">
 		<%= form_for @task do |f| %>
 			<div class="span-12">
 				<%= f.text_field :title, :id => "primary_input", :class => "span-12" %>
 			</div>
-			<div class="span-6 last">
+			<div class="span-4 last">
 				<%= f.hidden_field :user_id %>
 				<%= f.hidden_field :state, :value => 'active' %>
 				<%= f.submit "add it to the list." %>
@@ -16,88 +16,103 @@
 		<% end %>
 	</div>
   <% if @this_user.tasks.active.unorganized.any? %>
-  <div class="span-18 last section_margin_top">
+  <div class="span-16 last section_margin_top">
     <div class="span-5">
       <h2>Unorganized Tasks</h2>
     </div>
     <% if @this_user.show_help_text %>
-    <div class="span-13 last text-right quiet">
+    <div class="span-11 last text-right quiet">
       Consider adding these tasks to a plan, situation, or both for organization.
     </div>
     <% end %>
   </div>
-  <div class="span-18 last section_wrapper">
-    <div class="span-18 last line_item">
+  <div class="span-16 last section_wrapper">
+    <div class="span-16 last line_item">
       <div class="span-9 text-center small">task title</div>
-      <div class="span-4 small">&nbsp;&nbsp;plan</div>
-      <div class="span-4 small">&nbsp;&nbsp;situation</div>
+      <div class="span-3 small">&nbsp;&nbsp;plan</div>
+      <div class="span-3 small">&nbsp;&nbsp;situation</div>
     </div>
 		<% @this_user.tasks.active.unorganized.recent.five.each_with_index do |task, index| %>
-			<div class="span-18 last line_item" id="task_<%= task.id %>" data-role="list_item">
+			<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item">
 			<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true} %>
 			</div>
 		<% end %>
 		<% if @this_user.tasks.active.unorganized.count > 5 %>
-      <div class="span-18 last text-right section_margin_top">
+      <div class="span-16 last text-right section_margin_top">
         <%= link_to 'See all', tasks_url %> &rarr;
       </div>
 		<% end %>
   </div>
   <% elsif @this_user.tasks.count > 0 %>
-  <div class="span-18 last section_margin_top">
+  <div class="span-16 last section_margin_top">
     You've organized all your current tasks.
   </div>
   <% end %>
   <% if @this_user.tasks.active.priority.any? %>
-  <div class="span-8 append-2">
-  <div class="span-8 last section_margin_top">
+  <div class="span-7 append-2">
+  <div class="span-7 last section_margin_top">
     <h2>High Priority Tasks</h2>
   </div>
-  <div class="span-8 last section_wrapper">
+  <div class="span-7 last section_wrapper">
 		<% @this_user.tasks.active.priority.recent.five.each_with_index do |task,index| %>
-			<div class="span-8 last line_item" id="priority_task_<%= task.id %>" data-role="list_item">
-			  <%= link_to task.title, task_url(task) %>
+			<div class="span-7 last line_item" id="priority_task_<%= task.id %>" data-role="list_item">
+	      <%= link_to task.title, task_url(task),
+			    :'data-ajax_behavior' => 'ajax_link',
+			    :'data-ajax_method' => 'GET',
+			    :'data-ajax_success_element' => 'main_modal_view',
+			    :'data-ajax_success_callback' => "showDialog('#main_modal_view')",
+			    :'data-ajax_data' => "{'full_view':'true'}"%>
 			</div>
 		<% end %>
 		<% if @this_user.tasks.active.priority.count > 5 %>
-      <div class="span-8 last text-right section_margin_top">
+      <div class="span-7 last text-right section_margin_top">
         <%= link_to 'See all', due_date_tasks_url %> &rarr;
       </div>
 		<% end %>
   </div>
   </div>
   <% else %>
-  <div class="span-8 append-2 section_margin_top">
+  <div class="span-7 append-2 section_margin_top">
     <p>
     You don't have any high priority tasks.<% if @this_user.show_help_text %><br/> <span class="quiet">You can make any task a priority by clicking on the star to the left of the check box in any task list.</span><% end %>
     </p>
   </div>
   <% end %>
   <% if @due_date_items.any?%>
-  <div class="span-8">
-  <div class="span-8 last section_margin_top">
+  <div class="span-7">
+  <div class="span-7 last section_margin_top">
     <h2>Due Dates</h2>
   </div>
-  <div class="span-8 last section_wrapper">
+  <div class="span-7 last section_wrapper">
     <% for due_date in @due_dates %>
-    <div class="span-8 last line_item">
+    <div class="span-7 last line_item">
       <%= due_date.to_formatted_s(:full) %>
     </div>
     <% for item in @due_date_items.select{|t| t.due_date.to_date == due_date} %>
-			<div class="span-8 last line_item <% if item.overdue? %> overdue<% end %>" id="due_date_<%= item.class.display_name.downcase %>_<%= item.id %>">
-			  <span class="small"><%= item.class.display_name %></span>: <%= link_to item.title, (item.class.name == 'Project') ? plan_url(item) : task_url(item) %>
+			<div class="span-7 last line_item <% if item.overdue? %> overdue<% end %>" id="due_date_<%= item.class.display_name.downcase %>_<%= item.id %>">
+			  <span class="small"><%= item.class.display_name %></span>:
+			    <% if item.class.name == 'Project' %>
+			      <%= link_to item.title, plan_url(item) %>
+			    <% else %>
+			      <%= link_to item.title, task_url(item),
+    			    :'data-ajax_behavior' => 'ajax_link',
+    			    :'data-ajax_method' => 'GET',
+    			    :'data-ajax_success_element' => 'main_modal_view',
+    			    :'data-ajax_success_callback' => "showDialog('#main_modal_view')",
+    			    :'data-ajax_data' => "{'full_view':'true'}"%>
+    			<% end %>
 			</div>
 		<% end %>
     <% end %>
-		<% if (@this_user.tasks.active.with_due_date.count > 5) or (@this_user.projects.active.with_due_date.count > 5) %>
-      <div class="span-18 last text-right section_margin_top">
-        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+		<% if (@this_user.tasks.active.with_due_date.count > 2) or (@this_user.projects.active.with_due_date.count > 2) %>
+      <div class="span-7 last text-right section_margin_top">
+        <%= link_to 'See all', schedule_url %> &rarr;
       </div>
 		<% end %>
   </div>
   </div>
   <% elsif @this_user.show_help_text %>
-  <div class="span-8 last section_margin_top">
+  <div class="span-7 last section_margin_top">
     <p>
     There are no tasks with due dates.<br/>
     <span class="quiet">You can add a due date to any task by clicking on the task title in a task list to get to the task editing page</span>

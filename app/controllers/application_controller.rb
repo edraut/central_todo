@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   has_mobile_fu
   helper_method :current_user_session, :current_user
+  before_filter :get_method
   before_filter :handle_xhr
   before_filter :handle_layout
   before_filter :handle_title
@@ -73,7 +74,17 @@ class ApplicationController < ActionController::Base
   end
   
   private
+    def get_method
+      if params.has_key? '_method'
+        @this_method = params['_method'].downcase
+      else
+        @this_method = request.method.downcase
+      end
+    end
     def get_this_user
+      if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions'
+        store_location
+      end
       @this_user = current_user
       Time.zone = @this_user.time_zone if @this_user
     end
@@ -91,7 +102,9 @@ class ApplicationController < ActionController::Base
     end
     def require_user 
       unless current_user 
-        store_location 
+        if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions'
+          store_location
+        end
         flash[:notice] = "You must be logged in to access this page" 
         redirect_to sign_in_url 
         return false 
@@ -114,7 +127,9 @@ class ApplicationController < ActionController::Base
     
     def require_no_user 
       if current_user 
-        store_location 
+        if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions'
+          store_location
+        end
         flash[:notice] = "You must be logged out to access this page" 
         redirect_to root_url 
         return false 

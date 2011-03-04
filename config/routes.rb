@@ -54,7 +54,7 @@ CentralTodo::Application.routes.draw do
   end
   resources :pages
   match 'dashboard' => 'dashboard#index'
-
+  match 'schedule' => 'schedule#index'
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

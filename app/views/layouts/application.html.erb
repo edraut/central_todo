@@ -11,6 +11,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
+  <div id="modal_mask" style="display: none;">&nbsp;</div>
 	<div id="top_nav">
 		<div class="container">
 			<div id="top_nav_wrapper" class="span-24 vertical-padding">
@@ -44,6 +45,11 @@
 					</div>
 				</div>
 				<div class="left_nav_wrapper last">
+					<div class="vert-line-nav-wrapper-main<% if controller_name == 'schedule' %> selected<% end %>">
+						<%= link_to 'Schedule', schedule_url, :class => (controller_name == 'schedule') ? 'selected loud' : 'loud' %>
+					</div>
+				</div>
+				<div class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'tasks' %> selected<% end %>" <% unless controller_name == 'tasks' %> data-binding="hover_show_more" data-hover_div="task_subnav"<% end %>>
 						<%= link_to 'Tasks', tasks_url, :class => (controller_name == 'tasks') ? 'selected loud' : 'loud' %>
 						<div id="task_subnav"<% unless controller_name == 'tasks' %>style="display:none;" class="hover_nav"<% end %>>
@@ -56,11 +62,6 @@
 							<div class="vert-line-subnav-wrapper">
 								<%= link_to "Priority(#{@this_user.tasks.active.priority.count})", priority_tasks_url, :class => (action_name == 'priority' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
-							<% if @this_user.tasks.active.with_due_date.count > 0 %>
-							<div class="vert-line-subnav-wrapper">
-								<%= link_to "By Due Date(#{@this_user.tasks.active.with_due_date.count})", due_date_tasks_url, :class => (action_name == 'due_date' and controller_name == 'tasks') ? 'selected' : '' %>
-							</div>
-							<% end %>
 							<% if @this_user.tasks.unorganized.archived.count > 0 %>
 							<div class="vert-line-subnav-wrapper">
 								<%= link_to "Archived(#{@this_user.tasks.archived.unorganized.count})", archived_unorganized_tasks_url, :class => (action_name == 'archived_unorganized' and controller_name == 'tasks') ? 'selected' : '' %>
@@ -76,41 +77,45 @@
               <% unless controller_name == 'projects' %>
 						  <div class="hover_nav_pointer">&rarr;</div>
 						  <% end %>
-						  <% for project in @this_user.projects.active.ordered %>
-							<div class="vert-line-subnav-wrapper">
-                <%= link_to truncate_clean(project.title,{:length => 100, :max_word_length => (controller_name == 'projects') ? 15 : nil, :omission => '-'}), plan_url(project), :class => (controller_name == 'projects' and action_name == 'show' and @project.id == project.id) ? 'selected' : '' %>
-              </div>
-              <% end %>
 							<div class="vert-line-subnav-wrapper">
 								<%= link_to "Active(#{@this_user.projects.unarchived.count})", plans_url, :class => (controller_name == 'projects' and action_name == 'index') ? 'selected' : '' %>
 							</div>
 							<div class="vert-line-subnav-wrapper">
 								<%= link_to "Archived(#{@this_user.projects.archived.count})", archived_plans_url, :class => (controller_name == 'projects' and action_name == 'archived') ? 'selected' : '' %>
 							</div>
+						  <% for project in @this_user.projects.active.ordered %>
+							<div class="vert-line-subnav-wrapper">
+                <%= link_to truncate_clean(project.title,{:length => 100, :max_word_length => (controller_name == 'projects') ? 20 : nil, :omission => '-'}), plan_url(project), :class => (controller_name == 'projects' and action_name == 'show' and @project.id == project.id) ? 'selected' : '' %>
+              </div>
+              <% end %>
             </div>
 					</div>
 				</div>
 				<div class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'situations' %> selected<% end %>"<% unless controller_name == 'situations' %> data-binding="hover_show_more" data-hover_div="situation_subnav"<% end %>>
 						<%= link_to 'Situations', situations_url, :class => (controller_name == 'situations') ? 'selected loud' : 'loud' %>
+						<% if @this_user.situations.count > 0 %>
 						<div id="situation_subnav"<% unless controller_name == 'situations' %>style="display:none;"<% end %> class="left_subnav_wrapper<% unless controller_name == 'situations' %> hover_nav<% end %>">
               <% unless controller_name == 'situations' %>
 						  <div class="hover_nav_pointer">&rarr;</div>
 						  <% end %>
 						  <% for situation in @this_user.situations %>
 							<div class="vert-line-subnav-wrapper">
-                <%= link_to truncate_clean(situation.title,{:length => 100, :max_word_length => (controller_name == 'situations') ? 15 : nil, :omission => '-'}), situation_url(situation), :class => (controller_name == 'situations' and action_name == 'show' and @situation.id == situation.id) ? 'selected' : '' %>
+                <%= link_to truncate_clean(situation.title,{:length => 100, :max_word_length => (controller_name == 'situations') ? 20 : nil, :omission => '-'}), situation_url(situation), :class => (controller_name == 'situations' and action_name == 'show' and @situation.id == situation.id) ? 'selected' : '' %>
               </div>
               <% end %>
             </div>
+            <% end %>
 					</div>
 				</div>
 			</div>
 			<% end %>
-			<div class="span-20 last">
+			<div class="span-18 last">
 				<%= yield %>
 			</div>
 		</div>
+	</div>
+	<div style="display:none;" id="main_modal_view">
 	</div>
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){

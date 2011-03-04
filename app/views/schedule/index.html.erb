@@ -1,0 +1,41 @@
+<div class="span-17 last section_margin_top" id="header_wrapper">
+<h1>Schedule</h1>
+</div>
+<div class="span-17 last page_content">
+  <% if @due_date_items.any?%>
+  <div class="span-16">
+  <div class="span-16 last section_margin_top">
+    <h2>Due Dates</h2>
+  </div>
+  <div class="span-16 last section_wrapper">
+    <% for due_date in @due_dates %>
+    <div class="span-16 last line_item">
+      <%= due_date.to_formatted_s(:full) %>
+    </div>
+    <% for item in @due_date_items.select{|t| Time.parse(t['due_date']).to_date == due_date} %>
+			<div class="span-16 last line_item <% if Task.overdue?(Time.parse(item['due_date'])) %> overdue<% end %>" id="due_date_<%= item['item_type'].downcase %>_<%= item['id'] %>">
+			  <span class="small"><%= item['item_type'].constantize.display_name %></span>:
+			    <% if item['item_type'] == 'Project' %>
+			      <%= link_to item['title'], plan_url(item['id'].to_i) %>
+			    <% else %>
+			      <%= link_to item['title'], task_url(item['id'].to_i),
+    			    :'data-ajax_behavior' => 'ajax_link',
+    			    :'data-ajax_method' => 'GET',
+    			    :'data-ajax_success_element' => 'main_modal_view',
+    			    :'data-ajax_success_callback' => "showDialog('#main_modal_view')",
+    			    :'data-ajax_data' => "{'full_view':'true'}"%>
+    			<% end %>
+			</div>
+		<% end %>
+    <% end %>
+    <%= will_paginate @due_date_items %>
+  </div>
+  </div>
+  <% elsif @this_user.show_help_text %>
+  <div class="span-16 last section_margin_top">
+    <p>
+    There are no tasks with due dates.<br/>
+    <span class="quiet">You can add a due date to any task by clicking on the task title in a task list to get to the task editing page</span>
+  </div>
+  <% end %>
+</div>

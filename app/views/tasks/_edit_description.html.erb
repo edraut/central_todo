@@ -1,5 +1,5 @@
 <h2>Description</h2>
-<div class="span-18 last section">
+<div class="span-7 section">
 	<%= form_for @task, :html => {
 		:'data-ajax_behavior' => 'ajax_form',
 		:'data-ajax_method' => 'PUT',
@@ -7,14 +7,17 @@
 		:'data-ajax_error_element' => 'task_description',
 		:id => 'edit_task_description'
 	} do |f| %>
-		<%= f.text_area :description, :class => 'span-9' %>
+		<%= f.text_area :description, :class => 'span-6', :rows => 4 %>
 		<%= hidden_field_tag 'attribute', 'description', :id => 'attribute_description_field' %>
   	<%= hidden_field_tag '_method', 'put' %>
+    <div class="span-7 last quiet">&nbsp;</div>
+    <div class="span-7 last">
 		<%= f.submit 'save' %> or
 		<%= link_to (@task.description.blank? ? 'leave blank' : 'cancel'), task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
 			:'data-ajax_success_element' => 'task_description',
 			:'data-ajax_data' => "{attribute: 'description'}"%>
+		</div>
 	<% end %>
 </div>

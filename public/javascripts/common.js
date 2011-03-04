@@ -30,6 +30,7 @@ function bindFocusTaskInput(){
     });
 }
 function handleArchivementSuccess(move){
+	jQuery('#archive_completed_items').hide();
 	move = typeof(move) != 'undefined' ? move : false;
 	if(move){
 		jQuery('#archived_item_list').show();
@@ -49,7 +50,6 @@ function handleArchivementSuccess(move){
 					.each(function(i){
 						jQuery(this).remove();})
 	}
-	setTimeout(handleArchivementLink,2500);
 	if(typeof(roundCornders) != 'undefined'){
 		setTimeout(roundCorners,1500);
 	}

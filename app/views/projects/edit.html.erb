@@ -1,16 +1,16 @@
-<div class="span-18 last" id="header_wrapper">
-  <div id="project_title" class="span-18 last section_margin_top">
+<div class="span-17 last" id="header_wrapper">
+  <div id="project_title" class="span-17 last section_margin_top">
   	<%= render :partial => 'show_title' %>
   </div>
   <%= render :partial => 'tabs' %>
 </div>
-<div class="span-19 last page_content">
+<div class="span-17 last page_content">
   <div id="project_delete" class="list_action attributes"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
   <div id="project_done" class="list_action attributes"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
-  <div id="project_description" class="span-18 last section_margin_top">
+  <div id="project_description" class="span-16 last section_margin_top">
   	<%= render :partial => @project.description.blank? ? 'edit_description' : 'show_description' %>
   </div>
-  <div id="project_due_date" class="span-18 last section_margin_top">
+  <div id="project_due_date" class="span-16 last section_margin_top">
   	<%= render :partial => @project.due_date.blank? ? 'edit_due_date' : 'show_due_date' %>
   </div>
 </div>

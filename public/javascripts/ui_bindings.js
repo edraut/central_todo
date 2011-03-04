@@ -14,8 +14,12 @@ function bindSortables(){
 			if(jQuery(this).attr('data-sort_callback')){
 				eval(jQuery(this).attr('data-sort_callback'));
 			}
-		},
-		handle: (jQuery(this).find("[data-role='sortable_drag_handle']").length == 0) ? false : "[data-role='sortable_drag_handle']"
+		}
+	});
+	jQuery("[data-behavior='sortable']").each(function(i){
+		if(jQuery(this).find("[data-role='sortable_drag_handle']").length > 0) {
+			jQuery(this).sortable('option', 'handle', "[data-role='sortable_drag_handle']");
+		}
 	});
 }
 jQuery.fn.moveToParent = function(parent){

@@ -1,46 +1,56 @@
-<div class="span-18 last" id="header_wrapper">
-  <div class="span-18 last section_margin_top">
+<div class="span-16 last" id="header_wrapper">
+  <div class="span-16 last section_margin_top">
   	<h1>Situation: <%= @situation.title %></h1>
   </div>
   <%= render :partial => 'tabs' %>
 </div>
-<div class="span-19 last page_content">
-	<div class="span-18 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
+<div class="span-17 last page_content">
+	<div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
 		<%= form_for @task do |f| %>
 			<div class="span-12">
 				<%= f.text_field :title, :id => 'primary_input', :class => "span-12" %>
 			</div>
-			<div class="span-6 last">
+			<div class="span-4 last text-right">
 				<%= f.hidden_field :user_id %>
 				<%= f.hidden_field :situation_id %>
 				<%= f.hidden_field :state, :value => 'active' %>
 				<%= hidden_field_tag :app_context, 'situation' %>
-				<%= f.submit "add to this situation" %>
+				<%= f.submit "add to this situation" %> <br/>or
 				<a href="#" data-behavior="expander" data-action="contract" data-id="new_task_form">cancel</a>
 			</div>
 		<% end %>
 	</div>
-	<div id="unarchived_item_list" class="span-18 last">
-		<div id="task_list_heading" class="span-18 last">
+	<div id="unarchived_item_list" class="span-16 last">
+		<div id="task_list_heading" class="span-16 last">
 			<div id="unarchived_item_heading" class="span-6">
 				<h2>Get these done.</h2>
 			</div>
-			<div class="span-12 last">
+			<div class="span-10 last">
       	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
       </div>
 		</div>
-		<div id="unarchived_items_wrapper" class="span-18 last section_wrapper" data-role="list">
-      <div class="span-18 last line_item">
+		<div id="unarchived_items_wrapper" class="span-16 last section_wrapper" data-role="list">
+      <div class="span-16 last line_item">
         <div class="span-9 text-center small">task title</div>
-        <div class="span-4 small">&nbsp;&nbsp;</div>
-        <div class="span-4 last small">&nbsp;&nbsp;plan</div>
+        <div class="span-3 small">&nbsp;&nbsp;</div>
+        <div class="span-3 last small">&nbsp;&nbsp;plan</div>
       </div>
 			<% @tasks.each_with_index do |task,index| %>
-				<div class="span-18 last line_item" id="task_<%= task.id %>" data-role="list_item">
+				<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item">
 					<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true, :needs_organization => true} %>
 				</div>
 			<% end %>
 		</div>
+  	<div class="span-17">
 		<%= will_paginate @tasks %>
+		</div>
 	</div>
 </div>
+<% if params.has_key? :added_task %>
+  <%= javascript_tag do %>
+    jQuery("[data-behavior='expander'][data-state='contracted'][data-id='new_task_form']")
+      .hide();
+    jQuery("[data-behavior='expander'][data-state='expanded'][data-id='new_task_form']")
+      .show();
+	<% end %>
+<% end %>

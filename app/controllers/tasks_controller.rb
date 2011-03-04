@@ -56,10 +56,10 @@ class TasksController < ApplicationController
       case params[:app_context]
       when 'situation'
         flash[:notice] = "It's on your list now."
-        redirect_to situation_url(situation_id) and return
+        redirect_to situation_url(situation_id) + '?added_task=true' and return
       when 'project'
         flash[:notice] = "Another task well organized!"
-        redirect_to plan_url(project_id) and return
+        redirect_to plan_url(project_id) + '?added_task=true' and return
       end
     else
       redirect_to dashboard_url
@@ -68,6 +68,12 @@ class TasksController < ApplicationController
 
   def show
     @item = @task
+    if params[:full_view]
+      respond_with(@task) do |format|
+        format.html {render :partial => 'full_view' and return}
+      end
+      return
+    end
     return if handle_attribute_partials('show')
     @html_page_title = @page_title = 'Task'
     respond_with(@task)
@@ -83,7 +89,7 @@ class TasksController < ApplicationController
     @state_changed = @task.handle_attributes(@these_params)
     if(params.has_key? :app_context)
       @app_context = params[:app_context]
-      if (params[:app_context] == 'project')
+      if (params[:app_context] == 'project' and @state_changed == 'archived')
         @move = true
       end
     end
@@ -120,7 +126,7 @@ class TasksController < ApplicationController
       render :nothing => true, :status => 200 and return
     end
     flash[:notice] = "Your task was successfully deleted."
-    redirect_to dashboard_url and return
+    redirect_to (session[:return_to] || dashboard_url) and return
   end
   
   def get_task

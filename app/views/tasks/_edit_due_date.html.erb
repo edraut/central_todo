@@ -1,5 +1,5 @@
 <h2>Due Date</h2>
-<div class="span-18 last section">
+<div class="span-7 last section">
 	<%= form_for @task, :html => {
 		:'data-ajax_behavior' => 'ajax_form',
 		:'data-ajax_method' => 'PUT',
@@ -7,7 +7,7 @@
 		:'data-ajax_error_element' => 'task_due_date',
 		:id => 'edit_task_due_date'
 	} do |f| %>
-		<%= f.datetime_select :due_date, :class => 'span-9' %>
+		<%= f.datetime_select :due_date %><br/>
 		<%= hidden_field_tag 'attribute', 'due_date', :id => 'attribute_due_date' %>
   	<%= hidden_field_tag '_method', 'put' %>
 		<%= f.submit 'save' %> or
