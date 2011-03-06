@@ -36,6 +36,7 @@ class Project < ActiveRecord::Base
     end
   end
   #validations
+  validates_presence_of :title
 
   #callbacks
 

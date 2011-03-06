@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(params[:project])
     @project.save
-    redirect_to :action => 'index' and return
+    redirect_to plan_url(@project) and return
   end
 
   def show
