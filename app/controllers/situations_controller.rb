@@ -53,9 +53,8 @@ class SituationsController < ApplicationController
   
   def destroy
     @situation.destroy
-    index
     flash[:notice] = "Your situation was successfully deleted."
-    render :action => 'index' and return
+    redirect_to :action => 'index' and return
   end
     
   def get_situation

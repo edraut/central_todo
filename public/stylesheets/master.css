@@ -13,9 +13,13 @@ a:hover {
   background-color: #edece8;
   text-decoration: none; }
 
-a.quiet, div.quiet, span.quiet {
+a.quiet, div.quiet, span.quiet, .explanatory {
   font-size: 12px;
   line-height: 20px; }
+
+.explanatory {
+  background-color: #fdfcf8;
+  padding: 20px; }
 
 div.small, a.small, span.small {
   line-height: 20px; }
@@ -31,7 +35,7 @@ hr {
 
 h1 {
   color: #8e8d89;
-  margin-left: 22px;
+  margin-left: -16px;
   margin-bottom: 20px;
   font-size: 32px; }
 
@@ -59,7 +63,8 @@ input[type="checkbox"] {
   top: -3px; }
 
 textarea {
-  height: 7em; }
+  position: relative;
+  font-size: 16px; }
 
 input[type="submit"] {
   color: #ee3434;
@@ -108,7 +113,8 @@ select {
   padding: 0 8px;
   border-bottom: 1px solid #6d6c68;
   border-right: 1px solid #6d6c68;
-  z-index: 10; }
+  z-index: 10;
+  cursor: pointer; }
 
 .page_content {
   padding: 30px 0 30px 38px;
@@ -131,15 +137,19 @@ select {
 .section_margin_top {
   margin-top: 20px; }
 
-.section, .explanatory {
+.section {
   background-color: #f0f8f8;
   margin-left: -16px;
   padding-left: 16px;
   padding-top: 16px;
   padding-bottom: 16px;
   line-height: 20px; }
-  .section a:hover, .explanatory a:hover {
+  .section a:hover {
     background-color: #fbffff; }
+
+.section_heading {
+  background-color: #8e8d89;
+  color: #0d0c08; }
 
 .left_nav_wrapper {
   position: relative;
@@ -212,6 +222,10 @@ a:hover.selected {
   .line_item select {
     margin-top: 6px; }
 
+.line_item_soft {
+  padding-bottom: 7px;
+  padding-top: 7px; }
+
 .list_action {
   position: relative;
   float: right;
@@ -240,7 +254,12 @@ a:hover.selected {
   border-right: 1px solid #bdbcb8; }
 
 .attributes {
-  border: 1px solid #bdbcb8; }
+  border: 1px solid #bdbcb8;
+  z-index: 10;
+  cursor: pointer; }
+
+.attributes:hover {
+  background-color: #fdfcf8; }
 
 .attribute_action {
   position: relative;
@@ -248,8 +267,10 @@ a:hover.selected {
   padding: 0;
   margin-right: 10px;
   height: 2em; }
-  .attribute_action a, .attribute_action a:hover {
+  .attribute_action a {
     background-color: inherit; }
+  .attribute_action a:hover {
+    background-color: #fdfcf8; }
 
 .overdue, .overdue a {
   color: #ee3434; }
@@ -298,8 +319,9 @@ a:hover.selected {
   cursor: move; }
 
 .delete {
+  position: relative;
   line-height: 30px;
-  padding-top: 6px;
+  top: 0;
   font-size: 18px; }
 
 a:hover[data-role=delete].delete {

@@ -1,5 +1,5 @@
 <div class="span-17 last section_margin_top" id="header_wrapper">
-	<h1>High Priority Tasks</h1>
+	<h1>Priority Tasks</h1>
 </div>
 <div class="span-19 last page_content">
 	<% if @this_user.tasks.active.priority.count > 0 %>
@@ -17,10 +17,10 @@
 		<% end %>
 	</div>
   <% else %>
-  <h2>You don't have any priority tasks right now.</h2>
+  <p>You don't have any priority tasks right now.</p>
   <% if @this_user.show_help_text %>
-  <div class="span-16 last section_wrapper explanatory">
-    <p>
+  <div class="span-16 last">
+    <p class="explanatory">
     When you organize your newly entered tasks each day, you can mark a task with a priority star by clicking the star at the left of each task in the list. These priority tasks will appear here in the Priority Task list until they are completed. This is a good way to highlight tasks that need to be done quickly or have a higher importance than most of your tasks.
     </p>
   </div>

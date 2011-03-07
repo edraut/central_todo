@@ -9,13 +9,27 @@ function handleArchivementLink(){
 }
 function checkBoxProxy(e){
 	target = jQuery(e.target);
+	if(!target.attr('data-check_box')){
+		target = target.parents("[data-check_box]");
+	}
 	checkbox = jQuery('#' + target.attr('data-check_box'));
-	if(checkbox.val() == 'f'){
-		checkbox.val('t');
+	if(checkbox.is(':checked')){
+		checkbox.attr('checked', false);
 	}else{
-		checkbox.val('f');
+		checkbox.attr('checked', true);
 	}
 	checkbox.change();
+}
+function attributeControl(e){
+	target = jQuery(e.target);
+	link = target.find("[data-behavior='link_to_form']");
+	if(link){
+		link.click();
+	}
+}
+function bindAttributeControl(){
+	jQuery("[data-behavior='attribute_control']").die('click');
+	jQuery("[data-behavior='attribute_control']").live('click',attributeControl);
 }
 function bindCheckBoxProxy(){
 	jQuery("[data-behavior='check_box_proxy']").die('click');

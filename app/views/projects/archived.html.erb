@@ -2,6 +2,7 @@
 	<h1>Archived Plans</h1>
 </div>
 <div class="span-17 last page_content">
+  <% if @projects.any? %>
   <div id="archived_item_heading" class="span-16 last">
 		<h2>You got these done.</h2>
 	</div>
@@ -17,5 +18,10 @@
 			</div>
 		<% end %>
 	</div>
+	<div class="span-17 last">
 	<%= will_paginate @projects %>
+  </div>
+  <% else %>
+  <p>You don't have any archived plans right now.</p>
+  <% end %>
 </div>

@@ -107,6 +107,9 @@ class TasksController < ApplicationController
         format.any {render :partial => 'show_' + params[:attribute], :locals => {:task => @task, :foo => 'bar'}, :layout => 'ajax_section' and return}
       end
     else
+      if @render_type == :partial
+        flash[:ajax_notice] = "Your changes were saved."
+      end
       @item = @task
       respond_with(@task) do | format |
         format.any {render @render_type => 'show', :layout => "ajax_line_item", :locals => {:task => @task, :sortable => (params.has_key? :sortable), :needs_organization => (params.has_key? :needs_organization)} and return}

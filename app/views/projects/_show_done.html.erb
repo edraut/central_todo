@@ -4,7 +4,7 @@
 	:'data-ajax_success_element' => "project_done",
 	:id => 'edit_project_done'} do |f| %>
 	<div class="text_with_check_box_proxy">
-	<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, project.archived? ? 'archived' : 'complete', 'active' %>
+	<%= f.check_box :state, {:'data-behavior' => 'auto_submit', :id => 'project_state_checkbox'}, project.archived? ? 'archived' : 'complete', 'active' %>
   <%= hidden_field_tag 'attribute','done' %>
 	<%= hidden_field_tag '_method', 'put' %>
   </div>

@@ -39,9 +39,13 @@ a:hover {
   background-color: $light-gray;
 	text-decoration: none;
 }
-a.quiet, div.quiet, span.quiet {
+a.quiet, div.quiet, span.quiet, .explanatory {
 	font-size: 12px;
 	line-height: $compact-line-height;
+}
+.explanatory {
+  background-color: $pale-gray;
+  padding: 20px;
 }
 div.small, a.small, span.small {
   line-height: $compact-line-height;
@@ -57,7 +61,7 @@ hr {
 }
 h1 {
   color: $light-taupe;
-  margin-left: 22px;
+  margin-left: -16px;
   margin-bottom: 20px;
   font-size: 32px;
 }
@@ -86,7 +90,8 @@ input[type="checkbox"]{
   top: -3px;
 }
 textarea {
-	height: 7em;
+  position:relative;
+	font-size: $normal-font-size;
 }
 
 input[type="submit"] {
@@ -142,6 +147,7 @@ select {
   border-bottom: 1px solid $taupe;
   border-right: 1px solid $taupe;
   z-index: 10;
+  cursor: pointer;
 }
 // These classes define general layout rules for elements that play certain roles
 
@@ -171,7 +177,7 @@ select {
   margin-top: 20px;
 }
 
-.section, .explanatory {
+.section {
 	background-color: $pale-blue;
 	margin-left: -16px;
 	padding-left: 16px;
@@ -181,6 +187,10 @@ select {
 	a:hover {
 	  background-color: $blue-wash;
 	}
+}
+.section_heading {
+  background-color: $light-taupe;
+  color: $black;
 }
 .left_nav_wrapper {
   position: relative;
@@ -260,6 +270,10 @@ a:hover.selected {
   padding-bottom: 7px;
   margin-bottom: 7px;
 }
+.line_item_soft {
+  padding-bottom: 7px;
+  padding-top: 7px;
+}
 .list_action {
   position: relative;
   float: right;
@@ -290,6 +304,11 @@ a:hover.selected {
 }
 .attributes {
   border: 1px solid $gray;
+  z-index: 10;
+  cursor: pointer;
+}
+.attributes:hover {
+  background-color: $pale-gray;
 }
 .attribute_action {
   position: relative;
@@ -297,8 +316,11 @@ a:hover.selected {
   padding: 0;
   margin-right: 10px;
   height: 2em;
-  a, a:hover {
+  a {
     background-color: inherit;
+  }
+  a:hover {
+    background-color: $pale-gray;
   }
 }
 .overdue, .overdue a {
@@ -348,8 +370,9 @@ a:hover.selected {
 	cursor: move;
 }
 .delete {
+  position: relative;
   line-height: $line-height;
-	padding-top: 6px;
+	top: 0;
 	font-size: 18px;
 }
 a:hover[data-role=delete].delete {

@@ -4,6 +4,7 @@ function roundCorners(){
 }
 jQuery(document).ready(function(){
 	bindCheckBoxProxy();
+	bindAttributeControl();
 	roundCorners();
 	bindAutoSubmit();		
     bindLinkToForm();
@@ -36,8 +37,5 @@ function showDialog(selector) {
 	roundCorners();
 };
 function hideDialog(selector){
-  jQuery('#modal_mask').hide();
-  jQuery(selector).hide();
-  jQuery(selector).empty();
   location.reload();
 }

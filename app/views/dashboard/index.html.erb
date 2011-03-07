@@ -1,5 +1,5 @@
 <div class="span-16 last section_margin_top" id="header_wrapper">
-	<div class="span-8"><h1>Dashboard</h1></div><% if @this_user.show_help_text and @this_user.tasks.count > 0 %><div class="span-8 last text-right quiet">You can convert a task to a plan, add a description and more by clicking on a task title in any list.</div><% end %>
+	<div class="span-8"><h1>Dashboard</h1></div><% if @this_user.show_help_text and @this_user.tasks.count > 0 %><div class="span-8 last text-right"><p class="explanatory">You can convert a task to a plan, add a description and more by clicking on a task title in any list.</p></div><% end %>
 </div>
 <div class="span-17 last page_content">
   <h2>Enter a task</h2>
@@ -51,30 +51,33 @@
   <% if @this_user.tasks.active.priority.any? %>
   <div class="span-7 append-2">
   <div class="span-7 last section_margin_top">
-    <h2>High Priority Tasks</h2>
+    <h2>Priority Tasks</h2>
   </div>
   <div class="span-7 last section_wrapper">
+    <ul>
 		<% @this_user.tasks.active.priority.recent.five.each_with_index do |task,index| %>
-			<div class="span-7 last line_item" id="priority_task_<%= task.id %>" data-role="list_item">
+			<li class="line_item_soft" id="priority_task_<%= task.id %>" data-role="list_item">
 	      <%= link_to task.title, task_url(task),
 			    :'data-ajax_behavior' => 'ajax_link',
 			    :'data-ajax_method' => 'GET',
 			    :'data-ajax_success_element' => 'main_modal_view',
 			    :'data-ajax_success_callback' => "showDialog('#main_modal_view')",
 			    :'data-ajax_data' => "{'full_view':'true'}"%>
-			</div>
+			</li>
 		<% end %>
 		<% if @this_user.tasks.active.priority.count > 5 %>
-      <div class="span-7 last text-right section_margin_top">
+      <div class=" text-right section_margin_top">
         <%= link_to 'See all', due_date_tasks_url %> &rarr;
       </div>
 		<% end %>
+    </ul>
   </div>
   </div>
   <% else %>
   <div class="span-7 append-2 section_margin_top">
     <p>
-    You don't have any high priority tasks.<% if @this_user.show_help_text %><br/> <span class="quiet">You can make any task a priority by clicking on the star to the left of the check box in any task list.</span><% end %>
+    You don't have any priority tasks.</p>
+    <% if @this_user.show_help_text %><p class="explanatory">You can make any task a priority by clicking on the star to the left of the check box in any task list.</p><% end %>
     </p>
   </div>
   <% end %>
@@ -85,11 +88,11 @@
   </div>
   <div class="span-7 last section_wrapper">
     <% for due_date in @due_dates %>
-    <div class="span-7 last line_item">
+    <div class="span-7 last section_heading">
       <%= due_date.to_formatted_s(:full) %>
     </div>
     <% for item in @due_date_items.select{|t| t.due_date.to_date == due_date} %>
-			<div class="span-7 last line_item <% if item.overdue? %> overdue<% end %>" id="due_date_<%= item.class.display_name.downcase %>_<%= item.id %>">
+			<div class="span-7 last line_item_soft<% if item.overdue? %> overdue<% end %>" id="due_date_<%= item.class.display_name.downcase %>_<%= item.id %>">
 			  <span class="small"><%= item.class.display_name %></span>:
 			    <% if item.class.name == 'Project' %>
 			      <%= link_to item.title, plan_url(item) %>
@@ -111,11 +114,14 @@
 		<% end %>
   </div>
   </div>
-  <% elsif @this_user.show_help_text %>
+  <% else %>
   <div class="span-7 last section_margin_top">
     <p>
-    There are no tasks with due dates.<br/>
-    <span class="quiet">You can add a due date to any task by clicking on the task title in a task list to get to the task editing page</span>
+    There are no scheduled tasks.
+    </p>
+    <% if @this_user.show_help_text %>
+    <p class="explanatory">You can add a due date to any task by clicking on the task title in a task list to get to the task editing page</p>
+    <% end %>
   </div>
   <% end %>
 </div>

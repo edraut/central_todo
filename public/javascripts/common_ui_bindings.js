@@ -89,6 +89,7 @@ function bindExpanders(){
 			actual_target = getActualLinkTarget(jQuery(e.target));
 			jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + actual_target.attr('data-id') + "']").show();
 			jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + actual_target.attr('data-id') + "']").hide();
+			jQuery('#primary_input').focus();
 		});
 		jQuery("[data-behavior='expander'][data-action='contract']").die('click');
 		jQuery("[data-behavior='expander'][data-action='contract']").live('click', function(e){
@@ -97,7 +98,6 @@ function bindExpanders(){
 			jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + actual_target.attr('data-id') + "']").show();
 			jQuery("[data-role=\'footer\']").hide();
 			setTimeout('jQuery("[data-role=\'footer\']").show();',200);
-			// setTimeout('jQuery("h2:first").mouseup();',300);
 		});
 	});
 };

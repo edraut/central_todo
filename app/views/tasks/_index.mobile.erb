@@ -1,5 +1,5 @@
 <% if @tasks.length > 0 %>
-  <h2>Current Tasks</h2>
+  <h2>Active Tasks</h2>
   <div id="archive_completed_items" class="list_action" <% unless @this_user.tasks.complete.unorganized.any? %>style="display: none;"<% end %>>
     	<%= link_to 'archive completed tasks', archive_completed_tasks_url,
     	 	:'data-ajax_behavior' => 'ajax_link',
@@ -16,7 +16,10 @@
   <%= will_paginate @tasks %>
 <% else %>
   <h2>You don't have any unorganized tasks right now.</h2>
-  <div class="section_wrapper explanatory">
+  <% if @this_user.show_help_text %>
+  
+  <div class="explanatory">
     <p>When you use the dashboard to add a task, it's a quick way to get it into the system. Later when you have more time, preferably daily, you should come back and review the tasks you've added. You'll find them here, in the Unorganized Task list.<br/>&nbsp;<br/>While you're reviewing your new tasks you can check off any you've already completed and consider yourself accomplished. If you haven't completed a task, consider adding it to a plan or a situation. If it is a task that involves multiple steps itself, you can convert it to a plan and add tasks to that plan to list the steps.</p>
   </div>
+  <% end %>
 <% end %>

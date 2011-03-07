@@ -2,6 +2,7 @@
 	<h1>Archived Unorganized Tasks</h1>
 </div>
 <div class="span-17 last page_content">
+  <% if @tasks.any? %>
   <div id="archived_item_heading" class="span-16 last">
 		<h2>You got these done.</h2>
 	</div>
@@ -20,4 +21,7 @@
 	<div class="span-17">
 	<%= will_paginate @tasks %>
 	</div>
+	<% else %>
+	You don't have any archived unorganized tasks right now.
+	<% end %>
 </div>

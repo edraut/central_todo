@@ -15,22 +15,22 @@
 	<div id="top_nav">
 		<div class="container">
 			<div id="top_nav_wrapper" class="span-24 vertical-padding">
-				<div class="span-5 text-right" data-role="top_nav_element">
-					<div class="vert-line-nav-wrapper-header">
+			  <div class="left_nav_wrapper">&nbsp;</div>
+				<div class="span-18 last" data-role="top_nav_element">
+          <div class="span-9" style="padding-left:24px;">
 						<%= link_to 'Home', root_url, :class => 'loud' %>
 					</div>
-				</div>
-				<div class="span-9" data-role="top_nav_element">&nbsp;</div>
-				<div class="span-8 last text-center" data-role="top_nav_element">
-					<% if current_user %>
-						hello <%= @this_user.email %>
-						<%= link_to '(sign out)', sign_out_url, :class => 'quiet' %>
-						<%= link_to 'account', user_url(@this_user) %>
-					<% else %>
-						<%= link_to 'Sign Up', sign_up_url %> or
-						<%= link_to 'Sign in', sign_in_url %>
-					<% end %>
-				</div>
+  				<div class="span-8 last text-center" data-role="top_nav_element">
+  					<% if current_user %>
+  						hello <%= @this_user.email %>
+  						<%= link_to '(sign out)', sign_out_url, :class => 'quiet' %>
+  						<%= link_to 'account', user_url(@this_user) %>
+  					<% else %>
+  						<%= link_to 'Sign Up', sign_up_url %> or
+  						<%= link_to 'Sign in', sign_in_url %>
+  					<% end %>
+  				</div>
+        </div>
 			</div>
 		</div>
 	</div>
@@ -57,14 +57,14 @@
 						  <div class="hover_nav_pointer">&rarr;</div>
 						  <% end %>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Unorganized(#{@this_user.tasks.unarchived.unorganized.count})", tasks_url, :class => (action_name == 'index' and controller_name == 'tasks') ? 'selected' : '' %>
+								<%= link_to "Unorganized (#{@this_user.tasks.unarchived.unorganized.count})", tasks_url, :class => (action_name == 'index' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Priority(#{@this_user.tasks.active.priority.count})", priority_tasks_url, :class => (action_name == 'priority' and controller_name == 'tasks') ? 'selected' : '' %>
+								<%= link_to "Priority (#{@this_user.tasks.active.priority.count})", priority_tasks_url, :class => (action_name == 'priority' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
 							<% if @this_user.tasks.unorganized.archived.count > 0 %>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Archived(#{@this_user.tasks.archived.unorganized.count})", archived_unorganized_tasks_url, :class => (action_name == 'archived_unorganized' and controller_name == 'tasks') ? 'selected' : '' %>
+								<%= link_to "Archived (#{@this_user.tasks.archived.unorganized.count})", archived_unorganized_tasks_url, :class => (action_name == 'archived_unorganized' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
 							<% end %>
 						</div>
@@ -78,10 +78,10 @@
 						  <div class="hover_nav_pointer">&rarr;</div>
 						  <% end %>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Active(#{@this_user.projects.unarchived.count})", plans_url, :class => (controller_name == 'projects' and action_name == 'index') ? 'selected' : '' %>
+								<%= link_to "Active (#{@this_user.projects.unarchived.count})", plans_url, :class => (controller_name == 'projects' and action_name == 'index') ? 'selected' : '' %>
 							</div>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Archived(#{@this_user.projects.archived.count})", archived_plans_url, :class => (controller_name == 'projects' and action_name == 'archived') ? 'selected' : '' %>
+								<%= link_to "Archived (#{@this_user.projects.archived.count})", archived_plans_url, :class => (controller_name == 'projects' and action_name == 'archived') ? 'selected' : '' %>
 							</div>
 						  <% for project in @this_user.projects.active.ordered %>
 							<div class="vert-line-subnav-wrapper">
@@ -101,7 +101,7 @@
 						  <% end %>
 						  <% for situation in @this_user.situations %>
 							<div class="vert-line-subnav-wrapper">
-                <%= link_to truncate_clean(situation.title,{:length => 100, :max_word_length => (controller_name == 'situations') ? 20 : nil, :omission => '-'}), situation_url(situation), :class => (controller_name == 'situations' and action_name == 'show' and @situation.id == situation.id) ? 'selected' : '' %>
+                <%= link_to truncate_clean(situation.title,{:length => 100, :max_word_length => (controller_name == 'situations') ? 20 : nil, :omission => '-'}) + " (#{situation.tasks.active.count})", situation_url(situation), :class => (controller_name == 'situations' and action_name == 'show' and @situation.id == situation.id) ? 'selected' : '' %>
               </div>
               <% end %>
             </div>

@@ -25,10 +25,12 @@
   <% end %>
   <%= will_paginate @due_date_items %>
 </div>
-<% elsif @this_user.show_help_text %>
+<% else %>
 <div class="section">
   <p>
-  There are no tasks with due dates.<br/>
+  There are no scheduled tasks.<br/>
+  <% if @this_user.show_help_text %>
   <span class="quiet">You can add a due date to any task by clicking on the task title in a task list to get to the task editing page</span>
+  <% end %>
 </div>
 <% end %>

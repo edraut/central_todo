@@ -7,7 +7,7 @@
 		:'data-ajax_error_element' => 'project_description',
 		:id => 'edit_project_description'
 	} do |f| %>
-		<%= f.text_area :description, :class => 'span-9' %>
+		<%= f.text_area :description, :rows => 5 %>
 		<%= hidden_field_tag 'attribute', 'description' %>
 		<%= hidden_field_tag '_method', 'put' %>
 		<%= f.submit 'save' %> or
