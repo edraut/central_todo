@@ -7,4 +7,4 @@
 	  <%= hidden_field_tag 'attribute', 'priority', :id => 'attribute_priority_field' %>
 	  <%= hidden_field_tag '_method', 'put' %>
 <% end -%>
-<div data-behavior="check_box_proxy" data-check_box="full_view_priority_<%= @task.id %>" class="check_box_proxy <% if @task.priority? %>checked<% end %>">&lowast;</div>&nbsp;priority task
+<div data-behavior="check_box_proxy" data-check_box="full_view_priority_<%= @task.id %>" class="check_box_proxy <% if @task.priority? %>checked<% end %>">&lowast;</div><div class="strong_box">&nbsp;priority task</div>

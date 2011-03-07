@@ -1,12 +1,18 @@
 <div class="span-17 last" id="header_wrapper">
-  <div id="project_title" class="span-17 last section_margin_top">
-  	<%= render :partial => 'show_title' %>
+  <div class="span-17 last section_margin_top">
+    <h1>Plan</h1>
   </div>
   <%= render :partial => 'tabs' %>
 </div>
 <div class="span-17 last page_content">
+  <div id="project_title" class="span-16 last border_bottom padding_bottom">
+	<%= render :partial => 'show_title' %>
+	</div>
+	<div class="span-16 last">&nbsp;</div>
+	<div class="span-16 last">
   <div id="project_delete" class="list_action attributes" onclick="void(0)" data-behavior="attribute_control"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
   <div id="project_done" class="list_action attributes" onclick="void(0)"  data-behavior="check_box_proxy" data-check_box="project_state_checkbox"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
+  </div>
   <div id="project_description" class="span-16 last section_margin_top">
   	<%= render :partial => @project.description.blank? ? 'edit_description' : 'show_description' %>
   </div>

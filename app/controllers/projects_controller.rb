@@ -59,12 +59,15 @@ class ProjectsController < ApplicationController
     @project.save
     @item = @project
     if params[:attribute]
-      flash[:ajax_notice] = "Your changes were saved"
+      flash.now[:ajax_notice] = "Your changes were saved."
       respond_with(@project) do | format |
         format.any {render :partial => 'show_' + params[:attribute], :locals => {:project => @project}, :layout => 'ajax_section' and return}
       end
       return
     else
+      if @render_type == :partial
+        flash.now[:ajax_notice] = "Your changes were saved."
+      end
       @item = @project
       render @render_type => 'show', :locals => {:project => @project, :sortable => (params.has_key? :sortable)}, :layout => 'ajax_line_item' and return
     end
@@ -95,7 +98,7 @@ class ProjectsController < ApplicationController
         task.position = index
         task.save
       end
-      flash[:notice] = "These tasks are now sorted by due date."
+      flash.now[:notice] = "These tasks are now sorted by due date."
       show
       render :action => 'show' and return
     else

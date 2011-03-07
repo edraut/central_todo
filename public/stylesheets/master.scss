@@ -89,6 +89,10 @@ input {
 input[type="checkbox"]{
   top: -3px;
 }
+input[type="text"]{
+  padding: 7px 7px 7px 7px;
+  height: auto;
+}
 textarea {
   position:relative;
 	font-size: $normal-font-size;
@@ -102,6 +106,7 @@ select {
   top: -2px;
   font-size: $normal-font-size;
   font-weight: normal;
+  padding: 7px 7px 7px 7px;
 }
 // These classes define layout for specific elements
 
@@ -130,7 +135,7 @@ select {
   left: 0;
   float: left;
   background: $grayish;
-  width: 670px;
+  width: 750px;
   padding: 20px 20px 20px 40px;
   z-index: 1000;
 }
@@ -187,6 +192,21 @@ select {
 	a:hover {
 	  background-color: $blue-wash;
 	}
+}
+.half_section {
+  position: relative;
+  float: left;
+  width: 360px;
+  margin-right: 30px;
+}
+.half_section.last, .half_select.last {
+  margin-right: 0;
+}
+.half_select {
+  position: relative;
+  float: left;
+  width: 175px;
+  margin-right: 10px;
 }
 .section_heading {
   background-color: $light-taupe;
@@ -343,7 +363,7 @@ a:hover.selected {
 	color: $carmine;
 }
 .check_box_proxy {
-	font-size: 22px;
+	font-size: 28px;
   line-height: $line-height;
   height: $line-height;
 	cursor: pointer;
@@ -362,6 +382,13 @@ a:hover.selected {
   position: relative;
 	float: left;
   line-height: $line-height;
+}
+.text_field_button_label{
+  height: 30px;
+  padding: 0;
+  input[type="submit"] {
+    vertical-align: middle;
+  }
 }
 .in_header{
   margin-top: 3px;
@@ -386,7 +413,10 @@ a:hover[data-role=delete].delete {
   vertical-align: middle;
 }
 // These classes define reusable design elements
-
+.strong_box {
+  position: relative;
+  float: left;
+}
 .text-right {
 	@include text-right;
 }
@@ -399,6 +429,9 @@ a:hover[data-role=delete].delete {
 .vertical-padding {
 	padding-top: 14px;
 	padding-bottom: 14px;
+}
+.padding_bottom {
+  padding-bottom: 14px;
 }
 .border_top {
   border-top: 1px solid $taupe;

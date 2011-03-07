@@ -1,5 +1,5 @@
 <h2>Plan</h2>
-<div class="span-7 last section">
+<div class="half_section last section">
 	<%= form_for @task, :html => {
 		:'data-ajax_behavior' => 'ajax_form',
 		:'data-ajax_method' => 'PUT',
@@ -10,12 +10,12 @@
 	  <%  project_array = @this_user.projects.active
 	      (project_array = project_array | [@task.project]) if @task.project
 	      %>
-	  <div class="span-2">
-		<%= f.select :project_id, [['none',nil]] + project_array.map{|p| [p.title,p.id]}, {}, :class => 'span-2', :rows => 4 %>
+	  <div class="half_select">
+		<%= f.select :project_id, [['none',nil]] + project_array.map{|p| [p.title,p.id]}, {}, :class => 'half_select', :rows => 4 %>
     </div>
 		<%= hidden_field_tag 'attribute', 'project_id', :id => 'attribute_project_id' %>
   	<%= hidden_field_tag '_method', 'put' %>
-    <div class="span-5 last">
+    <div class="half_select last">
 		<%= f.submit 'save' %> or
 		<%= link_to (@task.project ? 'cancel' : 'leave blank'), task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',

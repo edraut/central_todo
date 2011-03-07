@@ -13,11 +13,19 @@ function checkBoxProxy(e){
 		target = target.parents("[data-check_box]");
 	}
 	checkbox = jQuery('#' + target.attr('data-check_box'));
-	if(checkbox.is(':checked')){
-		checkbox.attr('checked', false);
+	if(checkbox.is("input[type='checkbox']")){
+		if(checkbox.is(':checked')){
+			checkbox.attr('checked', false);
+		}else{
+			checkbox.attr('checked', true);
+		}
 	}else{
-		checkbox.attr('checked', true);
-	}
+		if(checkbox.val() == 'f'){
+			checkbox.val('t');
+		}else{
+			checkbox.val('f');
+		}
+	};
 	checkbox.change();
 }
 function attributeControl(e){

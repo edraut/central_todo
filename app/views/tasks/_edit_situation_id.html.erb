@@ -1,5 +1,5 @@
 <h2>Situation</h2>
-<div class="span-7 last section">
+<div class="half_section last section">
 	<%= form_for @task, :html => {
 		:'data-ajax_behavior' => 'ajax_form',
 		:'data-ajax_method' => 'PUT',
@@ -7,12 +7,12 @@
 		:'data-ajax_error_element' => 'task_situation',
 		:id => 'edit_task_situation_id'
 	} do |f| %>
-	  <div class="span-2">
-		<%= f.select :situation_id, [['none',nil]] + Situation.all.map{|p| [p.title,p.id]},{},:class => 'span-2' %>
+	  <div class="half_select">
+		<%= f.select :situation_id, [['none',nil]] + Situation.all.map{|p| [p.title,p.id]},{},:class => 'half_select' %>
 		</div>
 		<%= hidden_field_tag 'attribute', 'situation_id', :id => 'attribute_situation_id' %>
   	<%= hidden_field_tag '_method', 'put' %>
-  	<div class="span-5 last">
+  	<div class="half_select last">
 		<%= f.submit 'save' %> or
 		<%= link_to (@task.situation ? 'cancel' : 'leave blank'), task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',

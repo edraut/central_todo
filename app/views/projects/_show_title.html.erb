@@ -1,9 +1,10 @@
-<div class="span-15"><h1>Plan: <%= @project.title %>
-</h1></div>
-<div class="span-2 last">
+<div class="span-14">
+  <h2><%= @project.title %></h2>
+</div>
+<div class="span-2 last text-right">
 	<%= link_to 'edit title', edit_plan_url(@project, :attribute => 'title'),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_element' => 'project_title'
-	%>
+	%>&nbsp;&nbsp;
 </div>

@@ -1,6 +1,6 @@
 <div class="span-16 last" id="header_wrapper">
   <div class="span-16 last section_margin_top">
-  	<h1>Situation: <%= @situation.title %></h1>
+  	<h1>Situation</h1>
   </div>
   <%= render :partial => 'tabs' %>
 </div>
@@ -23,7 +23,7 @@
 	<div id="unarchived_item_list" class="span-16 last">
 		<div id="task_list_heading" class="span-16 last">
 			<div id="unarchived_item_heading" class="span-6">
-				<h2>Get these done.</h2>
+				<h2><%= @situation.title %></h2>
 			</div>
 			<div class="span-10 last">
       	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>

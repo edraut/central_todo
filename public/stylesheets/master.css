@@ -62,6 +62,10 @@ input {
 input[type="checkbox"] {
   top: -3px; }
 
+input[type="text"] {
+  padding: 7px 7px 7px 7px;
+  height: auto; }
+
 textarea {
   position: relative;
   font-size: 16px; }
@@ -73,7 +77,8 @@ input[type="submit"] {
 select {
   top: -2px;
   font-size: 16px;
-  font-weight: normal; }
+  font-weight: normal;
+  padding: 7px 7px 7px 7px; }
 
 #inbox_text_area {
   width: 335px;
@@ -97,7 +102,7 @@ select {
   left: 0;
   float: left;
   background: #dddcd8;
-  width: 670px;
+  width: 750px;
   padding: 20px 20px 20px 40px;
   z-index: 1000; }
 
@@ -146,6 +151,21 @@ select {
   line-height: 20px; }
   .section a:hover {
     background-color: #fbffff; }
+
+.half_section {
+  position: relative;
+  float: left;
+  width: 360px;
+  margin-right: 30px; }
+
+.half_section.last, .half_select.last {
+  margin-right: 0; }
+
+.half_select {
+  position: relative;
+  float: left;
+  width: 175px;
+  margin-right: 10px; }
 
 .section_heading {
   background-color: #8e8d89;
@@ -292,7 +312,7 @@ a:hover.selected {
   color: #ee3434; }
 
 .check_box_proxy {
-  font-size: 22px;
+  font-size: 28px;
   line-height: 30px;
   height: 30px;
   cursor: pointer;
@@ -311,6 +331,12 @@ a:hover.selected {
   position: relative;
   float: left;
   line-height: 30px; }
+
+.text_field_button_label {
+  height: 30px;
+  padding: 0; }
+  .text_field_button_label input[type="submit"] {
+    vertical-align: middle; }
 
 .in_header {
   margin-top: 3px; }
@@ -334,6 +360,10 @@ a:hover[data-role=delete].delete {
 .vertical_center {
   vertical-align: middle; }
 
+.strong_box {
+  position: relative;
+  float: left; }
+
 .text-right {
   text-align: right; }
 
@@ -345,6 +375,9 @@ a:hover[data-role=delete].delete {
 
 .vertical-padding {
   padding-top: 14px;
+  padding-bottom: 14px; }
+
+.padding_bottom {
   padding-bottom: 14px; }
 
 .border_top {

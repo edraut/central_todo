@@ -1,11 +1,11 @@
 <div class="span-16" id="header_wrapper">
   <div class="span-16 last section_margin_top">
-  	<h1>Plan: <% if @project.done? %><span style="text-decoration:line-through;"><% end %> <%= @project.title %><% if @project.done? %></span><% end %></h1>
+  	<h1>Plan </h1>
   </div>
   <%= render :partial => 'tabs' %>
 </div>
 <div class="span-18 last page_content">
-	<div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
+<div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
 		<%= form_for @task do |f| %>
 			<div class="span-12">
 				<%= f.text_field :title, :id => "primary_input", :class => "span-12" %>
@@ -21,13 +21,15 @@
 		<% end %>
 	</div>
 
-  <% unless @project.done? %>
+  <% if @project.done? %>
+  <p>You marked this plan completed. If you would like to re-activate this plan, click on the 'edit plan' tab above and uncheck 'plan accomplished'.</p>
+  <% else %>
 	<div id="unarchived_item_list" class="span-16 last">
 		<div id="task_list_heading" class="span-16 last">
-			<div id="unarchived_item_heading" class="span-5">
-				<h2><% if @project.tasks.unarchived.any? %>Get these done.<% else %>No active tasks.<% end %></h2>
+			<div id="unarchived_item_heading" class="span-12<% if @project.done? %>completed<% end %>">
+				<h2><%= @project.title %></h2>
 			</div>
-			<div class="span-11 last">
+			<div class="span-4 last">
         	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
   				<% if @project.tasks.unarchived.with_due_date.count > 0 %>
   			  <div class="list_action attach_above">
