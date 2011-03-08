@@ -68,6 +68,7 @@ class TasksController < ApplicationController
 
   def show
     @item = @task
+    @date_picker = true
     if params[:full_view]
       respond_with(@task) do |format|
         format.html {render :partial => 'full_view' and return}
@@ -85,15 +86,19 @@ class TasksController < ApplicationController
   end
   
   def update
-    @these_params = params[:task].dup
-    @state_changed = @task.handle_attributes(@these_params)
-    if(params.has_key? :app_context)
-      @app_context = params[:app_context]
-      if (params[:app_context] == 'project' and @state_changed == 'archived')
-        @move = true
+    if params.has_key? :nullify
+      @task.update_attributes({params[:attribute]=> nil})
+    else
+      @these_params = params[:task].dup
+      @state_changed = @task.handle_attributes(@these_params)
+      if(params.has_key? :app_context)
+        @app_context = params[:app_context]
+        if (params[:app_context] == 'project' and @state_changed == 'archived')
+          @move = true
+        end
       end
+      @task.update_attributes(@these_params)
     end
-    @task.update_attributes(@these_params)
     @item = @task
     if params[:attribute]
       if !@state_changed

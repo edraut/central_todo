@@ -15,7 +15,8 @@ $black: #0D0C08;
 $taupe: #6D6C68;
 $light-taupe: #8E8D89;
 $paper: #FDFCF8;
-$yellow: #FFF8D0;
+$light-yellow: #FFF8D0;
+$yellow: #fcefa1;
 $white: #FCFCFA;
 $normal-font-size: 16px;
 $line-height: 30px;
@@ -240,15 +241,26 @@ select {
 		line-height: $compact-line-height;
 		a.selected, a:hover.selected {
 			font-weight: bold;
-			color: $charcoal;
+			color: $black;
 		}
     a:hover {
 	    color: $gray;
     }
 	}
 }
+div.vert-line-nav-wrapper-main.selected {
+  width: 212px;
+  background-color: $grayish;
+}
+.vert-line-subnav-wrapper.selected {
+  font-weight: bold;
+  color: $black;
+}
 .vert-line-nav-wrapper-header {
 	@include vert-line-nav-wrapper;
+}
+.hover_nav_selected {
+  width: 212px;
 }
 .hover_nav {
   .vert-line-subnav-wrapper {
@@ -281,6 +293,10 @@ a.selected {
 }
 a:hover.selected {
 	color: $black;
+}
+.selected_indicator {
+  position: absolute;
+  left: .7em;
 }
 .line_item {
   select {
@@ -438,4 +454,17 @@ a:hover[data-role=delete].delete {
 }
 .border_bottom {
   border-bottom: 1px solid $taupe;
+}
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }
+.ui-timepicker-div dl{ text-align: left; }
+.ui-timepicker-div dl dt{ height: 25px; }
+.ui-timepicker-div dl dd{ margin: -1em 0 .6em 5em; }
+.ui-timepicker-div td { font-size: 90%; }
+.mytime .ui-datepicker {
+  width: 20em;
+  font-size: .7em;
+}
+.mytime .ui-timepicker-div dl dd.ui_tpicker_time {
+  margin-top: -2.3em;
 }

@@ -7,12 +7,8 @@
 	:'data-ajax_error_callback' => "jQuery('#project_#{project.id}').append('<div class=\"flash_notice span-15 last\">Ooops! Something went wrong. We're looking into it, but feel free to contact customer support with any concerns.</div>'); setTimeout(\"jQuery('.flash_notice').fadeOut(1000)\",3000);",
 	:'data-ajax_success_element' => "project_#{project.id}"} do |f| %>
 	<div class="span-12">
-		<div class="text_with_check_box_proxy" <% unless project.all_complete %>style="display:none;" data-role="hidden_checkbox"<% end %>>
-  		<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, project.archived? ? 'archived' : 'complete', 'active' %>
-    </div>
-    <% unless project.all_complete %><div data-role="checkbox_placeholder"  class="text_with_check_box_proxy text-center"><a href="<%= plan_url(project) %>">-</a></div><% end %>
 		<div class="text_with_check_box_proxy span-8 last">
-  		<%= link_to project.title, plan_url(project), :class => project.done? ? 'completed' : nil %>
+  		<%= link_to project.title, plan_url(project), :class => project.all_complete ? 'completed' : nil %>
 		</div>
 	</div>
 	<div class="span-2 text_with_check_box_proxy text-center"><%= project.tasks.active.count %></div>

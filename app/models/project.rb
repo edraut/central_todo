@@ -20,19 +20,13 @@ class Project < ActiveRecord::Base
   #special behaviors
 
   state_machine :initial => :active, :action => nil do
-    after_transition :on => :archive, :do => :handle_task_state
-    after_transition :on => :finish, :do => :handle_task_state
     state :active
-    state :complete
     state :archived
     event :activate do
       transition all => :active
     end
-    event :finish do
-      transition :active => :complete
-    end
     event :archive do
-      transition :complete => :archived
+      transition :active => :archived
     end
   end
   #validations
@@ -46,10 +40,6 @@ class Project < ActiveRecord::Base
   end
 
   #instance methods
-  def done?
-    self.complete? or self.archived?
-  end
-  
   def overdue?
     !self.due_date.nil? and self.due_date < Time.now
   end
@@ -77,10 +67,4 @@ class Project < ActiveRecord::Base
     
   end
   
-  def handle_task_state
-    self.tasks.each do |task|
-      task.archive
-      task.save
-    end
-  end
 end

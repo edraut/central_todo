@@ -50,6 +50,7 @@ class ProjectsController < ApplicationController
   
   def edit
     @item = @project
+    @date_picker = true
     return if handle_attribute_partials('edit')
   end
   

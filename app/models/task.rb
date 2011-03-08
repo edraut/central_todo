@@ -70,7 +70,10 @@ class Task < ActiveRecord::Base
     self.position = self.project_id.nil? ? ((self.user.tasks.projectless.count < 1) ? 0 : self.user.tasks.projectless.maximum(:position) + 1) : ((self.project.tasks.count < 1) ? 0 : self.project.tasks.maximum(:position) + 1)
   end
   
-  def handle_attributes(new_attributes)
+  def handle_attributes(new_attributes,attribute = nil,nullify = false)
+    if nullify
+      new_attributes[attribute] = nil
+    end
     old_state = self.state
     new_state = new_attributes.delete(:state)
     if new_attributes.has_key? :'due_date(1i)' and !new_attributes.has_key? :'due_date(4i)'

@@ -21,21 +21,16 @@
 		<% end %>
 	</div>
 
-  <% if @project.done? %>
-  <p>You marked this plan completed. If you would like to re-activate this plan, click on the 'edit plan' tab above and uncheck 'plan accomplished'.</p>
+  <% if @project.archived? %>
+  <p>You archived this plan. If you would like to re-activate it, click on the 'edit plan' tab above and uncheck 'archived'.</p>
   <% else %>
 	<div id="unarchived_item_list" class="span-16 last">
 		<div id="task_list_heading" class="span-16 last">
-			<div id="unarchived_item_heading" class="span-12<% if @project.done? %>completed<% end %>">
+			<div id="unarchived_item_heading" class="span-12<% if @project.all_complete %>completed<% end %>">
 				<h2><%= @project.title %></h2>
 			</div>
 			<div class="span-4 last">
         	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
-  				<% if @project.tasks.unarchived.with_due_date.count > 0 %>
-  			  <div class="list_action attach_above">
-        		<%= link_to ('sort by due date', sort_tasks_plan_url(@project) + '?by_due_date=true') %>
-          </div>
-          <% end %>
           <% if @project.tasks.unarchived.count == 0 and @project.tasks.count > 0 %>
           <div id="project_done" class="list_action attach_above"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
           <% end %>
@@ -66,6 +61,11 @@
     		:'data-ajax_success_callback' => "handleArchivementSuccess(true);",
     		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %> &darr;
     	</div>
+			<% if @project.tasks.unarchived.with_due_date.count > 0 %>
+		  <div class="list_action attach_below">
+    		<%= link_to ('sort by due date', sort_tasks_plan_url(@project) + '?by_due_date=true') %>
+      </div>
+      <% end %>
     </div>
   </div>
 	<div id="archived_item_list" <% unless @project.tasks.archived.any? %>style="display:none;"<% end %> class="span-16 last section_margin_top" data-role="list">

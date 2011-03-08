@@ -197,12 +197,23 @@ select {
     line-height: 20px; }
     .vert-line-nav-wrapper-main .vert-line-subnav-wrapper a.selected, .vert-line-nav-wrapper-main .vert-line-subnav-wrapper a:hover.selected {
       font-weight: bold;
-      color: #4d4c48; }
+      color: #0d0c08; }
     .vert-line-nav-wrapper-main .vert-line-subnav-wrapper a:hover {
       color: #bdbcb8; }
 
+div.vert-line-nav-wrapper-main.selected {
+  width: 212px;
+  background-color: #dddcd8; }
+
+.vert-line-subnav-wrapper.selected {
+  font-weight: bold;
+  color: #0d0c08; }
+
 .vert-line-nav-wrapper-header {
   padding-left: 12px; }
+
+.hover_nav_selected {
+  width: 212px; }
 
 .hover_nav {
   position: absolute;
@@ -234,6 +245,10 @@ a.selected {
 
 a:hover.selected {
   color: #0d0c08; }
+
+.selected_indicator {
+  position: absolute;
+  left: .7em; }
 
 .line_item {
   border-bottom: 1px solid #6d6c68;
@@ -385,3 +400,26 @@ a:hover[data-role=delete].delete {
 
 .border_bottom {
   border-bottom: 1px solid #6d6c68; }
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header {
+  margin-bottom: 8px; }
+
+.ui-timepicker-div dl {
+  text-align: left; }
+
+.ui-timepicker-div dl dt {
+  height: 25px; }
+
+.ui-timepicker-div dl dd {
+  margin: -1em 0 0.6em 5em; }
+
+.ui-timepicker-div td {
+  font-size: 90%; }
+
+.mytime .ui-datepicker {
+  width: 20em;
+  font-size: .7em; }
+
+.mytime .ui-timepicker-div dl dd.ui_tpicker_time {
+  margin-top: -2.3em; }
