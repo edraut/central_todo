@@ -12,13 +12,13 @@
 	:'data-ajax_method' => 'PUT',
 	:'data-ajax_success_callback' => "handleArchivementLink();",
 	:'data-ajax_success_element' => "task_#{task.id}"} do |f| %>
-	<div class="<%= (['project','situation'].include? @app_context) ? 'span-12' : 'span-9' -%>">
+	<div class="<%= (@app_context == 'project') ? 'span-15' : 'span-12' -%>">
 		<%= f.hidden_field :priority, :id => "priority_#{task.id}", :'data-behavior' => 'auto_submit' %>
 		<div data-behavior="check_box_proxy" data-check_box="priority_<%= task.id %>" class="check_box_proxy <% if task.priority? %>checked<% end %>">&lowast;</div>
 		<div class="text_with_check_box_proxy">
 		<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, task.archived? ? 'archived' : 'complete', 'active' %>
     </div>
-		<div class="text_with_check_box_proxy <%= (['project','situation'].include? @app_context) ? 'span-11' : 'span-8' -%> last<% if task.overdue? %> overdue<% end %>">
+		<div class="text_with_check_box_proxy <%= (@app_context == 'project') ? 'span-14' : 'span-11' -%> last">
       <%= link_to task.title, task_url(task),
         :class => task.done? ? 'completed' : nil,
 		    :'data-ajax_behavior' => 'ajax_link',
@@ -28,22 +28,13 @@
 		    :'data-ajax_data' => "{'full_view':'true'}"%>
 		</div>
 	</div>
-	<div class="<%= (['project','situation'].include? @app_context) ? 'span-4' : 'span-7' -%> last text-right">
+	<div class="<%= (@app_context == 'project') ? 'span-1' : 'span-4' -%> last text-right">
 		<% if needs_organization and @app_context != 'project' %>
-  		<%= f.select :project_id, [['choose',nil]] + @this_user.projects.active.map{|p| [p.title,p.id]}, {}, :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :class => "span-3" %>
+  		<%= f.select :project_id, [['choose',nil]] + Project.for_user(@this_user).active.map{|p| [p.title,p.id]}, {}, :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :class => "span-3" %>
     <% elsif @app_context != 'project' %>
     <div class="span-3 text-left">
       <% if task.project_id.nil? %>&mdash;<% else %>
       <%= link_to truncate_clean(task.project.title, {:length => 18, :omission => '-'}), plan_url(task.project_id) %>
-      <% end %>
-    </div>
-		<% end %>
-		<% if needs_organization and @app_context != 'situation' %>
-  		<%= f.select :situation_id, [['choose',nil]] + @this_user.situations.map{|s| [s.title,s.id]}, {}, :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :class => "span-3" %>
-    <% elsif @app_context != 'situation' %>
-    <div class="span-3 text-left">
-      <% if task.situation_id.nil? %>&mdash;<% else %>
-      <%= link_to truncate_clean(task.situation.title, {:length => 18, :omission => '-'}), situation_url(task.situation_id) %>
       <% end %>
     </div>
 		<% end %>

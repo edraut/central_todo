@@ -22,6 +22,7 @@ function ajaxEvent(e){
 	var our_parameters = {
 		type: our_element.attr('data-ajax_method'),
 		dataType: 'html',
+		data: {},
 		beforeSend: function(XMLHttpRequest) {
 			if(our_element.attr('data-ajax_before_callback')){
 				eval(our_element.attr('data-ajax_before_callback'));
@@ -95,14 +96,15 @@ function ajaxEvent(e){
 	switch(element_type){
 		case 'form':
 			our_parameters.data = our_element.serializeArray();
-			our_parameters.data._method = our_element.attr('data-ajax_method')
+			our_parameters.data._method = our_element.attr('data-ajax_method');
 			our_parameters.url = our_element.attr('action');
 			break;
 		case 'link':
 			if (our_element.attr('data-ajax_data')){
 				eval('our_parameters.data = ' + our_element.attr("data-ajax_data"));
 			}
-			our_parameters.url = our_element.attr('href')
+			our_parameters.data._method = our_element.attr('data-ajax_method');
+			our_parameters.url = our_element.attr('href');
 			break;
 	}
 	jQuery.ajax(our_parameters);

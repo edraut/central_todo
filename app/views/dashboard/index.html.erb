@@ -26,11 +26,10 @@
     </div>
     <% end %>
   </div>
-  <div class="span-16 last section_wrapper">
+  <div class="span-16 last section_wrapper" id="unarchived_items_wrapper">
     <div class="span-16 last line_item">
-      <div class="span-9 text-center small">task title</div>
+      <div class="span-9 append-3 text-center small">task title</div>
       <div class="span-3 small">&nbsp;&nbsp;plan</div>
-      <div class="span-3 small">&nbsp;&nbsp;situation</div>
     </div>
 		<% @this_user.tasks.active.unorganized.recent.five.each_with_index do |task, index| %>
 			<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item">
@@ -43,19 +42,30 @@
       </div>
 		<% end %>
   </div>
+  <div class="span-16 last">
+    <div class="span-12 prepend-4 last">
+      <div id="archive_completed_items" class="list_action attach_below" style="display: none;">
+    	<%= link_to 'archive completed tasks', archive_completed_tasks_url,
+    	 	:'data-ajax_behavior' => 'ajax_link',
+    		:'data-ajax_method' => 'GET',
+    		:'data-ajax_success_callback' => "handleArchivementSuccess();",
+    		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %>
+    	</div>
+    </div>
+  </div>
   <% elsif @this_user.tasks.count > 0 %>
   <div class="span-16 last section_margin_top">
     You've organized all your current tasks.
   </div>
   <% end %>
-  <% if @this_user.tasks.active.priority.any? %>
+  <% if @priority_tasks.any? %>
   <div class="span-7 append-2">
   <div class="span-7 last section_margin_top">
     <h2>Priority Tasks</h2>
   </div>
   <div class="span-7 last section_wrapper">
     <ul>
-		<% @this_user.tasks.active.priority.recent.five.each_with_index do |task,index| %>
+		<% @priority_tasks.each_with_index do |task,index| %>
 			<li class="line_item_soft" id="priority_task_<%= task.id %>" data-role="list_item">
 	      <%= link_to task.title, task_url(task),
 			    :'data-ajax_behavior' => 'ajax_link',
@@ -65,7 +75,7 @@
 			    :'data-ajax_data' => "{'full_view':'true'}"%>
 			</li>
 		<% end %>
-		<% if @this_user.tasks.active.priority.count > 5 %>
+		<% if @total_priority_task_count > 5 %>
       <div class=" text-right section_margin_top">
         <%= link_to 'See all', due_date_tasks_url %> &rarr;
       </div>
@@ -88,11 +98,11 @@
   </div>
   <div class="span-7 last section_wrapper">
     <% for due_date in @due_dates %>
-    <div class="span-7 last section_heading">
+    <div class="span-7 last section_heading<% if due_date < Date.today %> overdue<% end %>">
       <%= due_date.to_formatted_s(:full) %>
     </div>
     <% for item in @due_date_items.select{|t| t.due_date.to_date == due_date} %>
-			<div class="span-7 last line_item_soft<% if item.overdue? %> overdue<% end %>" id="due_date_<%= item.class.display_name.downcase %>_<%= item.id %>">
+			<div class="span-7 last line_item_soft" id="due_date_<%= item.class.display_name.downcase %>_<%= item.id %>">
 			  <span class="small"><%= item.class.display_name %></span>:
 			    <% if item.class.name == 'Project' %>
 			      <%= link_to item.title, plan_url(item) %>
@@ -107,7 +117,7 @@
 			</div>
 		<% end %>
     <% end %>
-		<% if (@this_user.tasks.active.with_due_date.count > 2) or (@this_user.projects.active.with_due_date.count > 2) %>
+		<% if (@due_date_task_count > 2) or (@due_date_project_count > 2) %>
       <div class="span-7 last text-right section_margin_top">
         <%= link_to 'See all', schedule_url %> &rarr;
       </div>

@@ -82,7 +82,7 @@ class ApplicationController < ActionController::Base
       end
     end
     def get_this_user
-      if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions'
+      if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions' and (controller_name != 'tasks' or action_name != 'show')
         store_location
       end
       @this_user = current_user

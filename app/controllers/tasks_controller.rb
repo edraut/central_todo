@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   end
   
   def priority
-    @tasks = @this_user.tasks.active.priority.paginate(:page => params[:page],:per_page => 40)
+    @tasks = Task.for_user(@this_user).active.priority.paginate(:page => params[:page],:per_page => 40)
   end
     
   def archived_unorganized
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
   end
   
   def archive_completed
-    if @this_user.tasks.one_off.complete.update_all :state => 'archived'
+    if @this_user.tasks.unorganized.complete.update_all :state => 'archived'
       render :nothing => true and return
     else
       render :text => "Oops! We couldn't archive those completed tasks, please contact customer support.", :status => 500
@@ -35,7 +35,6 @@ class TasksController < ApplicationController
   
   def create
     project_id = params[:task][:project_id]
-    situation_id = params[:task][:situation_id]
     if params.has_key? :title_1
       @tasks = []
       for title in [params[:title_1],params[:title_2],params[:title_3]]
@@ -54,9 +53,6 @@ class TasksController < ApplicationController
     end
     if params[:app_context]
       case params[:app_context]
-      when 'situation'
-        flash[:notice] = "It's on your list now."
-        redirect_to situation_url(situation_id) + '?added_task=true' and return
       when 'project'
         flash[:notice] = "Another task well organized!"
         redirect_to plan_url(project_id) + '?added_task=true' and return
@@ -88,6 +84,20 @@ class TasksController < ApplicationController
   def update
     if params.has_key? :nullify
       @task.update_attributes({params[:attribute]=> nil})
+    elsif params.has_key? :attribute and params[:attribute] == 'situations'
+      situation_ids = params[:situations]
+      situation_ids ||= []
+      old_task_situations = @this_user.task_situations.for_task(@task)
+      old_situation_ids = old_task_situations.map{|ts| ts.situation_id}
+      new_situation_ids = situation_ids - old_situation_ids
+      delete_situation_ids = old_situation_ids - situation_ids
+      for id in delete_situation_ids
+        old_task_situations.detect{|ots| ots.situation_id == id}.destroy
+      end
+      for id in new_situation_ids
+        TaskSituation.create(:task_id => @task.id,:situation_id => id)
+      end
+      @task.task_situations.reload
     else
       @these_params = params[:task].dup
       @state_changed = @task.handle_attributes(@these_params)
@@ -139,7 +149,7 @@ class TasksController < ApplicationController
   
   def get_task
     @task = Task.find(params[:id])
-    unless @task.user_id == @this_user.id
+    if @task.user_id != @this_user.id and (!@task.project.sharer_ids.include? @this_user.id)
       flash[:notice] = "You don't have privileges to access that task."
       redirect_to root_url and return
     end

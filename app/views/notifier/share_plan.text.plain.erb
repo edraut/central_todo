@@ -1,0 +1,15 @@
+<%= @plan.user.email %> shared this plan with you from http://my-ti.me. My Time is a simple online task manager accessible from any computer and most phones. If you sign up for a 30-day free trial (http://my-ti.me/sign_up) you can view this plan with all the powerful features available in My Time, and then you can start organizing your whole life with the simplest, most powerful online task manager available.
+
+Plan: <%= @plan.title %>
+
+<% for task in @plan.tasks.active.ordered %>
+  <%= task.title %> <% if !task.due_date.blank? %> -- due <%= task.due_date.to_formatted_s(:full) %><% end %>
+<% end %>
+
+<% if @plan.tasks.complete.count > 0 %>
+These tasks were already completed, huzzah!:
+
+<% for task in @plan.tasks.complete.ordered %>
+X <%= task.title %> <% if !task.due_date.blank? %> -- due <%= task.due_date.to_formatted_s(:full) %><% end %>
+<% end %>
+<% end %>

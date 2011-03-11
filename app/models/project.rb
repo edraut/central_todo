@@ -4,7 +4,11 @@ class Project < ActiveRecord::Base
   #associations
   belongs_to :user
   has_many :tasks, :dependent => :destroy
-
+  has_many :project_sharers, :dependent => :destroy
+  has_many :sharers, :through => :project_sharers, :source => :user
+  has_many :project_emails, :dependent => :destroy
+  has_many :comments, :as => :commentable
+  
   #named_scopes
   scope :with_due_date, :conditions => "projects.due_date is not null"
   scope :without_due_date, :conditions => "projects.due_date is null"
@@ -17,6 +21,8 @@ class Project < ActiveRecord::Base
   scope :ordered, :order => 'projects.position'
   scope :by_due_date, :order => 'due_date'
   scope :by_create_date, :order => 'created_at desc'
+  scope :for_user, lambda { |user| joins("left outer join project_sharers on project_sharers.project_id = projects.id").
+                                    where( "(project_sharers.user_id = #{user.id} or projects.user_id = #{user.id})" )}
   #special behaviors
 
   state_machine :initial => :active, :action => nil do
@@ -67,4 +73,7 @@ class Project < ActiveRecord::Base
     
   end
   
+  def shared?
+    self.project_sharers.count > 0
+  end
 end

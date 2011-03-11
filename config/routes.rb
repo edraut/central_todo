@@ -27,6 +27,7 @@ CentralTodo::Application.routes.draw do
     collection do
       get 'sort'
       get 'archived'
+      get 'shared'
       get 'archive_completed'
     end
     member do
@@ -34,6 +35,7 @@ CentralTodo::Application.routes.draw do
       get 'sort_tasks'
     end
   end
+  resources :project_sharers
   resources :situations do
     member do
       get 'archive_completed_tasks'

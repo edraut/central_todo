@@ -19,4 +19,7 @@
   <div id="project_due_date" class="span-16 last section_margin_top">
   	<%= render :partial => @project.due_date.blank? ? 'edit_due_date' : 'show_due_date' %>
   </div>
+  <div id="project_sharing" class="span-16 last section_margin_top">
+  	<%= render :partial => @project.shared? ? 'show_sharing' : 'edit_sharing' %>
+  </div>
 </div>

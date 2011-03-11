@@ -55,16 +55,16 @@
 						  <% end %>
 							<div class="vert-line-subnav-wrapper<% if controller_name == 'tasks' and action_name == 'index' %> selected<% end %>">
                 <% if controller_name == 'tasks' and action_name == 'index' %><div class="selected_indicator">-</div><% end %>
-								<%= link_to "Unorganized (#{@this_user.tasks.unarchived.unorganized.count})", tasks_url, :class => (action_name == 'index' and controller_name == 'tasks') ? 'selected' : '' %>
+								<%= link_to "Unorganized (#{Task.for_user(@this_user).unarchived.unorganized.count})", tasks_url, :class => (action_name == 'index' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
 							<div class="vert-line-subnav-wrapper<% if controller_name == 'tasks' and action_name == 'priority' %> selected<% end %>">
                 <% if controller_name == 'tasks' and action_name == 'priority' %><div class="selected_indicator">-</div><% end %>
-								<%= link_to "Priority (#{@this_user.tasks.active.priority.count})", priority_tasks_url, :class => (action_name == 'priority' and controller_name == 'tasks') ? 'selected' : '' %>
+								<%= link_to "Priority (#{Task.for_user(@this_user).active.priority.count})", priority_tasks_url, :class => (action_name == 'priority' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
-							<% if @this_user.tasks.unorganized.archived.count > 0 %>
+							<% if Task.for_user(@this_user).unorganized.archived.count > 0 %>
 							<div class="vert-line-subnav-wrapper<% if controller_name == 'tasks' and action_name == 'archived_unorganized' %> selected<% end %>">
                 <% if controller_name == 'tasks' and action_name == 'archived_unorganized' %><div class="selected_indicator">-</div><% end %>
-								<%= link_to "Archived (#{@this_user.tasks.archived.unorganized.count})", archived_unorganized_tasks_url, :class => (action_name == 'archived_unorganized' and controller_name == 'tasks') ? 'selected' : '' %>
+								<%= link_to "Archived (#{Task.for_user(@this_user).archived.unorganized.count})", archived_unorganized_tasks_url, :class => (action_name == 'archived_unorganized' and controller_name == 'tasks') ? 'selected' : '' %>
 							</div>
 							<% end %>
 						</div>
@@ -72,13 +72,13 @@
 				</div>
 				<div class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'projects' %> selected<% end %>" <% unless controller_name == 'projects' %>data-binding="hover_show_more" data-hover_div="project_subnav"<% end %>>
-            <% if controller_name == 'projects' %>
-            <div class="hover_nav_selected" data-binding="hover_show_more" data-hover_div="project_subnav">
+						<% if controller_name == 'projects' %>
+            <div class="hover_nav_selected"<% if action_name != 'show' or Project.for_user(@this_user).active.count > 1 %> data-binding="hover_show_more" data-hover_div="project_subnav"<% end %>>
               <%= link_to 'Plans', plans_url, :class => (controller_name == 'projects') ? 'selected loud' : 'loud' %>
   						<div id="project_subnav" style="display:none;" class="left_subnav_wrapper hover_nav">
   						  <div class="hover_nav_pointer">&rarr;</div>
   							<div class="vert-line-subnav-wrapper">
-    						  <% for project in @this_user.projects.active.ordered - [@project] %>
+    						  <% for project in Project.for_user(@this_user).active.ordered - [@project] %>
     							<div class="vert-line-subnav-wrapper">
                     <%= link_to truncate_clean(project.title,{:length => 100, :max_word_length =>  nil, :omission => '-'}), plan_url(project), :class => (action_name == 'show' and @project.id == project.id) ? 'selected' : '' %>
                   </div>
@@ -86,18 +86,18 @@
                 </div>
               </div>
             </div>
-            <% else %>
-              <%= link_to 'Plans', plans_url, :class => (controller_name == 'projects') ? 'selected loud' : 'loud' %>
-            <% end %>
-						<% if controller_name == 'projects' %>
 						<div id="project_subnav" class="left_subnav_wrapper">
 							<div class="vert-line-subnav-wrapper <% if action_name == 'index' %>selected<% end %>">
                 <% if action_name == 'index' %><div class="selected_indicator">-</div><% end %>
-								<%= link_to "Active (#{@this_user.projects.unarchived.count})", plans_url, :class => (action_name == 'index') ? 'selected' : '' %>
+								<%= link_to "Active (#{@this_user.projects.active.count})", plans_url, :class => (action_name == 'index') ? 'selected' : '' %>
+							</div>
+							<div class="vert-line-subnav-wrapper <% if action_name == 'shared' %>selected<% end %>">
+                <% if action_name == 'shared' %><div class="selected_indicator">-</div><% end %>
+								<%= link_to "Shared (#{@this_user.project_sharers.active.count})", shared_plans_url, :class => (action_name == 'shared') ? 'selected' : '' %>
 							</div>
 							<div class="vert-line-subnav-wrapper <% if action_name == 'archived' %>selected<% end %>">
                 <% if action_name == 'archived' %><div class="selected_indicator">-</div><% end %>
-								<%= link_to "Archived (#{@this_user.projects.archived.count})", archived_plans_url, :class => (action_name == 'archived') ? 'selected' : '' %>
+								<%= link_to "Archived (#{Project.for_user(@this_user).archived.count})", archived_plans_url, :class => (action_name == 'archived') ? 'selected' : '' %>
 							</div>
 						  <% if action_name == 'show' %>
 							<div class="vert-line-subnav-wrapper selected">
@@ -107,15 +107,19 @@
               <% end %>
             </div>
 						<% else %>
+            <%= link_to 'Plans', plans_url, :class => (controller_name == 'projects') ? 'selected loud' : 'loud' %>
 						<div id="project_subnav" style="display:none;" class="left_subnav_wrapper hover_nav">
 						  <div class="hover_nav_pointer">&rarr;</div>
 							<div class="vert-line-subnav-wrapper">
 								<%= link_to "Active (#{@this_user.projects.unarchived.count})", plans_url %>
 							</div>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Archived (#{@this_user.projects.archived.count})", archived_plans_url %>
+								<%= link_to "Shared (#{@this_user.project_sharers.active.count})", shared_plans_url %>
 							</div>
-						  <% for project in @this_user.projects.active.ordered %>
+							<div class="vert-line-subnav-wrapper">
+								<%= link_to "Archived (#{Project.for_user(@this_user).archived.count})", archived_plans_url %>
+							</div>
+						  <% for project in Project.for_user(@this_user).active.ordered %>
 							<div class="vert-line-subnav-wrapper">
                 <%= link_to truncate_clean(project.title,{:length => 100, :max_word_length =>  nil, :omission => '-'}), plan_url(project) %>
               </div>

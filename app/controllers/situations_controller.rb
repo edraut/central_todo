@@ -20,7 +20,6 @@ class SituationsController < ApplicationController
     return if handle_attribute_partials('show')
     @html_page_title = @page_title = 'Situation'
     @sortable = true
-    @task = Task.new(:user_id => @this_user.id, :situation_id => @situation.id)
     @tasks = @situation.tasks.active.ordered.paginate(:page => params[:page],:per_page => 40)
     respond_with(@situation) and return
   end

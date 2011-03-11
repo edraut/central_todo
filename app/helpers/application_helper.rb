@@ -20,4 +20,13 @@ module ApplicationHelper
     end
   end
   
+  def to_str_list(array)
+    if array.length > 1
+      list = array.join(', ')
+      list.insert(-(list.reverse.index(',')),'and ')
+      return list
+    else
+      return array.first.to_s
+    end
+  end
 end

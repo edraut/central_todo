@@ -10,12 +10,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110223225046) do
+ActiveRecord::Schema.define(:version => 20110311170407) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pages", :force => true do |t|
     t.string   "name"
     t.string   "template"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "project_emails", :force => true do |t|
+    t.integer  "project_id"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "project_sharers", :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -39,10 +63,16 @@ ActiveRecord::Schema.define(:version => 20110223225046) do
     t.datetime "updated_at"
   end
 
+  create_table "task_situations", :force => true do |t|
+    t.integer  "task_id"
+    t.integer  "situation_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tasks", :force => true do |t|
     t.string   "title"
     t.integer  "project_id"
-    t.integer  "situation_id"
     t.datetime "due_date"
     t.text     "description"
     t.string   "type"
@@ -50,7 +80,7 @@ ActiveRecord::Schema.define(:version => 20110223225046) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "priority",     :default => false, :null => false
+    t.boolean  "priority",    :default => false, :null => false
     t.string   "state"
   end
 

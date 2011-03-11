@@ -42,9 +42,8 @@ module CentralTodo
     config.action_mailer.smtp_settings = {
       :address              => "smtp.gmail.com",
       :port                 => 587,
-      :domain               => 'central-list.com',
-      :user_name            => 'notifications',
-      :password             => 'n0t1f1c4tions',
+      :user_name            => 'notifications@my-ti.me',
+      :password             => 'F5yhQ8E3hz',
       :authentication       => 'plain',
       :enable_starttls_auto => true  }
   end

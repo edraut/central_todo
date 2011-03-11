@@ -5,7 +5,9 @@ class User < ActiveRecord::Base
   has_many :tasks, :dependent => :destroy
   has_many :projects, :dependent => :destroy
   has_many :situations, :dependent => :destroy
-
+  has_many :task_situations, :through => :situations
+  has_many :project_sharers, :dependent => :destroy
+  has_many :shared_projects, :through => :project_sharers, :source => :project
 
   #named_scopes
 
@@ -25,7 +27,9 @@ class User < ActiveRecord::Base
   end
     
   #validations
-  validates_uniqueness_of :email
+  def validate
+    self.errors.add(:email,"That email is already in use, please select another.") if User.find(:first, :conditions => ["lower(email) = :email",{:email => self.email.downcase}])
+  end
   #callbacks
 
   #class methods

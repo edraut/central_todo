@@ -14,6 +14,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user].merge(:time_zone => Time.zone.name))
     if @user.save
+      for project_email in ProjectEmail.find(:all, :conditions => ["lower(email) = :email",{:email => @user.email.downcase}])
+        project_email.convert_to_sharer
+      end
       @user_session = UserSession.new(:email => @user.email, :password => params[:user][:password])
       @user_session.save
       redirect_back_or_default dashboard_url

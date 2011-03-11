@@ -5,28 +5,12 @@
   <%= render :partial => 'tabs' %>
 </div>
 <div class="span-17 last page_content">
-	<div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
-		<%= form_for @task do |f| %>
-			<div class="span-12">
-				<%= f.text_field :title, :id => 'primary_input', :class => "span-12" %>
-			</div>
-			<div class="span-4 last text-right">
-				<%= f.hidden_field :user_id %>
-				<%= f.hidden_field :situation_id %>
-				<%= f.hidden_field :state, :value => 'active' %>
-				<%= hidden_field_tag :app_context, 'situation' %>
-				<%= f.submit "add to this situation" %> <br/>or
-				<a href="#" data-behavior="expander" data-action="contract" data-id="new_task_form">cancel</a>
-			</div>
-		<% end %>
-	</div>
 	<div id="unarchived_item_list" class="span-16 last">
 		<div id="task_list_heading" class="span-16 last">
 			<div id="unarchived_item_heading" class="span-6">
 				<h2><%= @situation.title %></h2>
 			</div>
 			<div class="span-10 last">
-      	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
       </div>
 		</div>
 		<div id="unarchived_items_wrapper" class="span-16 last section_wrapper" data-role="list">

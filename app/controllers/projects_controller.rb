@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   
   def index
     @project = Project.new(:user_id => @this_user.id)
-    @projects = Project.unarchived.ordered.paginate(:page => params[:page], :per_page => 40, :conditions => {:user_id => @this_user.id})
+    @projects = @this_user.projects.unarchived.ordered.paginate(:page => params[:page], :per_page => 40)
     @sortable = true
     respond_with(@projects) do |format|
       format.any {render :action => 'index' and return}
@@ -14,7 +14,11 @@ class ProjectsController < ApplicationController
   end
   
   def archived
-    @projects = @this_user.projects.archived.by_create_date.paginate(:page => params[:page],:per_page => 40)
+    @projects = Project.for_user(@this_user).archived.by_create_date.paginate(:page => params[:page],:per_page => 40)
+  end
+  
+  def shared
+    @projects = @this_user.shared_projects.active.by_create_date.paginate(:page => params[:page],:per_page => 40)
   end
   
   def sort
@@ -26,7 +30,7 @@ class ProjectsController < ApplicationController
   end
   
   def archive_completed
-    @this_user.projects.complete.each do |project|
+    Project.for_user(@this_user).complete.each do |project|
       project.archive
       project.save
     end
@@ -54,28 +58,53 @@ class ProjectsController < ApplicationController
     return if handle_attribute_partials('edit')
   end
   
+  def comments
+    @comments = @project.comments.by_date
+  end
+  
   def update
-    @these_params = params[:project].dup
-    @state_changed = @project.handle_attributes(@these_params)
-    @project.save
-    @item = @project
-    if params[:attribute]
+    if params[:sharer_email]
+      @sharer = User.find(:first, :conditions => ["lower(email) = :sharer_email",{:sharer_email => params[:sharer_email].downcase}])
+      if @sharer
+        ProjectSharer.create(:user_id => @sharer.id,:project_id => @project.id)
+        flash.now[:ajax_notice] = "#{@sharer.email} now has access to this list"
+      else
+        ProjectEmail.create(:project_id => @project.id,:email => params[:sharer_email])
+        Notifier.share_plan(@project,params[:sharer_email]).deliver
+        flash.now[:ajax_notice] = "We sent a copy of this plan to #{params[:sharer_email]} via email."
+      end
+      @project.sharers.reload
+      attribute = 'sharing'
+    else
+      if params[:attribute]
+        attribute = params[:attribute]
+      else
+        attribute = false
+      end
+      @these_params = params[:project].dup
+      @state_changed = @project.handle_attributes(@these_params)
+      @project.save
       flash.now[:ajax_notice] = "Your changes were saved."
+    end
+    @item = @project
+    if attribute
       respond_with(@project) do | format |
-        format.any {render :partial => 'show_' + params[:attribute], :locals => {:project => @project}, :layout => 'ajax_section' and return}
+        format.any {render :partial => 'show_' + attribute, :locals => {:project => @project}, :layout => 'ajax_section' and return}
       end
       return
     else
-      if @render_type == :partial
-        flash.now[:ajax_notice] = "Your changes were saved."
-      end
       @item = @project
       render @render_type => 'show', :locals => {:project => @project, :sortable => (params.has_key? :sortable)}, :layout => 'ajax_line_item' and return
     end
   end
   
   def destroy
-    @project.destroy
+    if @project.user_id == @this_user.id
+      @project.destroy
+    else
+      @project_sharer = @this_user.project_sharers.find(:first, :conditions => {:project_id => @project.id})
+      @project_sharer.destroy
+    end
     flash[:notice] = "Your project was successfully deleted."
     redirect_to :action => 'index' and return
   end
@@ -115,7 +144,7 @@ class ProjectsController < ApplicationController
   
   def get_project
     @project = Project.find(params[:id])
-    unless @project.user_id == @this_user.id
+    if (@project.user_id != @this_user.id) and (!@project.sharer_ids.include? @this_user.id)
       flash[:notice] = "You don't have privileges to access that project."
       redirect_to root_url and return
     end

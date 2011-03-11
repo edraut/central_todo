@@ -71,8 +71,9 @@ h2 {
 	line-height: 30px;
 }
 h3 {
-  font-size: 20px;
-	line-height: 26px;
+  font-size: 18px;
+  line-height: 24px;
+	font-weight: bold;
 }
 p {
   line-height: 22px;
@@ -126,7 +127,7 @@ select {
 		color: $paper;
 	}
 	a:hover {
-		color: $grayish;
+		color: $taupe;
 	}
 }
 #main_modal_view {
@@ -162,8 +163,8 @@ select {
 }
 .page_content {
   padding: $line-height 0 $line-height 38px;
-  margin: 0 -16px;
-  # border: 1px solid $gray;
+  margin: 0 -16px 16px -16px;
+  min-height: 300px;
   background-color: $grayish;
 }
 .section_wrapper {
@@ -212,6 +213,10 @@ select {
 .section_heading {
   background-color: $light-taupe;
   color: $black;
+}
+.section_heading.overdue {
+	background-color: $paper;
+	color: $carmine;
 }
 .left_nav_wrapper {
   position: relative;
@@ -448,6 +453,9 @@ a:hover[data-role=delete].delete {
 }
 .padding_bottom {
   padding-bottom: 14px;
+}
+.padding_top {
+  padding-top: 14px;
 }
 .border_top {
   border-top: 1px solid $taupe;

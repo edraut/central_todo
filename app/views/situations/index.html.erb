@@ -18,7 +18,7 @@
 	<div class="span-16 last section_wrapper section_margin_top">
 		<% for situation in @this_user.situations %>
 			<div id="situation_<%= situation.id %>" class="span-16 last">
-				<%= link_to situation.title + " (#{situation.tasks.count})", situation_url(situation) %>
+				<%= link_to situation.title + " (#{situation.tasks.active.count})", situation_url(situation) %>
 			</div>
 		<% end %>
 	</div>

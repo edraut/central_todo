@@ -1,0 +1,35 @@
+<h2>Sharing</h2>
+<div class="span-16 last section">
+  <div class="span-16 last">
+	<%= form_for @project, :url => plan_url(@project), :html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_method' => 'PUT',
+		:'data-ajax_success_element' => 'project_sharing',
+		:'data-ajax_error_element' => 'project_sharing',
+		:id => 'edit_project_sharing'
+	} do |f| %>
+    add email
+    <%= text_field_tag :sharer_email %>
+    <%= hidden_field_tag :project_id %>
+		<%= f.submit 'share' %> or
+		<%= link_to (@project.shared? ? 'cancel' : "don't share"), plan_url(@project),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'project_sharing',
+			:'data-ajax_data' => "{attribute: 'sharing'}"%>
+	<% end %>
+  </div>
+	<div class="span-16 last padding_top">
+    <h3>Shared with</h3>
+    <% for project_sharer in @project.project_sharers %>
+    <div class="span-16 last" id="project_sharer_<%= project_sharer.id %>">
+      <%= project_sharer.user.email %> <a href="<%= project_sharer_url(project_sharer) %>"
+      	data-ajax_behavior="ajax_link"
+      	data-ajax_method="DELETE"
+      	data-ajax_confirm="Are you sure you want to remove this user from sharing this plan?"
+      	data-ajax_success_method="jQuery('#project_sharer_<%= project_sharer.id %>').remove();"
+      	class="delete" data-role="delete">&otimes;</a> <br/>
+    </div>
+    <% end %>
+  </div>
+</div>

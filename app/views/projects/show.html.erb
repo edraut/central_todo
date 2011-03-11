@@ -26,11 +26,11 @@
   <% else %>
 	<div id="unarchived_item_list" class="span-16 last">
 		<div id="task_list_heading" class="span-16 last">
-			<div id="unarchived_item_heading" class="span-12<% if @project.all_complete %>completed<% end %>">
+			<div id="unarchived_item_heading" class="span-12<% if @project.all_complete %> completed<% end %>">
 				<h2><%= @project.title %></h2>
 			</div>
 			<div class="span-4 last">
-        	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a new task</a></div>
+        	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a task</a></div>
           <% if @project.tasks.unarchived.count == 0 and @project.tasks.count > 0 %>
           <div id="project_done" class="list_action attach_above"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
           <% end %>
@@ -39,8 +39,6 @@
 		<div id="unarchived_items_wrapper" class="span-16 last section_wrapper" data-role="list">
       <div class="span-16 last line_item">
         <div class="span-9 text-center small">task title</div>
-        <div class="span-3 small">&nbsp;</div>
-        <div class="span-3 small">&nbsp;&nbsp;situation</div>
       </div>
       <div data-behavior="sortable" data-sort_url="<%= sort_tasks_plan_url(@project) %>">
 			<% @project.tasks.unarchived.ordered.each_with_index do |task,index| %>
@@ -51,7 +49,6 @@
 			</div>
 		</div>
 	</div>
-	<% end %>
   <div class="span-16 last">
     <div class="span-12 prepend-4 last">
       <div id="archive_completed_items" class="list_action attach_below" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
@@ -68,6 +65,7 @@
       <% end %>
     </div>
   </div>
+	<% end %>
 	<div id="archived_item_list" <% unless @project.tasks.archived.any? %>style="display:none;"<% end %> class="span-16 last section_margin_top" data-role="list">
 		<div id="archived_item_heading" class="span-16 last">
 			<h2>You got these done.</h2>
@@ -75,8 +73,6 @@
 		<div id="archived_items_wrapper" class="span-16 last archived section_wrapper">
       <div class="span-16 last line_item">
         <div class="span-9 text-center small">task title</div>
-        <div class="span-3 small">&nbsp;</div>
-        <div class="span-3 small">&nbsp;&nbsp;situation</div>
       </div>
 			<% @archived_tasks.each_with_index do |task,index| %>
 				<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item">

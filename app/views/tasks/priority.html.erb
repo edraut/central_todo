@@ -2,20 +2,20 @@
 	<h1>Priority Tasks</h1>
 </div>
 <div class="span-19 last page_content">
-	<% if @this_user.tasks.active.priority.count > 0 %>
+	<% if @tasks.any? %>
 	<h2>Hot stuff.</h2>
 	<div data-role="list" class="span-16 last section_wrapper">
     <div class="span-16 last line_item">
-      <div class="span-9 text-center small">task title</div>
+      <div class="span-9 append-3 text-center small">task title</div>
       <div class="span-3 small">&nbsp;&nbsp;plan</div>
-      <div class="span-3 small">&nbsp;&nbsp;situation</div>
     </div>
-		<% for task in @this_user.tasks.active.priority.by_due_date %>
+		<% for task in @tasks %>
 			<div class="span-16 last" id="task_<%= task.id %>" data-role="list_item">
 			<%= render :partial => 'show', :locals => {:task => task} %>
 			</div>
 		<% end %>
 	</div>
+	<%= will_paginate @tasks %>
   <% else %>
   <p>You don't have any priority tasks right now.</p>
   <% if @this_user.show_help_text %>

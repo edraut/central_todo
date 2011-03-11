@@ -1,0 +1,27 @@
+<center>
+<h1>
+<%= @plan.user.email %> shared this plan with you from http://<%= DOMAIN_NAME %>.
+</h1>
+<p>
+My Time is a simple online task manager accessible from any computer and most phones. If you sign up for a 30-day free trial (http://<%= DOMAIN_NAME %>/sign_up) you can view this plan with all the powerful features available in My Time, and then you can start organizing your own plans with the simplest, most powerful online task manager available.
+</p>
+</center>
+<h2>
+Plan: <%= @plan.title %>
+</h2>
+
+<ul>
+<% for task in @plan.tasks.active.ordered %>
+· <%= task.title %> <% if !task.due_date.blank? %> -- due <%= task.due_date.to_formatted_s(:full) %><% end %><br/>
+<% end %>
+</p>
+<% if @plan.tasks.complete.count > 0 %>
+<h2>
+These tasks were already completed, huzzah!:
+</h2>
+<p>
+<% for task in @plan.tasks.complete.ordered %>
+X <%= task.title %> <% if !task.due_date.blank? %> -- due <%= task.due_date.to_formatted_s(:full) %><% end %><br/>
+<% end %>
+</p>
+<% end %>

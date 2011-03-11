@@ -7,9 +7,8 @@
 		:'data-ajax_error_element' => 'project_due_date',
 		:id => 'edit_project_due_date'
 	} do |f| %>
-		<%= f.datetime_select :due_date %>
+  	<%= f.text_field :due_date, :id => 'project_due_date_field' %>
 		<%= hidden_field_tag 'attribute', 'due_date' %>
-  	<%= hidden_field_tag '_method', 'put' %>
 		<%= f.submit 'save due date' %> or
 		<%= link_to (@project.due_date.blank? ? 'leave blank' : 'cancel'), plan_url(@project),
 		 	:'data-ajax_behavior' => 'ajax_link',
@@ -18,3 +17,10 @@
 			:'data-ajax_data' => "{attribute: 'due_date'}"%>
 	<% end %>
 </div>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    jQuery('#project_due_date_field').datetimepicker({
+    	ampm: true
+    });
+  })
+<% end %>

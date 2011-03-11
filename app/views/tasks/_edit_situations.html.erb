@@ -1,24 +1,24 @@
-<h2>Situation</h2>
+<h2>Situations</h2>
 <div class="half_section last section">
 	<%= form_for @task, :html => {
 		:'data-ajax_behavior' => 'ajax_form',
 		:'data-ajax_method' => 'PUT',
 		:'data-ajax_success_element' => 'task_situation',
 		:'data-ajax_error_element' => 'task_situation',
-		:id => 'edit_task_situation_id'
+		:id => 'edit_task_situations'
 	} do |f| %>
 	  <div class="half_select">
-		<%= f.select :situation_id, [['none',nil]] + Situation.all.map{|p| [p.title,p.id]},{},:class => 'half_select' %>
+		<%= select_tag :situations, options_for_select(@this_user.situations.map{|p| [p.title,p.id]},@task.situation_ids),:class => 'half_select', :multiple => true %>
 		</div>
-		<%= hidden_field_tag 'attribute', 'situation_id', :id => 'attribute_situation_id' %>
+		<%= hidden_field_tag 'attribute', 'situations', :id => 'attribute_situations' %>
   	<%= hidden_field_tag '_method', 'put' %>
   	<div class="half_select last">
 		<%= f.submit 'save' %> or
-		<%= link_to (@task.situation ? 'cancel' : 'leave blank'), task_url(@task),
+		<%= link_to (@task.situations.for_user(@this_user).any? ? 'cancel' : 'leave blank'), task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
 			:'data-ajax_success_element' => 'task_situation',
-			:'data-ajax_data' => "{attribute: 'situation_id'}"%>
+			:'data-ajax_data' => "{attribute: 'situations'}"%>
 		</div>
 	<% end %>
 </div>
