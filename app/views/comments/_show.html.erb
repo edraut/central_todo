@@ -1,0 +1,21 @@
+	<div class="span-12">
+		<div class="text_with_check_box_proxy span-12 last">
+      <%= comment.body %>
+		</div>
+	</div>
+	<div class="span-4 last">
+	  <% if comment.user_id == @this_user.id %>
+	  <div class="span-4 last text-right">
+    <%= link_to 'edit', edit_comment_url(comment),
+	    :'data-ajax_behavior' => 'ajax_link',
+	    :'data-ajax_method' => 'GET',
+	    :'data-ajax_success_element' => "comment_#{comment.id}" %>
+    </div>
+    <% end %>
+    <div class="span-4 last small">
+      <%= comment.user.email %>
+    </div>
+    <div class="span-4 last small">
+      <%= time_ago_in_words(comment.created_at) %> ago
+    </div>
+	</div>

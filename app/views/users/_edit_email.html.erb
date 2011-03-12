@@ -1,16 +1,21 @@
-<%= form_for @user, :html => {
-	:'data-ajax_behavior' => 'ajax_form',
-	:'data-ajax_method' => 'PUT',
-	:'data-ajax_success_element' => 'account_email',
-	:'data-ajax_error_element' => 'account_email'
-} do |f| %>
-	<%= f.text_field :email, :class => 'span-9' %>
-	<%= hidden_field_tag 'attribute', 'email', :id => 'attribute_email_field' %>
-	<%= hidden_field_tag '_method', 'put' %>
-	<%= f.submit 'save' %>
-	<%= link_to 'cancel', user_url(@user),
-	 	:'data-ajax_behavior' => 'ajax_link',
-		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'account_email',
-		:'data-ajax_data' => "{attribute: 'email'}"%>
-<% end %>
+<div class="span-18 last">
+		<h2>Email</h2>
+</div>
+<div class="span-18 last section">
+  <%= form_for @user, :html => {
+  	:'data-ajax_behavior' => 'ajax_form',
+  	:'data-ajax_method' => 'PUT',
+  	:'data-ajax_success_element' => 'account_email',
+  	:'data-ajax_error_element' => 'account_email'
+  } do |f| %>
+  	<%= f.text_field :email, :class => 'span-9' %>
+  	<%= hidden_field_tag 'attribute', 'email', :id => 'attribute_email_field' %>
+  	<%= hidden_field_tag '_method', 'put' %>
+  	<%= f.submit 'save' %>
+  	<%= link_to 'cancel', user_url(@user),
+  	 	:'data-ajax_behavior' => 'ajax_link',
+  		:'data-ajax_method' => 'GET',
+  		:'data-ajax_success_element' => 'account_email',
+  		:'data-ajax_data' => "{attribute: 'email'}"%>
+  <% end %>
+</div>

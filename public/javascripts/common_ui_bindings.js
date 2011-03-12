@@ -82,22 +82,29 @@ function handleListDisplay(){
 		}
 	});
 }
+// Refactor Expanders into a jQuery function that applies full functionality to the selected elements.
 function bindExpanders(){
 	jQuery(document).ready(function(){
 		jQuery("[data-behavior='expander'][data-action='expand']").die('click');
 		jQuery("[data-behavior='expander'][data-action='expand']").live('click', function(e){
 			actual_target = getActualLinkTarget(jQuery(e.target));
-			jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + actual_target.attr('data-id') + "']").show();
-			jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + actual_target.attr('data-id') + "']").hide();
-			jQuery('#primary_input').focus();
+			expandExpander(actual_target.attr('data-id'))
 		});
 		jQuery("[data-behavior='expander'][data-action='contract']").die('click');
 		jQuery("[data-behavior='expander'][data-action='contract']").live('click', function(e){
 			actual_target = getActualLinkTarget(jQuery(e.target));
-			jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + actual_target.attr('data-id') + "']").hide();
-			jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + actual_target.attr('data-id') + "']").show();
-			jQuery("[data-role=\'footer\']").hide();
-			setTimeout('jQuery("[data-role=\'footer\']").show();',200);
+			contractExpander(actual_target.attr('data-id'))
 		});
 	});
 };
+function expandExpander(data_id) {
+	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").show();
+	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").hide();
+	jQuery('#primary_input').focus();
+}
+function contractExpander(data_id) {
+	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").hide();
+	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").show();
+	jQuery("[data-role=\'footer\']").hide();
+	setTimeout('jQuery("[data-role=\'footer\']").show();',200);
+}

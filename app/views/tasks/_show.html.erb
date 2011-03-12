@@ -51,7 +51,6 @@
 		<% if sortable == true %><span data-role="sortable_drag_handle" class="sortable_drag_handle">&equiv;</span><% end %>
 		<%= hidden_field_tag ('sortable', true) if (sortable == true) %>
 		<%= hidden_field_tag 'partial', true %>
-		<%= hidden_field_tag '_method', 'PUT' %>
 		<% if @app_context %>
   		<%= hidden_field_tag 'app_context', @app_context %>
 		<% end %>

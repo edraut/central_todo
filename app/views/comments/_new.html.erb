@@ -1,0 +1,19 @@
+<%= form_for comment, :html => {
+	:'data-ajax_behavior' => 'ajax_form',
+	:'data-ajax_method' => 'POST',
+	:'data-ajax_success_element' => "comments_wrapper",
+	:'data-ajax_success_placement' => 'append',
+	:'data-ajax_success_callback' => 
+	  "jQuery('#primary_input').val('');contractExpander('new_comment_form');",
+	:'data-ajax_error_element' => 'new_comment_form'} do |f| %>
+	<div class="span-12">
+		<%= f.text_area :body, :id => "primary_input", :class => "span-12", :rows => 5 %>
+	</div>
+	<div class="span-4 last">
+		<%= f.hidden_field :user_id %>
+		<%= f.hidden_field :commentable_id %>
+		<%= f.hidden_field :commentable_type %>
+		<%= f.submit "Comment on this #{comment.commentable.class.display_name}" %>
+		<a href="#" data-behavior="expander" data-action="contract" data-id="new_comment_form">cancel</a>
+	</div>
+<% end %>

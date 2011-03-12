@@ -1,0 +1,26 @@
+<div class="span-18 last page_content">
+  <div id="new_comment_form" class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_comment_form">
+    <%= render :partial => '/comments/new', :locals => {:comment => Comment.new(:commentable_id => commentable.id, :commentable_type => commentable.class.name)} %>
+	</div>
+	<div id="comment_list_heading" class="span-16 last">
+		<div class="span-11">
+			<h2><%= commentable.title %></h2>
+		</div>
+		<div class="span-5 last">
+      	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_comment_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_comment_form">add a comment</a></div>
+		</div>
+	</div>
+	<div id="comments_wrapper" class="span-16 last section_wrapper" data-role="list">
+    <div class="span-16 last line_item">
+      <div class="span-9 text-center small">comment</div>
+      <div class="span-3 text-center small">&nbsp;</div>
+      <div class="span-3 text-center small">author & date</div>
+    </div>
+		<% commentable.comments.by_date.each_with_index do |comment,index| %>
+		
+			<div class="span-16 last line_item" id="comment_<%= comment.id %>" data-role="list_item">
+				<%= render :partial => '/comments/show', :locals => {:comment => comment} %>
+			</div>
+		<% end %>
+	</div>
+</div>

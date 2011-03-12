@@ -1,0 +1,29 @@
+<%= form_for comment, :html => {
+	:'data-ajax_behavior' => 'ajax_form',
+	:'data-ajax_method' => 'PUT',
+	:'data-ajax_success_element' => "comment_#{comment.id}",
+	:id => "comment_edit_form_#{comment.id}"} do |f| %>
+	<div class="span-12">
+		<div class="text_with_check_box_proxy span-12 last">
+      <%= f.text_area :body, :id => "comment_body_textarea_#{comment.id}", :class => "span-12", :rows => 5 %>
+		</div>
+	</div>
+	<div class="span-4 last">
+	  <div class="span-4 last text-right">
+	    <%= f.submit :save %>,
+    <%= link_to 'cancel', comment_url(comment),
+	    :'data-ajax_behavior' => 'ajax_link',
+	    :'data-ajax_method' => 'GET',
+	    :'data-ajax_success_element' => "comment_#{comment.id}" %>
+	  </div>
+	  <div class="span-4 last text-right">
+		or delete <a href="<%= comment_url(comment) %>"
+			data-ajax_behavior="ajax_link"
+			data-ajax_method="DELETE"
+			data-ajax_success_callback="jQuery('#comment_<%= comment.id %>').remove();"
+			data-ajax_data="{_method: 'DELETE'}"
+			data-ajax_confirm="Are you sure you want to delete this comment?"
+			class="delete" data-role="delete">&otimes;</a>
+    </div>
+	</div>
+<% end %>

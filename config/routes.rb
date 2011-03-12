@@ -33,6 +33,7 @@ CentralTodo::Application.routes.draw do
     member do
       get 'archive_completed_tasks'
       get 'sort_tasks'
+      get 'comments'
     end
   end
   resources :project_sharers
@@ -54,6 +55,7 @@ CentralTodo::Application.routes.draw do
       get 'convert'
     end
   end
+  resources :comments
   resources :pages
   match 'dashboard' => 'dashboard#index'
   match 'schedule' => 'schedule#index'

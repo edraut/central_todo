@@ -1,3 +1,10 @@
+<div class="span-18 last">
+		<h2>Time Zone</h2>
+</div>
+<div class="span-18 last section">
+  <% if @user.errors.any? %>
+    <div class="error"><%= @user.errors.full_messages %></div>
+  <% end %>
 <%= form_for @user, :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
@@ -14,3 +21,4 @@
 		:'data-ajax_success_element' => 'account_time_zone',
 		:'data-ajax_data' => "{attribute: 'time_zone'}"%>
 <% end %>
+</div>

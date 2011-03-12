@@ -30,6 +30,7 @@ class Task < ActiveRecord::Base
   scope :done, where( "(tasks.state = 'complete' or tasks.state = 'archived')" )
   scope :for_user, lambda { |user| joins("left outer join project_sharers on project_sharers.project_id = tasks.project_id").
                                     where( "(project_sharers.user_id = #{user.id} or tasks.user_id = #{user.id})" )}
+
   #special behaviors
   state_machine :initial => :active, :action => nil do
     state :active
@@ -58,6 +59,10 @@ class Task < ActiveRecord::Base
   end
 
   #instance methods
+
+  def sharers
+    User.joins(:project_sharers).where(["project_sharers.project_id = :project_id",{:project_id => self.project_id}])
+  end
 
   def done?
     self.complete? or self.archived?

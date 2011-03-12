@@ -16,7 +16,6 @@
 			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%>
 		<% end %>
 		<%= hidden_field_tag 'attribute', 'due_date', :id => 'attribute_due_date' %>
-  	<%= hidden_field_tag '_method', 'put' %>
 		<%= f.submit 'save' %> or
 		<%= link_to (@task.due_date.blank? ? 'leave blank' : 'cancel'), task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',

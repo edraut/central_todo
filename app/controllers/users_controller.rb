@@ -68,16 +68,20 @@ class UsersController < ApplicationController
       else  
       render :action => :edit  
       end
-    elsif @user.update_attributes(params[:user])
+    else
       if params[:attribute]
-        respond_with(@user) do |format|
-          format.any {render :partial => 'show_' + params[:attribute], :layout => 'ajax_section' and return}
+        if @user.update_attributes(params[:user])
+          respond_with(@user) do |format|
+            format.any {render :partial => 'show_' + params[:attribute], :layout => 'ajax_section' and return}
+          end
+        else
+          respond_with(@user) do |format|
+            format.any {render :partial => 'edit_' + params[:attribute], :layout => 'ajax_section' and return}
+          end
         end
       else
         redirect_to user_url(@this_user)
       end
-    else
-      render :action => :edit
     end
   end
   

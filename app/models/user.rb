@@ -27,9 +27,7 @@ class User < ActiveRecord::Base
   end
     
   #validations
-  def validate
-    self.errors.add(:email,"That email is already in use, please select another.") if User.find(:first, :conditions => ["lower(email) = :email",{:email => self.email.downcase}])
-  end
+
   #callbacks
 
   #class methods
