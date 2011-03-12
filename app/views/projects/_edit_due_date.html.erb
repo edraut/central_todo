@@ -8,11 +8,11 @@
 		:id => 'edit_project_due_date'
 	} do |f| %>
   	<%= f.text_field :due_date, :id => 'project_due_date_field' %>
-    <% unless @task.due_date.blank? %>
-		<%= link_to 'remove', task_url(@task),
+    <% unless @project.due_date.blank? %>
+		<%= link_to 'remove', plan_url(@project),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'PUT',
-			:'data-ajax_success_element' => 'task_due_date',
+			:'data-ajax_success_element' => 'project_due_date',
 			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%>
 		<% end %>
 		<%= hidden_field_tag 'attribute', 'due_date' %>
