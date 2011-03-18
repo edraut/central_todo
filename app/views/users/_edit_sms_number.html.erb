@@ -1,0 +1,23 @@
+<div class="span-18 last">
+		<h2>Cell Phone SMS Reminders</h2>
+</div>
+<div class="span-18 last section">
+  <p>If you want to receive due date reminders on your cell phone via SMS text message, enter your 10 digit cell number <span class="small">(e.g. 4105551111, not 1-410-123-4567)</span>. We'll send you a verification code on your phone, which you'll need to enter here once you have it.</p>
+  <%= form_for @user, :html => {
+  	:'data-ajax_behavior' => 'ajax_form',
+  	:'data-ajax_method' => 'PUT',
+  	:'data-ajax_success_element' => 'account_sms_number',
+  	:'data-ajax_error_element' => 'account_sms_number'
+  } do |f| %>
+    <%= f.select :sms_carrier, SmsReminder::SMS_GATEWAYS.keys.map{|g| [g,g]} %>
+    <%= f.label :sms_number, "Cell Number" %>
+  	<%= f.text_field :sms_number, :id => 'user_sms_number_field' %> 
+  	<%= hidden_field_tag 'attribute', 'sms_number', :id => 'attribute_sms_number_field' %>
+  	<%= f.submit 'save', :id => 'user_sms_number_submit' %>
+  	<%= link_to 'cancel', user_url(@user),
+  	 	:'data-ajax_behavior' => 'ajax_link',
+  		:'data-ajax_method' => 'GET',
+  		:'data-ajax_success_element' => 'account_sms_number',
+  		:'data-ajax_data' => "{attribute: 'sms_number'}" %>
+  <% end %>
+</div>

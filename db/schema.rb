@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110311170407) do
+ActiveRecord::Schema.define(:version => 20110317161627) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(:version => 20110311170407) do
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "reminders", :force => true do |t|
+    t.integer  "remindable_id"
+    t.string   "remindable_type"
+    t.integer  "lead_time"
+    t.string   "time_units"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "state"
   end
 
   create_table "situations", :force => true do |t|
@@ -107,6 +119,10 @@ ActiveRecord::Schema.define(:version => 20110311170407) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "show_help_text",      :default => true
+    t.string   "sms_number"
+    t.boolean  "sms_valid"
+    t.string   "sms_carrier"
+    t.string   "sms_code"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

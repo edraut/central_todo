@@ -1,0 +1,36 @@
+<div class="span-18 last">
+	<div class="span-15">
+		<h2>Cell Phone SMS Reminders</h2>
+	</div>
+	<div class="span-3 last">
+		<%= link_to 'edit sms', edit_user_url(@user, :attribute => 'sms_number'),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'account_sms_number'
+		%>
+	</div>
+</div>
+<div class="span-18 last section">
+  <% if @user.sms_number.blank? %>
+    You haven't added your cell number for text messages yet.
+  <% else %>
+  	<%= @user.sms_carrier %> <%= @user.sms_number %>
+  	<% if @user.sms_valid? %>
+  	  <span class="verified">verified.</span>
+  	<% else %>
+  	  <span class="pending">not verified.</span> Please enter the code we sent in a text message to your cell phone. It may take a few minutes to reach your phone. <% if @sms_verification_failed %><span class="error">The code you entered didn't match, please double check what we sent you in our text message, or try another cell number</span><% end %>
+      <%= form_for @user, :html => {
+      	:'data-ajax_behavior' => 'ajax_form',
+      	:'data-ajax_method' => 'PUT',
+      	:'data-ajax_success_element' => 'account_sms_number',
+      	:'data-ajax_error_element' => 'account_sms_number',
+      	:id => 'user_sms_code_form'
+      } do |f| %>
+        <%= label_tag 'sms_code', 'SMS Code' %>
+      	<%= text_field_tag 'sms_code' %>
+      	<%= hidden_field_tag 'attribute', 'sms_number', :id => 'attribute_sms_code_field' %>
+      	<%= f.submit 'verify sms number', :id => 'user_sms_code_submit' %>
+      <% end %>
+  	<% end %>
+	<% end %>
+</div>

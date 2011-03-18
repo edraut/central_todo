@@ -29,4 +29,19 @@ module ApplicationHelper
       return array.first.to_s
     end
   end
+  
+  def hour_select_options_array
+    (0..23).to_a.map do |h|
+      hour = case h
+      when 0
+        12
+      when (13..23)
+        h - 12
+      else
+        h
+      end
+      ampm = (h > 11) ? 'PM' : 'AM'
+      [hour.to_s + ' ' + ampm,h]
+    end
+  end
 end

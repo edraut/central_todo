@@ -7,12 +7,12 @@
 	:'data-ajax_error_callback' => "jQuery('#project_#{project.id}').append('<div class=\"flash_notice span-15 last\">Ooops! Something went wrong. We're looking into it, but feel free to contact customer support with any concerns.</div>'); setTimeout(\"jQuery('.flash_notice').fadeOut(1000)\",3000);",
 	:'data-ajax_success_element' => "project_#{project.id}"} do |f| %>
 	<div class="span-12">
-		<div class="text_with_check_box_proxy span-8 last">
+		<div class="line_item_height span-8 last">
   		<%= link_to project.title, plan_url(project), :class => project.all_complete ? 'completed' : nil %>
 		</div>
 	</div>
-	<div class="span-2 text_with_check_box_proxy text-center"><%= project.tasks.active.count %></div>
-	<div class="span-2 last text-right">
+	<div class="span-2 line_item_height text_center"><%= project.tasks.active.count %></div>
+	<div class="span-2 last text_right">
 		<a href="<%= plan_url(project) %>"
 			data-ajax_behavior="ajax_link"
 			data-ajax_method="DELETE"

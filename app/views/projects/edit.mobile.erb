@@ -7,7 +7,7 @@
   <% if @project.all_complete %>
   <div id="project_done" class="row_item last"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
   <% else %>
-  <div id="project_done" class="row_item last text_with_check_box_proxy">-in progress</div>
+  <div id="project_done" class="row_item last line_item_height">-in progress</div>
   <% end %>
 </div>
 <div id="project_description" class="section">
@@ -15,4 +15,7 @@
 </div>
 <div id="project_due_date" class="section">
 	<%= render :partial => @project.due_date.blank? ? 'edit_due_date' : 'show_due_date' %>
+</div>
+<div id="project_sharing" class="section">
+	<%= render :partial => @project.shared? ? 'show_sharing' : 'edit_sharing' %>
 </div>

@@ -1,7 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
-
+require "config/initializers/constants.rb"
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
@@ -42,7 +42,7 @@ module CentralTodo
     config.action_mailer.smtp_settings = {
       :address              => "smtp.gmail.com",
       :port                 => 587,
-      :user_name            => 'notifications@my-ti.me',
+      :user_name            => "notifications@#{DOMAIN_NAME}",
       :password             => 'F5yhQ8E3hz',
       :authentication       => 'plain',
       :enable_starttls_auto => true  }

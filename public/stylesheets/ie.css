@@ -8,3 +8,17 @@ input {
 .delete {
 	font-family: "Lucida Sans Unicode";
 }
+.ie_shadow_small {
+    display: block;
+    position: absolute;
+    z-index: -1;
+    background: #000;
+    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='2', MakeShadow='true', ShadowOpacity='0.30');
+}
+.ie_shadow_large {
+    display: block;
+    position: absolute;
+    z-index: -1;
+    background: #000;
+    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4', MakeShadow='true', ShadowOpacity='0.30');
+}

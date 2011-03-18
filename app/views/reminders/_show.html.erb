@@ -1,0 +1,26 @@
+<div class="span-2">
+<%= reminder.class.display_name %>
+</div>
+<div class="span-5">
+<%= reminder.lead_time %>
+<%= reminder.time_units_display %>
+before
+</div>
+<div class="span-3">
+  <%  case reminder.state 
+      when 'attempted','active' %>
+      <% if reminder.remindable.due_date_past? %>
+        not sent
+      <% else %>
+        not sent yet
+      <% end %>
+  <%  when 'completed' %>
+      sent
+  <%  end %>
+</div>
+<div class="span-5 last">
+<%= link_to 'edit', edit_reminder_url(reminder),
+  :'data-ajax_behavior' => 'ajax_link',
+  :'data-ajax_method' => 'GET',
+  :'data-ajax_success_element' => "reminder_#{reminder.id}" %>
+</div>

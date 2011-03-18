@@ -1,0 +1,20 @@
+<h3>Situation</h3>
+	<%= form_for @task, :html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_method' => 'PUT',
+		:'data-ajax_success_element' => 'task_situation',
+		:'data-ajax_error_element' => 'task_situation',
+		:id => 'edit_task_situations'
+	} do |f| %>
+	<%= select_tag :situations, options_for_select(@this_user.situations.map{|p| [p.title,p.id]},@task.situation_ids),:multiple => true %>
+	<%= hidden_field_tag 'attribute', 'situations', :id => 'attribute_situations' %>
+  	<div class="last list_action">&nbsp;or
+		<%= link_to 'cancel', task_url(@task),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'task_situation',
+			:'data-ajax_data' => "{attribute: 'situations'}"%>
+		</div>
+		<%= f.submit 'save', :class => 'list_action', :id => 'task_situations_submit' %>
+		</div>
+	<% end %>

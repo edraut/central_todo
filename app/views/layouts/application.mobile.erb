@@ -9,5 +9,10 @@
 </head>
 <body class="mytime">
 <%= render :partial => 'layouts/application' %>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    bindExpanders();
+  })
+<% end %>
 </body>
 </html>

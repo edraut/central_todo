@@ -17,7 +17,7 @@
           <div class="span-9" style="padding-left:24px;">
 						<%= link_to 'Home', root_url, :class => 'loud' %>
 					</div>
-  				<div class="span-8 last text-center" data-role="top_nav_element">
+  				<div class="span-8 last text_center" data-role="top_nav_element">
   					<% if current_user %>
   						hello <%= @this_user.email %>
   						<%= link_to '(sign out)', sign_out_url, :class => 'quiet' %>
@@ -46,7 +46,7 @@
 						<%= link_to 'Schedule', schedule_url, :class => (controller_name == 'schedule') ? 'selected loud' : 'loud' %>
 					</div>
 				</div>
-				<div class="left_nav_wrapper last">
+				<div id="task_nav" class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'tasks' %> selected<% end %>" <% unless controller_name == 'tasks' %> data-binding="hover_show_more" data-hover_div="task_subnav"<% end %>>
 						<%= link_to 'Tasks', tasks_url, :class => (controller_name == 'tasks') ? 'selected loud' : 'loud' %>
 						<div id="task_subnav"<% unless controller_name == 'tasks' %>style="display:none;" class="hover_nav"<% end %>>
@@ -70,7 +70,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="left_nav_wrapper last">
+				<div id="project_nav" class="left_nav_wrapper last<% if controller_name == 'projects' %> selected<% end %>">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'projects' %> selected<% end %>" <% unless controller_name == 'projects' %>data-binding="hover_show_more" data-hover_div="project_subnav"<% end %>>
 						<% if controller_name == 'projects' %>
             <div class="hover_nav_selected"<% if action_name != 'show' or Project.for_user(@this_user).active.count > 1 %> data-binding="hover_show_more" data-hover_div="project_subnav"<% end %>>
@@ -86,14 +86,10 @@
                 </div>
               </div>
             </div>
-						<div id="project_subnav" class="left_subnav_wrapper">
+						<div class="left_subnav_wrapper">
 							<div class="vert-line-subnav-wrapper <% if action_name == 'index' %>selected<% end %>">
                 <% if action_name == 'index' %><div class="selected_indicator">-</div><% end %>
-								<%= link_to "Active (#{@this_user.projects.active.count})", plans_url, :class => (action_name == 'index') ? 'selected' : '' %>
-							</div>
-							<div class="vert-line-subnav-wrapper <% if action_name == 'shared' %>selected<% end %>">
-                <% if action_name == 'shared' %><div class="selected_indicator">-</div><% end %>
-								<%= link_to "Shared (#{@this_user.project_sharers.active.count})", shared_plans_url, :class => (action_name == 'shared') ? 'selected' : '' %>
+								<%= link_to "Active (#{Project.for_user(@this_user).active.count})", plans_url, :class => (action_name == 'index') ? 'selected' : '' %>
 							</div>
 							<div class="vert-line-subnav-wrapper <% if action_name == 'archived' %>selected<% end %>">
                 <% if action_name == 'archived' %><div class="selected_indicator">-</div><% end %>
@@ -111,10 +107,7 @@
 						<div id="project_subnav" style="display:none;" class="left_subnav_wrapper hover_nav">
 						  <div class="hover_nav_pointer">&rarr;</div>
 							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Active (#{@this_user.projects.unarchived.count})", plans_url %>
-							</div>
-							<div class="vert-line-subnav-wrapper">
-								<%= link_to "Shared (#{@this_user.project_sharers.active.count})", shared_plans_url %>
+								<%= link_to "Active (#{Project.for_user(@this_user).unarchived.count})", plans_url %>
 							</div>
 							<div class="vert-line-subnav-wrapper">
 								<%= link_to "Archived (#{Project.for_user(@this_user).archived.count})", archived_plans_url %>
@@ -128,7 +121,7 @@
             <% end %>
 					</div>
 				</div>
-				<div class="left_nav_wrapper last">
+				<div id="situation_nav" class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if controller_name == 'situations' %> selected<% end %>"<% unless controller_name == 'situations' %> data-binding="hover_show_more" data-hover_div="situation_subnav"<% end %>>
 						<%= link_to 'Situations', situations_url, :class => (controller_name == 'situations') ? 'selected loud' : 'loud' %>
 						<% if @this_user.situations.count > 0 %>
@@ -157,19 +150,21 @@
 	</div>
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
-		bindHoverShowMore();
-		jQuery("[data-role='top_nav_element']").each(function(i){
-			vertCenterDiv(jQuery(this),jQuery('#top_nav_wrapper'));
-		});
-		jQuery("#left_nav_spacer").height(jQuery("#header_wrapper").outerHeight(true));
-		<% unless flash[:notice].blank? %>
-			function clearFlash(){
-				jQuery('#flash_notice').fadeOut(1000);
-				setTimeout("jQuery('#flash_notice').remove();",1000);
-			}
-			jQuery('#main_content').before('<div id="flash_notice" style="display:none;margin-top: -17px;" class="container flash_notice"><%= flash[:notice] %></div>');
-			jQuery('#flash_notice').fadeIn(500);
-			setTimeout(clearFlash,3000);
+  	<% unless flash[:notice].blank? %>
+  		function clearFlash(){
+  			jQuery('#flash_notice').fadeOut(1000);
+  			setTimeout("jQuery('#flash_notice').remove();",1000);
+  		}
+  		jQuery('#main_content').before('<div id="flash_notice" style="display:none;margin-top: -17px;" class="container flash_notice"><%= flash[:notice] %></div>');
+  		jQuery('#flash_notice').fadeIn(500);
+  		setTimeout(clearFlash,3000);
+  	<% end %>
+		<% if params.has_key? :added_task %>
+      jQuery("[data-behavior='expander'][data-state='contracted'][data-id='new_task_form']")
+        .hide();
+      jQuery("[data-behavior='expander'][data-state='expanded'][data-id='new_task_form']")
+        .show();
+      jQuery('#primary_input').focus();
 		<% end %>
 	})
 <% end %>

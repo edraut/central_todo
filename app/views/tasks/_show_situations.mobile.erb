@@ -1,0 +1,20 @@
+<div class="row">
+<div class="row_item">
+	<h3>Situation</h3>
+</div>
+<div class="row_item last list_action h3_padding">
+	<%= link_to (@task.situations.for_user(@this_user).any? ? 'change situations' : 'add situations'), edit_task_url(@task, :attribute => 'situations'),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'task_situation'
+	%>
+</div>
+</div>
+<div class="section">
+<% if @task.situations.for_user(@this_user).any? %>
+  <%= @task.situations.for_user(@this_user).map{|s| s.title}.join(', ') %>
+<% else %>
+	&nbsp;
+<% end %>
+</div>
+

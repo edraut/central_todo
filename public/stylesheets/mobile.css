@@ -11,7 +11,7 @@ p {
 
 a {
   text-decoration: none;
-  color: #111111; }
+  color: #0d0c08; }
 
 a:hover {
   color: #bdbcb8; }
@@ -95,7 +95,7 @@ div.section.borderless {
 .list_action.attributes {
   padding-left: 5px; }
 
-.row_item.text_with_check_box_proxy {
+.row_item.line_item_height {
   margin-top: 1.1em;
   margin-bottom: 1.1em; }
 
@@ -165,12 +165,12 @@ div.section.borderless {
 
 .ui-btn-up-a.mytime {
   background: #6d6c68;
-  border: 1px solid #111111;
+  border: 1px solid #0d0c08;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#8e8d89), to(#6d6c68)); }
 
 .ui-btn-down-a.mytime {
   background: #6d6c68;
-  border: 1px solid #111111;
+  border: 1px solid #0d0c08;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6d6c68), to(#8e8d89)); }
 
 .mytime .ui-btn-up-c {

@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(params[:comment].merge(:user_id => @this_user.id))
     if @comment.save
       respond_with(@comment) do |format|
-        format.any {render :partial => 'show', :locals => {:comment => @comment}}
+        format.any {render :partial => 'show', :locals => {:comment => @comment}, :layout => 'new_comment'}
       end
     else
       respond_with(@comment) do |format|
@@ -56,6 +56,8 @@ class CommentsController < ApplicationController
   end
   
   def destroy
+    @comment.destroy
+    render :nothing => true and return
   end
 
   def get_comment

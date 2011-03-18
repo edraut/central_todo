@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   
   def index
     @project = Project.new(:user_id => @this_user.id)
-    @projects = @this_user.projects.unarchived.ordered.paginate(:page => params[:page], :per_page => 40)
+    @projects = Project.for_user(@this_user).unarchived.ordered.paginate(:page => params[:page], :per_page => 40)
     @sortable = true
     respond_with(@projects) do |format|
       format.any {render :action => 'index' and return}
@@ -63,7 +63,10 @@ class ProjectsController < ApplicationController
   end
   
   def update
-    if params[:sharer_email]
+    if params.has_key? :nullify
+      @project.update_attributes({params[:attribute]=> nil})
+      attribute = params[:attribute]
+    elsif params[:sharer_email]
       @sharer = User.find(:first, :conditions => ["lower(email) = :sharer_email",{:sharer_email => params[:sharer_email].downcase}])
       if @sharer
         ProjectSharer.create(:user_id => @sharer.id,:project_id => @project.id)

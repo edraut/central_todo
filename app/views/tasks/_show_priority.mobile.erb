@@ -1,5 +1,5 @@
 <%= form_for @task, :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
-	:'data-ajax_success_element' => "task_priority"} do |f| %><%= f.hidden_field :priority, :id => "priority_#{@task.id}", :'data-behavior' => 'auto_submit' %><div data-behavior="check_box_proxy" data-check_box="priority_<%= @task.id %>" class="row_item check_box_proxy<% if @task.priority? %> checked<% end %>" onclick="void(0)">&nbsp;&lowast;</div><div class="row_item text_with_check_box_proxy last">&nbsp;priority task</div><%= hidden_field_tag 'attribute', 'priority', :id => 'attribute_priority_field' %><%= hidden_field_tag '_method', 'put' %><% end %><%= javascript_tag 'bindCheckBoxProxy();' %>
+	:'data-ajax_success_element' => "task_priority"} do |f| %><%= f.hidden_field :priority, :id => "priority_#{@task.id}", :'data-behavior' => 'auto_submit' %><div data-behavior="check_box_proxy" data-check_box="priority_<%= @task.id %>" class="row_item check_box_proxy<% if @task.priority? %> checked<% end %>" onclick="void(0)">&nbsp;&lowast;</div><div class="row_item line_item_height last">&nbsp;priority task</div><%= hidden_field_tag 'attribute', 'priority', :id => 'attribute_priority_field' %><%= hidden_field_tag '_method', 'put' %><% end %><%= javascript_tag 'bindCheckBoxProxy();' %>
 	

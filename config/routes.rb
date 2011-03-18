@@ -56,6 +56,7 @@ CentralTodo::Application.routes.draw do
     end
   end
   resources :comments
+  resources :reminders
   resources :pages
   match 'dashboard' => 'dashboard#index'
   match 'schedule' => 'schedule#index'

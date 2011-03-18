@@ -10,4 +10,4 @@
 		%>
 </div>
 </div>
-<% if @task.project %><div class="section"><%= @task.project.title %> <%= link_to '(view plan)', plan_url(@task.project_id), :class => 'quiet'%></div><% end %>
+<% if @task.project %><div class="section"><%= @task.project.title %></div><% end %>

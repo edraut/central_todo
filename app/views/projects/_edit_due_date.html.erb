@@ -7,27 +7,25 @@
 		:'data-ajax_error_element' => 'project_due_date',
 		:id => 'edit_project_due_date'
 	} do |f| %>
-  	<%= f.text_field :due_date, :id => 'project_due_date_field' %>
-    <% unless @project.due_date.blank? %>
-		<%= link_to 'remove', plan_url(@project),
-		 	:'data-ajax_behavior' => 'ajax_link',
-			:'data-ajax_method' => 'PUT',
-			:'data-ajax_success_element' => 'project_due_date',
-			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%>
-		<% end %>
-		<%= hidden_field_tag 'attribute', 'due_date' %>
-		<%= f.submit 'save due date' %> or
-		<%= link_to (@project.due_date.blank? ? 'leave blank' : 'cancel'), plan_url(@project),
-		 	:'data-ajax_behavior' => 'ajax_link',
-			:'data-ajax_method' => 'GET',
-			:'data-ajax_success_element' => 'project_due_date',
-			:'data-ajax_data' => "{attribute: 'due_date'}"%>
+  	<div class="span-16 last line_item_height">
+    	<%= f.text_field :due_date, :id => 'project_due_date_field', :class => 'span-6', :'data-behavior' => 'date_picker' %>
+  		<%= hidden_field_tag 'attribute', 'due_date', :id => "project_attribute_due_date" %>
+  		<%= f.submit 'save due date', :id => 'project_submit_due_date' %>
+      <% if @project.due_date.blank? %>
+        or
+      <% else %>
+      ,
+  		<%= link_to 'remove', plan_url(@project),
+  		 	:'data-ajax_behavior' => 'ajax_link',
+  			:'data-ajax_method' => 'PUT',
+  			:'data-ajax_success_element' => 'project_due_date',
+  			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%> or 
+  		<% end %>
+  		<%= link_to (@project.due_date.blank? ? 'leave blank' : 'cancel'), plan_url(@project),
+    	 	:'data-ajax_behavior' => 'ajax_link',
+    		:'data-ajax_method' => 'GET',
+    		:'data-ajax_success_element' => 'project_due_date',
+    		:'data-ajax_data' => "{attribute: 'due_date'}"%>
+  	</div>
 	<% end %>
 </div>
-<%= javascript_tag do %>
-  jQuery(document).ready(function(){
-    jQuery('#project_due_date_field').datetimepicker({
-    	ampm: true
-    });
-  })
-<% end %>

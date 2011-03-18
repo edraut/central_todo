@@ -70,21 +70,27 @@ function ajaxEvent(e){
 				switch( our_element.attr('data-ajax_success_placement') ) {
 					case 'after':
 						jQuery('#' + jquery_success_element).after(data);
+						jQuery('#' + jquery_success_element).reDraw();
 						break;
 					case 'html':
 						jQuery('#' + jquery_success_element).html(data);
+						jQuery('#' + jquery_success_element).reDraw();
 						break;
 					case 'before':
 						jQuery('#' + jquery_success_element).before(data);
+						jQuery('#' + jquery_success_element).reDraw();
 						break;
 					case 'prepend':
 						jQuery('#' + jquery_success_element).prepend(data);
+						jQuery('#' + jquery_success_element).reDraw();
 						break;
 					case 'append':
 						jQuery('#' + jquery_success_element).append(data);
+						jQuery('#' + jquery_success_element).reDraw();
 						break;
 					default:
 						jQuery('#' + jquery_success_element).html(data);
+						jQuery('#' + jquery_success_element).reDraw();
 						break;
 				}
 			}; 

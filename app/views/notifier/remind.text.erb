@@ -1,0 +1,3 @@
+*Reminder*
+
+<%= @reminder.remindable.title %> is due at <%= @reminder.remindable.due_date.in_time_zone(@reminder.user.time_zone).to_formatted_s(:full) %>. You can see this plan online at <%= APP_NAME %> by cutting and pasting this into your browser's address bar: <%= @plan_url %>

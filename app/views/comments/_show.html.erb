@@ -1,11 +1,11 @@
 	<div class="span-12">
-		<div class="text_with_check_box_proxy span-12 last">
+		<div class="line_item_height span-12 last">
       <%= comment.body %>
 		</div>
 	</div>
 	<div class="span-4 last">
 	  <% if comment.user_id == @this_user.id %>
-	  <div class="span-4 last text-right">
+	  <div class="span-4 last text_right">
     <%= link_to 'edit', edit_comment_url(comment),
 	    :'data-ajax_behavior' => 'ajax_link',
 	    :'data-ajax_method' => 'GET',

@@ -1,0 +1,21 @@
+<%= form_for reminder, :html => {
+	:'data-ajax_behavior' => 'ajax_form',
+	:'data-ajax_method' => 'POST',
+	:'data-ajax_success_element' => "reminders_list",
+	:'data-ajax_success_placement' => 'append',
+	:'data-ajax_success_callback' => "jQuery('#primary_input').val(''); contractExpander('new_reminder_form'); jQuery('#new_reminder_form').rebindSubmit();",
+	:'data-ajax_error_element' => 'new_reminder_wrapper',
+	:id => 'new_reminder_form'} do |f| %>
+	<div class="span-9 line_item_height">
+	  <%= f.select :type, @this_user.available_reminder_types, {}, {:class => 'span-2 with_text_field', :id => "new_reminder_type"} %>
+	  <%= f.text_field :lead_time, :id => 'new_reminder_lead_time', :class => 'span-2' %>
+		<%= f.select :time_units, Reminder::TIME_UNITS.map{|tu| [tu,tu]}, {}, {:id => "new_reminder_time_units", :class => 'span-3 last with_text_field'} %>&nbsp;before
+	</div>
+	<div class="span-6 last line_item_height">
+		<%= f.hidden_field :user_id, :id => "new_reminder_user_id" %>
+		<%= f.hidden_field :remindable_id, :id => "new_reminder_remindable_id" %>
+		<%= f.hidden_field :remindable_type, :id => "new_reminder_remindable_type" %>
+		<%= f.submit "Add reminder", :id => "new_reminder_submit" %> or 
+		<a href="#" data-behavior="expander" data-action="contract" data-id="new_reminder_form">cancel</a>
+	</div>
+<% end %>

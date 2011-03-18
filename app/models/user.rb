@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :task_situations, :through => :situations
   has_many :project_sharers, :dependent => :destroy
   has_many :shared_projects, :through => :project_sharers, :source => :project
+  has_many :reminders
 
   #named_scopes
 
@@ -29,11 +30,48 @@ class User < ActiveRecord::Base
   #validations
 
   #callbacks
-
+  before_save :handle_sms
+  
   #class methods
 
   #instance methods
 
+  def available_reminder_types
+    if self.sms_valid?
+      [['email','EmailReminder'],['SMS','SmsReminder']]
+    else
+      [['email','EmailReminder']]
+    end
+  end
+  
+  def sms_email
+    sms_number + SmsReminder::SMS_GATEWAYS[sms_carrier]
+  end
+  
+  def clean_phone_number(number)
+    number.gsub(/[-\(\)\.]/,'')[-10..-1]
+  end
+  
+  def clean_sms_number
+    self.sms_number = clean_phone_number(self.sms_number)
+  end
+  
+  def handle_sms
+    if self.sms_number_changed? and !self.sms_number.blank?
+      self.clean_sms_number
+      self.sms_code = generate_code
+    end
+  end
+  
+  def send_sms_verification
+    Notifier.sms_verification(self).deliver
+  end
+  
+  def generate_code(size = 5)
+    charset = %w{ 2 3 4 6 7 9 A C D E F G H J K L M N P Q R T V W X Y Z}
+    (0...size).map{ charset.to_a[rand(charset.size)] }.join
+  end
+  
   def prepare_for_validation
     self.reset_perishable_token!
     Notifier.account_validation_instructions(self).deliver

@@ -1,6 +1,6 @@
 <% sortable = false unless defined? sortable
 	needs_organization = false unless defined? needs_organization
-	if (controller_name == 'projects' and action_name == 'show')
+	if (controller_name == 'projects' and ['show','sort_tasks'].include? action_name)
 	  @app_context = 'project'
   end
   if (controller_name == 'situations' and action_name == 'show')
@@ -12,13 +12,13 @@
 	:'data-ajax_method' => 'PUT',
 	:'data-ajax_success_callback' => "handleArchivementLink();",
 	:'data-ajax_success_element' => "task_#{task.id}"} do |f| %>
-	<div class="<%= (@app_context == 'project') ? 'span-15' : 'span-12' -%>">
+	<div class="span-12">
 		<%= f.hidden_field :priority, :id => "priority_#{task.id}", :'data-behavior' => 'auto_submit' %>
 		<div data-behavior="check_box_proxy" data-check_box="priority_<%= task.id %>" class="check_box_proxy <% if task.priority? %>checked<% end %>">&lowast;</div>
-		<div class="text_with_check_box_proxy">
+		<div class="line_item_height">
 		<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, task.archived? ? 'archived' : 'complete', 'active' %>
     </div>
-		<div class="text_with_check_box_proxy <%= (@app_context == 'project') ? 'span-14' : 'span-11' -%> last">
+		<div class="line_item_height span-11 last">
       <%= link_to task.title, task_url(task),
         :class => task.done? ? 'completed' : nil,
 		    :'data-ajax_behavior' => 'ajax_link',
@@ -28,11 +28,13 @@
 		    :'data-ajax_data' => "{'full_view':'true'}"%>
 		</div>
 	</div>
-	<div class="<%= (@app_context == 'project') ? 'span-1' : 'span-4' -%> last text-right">
-		<% if needs_organization and @app_context != 'project' %>
+	<div class="span-4 last text_right">
+    <% if @app_context == 'project' %>
+    <div class="span-3 text_left line_item_height"><% if task.due_date %><%= task.due_date.to_date.to_formatted_s(:short) %><% else %>&nbsp;<% end %></div>
+		<% elsif needs_organization %>
   		<%= f.select :project_id, [['choose',nil]] + Project.for_user(@this_user).active.map{|p| [p.title,p.id]}, {}, :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :class => "span-3" %>
-    <% elsif @app_context != 'project' %>
-    <div class="span-3 text-left">
+    <% else %>
+    <div class="span-3 text_left">
       <% if task.project_id.nil? %>&mdash;<% else %>
       <%= link_to truncate_clean(task.project.title, {:length => 18, :omission => '-'}), plan_url(task.project_id) %>
       <% end %>

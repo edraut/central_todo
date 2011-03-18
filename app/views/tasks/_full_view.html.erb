@@ -1,18 +1,18 @@
-<div class="span-19 last text-center"><h1>Task</h1></div>
+<div class="span-20 last text_center"><h1>Task</h1></div>
 <div id="close_dialog" onclick="hideDialog('#main_modal_view');">close</div>
-<div class="span-19 last" id="header_wrapper">
-  <div class="span-19 last text-center quiet">Does this task involve multiple steps or parts? <%= link_to 'Convert it to plan.', convert_task_url(@task) %></div>
-  <div class="span-19 quiet">&nbsp;</div>
-  <div id="task_title" class="span-19 last">
+<div class="span-20 last" id="header_wrapper">
+  <div class="span-20 last text_center quiet">Does this task involve multiple steps or parts? <%= link_to 'Convert it to plan.', convert_task_url(@task) %></div>
+  <div class="span-20 quiet">&nbsp;</div>
+  <div id="task_title" class="span-20 last">
   	<%= render :partial => 'show_title' %>
   </div>
 </div>
-<div class="span-19 last">
-  <div class="span-18 last">
+<div class="span-20 last">
+  <div class="span-19 last">
     <div id="task_delete" class="list_action attributes last" onclick="void(0)" data-behavior="attribute_control"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
     <div id="task_priority" class="list_action attributes" onclick="void(0)" data-behavior="check_box_proxy"  data-check_box="full_view_priority_<%= @task.id %>"><%= render :partial => 'show_priority', :locals => {:task => @task} %></div>
   </div>
-  <div class="span-19 last">
+  <div class="span-20 last">
   <div id="task_description" class="half_section section_margin_top">
   	<%= render :partial => (@task.description.blank? ? 'edit_description' : 'show_description') %>
   </div>
@@ -20,7 +20,7 @@
   	<%= render :partial => (@task.due_date.blank? ? 'edit_due_date' : 'show_due_date') %>
   </div>
   </div>
-  <div class="span-19 last">
+  <div class="span-20 last">
   <div id="task_project" class="half_section section_margin_top">
   	<%= render :partial => (@task.project ? 'show_project_id' : 'edit_project_id') %>
   </div>

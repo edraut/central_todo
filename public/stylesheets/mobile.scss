@@ -1,19 +1,24 @@
 $dark-blue: #557777;
 $blue: #90B0B0;
 $light-blue: #DDF5F5;
+$pale-blue: #f0f8f8;
+$blue-wash: #fbffff;
 $light-carmine: #E55;
 $carmine: #EE3434;
-$pale-gray: #FDFCF8;
-$light-gray: #EDECE8;
-$grayish: #DDDCD8;
-$gray: #bdbcb8;
-$middle-gray: #5d5c58;
-$charcoal: #4D4C48;
-$black: #111;
-$taupe: #6D6C68;
-$light-taupe: #8E8D89;
 $paper: #FDFCF8;
-$yellow: #FFF8D0;
+$gray0-5: #F5F4F0;
+$gray1: #EDECE8;
+$gray2: #DDDCD8;
+$gray3: #CDCCC8;
+$gray4: #bdbcb8;
+$gray6: #9d9c98;
+$gray7: #8E8D89;
+$gray8: #6D6C68;
+$gray9: #5D5C58;
+$gray10: #4D4C48;
+$black: #0D0C08;
+$light-yellow: #FFF8D0;
+$yellow: #fcefa1;
 $white: #FCFCFA;
 
 @mixin full-width {
@@ -22,11 +27,11 @@ $white: #FCFCFA;
   float: left;
 }
 body {
-	background-color: $light-gray;
-	color: $taupe;
+	background-color: $gray1;
+	color: $gray8;
 }
 h2 {
-  color: $light-taupe;
+  color: $gray7;
 }
 p {
   margin: 0;
@@ -37,7 +42,7 @@ a{
   color: $black;
 }
 a:hover {
-  color: $gray;
+  color: $gray4;
 }
 textarea {
   width: 100%;
@@ -66,7 +71,7 @@ select {
   border: none;
   @include full-width;
   clear: both;
-  border-bottom: 1px solid $gray
+  border-bottom: 1px solid $gray4;
 }
 div.section.borderless {
   border: none;
@@ -78,10 +83,10 @@ div.section.borderless {
 }
 .user_title {
   font-size: 20px;
-  color: $middle-gray;
+  color: $gray9;
 }
 .border_bottom {
-  border-bottom: 1px solid $gray;
+  border-bottom: 1px solid $gray4;
 }
 .padding_bottom {
   padding-bottom: 10px;
@@ -96,9 +101,9 @@ div.section.borderless {
   @include full-width;
 }
 .controls {
-  background-color: $gray;
-  border-left: 1px solid $gray;
-  border-right: 1px solid $gray;
+  background-color: $gray4;
+  border-left: 1px solid $gray4;
+  border-right: 1px solid $gray4;
 }
 .row_item {
   position: relative;
@@ -114,7 +119,7 @@ div.section.borderless {
 .list_action.attributes {
   padding-left: 5px;
 }
-.row_item.text_with_check_box_proxy{
+.row_item.line_item_height{
   margin-top: 1.1em;
   margin-bottom: 1.1em;
 }
@@ -175,9 +180,9 @@ div.section.borderless {
   top: .3em;
 }
 .attach_bottom {
-  border-bottom: 1px solid $gray;
-  border-left: 1px solid $gray;
-  border-right: 1px solid $gray;
+  border-bottom: 1px solid $gray4;
+  border-left: 1px solid $gray4;
+  border-right: 1px solid $gray4;
   margin-top: 0;
   margin-bottom: .5em;
 }
@@ -185,33 +190,33 @@ div.section.borderless {
   color: $paper;
 }
 .ui-bar-a.mytime {
-  background: $taupe;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($taupe), to($charcoal));
+  background: $gray8;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($gray8), to($gray10));
 }
 .ui-btn-up-a.mytime  {
-  background: $taupe;
+  background: $gray8;
   border: 1px solid $black;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($light-taupe), to($taupe));
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($gray7), to($gray8));
 }
 .ui-btn-down-a.mytime  {
-  background: $taupe;
+  background: $gray8;
   border: 1px solid $black;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($taupe), to($light-taupe));
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($gray8), to($gray7));
 }
 .mytime .ui-btn-up-c  {
   background: $paper;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($paper), to($light-gray));
-  border: 1px solid $grayish;
-  border-bottom: 1px solid $gray;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($paper), to($gray1));
+  border: 1px solid $gray2;
+  border-bottom: 1px solid $gray4;
 }
 .mytime .ui-btn-up-c.selected  {
-  background: $light-gray;
-  border: 1px solid $gray;
+  background: $gray1;
+  border: 1px solid $gray4;
   border-bottom: none;
 }
 .mytime .ui-body-c {
-  background: $light-gray;
-  color: $taupe;
+  background: $gray1;
+  color: $gray8;
 }
 .mytime div.last{
   margin-right: 0;

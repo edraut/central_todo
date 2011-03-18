@@ -1,0 +1,32 @@
+<div class="span-15 last padding">
+  <div class="span-5">
+    <h2>Reminders</h2>
+  </div>
+<% if !@this_user.sms_valid? and !remindable.overdue? %>
+  <div class="span-10 last text_right h2_text_padding padding_bottom"><%= link_to 'add a phone # for sms reminders', settings_user_url(@this_user) %></div>
+<% end %>
+</div>
+<% unless remindable.overdue? %>
+<div id="new_reminder_wrapper" class="span-15 last padding_bottom" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_reminder_form">
+  <%= render :partial => '/reminders/new', :locals => {:reminder => Reminder.new(:remindable_id => remindable.id, :remindable_type => remindable.class.name)} %>
+</div>
+<% end %>
+<div id="reminder_list_heading" class="span-15 last">
+</div>
+<div id="reminders_list" class="span-15 last" data-role="list">
+  <div class="span-15 last line_item">
+    <div class="span-2 text_left small">how</div>
+    <div class="span-5 text_center small">when</div>
+    <div class="span-3 text_left small">status</div>
+    <% unless remindable.overdue? %>
+    <div class="span-5 last">
+    	<div class="list_action attach_to_bottom_border" data-behavior="expander" data-state="contracted" data-id="new_reminder_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_reminder_form">add a reminder</a></div>
+    </div>
+    <% end %>
+  </div>
+	<% remindable.reminders.for_user(@this_user).by_time.each_with_index do |reminder,index| %>
+		<div class="span-15 last line_item" id="reminder_<%= reminder.id %>" data-role="list_item">
+			<%= render :partial => '/reminders/show', :locals => {:reminder => reminder} %>
+		</div>
+	<% end %>
+</div>

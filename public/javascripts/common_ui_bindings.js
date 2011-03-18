@@ -53,12 +53,15 @@ function getBackground(jqueryElement) {
 }
 jQuery.fn.preventDoubleSubmit = function() {
   jQuery(this).submit(function() {
-    if (this.beenSubmitted)
+    if (jQuery(this).data('beenSubmitted'))
       return false;
     else
-      this.beenSubmitted = true;
+      jQuery(this).data('beenSubmitted',true);
   });
 };
+jQuery.fn.rebindSubmit = function(){
+	jQuery(this).data('beenSubmitted',false);
+}
 function preventDoubleClick(e) {
 	link = jQuery(e.target);
 	if(link.data('beenSubmitted')){
@@ -88,12 +91,14 @@ function bindExpanders(){
 		jQuery("[data-behavior='expander'][data-action='expand']").die('click');
 		jQuery("[data-behavior='expander'][data-action='expand']").live('click', function(e){
 			actual_target = getActualLinkTarget(jQuery(e.target));
-			expandExpander(actual_target.attr('data-id'))
+			expandExpander(actual_target.attr('data-id'));
+			return false;
 		});
 		jQuery("[data-behavior='expander'][data-action='contract']").die('click');
 		jQuery("[data-behavior='expander'][data-action='contract']").live('click', function(e){
 			actual_target = getActualLinkTarget(jQuery(e.target));
-			contractExpander(actual_target.attr('data-id'))
+			contractExpander(actual_target.attr('data-id'));
+			return false;
 		});
 	});
 };
@@ -108,3 +113,11 @@ function contractExpander(data_id) {
 	jQuery("[data-role=\'footer\']").hide();
 	setTimeout('jQuery("[data-role=\'footer\']").show();',200);
 }
+function pausecomp(millis) 
+{
+var date = new Date();
+var curDate = null;
+
+do { curDate = new Date(); } 
+while(curDate-date < millis);
+} 

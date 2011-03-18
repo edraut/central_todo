@@ -7,10 +7,10 @@
   <div class="span-16 last section_margin_top">
     <h2>Due Dates</h2>
   </div>
-  <div class="span-16 last section_wrapper">
+  <div class="span-16 last list_section">
     <% for due_date in @due_dates %>
     <div class="span-16 last section_heading<% if due_date < Date.today %> overdue<% end %>">
-      <%= due_date.to_formatted_s(:full) %>
+      &nbsp; <%= due_date.to_formatted_s(:full) %>
     </div>
     <% for item in @due_date_items.select{|t| Time.parse(t['due_date']).to_date == due_date} %>
 			<div class="span-16 last line_item_soft" id="due_date_<%= item['item_type'].downcase %>_<%= item['id'] %>">

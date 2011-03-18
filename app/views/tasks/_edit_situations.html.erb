@@ -11,9 +11,8 @@
 		<%= select_tag :situations, options_for_select(@this_user.situations.map{|p| [p.title,p.id]},@task.situation_ids),:class => 'half_select', :multiple => true %>
 		</div>
 		<%= hidden_field_tag 'attribute', 'situations', :id => 'attribute_situations' %>
-  	<%= hidden_field_tag '_method', 'put' %>
   	<div class="half_select last">
-		<%= f.submit 'save' %> or
+		<%= f.submit 'save', :id => 'task_situations_submit' %> or
 		<%= link_to (@task.situations.for_user(@this_user).any? ? 'cancel' : 'leave blank'), task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',

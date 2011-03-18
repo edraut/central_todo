@@ -11,5 +11,5 @@
     </div>
 	</div>
 
-	<div class="half_section last section"><% if @task.project %><%= @task.project.title %> <%= link_to '(view plan)', plan_url(@task.project_id), :class => 'quiet'%> <% else %>&nbsp; <% end %></div>
+	<div class="half_section last section"><% if @task.project %><%= @task.project.title %><% else %>&nbsp; <% end %></div>
   

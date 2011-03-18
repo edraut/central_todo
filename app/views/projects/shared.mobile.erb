@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="row_item">
+    <h2>Plans Shared with You</h2>
+  </div>
+</div>
+<% if @projects.any? %>
+  <div data_role="list" class="block">
+		<% for project in @projects %>
+  	<div class="section controls">
+			<%= render :partial => '/projects/show', :locals => {:project => project} %>
+		</div>
+		<% end %>
+  	<div class="section controls">
+  	<%= will_paginate @projects %>
+    </div>
+  </div>
+<% else %>
+<div class="section controls">
+  <p>No one is sharing any plans with you right now.</p>
+</div>
+<% end %>
+
+

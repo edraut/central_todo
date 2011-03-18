@@ -11,7 +11,7 @@
     add email
     <%= text_field_tag :sharer_email %>
     <%= hidden_field_tag :project_id %>
-		<%= f.submit 'share' %> or
+		<%= f.submit 'share', :id => 'project_sharing_submit' %> or
 		<%= link_to (@project.shared? ? 'cancel' : "don't share"), plan_url(@project),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
@@ -19,6 +19,7 @@
 			:'data-ajax_data' => "{attribute: 'sharing'}"%>
 	<% end %>
   </div>
+  <% if @project.project_sharers.count > 0 %>
 	<div class="span-16 last padding_top">
     <h3>Shared with</h3>
     <% for project_sharer in @project.project_sharers %>
@@ -32,4 +33,5 @@
     </div>
     <% end %>
   </div>
+  <% end %>
 </div>

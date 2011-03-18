@@ -1,11 +1,11 @@
 <%= form_for comment, :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'POST',
-	:'data-ajax_success_element' => "comments_wrapper",
+	:'data-ajax_success_element' => "comments_list",
 	:'data-ajax_success_placement' => 'append',
 	:'data-ajax_success_callback' => 
-	  "jQuery('#primary_input').val('');contractExpander('new_comment_form');",
-	:'data-ajax_error_element' => 'new_comment_form'} do |f| %>
+	  "jQuery('#primary_input').val(''); contractExpander('new_comment_form'); jQuery('#new_comment_form').rebindSubmit();",
+	:'data-ajax_error_element' => 'new_comment_wrapper'} do |f| %>
 	<div class="span-12">
 		<%= f.text_area :body, :id => "primary_input", :class => "span-12", :rows => 5 %>
 	</div>

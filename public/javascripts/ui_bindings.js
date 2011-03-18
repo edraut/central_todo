@@ -55,8 +55,13 @@ jQuery.fn.moveToParent = function(parent){
 }
 function bindHoverShowMore(){
 	jQuery("[data-binding='hover_show_more']").hover(
-		function(){jQuery('#' + jQuery(this).attr('data-hover_div')).fadeIn(150);},
-		function(){jQuery('#' + jQuery(this).attr('data-hover_div')).fadeOut(250);}
+		function(){
+			target_div = jQuery('#' + jQuery(this).attr('data-hover_div'));
+			target_div.fadeIn(150);
+		},
+		function(){
+			jQuery('#' + jQuery(this).attr('data-hover_div')).fadeOut(250);
+		}
 	);
 }
 

@@ -76,3 +76,8 @@ function handleArchivementSuccess(move){
 		setTimeout(roundCorners,1500);
 	}
 }
+jQuery.fn.reDraw = function(){
+	dummy = jQuery(" <!--placeholder--> ");
+	jQuery(this).append(dummy);
+	dummy.remove();
+}

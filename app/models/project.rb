@@ -8,6 +8,7 @@ class Project < ActiveRecord::Base
   has_many :sharers, :through => :project_sharers, :source => :user
   has_many :project_emails, :dependent => :destroy
   has_many :comments, :as => :commentable
+  has_many :reminders, :as => :remindable
   
   #named_scopes
   scope :with_due_date, :conditions => "projects.due_date is not null"
@@ -21,7 +22,8 @@ class Project < ActiveRecord::Base
   scope :ordered, :order => 'projects.position'
   scope :by_due_date, :order => 'due_date'
   scope :by_create_date, :order => 'created_at desc'
-  scope :for_user, lambda { |user| joins("left outer join project_sharers on project_sharers.project_id = projects.id").
+  scope :for_user, lambda { |user|  select("distinct(projects.*)").
+                                    joins("left outer join project_sharers on project_sharers.project_id = projects.id").
                                     where( "(project_sharers.user_id = #{user.id} or projects.user_id = #{user.id})" )}
   #special behaviors
 
@@ -39,6 +41,7 @@ class Project < ActiveRecord::Base
   validates_presence_of :title
 
   #callbacks
+  before_save :handle_reminders
 
   #class methods
   def self.display_name
@@ -46,10 +49,6 @@ class Project < ActiveRecord::Base
   end
 
   #instance methods
-  def overdue?
-    !self.due_date.nil? and self.due_date < Time.now
-  end
-  
   def all_complete
     (self.tasks.count == self.tasks.done.count) && (self.tasks.count > 0)
   end
@@ -79,5 +78,20 @@ class Project < ActiveRecord::Base
   
   def shared?
     self.project_sharers.count > 0
+  end
+  
+  # Needs to be pulled out into a mixin shared amond remindables
+  def handle_reminders
+    if self.due_date_changed? and self.due_date.nil?
+      self.reminders.destroy_all
+    end
+  end
+  
+  def overdue?
+    !self.all_complete and self.due_date_past?
+  end
+    
+  def due_date_past?
+    !self.due_date.nil? and self.due_date < Time.now
   end
 end

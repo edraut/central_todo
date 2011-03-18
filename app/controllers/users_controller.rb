@@ -70,7 +70,24 @@ class UsersController < ApplicationController
       end
     else
       if params[:attribute]
-        if @user.update_attributes(params[:user])
+        success = false
+        if params[:sms_code]
+          success = true
+          if @user.sms_code == params[:sms_code]
+            @user.sms_valid = true
+            unless @user.save
+              @sms_verification_failed = true
+            end
+          end
+        else
+          @user.attributes = params[:user]
+          @send_sms_verification = @user.sms_number_changed? ? true : false
+          if @user.save
+            success = true
+            @user.send_sms_verification if @send_sms_verification
+          end
+        end
+        if success
           respond_with(@user) do |format|
             format.any {render :partial => 'show_' + params[:attribute], :layout => 'ajax_section' and return}
           end

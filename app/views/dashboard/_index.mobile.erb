@@ -1,11 +1,5 @@
-<div class="row">
-  <div class="row_item">
-    <h2>Add tasks</h2>
-  </div>
-  <div class="row_item control_font" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form">&nbsp;+</div>
-  <div class="row_item control_font" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;">&nbsp;-</div>
-</div>
 <div data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
+  <h2>Add Tasks</h2>
 	<%= form_for @task do |f| %>
 			<%= text_field_tag :title_1, '', :id => "inbox_text_field_1" %>
 			<%= text_field_tag :title_2, '', :id => "inbox_text_field_2" %>
@@ -17,8 +11,12 @@
 </div>
 <% if @this_user.tasks.active.unorganized.any? %>
 <div data_role="list" class="block">
-  <div class="section">
-  <h2>Unorganized Tasks</h2>
+  <div class="row section">
+    <div class="row_item">
+      <h2>Unorganized Tasks</h2>
+    </div>
+    <div class="row_item control_font" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form">&nbsp;+</div>
+    <div class="row_item control_font" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;">&nbsp;&darr;</div>
   <% if @this_user.show_help_text %>
     <p class="quiet">
   Consider adding these tasks to a plan, situation, or both for organization. You can tap the title of the task below to view full controls for that task, including plan and situation controls.
@@ -31,7 +29,7 @@
 		</div>
 	<% end %>
 	<% if @this_user.tasks.active.unorganized.count > 5 %>
-    <div class="text-right">
+    <div class="text_right">
       <%= link_to 'See all', tasks_url %> &rarr;
     </div>
 	<% end %>
@@ -44,9 +42,8 @@
   </div>
 <% end %>
 <% if @this_user.tasks.active.priority.any? %>
-  <div data-role="list" class="block">
     <div class="section">
-    <h2>High Priority</h2>
+      <h2>Priority Tasks</h2>
     </div>
 		<% for task in @this_user.tasks.active.priority.recent.five %>
 			<div id="priority_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
@@ -54,21 +51,16 @@
 			</div>
 		<% end %>
 		<% if @this_user.tasks.active.priority.count > 5 %>
-      <div class="text-right section_margin_top">
         <%= link_to 'See all', due_date_tasks_url %> &rarr;
-      </div>
 		<% end %>
-	</div>
-<% elsif @this_user.show_help_text %>
+<% else %>
   <div class="section section_margin_top">
     <h2>High Priority</h2>
     <p>
-    You don't have any high priority tasks.<br/> <span class="quiet">You can make any task a priority by taping on the star to the left of the check box in any task list.</span>
+    You don't have any priority tasks.<br/>
+    <% if @this_user.show_help_text %>
+     <span class="quiet">You can make any task a priority by taping on the star to the left of the check box in any task list.</span>
+     <% end %>
     </p>
   </div>
-<% end %>
-<%= javascript_tag do %>
-  jQuery(document).ready(function(){
-    bindExpanders();
-  });
 <% end %>
