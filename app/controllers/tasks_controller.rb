@@ -84,20 +84,20 @@ class TasksController < ApplicationController
   def update
     if params.has_key? :nullify
       @task.update_attributes({params[:attribute]=> nil})
-    elsif params.has_key? :attribute and params[:attribute] == 'situations'
-      situation_ids = params[:situations]
-      situation_ids ||= []
-      old_task_situations = @this_user.task_situations.for_task(@task)
-      old_situation_ids = old_task_situations.map{|ts| ts.situation_id}
-      new_situation_ids = situation_ids - old_situation_ids
-      delete_situation_ids = old_situation_ids - situation_ids
-      for id in delete_situation_ids
-        old_task_situations.detect{|ots| ots.situation_id == id}.destroy
+    elsif params.has_key? :attribute and params[:attribute] == 'labels'
+      label_ids = params[:labels]
+      label_ids ||= []
+      old_task_labels = @this_user.task_labels.for_task(@task)
+      old_label_ids = old_task_labels.map{|ts| ts.label_id}
+      new_label_ids = label_ids - old_label_ids
+      delete_label_ids = old_label_ids - label_ids
+      for id in delete_label_ids
+        old_task_labels.detect{|ots| ots.label_id == id}.destroy
       end
-      for id in new_situation_ids
-        TaskSituation.create(:task_id => @task.id,:situation_id => id)
+      for id in new_label_ids
+        TaskLabel.create(:task_id => @task.id,:label_id => id)
       end
-      @task.task_situations.reload
+      @task.task_labels.reload
     else
       @these_params = params[:task].dup
       @state_changed = @task.handle_attributes(@these_params)

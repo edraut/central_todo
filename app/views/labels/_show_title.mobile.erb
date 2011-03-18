@@ -1,0 +1,9 @@
+<div class="row_item"><h2>Label: <span class="user_title"><%= @label.title %></span>
+</h2></div>
+<div class="row_item last list_action h2_padding">
+	<%= link_to 'edit title', edit_label_url(@label, :attribute => 'title'),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'label_title'
+	%>
+</div>

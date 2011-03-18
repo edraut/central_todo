@@ -96,8 +96,8 @@ div.section.borderless {
   padding-left: 5px; }
 
 .row_item.line_item_height {
-  margin-top: 1.1em;
-  margin-bottom: 1.1em; }
+  margin-top: .9em;
+  margin-bottom: .9em; }
 
 .check_box {
   width: 18%;
@@ -111,7 +111,7 @@ div.section.borderless {
 
 .row_item.line_variable_text {
   width: 64%;
-  margin-bottom: 1.1em; }
+  margin-bottom: .9em; }
 
 .row_item.header_variable_text {
   width: 64%; }
@@ -196,3 +196,148 @@ div.section.borderless {
 
 .section_margin_top {
   margin-top: 1em; }
+
+/* Labels */
+.label {
+  position: relative;
+  float: left;
+  font-size: 12px;
+  line-height: 20px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-right: 7px;
+  border: 1px solid #4d4c48;
+  border-radius: 4px; }
+
+.label_wrapper {
+  padding: 7px 0 7px 7px;
+  position: relative;
+  float: left;
+  border: 1px solid #edece8; }
+
+.label_wrapper.selected {
+  border: 1px solid #6d6c68; }
+
+.labels_inline {
+  margin-bottom: -0.4em;
+  margin-top: .2em; }
+
+.mytime .Red_Orange {
+  background-color: #ff5349;
+  color: #fdfcf8; }
+  .mytime .Red_Orange a {
+    color: #fdfcf8; }
+  .mytime .Red_Orange a:hover {
+    color: #edece8; }
+
+.mytime .Melon {
+  background-color: #fdbcb4;
+  color: #0d0c08; }
+  .mytime .Melon a {
+    color: #0d0c08; }
+  .mytime .Melon a:hover {
+    color: #4d4c48; }
+
+.mytime .Orange {
+  background-color: #ff7538;
+  color: #fdfcf8; }
+  .mytime .Orange a {
+    color: #fdfcf8; }
+  .mytime .Orange a:hover {
+    color: #edece8; }
+
+.mytime .Atomic_Tangerine {
+  background-color: #ffa474;
+  color: #0d0c08; }
+  .mytime .Atomic_Tangerine a {
+    color: #0d0c08; }
+  .mytime .Atomic_Tangerine a:hover {
+    color: #4d4c48; }
+
+.mytime .Laser_Lemon {
+  background-color: #fdfc74;
+  color: #0d0c08; }
+  .mytime .Laser_Lemon a {
+    color: #0d0c08; }
+  .mytime .Laser_Lemon a:hover {
+    color: #4d4c48; }
+
+.mytime .Electric_Lime {
+  background-color: #1df914;
+  color: #0d0c08; }
+  .mytime .Electric_Lime a {
+    color: #0d0c08; }
+  .mytime .Electric_Lime a:hover {
+    color: #4d4c48; }
+
+.mytime .Shamrock {
+  background-color: #45cea2;
+  color: #0d0c08; }
+  .mytime .Shamrock a {
+    color: #0d0c08; }
+  .mytime .Shamrock a:hover {
+    color: #4d4c48; }
+
+.mytime .Pacific_Blue {
+  background-color: #1ca9c9;
+  color: #fdfcf8; }
+  .mytime .Pacific_Blue a {
+    color: #fdfcf8; }
+  .mytime .Pacific_Blue a:hover {
+    color: #edece8; }
+
+.mytime .Cornflower {
+  background-color: #9aceeb;
+  color: #0d0c08; }
+  .mytime .Cornflower a {
+    color: #0d0c08; }
+  .mytime .Cornflower a:hover {
+    color: #4d4c48; }
+
+.mytime .Periwinkle {
+  background-color: #c5d0e6;
+  color: #0d0c08; }
+  .mytime .Periwinkle a {
+    color: #0d0c08; }
+  .mytime .Periwinkle a:hover {
+    color: #4d4c48; }
+
+.mytime .Indigo {
+  background-color: #5d76cb;
+  color: #fdfcf8; }
+  .mytime .Indigo a {
+    color: #fdfcf8; }
+  .mytime .Indigo a:hover {
+    color: #edece8; }
+
+.mytime .Purple_Heart {
+  background-color: #7442c8;
+  color: #fdfcf8; }
+  .mytime .Purple_Heart a {
+    color: #fdfcf8; }
+  .mytime .Purple_Heart a:hover {
+    color: #edece8; }
+
+.mytime .Wisteria {
+  background-color: #cda4de;
+  color: #0d0c08; }
+  .mytime .Wisteria a {
+    color: #0d0c08; }
+  .mytime .Wisteria a:hover {
+    color: #4d4c48; }
+
+.mytime .Shocking_Pink {
+  background-color: #fb7efd;
+  color: #0d0c08; }
+  .mytime .Shocking_Pink a {
+    color: #0d0c08; }
+  .mytime .Shocking_Pink a:hover {
+    color: #4d4c48; }
+
+.mytime .Cotton_Candy {
+  background-color: #ffbcd9;
+  color: #0d0c08; }
+  .mytime .Cotton_Candy a {
+    color: #0d0c08; }
+  .mytime .Cotton_Candy a:hover {
+    color: #4d4c48; }

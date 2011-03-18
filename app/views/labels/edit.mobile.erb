@@ -1,0 +1,10 @@
+<div id="label_title" class="borderless section">
+	<%= render :partial => 'show_title' %>
+</div>
+<%= render :partial => 'tabs' %>
+<div class="section controls">
+  <div id="label_delete" class="row_item list_action last"><%= render :partial => 'show_delete', :locals => {:label => @label} %></div>
+</div>
+<div id="label_color" class="section">
+	<%= render :partial => 'show_color' %>
+</div>

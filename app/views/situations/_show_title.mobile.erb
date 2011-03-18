@@ -1,9 +1,0 @@
-<div class="row_item"><h2>Situation: <span class="user_title"><%= @situation.title %></span>
-</h2></div>
-<div class="row_item last list_action h2_padding">
-	<%= link_to 'edit title', edit_situation_url(@situation, :attribute => 'title'),
-	 	:'data-ajax_behavior' => 'ajax_link',
-		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'situation_title'
-	%>
-</div>

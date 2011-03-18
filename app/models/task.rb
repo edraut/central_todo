@@ -4,8 +4,8 @@ class Task < ActiveRecord::Base
   #associations
   belongs_to :user
   belongs_to :project
-  has_many :task_situations, :dependent => :destroy
-  has_many :situations, :through => :task_situations
+  has_many :task_labels, :dependent => :destroy
+  has_many :labels, :through => :task_labels
   
   #named_scopes
   scope :unorganized, where( {:project_id => nil} )

@@ -20,6 +20,23 @@ $black: #0D0C08;
 $light-yellow: #FFF8D0;
 $yellow: #fcefa1;
 $white: #FCFCFA;
+$Red_Orange: #FF5349;
+$Melon: #FDBCB4;
+$Orange: #FF7538;
+$Atomic_Tangerine: #FFA474;
+$Laser_Lemon: #FDFC74;
+$Electric_Lime: #1DF914;
+$Shamrock: #45CEA2;
+$Pacific_Blue: #1CA9C9;
+$Cornflower: #9ACEEB;
+$Periwinkle: #C5D0E6;
+$Indigo: #5D76CB;
+$Purple_Heart: #7442C8;
+$Wisteria: #CDA4DE;
+$Shocking_Pink: #FB7EFD;
+$Cotton_Candy: #FFBCD9;
+$compact-font-size: 12px;
+$compact-line-height: 20px;
 
 @mixin full-width {
   position: relative;
@@ -120,8 +137,8 @@ div.section.borderless {
   padding-left: 5px;
 }
 .row_item.line_item_height{
-  margin-top: 1.1em;
-  margin-bottom: 1.1em;
+  margin-top: .9em;
+  margin-bottom: .9em;
 }
 .check_box{
   width: 18%;
@@ -141,7 +158,7 @@ div.section.borderless {
 }
 .row_item.line_variable_text{
   @include variable_text;
-  margin-bottom: 1.1em;
+  margin-bottom: .9em;
 }
 .row_item.header_variable_text{
   @include variable_text;
@@ -227,3 +244,44 @@ div.section.borderless {
 .section_margin_top {
   margin-top: 1em;
 }
+
+/* Labels */
+.label {
+	position: relative;
+	float: left;
+	font-size: $compact-font-size;
+	line-height: $compact-line-height;
+	padding-left: 12px;
+	padding-right: 12px;
+	margin-right: 7px;
+	border: 1px solid $gray10;
+	border-radius: 4px;
+}
+.label_wrapper {
+	padding: 7px 0 7px 7px;
+	position: relative;
+	float: left;
+	border: 1px solid $gray1;
+}
+.label_wrapper.selected {
+	border: 1px solid $gray8;
+}
+.labels_inline {
+	margin-bottom: -.4em;
+	margin-top: .2em
+}
+.mytime .Red_Orange { background-color: $Red_Orange; color: $paper; a{ color: $paper; } a:hover{ color: $gray1 } }
+.mytime .Melon { background-color: $Melon; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+.mytime .Orange { background-color: $Orange; color: $paper; a{ color: $paper; } a:hover{ color: $gray1 } }
+.mytime .Atomic_Tangerine { background-color: $Atomic_Tangerine; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+.mytime .Laser_Lemon { background-color: $Laser_Lemon; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+.mytime .Electric_Lime { background-color: $Electric_Lime; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+.mytime .Shamrock { background-color: $Shamrock; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+.mytime .Pacific_Blue { background-color: $Pacific_Blue; color: $paper; a{ color: $paper; } a:hover{ color: $gray1 } }
+.mytime .Cornflower { background-color: $Cornflower; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+.mytime .Periwinkle { background-color: $Periwinkle; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+.mytime .Indigo { background-color: $Indigo; color: $paper; a{ color: $paper; } a:hover{ color: $gray1 } }
+.mytime .Purple_Heart { background-color: $Purple_Heart; color: $paper; a{ color: $paper; } a:hover{ color: $gray1 }  }
+.mytime .Wisteria { background-color: $Wisteria; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+.mytime .Shocking_Pink { background-color: $Shocking_Pink; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+.mytime .Cotton_Candy { background-color: $Cotton_Candy; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }

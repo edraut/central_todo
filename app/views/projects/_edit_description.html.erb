@@ -9,7 +9,6 @@
 	} do |f| %>
 		<%= f.text_area :description, :rows => 5 %>
 		<%= hidden_field_tag 'attribute', 'description' %>
-		<%= hidden_field_tag '_method', 'put' %>
 		<%= f.submit 'save' %> or
 		<%= link_to (@project.description.blank? ? 'leave blank' : 'cancel'), plan_url(@project),
 		 	:'data-ajax_behavior' => 'ajax_link',

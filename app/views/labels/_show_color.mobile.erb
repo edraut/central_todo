@@ -1,0 +1,16 @@
+<div class="row">
+<div class="row_item">
+<h3>Color</h3>
+</div>
+<div class="row_item last h3_padding list_action">
+	<%= link_to 'edit color', edit_label_url(@label),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'label_color',
+		:'data-ajax_data' => "{'attribute':'color'}"
+	%>
+</div>
+</div>
+<div class="block padding_bottom">
+  <div class="label <%= @label.color %>"><%= @label.color.humanize.downcase %></div>
+</div>

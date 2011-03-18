@@ -1,0 +1,18 @@
+<div class="span-17 last section_margin_top" id="header_wrapper">
+  <div class="span-17 last">
+    <h1>Label</h1>
+  </div>
+  <%= render :partial => 'tabs' %>
+</div>
+<div class="span-17 last page_content">
+  <div id="label_title" class="span-16 last border_bottom">
+	<%= render :partial => 'show_title' %>
+	</div>
+	  <div class="span-17 last">&nbsp;</div>
+	  <div class="span-16 last">
+    <div id="show_delete" class="list_action attributes" onclick="void(0)" data-behavior="attribute_control"><%= render :partial => 'show_delete', :locals => {:label => @label} %></div>
+    </div>
+    <div id="label_color" class="span-16 last section_margin_top">
+    	<%= render :partial => 'show_color' %>
+    </div>
+</div>

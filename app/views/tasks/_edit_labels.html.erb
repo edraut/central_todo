@@ -1,0 +1,31 @@
+<h2>Labels</h2>
+<div class="half_section last section">
+	<%= form_for @task, :html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_method' => 'PUT',
+		:'data-ajax_success_element' => 'task_label',
+		:'data-ajax_error_element' => 'task_label',
+		:id => 'edit_task_labels'
+	} do |f| %>
+	  <div class="half_select">
+      <% for label in @this_user.labels %>
+        <div class="label_wrapper <%= (@task.labels.for_user(@this_user).include? label) ? 'selected' : '' %> margin_bottom" data-click_multi_select="true" data-click_id="task_labels">
+          <div class="label <%= label.color %>" data-behavior="hidden_multi_proxy" data-hidden_field="labels" data-value="<%= label.id %>"><%= label.title %></div>
+        </div>
+        <% if @task.labels.for_user(@this_user).include? label %>
+          <input type="hidden" name="labels[]" value="<%= label.id %>">
+        <% end %>
+      <% end %>
+		</div>
+		<%= hidden_field_tag 'attribute', 'labels', :id => 'attribute_labels' %>
+  	<div class="half_select last">
+		<%= f.submit 'save', :id => 'task_labels_submit' %> or
+		<%= link_to (@task.labels.for_user(@this_user).any? ? 'cancel' : 'leave blank'), task_url(@task),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'task_label',
+			:'data-ajax_data' => "{attribute: 'labels'}"%>
+		</div>
+	<% end %>
+</div>
+<%= javascript_tag "bindClickMultiSelect();bindHiddenMultiProxy();" %>

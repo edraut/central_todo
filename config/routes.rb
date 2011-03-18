@@ -37,7 +37,7 @@ CentralTodo::Application.routes.draw do
     end
   end
   resources :project_sharers
-  resources :situations do
+  resources :labels do
     member do
       get 'archive_completed_tasks'
     end

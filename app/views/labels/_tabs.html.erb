@@ -1,0 +1,4 @@
+<div class="span-16 last">
+  <div class="list_action attach_above last<% if action_name == 'edit' %> selected<% end %>"><%= link_to 'edit label', edit_label_url(@label) %></div>
+  <div class="list_action attach_above<% if action_name == 'show' %> selected<% end %>"><%= link_to 'label task list', label_url(@label) %></div>
+</div>

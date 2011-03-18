@@ -21,7 +21,5 @@ jQuery(document).ready(function(){
 	bindAutoSubmit();		
     bindLinkToForm();
 	bindDeleteProxy();
-});
-jQuery(document).load(function(){
 	bindPreventDoubleClick();
-})
+});

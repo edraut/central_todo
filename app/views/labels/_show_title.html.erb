@@ -1,0 +1,10 @@
+<div class="span-14">
+	<h2><%= @label.title %></h2>
+</div>
+<div class="span-2 last text_right">
+	<%= link_to 'edit title', edit_label_url(@label, :attribute => 'title'),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'label_title'
+	%>&nbsp;&nbsp;
+</div>

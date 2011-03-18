@@ -18,7 +18,7 @@
   <div id="task_project" class="span-7 append-2 section_margin_top">
   	<%= render :partial => (@task.project ? 'show_project_id' : 'edit_project_id') %>
   </div>
-  <div id="task_situation" class="span-7 last section_margin_top">
-  	<%= render :partial => (@task.situation ? 'show_situation_id' : 'edit_situation_id') %>
+  <div id="task_label" class="span-7 last section_margin_top">
+  	<%= render :partial => (@task.label ? 'show_label_id' : 'edit_label_id') %>
   </div>
 </div>

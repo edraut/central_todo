@@ -18,6 +18,29 @@ function bindLinkToForm(){
         return false;
     });
 };
+function bindClickToSelect(){
+	jQuery("[data-click_to_select='true']").click(function(e){
+		target = jQuery(e.target);
+		if(!target.attr("data-click_to_select")){
+			target = target.parents("[data-click_to_select='true']");
+		}
+		jQuery("[data-click_to_select='true'][data-click_id='" + target.attr('data-click_id') + "']").removeClass('selected');
+		target.addClass('selected');
+	})
+}
+function bindClickMultiSelect(){
+	jQuery("[data-click_multi_select='true']").click(function(e){
+		target = jQuery(e.target);
+		if(!target.attr('data-click_multi_select')){
+			target = target.parents("[data-click_multi_select='true']");
+		}
+		if(target.hasClass('selected')){
+			target.removeClass('selected');
+		} else {
+			target.addClass('selected');
+		}
+	})
+}
 function bindAutoSubmit(){
 	jQuery("[data-behavior='auto_submit']").live('change',function(e){
 		jQuery(e.target).parents('form').submit();

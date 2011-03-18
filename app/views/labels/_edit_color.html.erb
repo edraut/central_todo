@@ -1,0 +1,25 @@
+<h2>Color</h2>
+<div class="span-16 last section">
+	<%= form_for @label, :html => {
+		:'data-ajax_behavior' => 'ajax_form',
+		:'data-ajax_method' => 'PUT',
+		:'data-ajax_success_element' => 'label_color',
+		:'data-ajax_error_element' => 'label_color',
+		:id => 'edit_label_color'
+	} do |f| %>
+    <%= f.hidden_field :color, :id => "label_color_field" %>
+    <% for color_option in Label::COLORS %>
+      <div class="label_wrapper <%= (@label.color == color_option) ? 'selected' : '' %> margin_bottom" data-click_to_select="true" data-click_id="label_color">
+        <div class="label <%= color_option %>" data-behavior="hidden_field_proxy" data-hidden_field="label_color_field" data-value="<%= color_option %>"><%= color_option.humanize.downcase %></div>
+      </div>
+    <% end %>
+		<%= hidden_field_tag 'attribute', 'color' %>
+		<%= f.submit 'save', :id => 'label_color_submit' %> or
+		<%= link_to 'cancel', label_url(@label),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'label_color',
+			:'data-ajax_data' => "{attribute: 'color'}"%>
+	<% end %>
+</div>
+<%= javascript_tag "bindClickToSelect();bindHiddenFieldProxy();" %>

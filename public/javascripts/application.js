@@ -1,6 +1,7 @@
 function roundCorners(){
 	jQuery(".list_section").corner("20px");
 	jQuery(".section").corner("13px");
+	jQuery(".label").corner("4px");
 }
 jQuery(document).ready(function(){
 	bindCheckBoxProxy();
@@ -20,7 +21,7 @@ jQuery(document).ready(function(){
 		jQuery('.page_content').addIEShadow('large');
 		jQuery('div.vert-line-nav-wrapper-main.selected').addIEShadow('large');
 	}
-	setTimeout(addDatePicker("[data-behavior='date_picker']"),750);
+	setTimeout(addDatePicker,750);
 });
 jQuery.fn.addIEShadow = function(size) {
 	shadow_div = jQuery('<div class="ie_shadow_' + size + '">&nbsp;</div>');
@@ -59,8 +60,8 @@ function showDialog(selector) {
 function hideDialog(selector){
   location.reload();
 }
-function addDatePicker(selector){
-	jQuery(selector).datetimepicker({
+function addDatePicker(){
+	jQuery("[data-behavior='date_picker']").datetimepicker({
   	ampm: true
   });
 }

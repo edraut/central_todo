@@ -24,8 +24,8 @@
   <div id="task_project" class="half_section section_margin_top">
   	<%= render :partial => (@task.project ? 'show_project_id' : 'edit_project_id') %>
   </div>
-  <div id="task_situation" class="half_section last section_margin_top">
-  	<%= render :partial => (@task.situations.for_user(@this_user).any? ? 'show_situations' : 'edit_situations') %>
+  <div id="task_label" class="half_section last section_margin_top">
+  	<%= render :partial => (@task.labels.for_user(@this_user).any? ? 'show_labels' : 'edit_labels') %>
   </div>
   </div>
 </div>

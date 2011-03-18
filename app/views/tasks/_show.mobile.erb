@@ -10,7 +10,6 @@
  	:'data-ajax_success_element' => "#{prefix ? prefix + '_' : ''}task_#{task.id}",
  	:'data-id' => "task_#{task.id}"} do |f| %>
 		<%= hidden_field_tag 'partial', true %>
-		<%= hidden_field_tag '_method', 'PUT' %>
 		<% if (controller_name == 'projects' and action_name == 'show') or @app_context == 'project' %>
   		<%= hidden_field_tag 'app_context', 'project' %>
 		<% end %>
@@ -19,6 +18,11 @@
     </div>
   	<div class="line_item_height line_variable_text row_item">
   		<%= link_to task.title, task_url(task), :class => task.done? ? 'completed' : nil, :rel => 'external', :'data-role' => 'none' %>
+      <% unless controller_name == 'labels' and ['show','edit'].include? action_name %>
+      <div class="block labels_inline">
+        <% for label in task.labels.for_user(@this_user) %><div class="label <%= label.color %>"><%= label.title %></div><% end %>
+      </div>
+      <% end %>
 		</div>
 		<%= f.hidden_field :priority, :id => "priority_#{task.id}", :'data-behavior' => 'auto_submit' %>
 		<div data-behavior="check_box_proxy" data-check_box="priority_<%= task.id %>" class="check_box_proxy <% if task.priority? %>checked<% end %> row_item priority last" onclick="void(0)">&nbsp;&lowast;</div>

@@ -3,10 +3,11 @@
 	if (controller_name == 'projects' and ['show','sort_tasks'].include? action_name)
 	  @app_context = 'project'
   end
-  if (controller_name == 'situations' and action_name == 'show')
-    @app_context = 'situation'
+  if (controller_name == 'labels' and action_name == 'show')
+    @app_context = 'label'
   end
 	 %>
+<div class="span-16 last">
 <%= form_for task, :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
@@ -26,6 +27,11 @@
 		    :'data-ajax_success_element' => 'main_modal_view',
 		    :'data-ajax_success_callback' => "showDialog('#main_modal_view')",
 		    :'data-ajax_data' => "{'full_view':'true'}"%>
+      <% unless controller_name == 'labels' and ['show','edit'].include? action_name %>
+      <div class="span-11 last">
+        <% for label in task.labels.for_user(@this_user) %><div class="label <%= label.color %>"><%= label.title %></div><% end %>
+      </div>
+      <% end %>
 		</div>
 	</div>
 	<div class="span-4 last text_right">
@@ -58,3 +64,4 @@
 		<% end %>
 	</div>
 <% end %>
+</div>

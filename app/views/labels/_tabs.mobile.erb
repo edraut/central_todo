@@ -1,0 +1,7 @@
+<div data-role="navbar" class="borderless section">
+  <ul>
+  <li><%= link_to 'label task list', label_url(@label), :class => ((action_name == 'show') ? 'selected' : '') %></li>
+  <li><%= link_to 'edit label', edit_label_url(@label), :class => ((action_name == 'edit') ? 'selected' : '') %></li>
+  </ul>
+</div>
+<div class="borderless section">&nbsp;</div>

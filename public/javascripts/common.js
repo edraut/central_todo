@@ -28,6 +28,27 @@ function checkBoxProxy(e){
 	};
 	checkbox.change();
 }
+function hiddenFieldProxy(e){
+	target = jQuery(e.target);
+	if(!target.attr('data-hidden_field')){
+		target = target.parents("[data-hidden_field]");
+	}
+	hidden_field = jQuery('#' + target.attr('data-hidden_field'));
+	hidden_field.val(target.attr('data-value'));
+}
+function hiddenMultiProxy(e){
+	target = jQuery(e.target);
+	if(!target.attr('data-hidden_field')){
+		target = target.parents("[data-hidden_field]");
+	}
+	hidden_field = jQuery("input[type='hidden'][name='" + target.attr('data-hidden_field') + "[]'][value='" + target.attr('data-value') + "']");
+	if(hidden_field.length == 0){
+		hidden_field = jQuery('<input type="hidden" name="' + target.attr('data-hidden_field') + '[]" value="' + target.attr('data-value') + '"/>');
+		target.parents('form').append(hidden_field);
+	} else {
+		hidden_field.remove();
+	}
+}
 function attributeControl(e){
 	target = jQuery(e.target);
 	link = target.find("[data-behavior='link_to_form']");
@@ -42,6 +63,14 @@ function bindAttributeControl(){
 function bindCheckBoxProxy(){
 	jQuery("[data-behavior='check_box_proxy']").die('click');
 	jQuery("[data-behavior='check_box_proxy']").live('click',checkBoxProxy);
+}
+function bindHiddenFieldProxy(){
+	jQuery("[data-behavior='hidden_field_proxy']").die('click');
+	jQuery("[data-behavior='hidden_field_proxy']").live('click',hiddenFieldProxy);
+}
+function bindHiddenMultiProxy(){
+	jQuery("[data-behavior='hidden_multi_proxy']").die('click');
+	jQuery("[data-behavior='hidden_multi_proxy']").live('click',hiddenMultiProxy);
 }
 function focusPrimaryInput(){
 	jQuery('#primary_input').focus();
