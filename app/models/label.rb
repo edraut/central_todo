@@ -26,6 +26,9 @@ class Label < ActiveRecord::Base
     "Purple_Heart",
     "Wisteria",
     "Shocking_Pink",
-    "Cotton_Candy"
+    "Cotton_Candy",
+    "White",
+    "Gray",
+    "Black"
   ]
 end

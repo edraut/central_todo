@@ -341,3 +341,27 @@ div.section.borderless {
     color: #0d0c08; }
   .mytime .Cotton_Candy a:hover {
     color: #4d4c48; }
+
+.mytime .Black {
+  background-color: #0d0c08;
+  color: #fdfcf8; }
+  .mytime .Black a {
+    color: #fdfcf8; }
+  .mytime .Black a:hover {
+    color: #edece8; }
+
+.mytime .Gray {
+  background-color: #9d9c98;
+  color: #0d0c08; }
+  .mytime .Gray a {
+    color: #0d0c08; }
+  .mytime .Gray a:hover {
+    color: #4d4c48; }
+
+.mytime .White {
+  background-color: #fdfcf8;
+  color: #0d0c08; }
+  .mytime .White a {
+    color: #0d0c08; }
+  .mytime .White a:hover {
+    color: #4d4c48; }
