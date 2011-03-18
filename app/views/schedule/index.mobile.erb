@@ -6,8 +6,8 @@
 <% if @due_date_items.any?%>
 <div data_role="list" class="block">
   <% for due_date in @due_dates %>
-	<div class="section controls">
-    <%= due_date.to_formatted_s(:full) %>
+	<div class="section controls<% if due_date < Date.today %> overdue<% end %>">
+    &nbsp; <%= due_date.to_formatted_s(:full) %>
   </div>
   <% for item in @due_date_items.select{|t| Time.parse(t['due_date']).to_date == due_date} %>
 		<div class="section padding_bottom padding_top" id="due_date_<%= item['item_type'].downcase %>_<%= item['id'] %>">

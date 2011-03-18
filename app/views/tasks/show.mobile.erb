@@ -3,7 +3,7 @@
 	<%= render :partial => 'show_title' %>
 </div>
 <div class="section controls">
-<div id="task_priority"><%= render :partial => 'show_priority' %></div><div id="task_delete"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
+<div id="task_priority" class="half_control"><div class="half_control_border"><%= render :partial => 'show_priority' %></div></div><div id="task_delete" class="half_control"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
 </div>
 <div id="task_description" class="section">
 	<%= render :partial => 'show_description' %>
