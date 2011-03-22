@@ -11,13 +11,21 @@
 <%= select_minute @task.due_date, {:prefix => 'task',:field_name => 'due_date(5i)', :minute_step => 5},{:'data-role' => 'none'} %>
 	<%= hidden_field_tag 'attribute', 'due_date', :id => 'attribute_due_date_fiel' %>
   <div class="row">
-	<div class="row_item last list_action">&nbsp;or
+	<div class="row_item list_action">&nbsp;
+    <% unless @task.due_date.blank? %>
+		<%= link_to 'remove', task_url(@task),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'PUT',
+			:'data-ajax_success_element' => 'task_due_date',
+			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%> or
+		<% end %>
 	<%= link_to 'cancel', task_url(@task),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_element' => 'task_due_date',
 		:'data-ajax_data' => "{attribute: 'due_date'}"%>
 	</div>
-	<%= f.submit 'save due date', :class => 'row_item list_action' %>
+	<div class="row_item last list_action">
+	<%= f.submit 'save due date' %>
 	</div>
 <% end %>

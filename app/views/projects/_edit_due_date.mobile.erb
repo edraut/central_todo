@@ -6,11 +6,19 @@
 	:'data-ajax_error_element' => 'project_due_date',
 	:id => 'edit_due_date'
 } do |f| %>
-	<%= f.date_select :due_date, {:use_short_month => true}, {:'data-role' => 'none'} %>
-	<%= f.time_select :due_date, {:'data-role' => 'none'} %>
-	<%= hidden_field_tag 'attribute', 'due_date', :id => 'attribute_due_date_fiel' %>
+  <%= f.date_select :due_date, {:use_short_month => true}, {:'data-role' => 'none'} %><br/>
+  <select id="project_due_date_4i" name="project[due_date(4i)]"><%= options_for_select hour_select_options_array %></select>
+  <%= select_minute @project.due_date, {:prefix => 'project',:field_name => 'due_date(5i)', :minute_step => 5},{:'data-role' => 'none'} %>
+	<%= hidden_field_tag 'attribute', 'due_date', :id => 'attribute_due_date_field' %>
 	<div class="row">
-	<div class="row_item last list_action">&nbsp;or
+	<div class="row_item last list_action">&nbsp;
+    <% unless @project.due_date.blank? %>
+		<%= link_to 'remove', plan_url(@project),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'PUT',
+			:'data-ajax_success_element' => 'project_due_date',
+			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%> or 
+		<% end %>
 	<%= link_to (@project.due_date.blank? ? 'leave blank' : 'cancel'), plan_url(@project),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
