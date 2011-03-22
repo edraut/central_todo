@@ -228,6 +228,8 @@ select.with_text_field {
 .vert-line-nav-wrapper-main {
   padding-left: 12px;
   position: relative;
+  float: left;
+  width: 95%;
   margin-bottom: .4em;
   line-height: 30px;
   background-color: #fdfcf8;
@@ -250,9 +252,11 @@ select.with_text_field {
     margin-right: 0;
     padding-bottom: 10px;
     padding-left: 8px;
+    position: relative;
+    float: left;
+    width: 100%;
     font-size: 16px;
-    line-height: 20px;
-    height: 20px; }
+    line-height: 20px; }
     .vert-line-nav-wrapper-main .vert_line_subnav_wrapper .label a.selected, .vert-line-nav-wrapper-main .vert_line_subnav_wrapper .label a:hover.selected {
       color: inherit; }
     .vert-line-nav-wrapper-main .vert_line_subnav_wrapper a.selected, .vert-line-nav-wrapper-main .vert_line_subnav_wrapper a:hover.selected {
@@ -314,7 +318,7 @@ a:hover.selected {
 
 .selected_indicator {
   position: absolute;
-  left: .7em; }
+  left: 0em; }
 
 .line_item {
   border-bottom: 1px solid #6d6c68;

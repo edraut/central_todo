@@ -51,7 +51,13 @@ function hiddenMultiProxy(e){
 }
 function attributeControl(e){
 	target = jQuery(e.target);
+	if(target.attr('data-behavior') != 'attribute_control'){
+		target = target.parents("[data-behavior='attribute_control']");
+	}
 	link = target.find("[data-behavior='link_to_form']");
+	if(link.length == 0){
+		link = target.find("[data-role='delete']");
+	}
 	if(link){
 		link.click();
 	}
@@ -110,3 +116,6 @@ jQuery.fn.reDraw = function(){
 	jQuery(this).append(dummy);
 	dummy.remove();
 }
+jQuery(document).ready(function(){
+	bindAttributeControl();
+});

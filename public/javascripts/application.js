@@ -5,7 +5,6 @@ function roundCorners(){
 }
 jQuery(document).ready(function(){
 	bindCheckBoxProxy();
-	bindAttributeControl();
 	roundCorners();
 	bindAutoSubmit();		
   bindLinkToForm();

@@ -7,7 +7,7 @@
 			<%= f.submit "Save", :id => "plan_submit_button" %>
 	<% end %>
 </div>
-<% if @this_user.projects.unarchived.count > 0 %>
+<% if @projects.any? %>
   <div class="row section">
     <div class="row_item">
 	    <h2>Active Plans</h2>

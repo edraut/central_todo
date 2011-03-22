@@ -3,12 +3,8 @@
 </div>
 <%= render :partial => 'tabs' %>
 <div class="section controls">
-  <div id="project_delete" class="row_item list_action last"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
-  <% if @project.all_complete %>
-  <div id="project_done" class="row_item last"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
-  <% else %>
-  <div id="project_done" class="row_item last line_item_height">-in progress</div>
-  <% end %>
+  <div id="project_delete" class="row_item list_action last" onclick="void(0)" data-behavior="attribute_control"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
+  <div id="project_done" class="row_item last" onclick="void(0)" data-behavior="attribute_control"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
 </div>
 <div id="project_description" class="section">
 	<%= render :partial => @project.description.blank? ? 'edit_description' : 'show_description' %>
