@@ -1,19 +1,15 @@
 <h2>Plan: <span class="user_title"<% if @project.all_complete %> class="completed"<% end %>> <%= @project.title %></span></h2>
 <%= render :partial => 'tabs' %>
+<div class="list_container">
 <% if @project.archived? %>
 <div class="block">
+  <div class="padding">
   You archived this plan. If you would like to re-activate it, click on the 'edit plan' tab above and uncheck the box next to 'archived'.
+  </div>
 </div>
 <% else %>
-<div class="row">
-  <div class="row_item">
-    <h2>Enter tasks</h2>
-  </div>
-  <div class="row_item control_font" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form">&nbsp;+</div>
-  <div class="row_item control_font" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;">&nbsp;-</div>
-</div>
-
 <div data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
+  <div class="padding">
 <%= form_for @task do |f| %>
 		<%= text_field_tag :title_1, '', :id => "inbox_text_field_1" %>
 		<%= text_field_tag :title_2, '', :id => "inbox_text_field_2" %>
@@ -22,32 +18,47 @@
 		<%= f.hidden_field :user_id %>
 		<%= f.hidden_field :state, :value => 'active' %>
 		<%= hidden_field_tag :app_context, 'project' %>
-		<%= f.submit "Add tasks to this Plan" %>
+  	<button type="submit" class="row_item button round small light ">add tasks</button>
 <% end %>
+  </div>
 </div>
 <% end %>
 	<div data-role="list" id="unarchived_items_wrapper">
-		<h2><% if @project.tasks.unarchived.any? %>Get these done.<% else %>No active tasks.<% end %></h2>
+    <div class="row">
+  	  <div class="row_item">
+    		<h2><% if @project.tasks.unarchived.any? %>Active Tasks<% else %>No active tasks.<% end %></h2>
+      </div>
+      <% unless @project.archived? %>
+  	  <div class="row_item">&nbsp;&nbsp;</div>
+      <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
+      <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
+      <% end %>
+    </div>
 		<% for task in @project.tasks.unarchived.ordered %>
 		  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
 				<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
 			</div>
 		<% end %>
 	</div>
-<div id="archive_completed_items" class="list_action" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
+<div id="archive_completed_items" class="list_action padding_top" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
 	<%= link_to 'archive completed tasks', archive_completed_tasks_plan_url(@project),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_callback' => "handleArchivementSuccess(true);",
-		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %> &darr;
+		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);",
+		:class => 'button round small color2 ' %> &darr;
 </div>
-<div id="archived_item_list" <% unless @project.tasks.archived.any? %>style="display:none;"<% end %> data-role="list">
-	<h2>You got these done.</h2>
-	<% for task in @project.tasks.archived %>
+<div id="archived_item_list" class="block" <% unless @project.tasks.archived.any? %>style="display:none;"<% end %> data-role="list">
+	<h2>Archived</h2>
+	<div id="archived_items_wrapper" class="block">
+	<% for task in @archived_tasks %>
 		<div id="task_<%= task.id %>" data-role="list_item" class="section archived">
 			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
 		</div>
 	<% end %>
+	</div>
+	<%= will_paginate @archived_tasks %>
+</div>
 </div>
 <%= javascript_tag do %>
 jQuery(document).ready(function(){

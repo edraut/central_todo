@@ -1,0 +1,9 @@
+.check_box {
+  margin-top: .42em; }
+
+.row_item.delete {
+  top: .2em; }
+
+.row_item.check_box_proxy, .row_item .check_box_proxy {
+  margin-top: -0.15em;
+  line-height: 1.4em; }

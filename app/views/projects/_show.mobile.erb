@@ -6,12 +6,10 @@
 	:'data-ajax_success_callback' => "handleArchivementLink();",
 	:'data-ajax_error_callback' => "jQuery('#project_#{project.id}').append('<div class=\"flash_notice span-15 last\">Ooops! Something went wrong. We're looking into it, but feel free to contact customer support with any concerns.</div>'); setTimeout(\"jQuery('.flash_notice').fadeOut(1000)\",3000);",
 	:'data-ajax_success_element' => "project_#{project.id}"} do |f| %>
-	<div class="row border_bottom">
-		<div class="line_item_height project_variable_text row_item">
+		<div class="line_item_height project_variable_text row_item padding_left">
   		<%= link_to project.title, plan_url(project), :class => project.all_complete ? 'completed' : nil %>
 		</div>
 		<%= hidden_field_tag ('sortable', true) if (controller_name == 'projects' or sortable == true) %>
 		<%= hidden_field_tag 'partial', true %>
 		<%= hidden_field_tag '_method', 'PUT' %>
-  	</div>
 <% end %>

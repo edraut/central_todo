@@ -8,11 +8,11 @@
 } do |f| %>
 	<%= f.text_area :description, :rows => 3, :'data-role' => 'none' %>
 	<%= hidden_field_tag 'attribute', 'description', :id => 'attribute_description_field' %>
-	<div class="row_item last list_action">&nbsp;or
-	<%= link_to (@project.description.blank? ? 'leave blank' : 'cancel'), plan_url(@project),
+	<button type="submit" class="row_item button round small light ">save description</button>
+	<div class="row_item last padding_top_button small">&nbsp;or
+	<%= link_to (@project.description.blank? ? '(leave blank)' : '(cancel)'), plan_url(@project),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_element' => 'project_description',
 		:'data-ajax_data' => "{attribute: 'description'}"%></div>
-  	<%= f.submit 'save description', :class => 'row_item list_action', :'data-role' => 'none' %>
 <% end %>

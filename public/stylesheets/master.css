@@ -90,11 +90,11 @@ select.with_text_field {
 #top_nav {
   background-color: #6d6c68;
   background: #6d6c68;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#8e8d89", endColorstr="#5d5c58");
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9d9c98", endColorstr="#5d5c58");
   /* for IE */
   background: -webkit-gradient(linear, left top, left bottom, from(#9d9c98), to(#5d5c58));
   /* for webkit browsers */
-  background: -moz-linear-gradient(top, #8e8d89, #5d5c58);
+  background: -moz-linear-gradient(top, #9d9c98, #5d5c58);
   /* for firefox 3.6+ */
   color: #fdfcf8; }
   #top_nav a {
@@ -195,11 +195,11 @@ select.with_text_field {
   background-color: #8e8d89;
   color: #fdfcf8;
   background: #6d6c68;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#8e8d89", endColorstr="#5d5c58");
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9d9c98", endColorstr="#5d5c58");
   /* for IE */
   background: -webkit-gradient(linear, left top, left bottom, from(#9d9c98), to(#5d5c58));
   /* for webkit browsers */
-  background: -moz-linear-gradient(top, #8e8d89, #5d5c58);
+  background: -moz-linear-gradient(top, #9d9c98, #5d5c58);
   /* for firefox 3.6+ */
   -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
@@ -233,13 +233,6 @@ select.with_text_field {
   margin-bottom: .4em;
   line-height: 30px;
   background-color: #fdfcf8;
-  background: #fdfcf8;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr="#dddcd8");
-  /* for IE */
-  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#dddcd8));
-  /* for webkit browsers */
-  background: -moz-linear-gradient(top, white, #dddcd8);
-  /* for firefox 3.6+ */
   -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); }
@@ -386,16 +379,25 @@ a:hover.selected {
 .attributes {
   border: 1px solid #bdbcb8;
   z-index: 10;
-  cursor: pointer; }
+  cursor: pointer;
+  background-color: #fdfcf8; }
 
-.attributes:hover {
-  background-color: #fdfcf8;
+.buttons_up {
   background: #fdfcf8;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr="#dddcd8");
   /* for IE */
   background: -webkit-gradient(linear, left top, left bottom, from(white), to(#dddcd8));
   /* for webkit browsers */
   background: -moz-linear-gradient(top, white, #dddcd8);
+  /* for firefox 3.6+ */ }
+
+.buttons_down {
+  background: #fdfcf8;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dddcd8", endColorstr='white');
+  /* for IE */
+  background: -webkit-gradient(linear, left top, left bottom, from(#dddcd8), to(white));
+  /* for webkit browsers */
+  background: -moz-linear-gradient(top, #dddcd8, white);
   /* for firefox 3.6+ */ }
 
 .attribute_action {

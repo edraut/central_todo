@@ -1,4 +1,3 @@
-<div class="row">
 <div class="row_item">
 	<h3>Plan</h3>
 </div>
@@ -6,8 +5,8 @@
 		<%= link_to (@task.project ? 'change plan' : 'add to a plan'), edit_task_url(@task, :attribute => 'project_id'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
-			:'data-ajax_success_element' => 'task_project'
+			:'data-ajax_success_element' => 'task_project',
+  		:class => 'button round light small'
 		%>
 </div>
-</div>
-<% if @task.project %><div class="section"><%= @task.project.title %></div><% end %>
+<% if @task.project %><div class="block"><%= @task.project.title %></div><% end %>

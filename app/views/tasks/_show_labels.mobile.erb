@@ -6,17 +6,14 @@
 	<%= link_to (@task.labels.for_user(@this_user).any? ? 'change labels' : 'add labels'), edit_task_url(@task, :attribute => 'labels'),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'task_label'
+		:'data-ajax_success_element' => 'task_label',
+		:class => 'button round light small'
 	%>
 </div>
 </div>
-<div class="section padding_bottom">
 <% if @task.labels.for_user(@this_user).any? %>
   <% for label in @task.labels.for_user(@this_user) %>
     <div class="label <%= label.color %>"><%= label.title %></div>
   <% end %>
-<% else %>
-	&nbsp;
 <% end %>
-</div>
 

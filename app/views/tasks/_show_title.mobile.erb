@@ -1,8 +1,9 @@
 <div id="task_done" class="row_item check_box h2_padding"><%= render :partial => 'show_done', :locals => {:task => @task} %></div>
-<div class="row_item header_variable_text"><h2><span class="user_title"><%= @task.title %></span></h2></div><div class="row_item last list_action">
-	<%= link_to 'edit title', edit_task_url(@project, :attribute => 'title'),
+<div class="row_item header_variable_text"><h2><span class="user_title"><%= @task.title %></span></h2></div><div class="row_item last list_action h2_padding">
+	<%= link_to '(edit title)', edit_task_url(@project, :attribute => 'title'),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'task_title'
+		:'data-ajax_success_element' => 'task_title',
+		:class => 'small'
 	%><br/>&nbsp;
 	</div>

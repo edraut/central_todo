@@ -1,12 +1,13 @@
 <div class="row">
 	<div class="row_item">
-		<h2>Email</h2>
+		<h3>Email</h3>
 	</div>
-	<div class="row_item last">
+	<div class="row_item last h3_padding list_action">
 		<%= link_to 'edit email', edit_user_url(@user, :attribute => 'email'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
-			:'data-ajax_success_element' => 'account_email'
+			:'data-ajax_success_element' => 'account_email',
+  		:class => 'button round light small'
 		%>
 	</div>
 </div>

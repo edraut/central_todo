@@ -7,14 +7,11 @@
 	  "jQuery('#primary_input').val(''); contractExpander('new_comment_form'); jQuery('#new_comment_form').rebindSubmit();",
 	:'data-ajax_error_element' => 'new_comment_wrapper',
 	:id => 'new_comment_form'} do |f| %>
-	<div class="span-12">
-		<%= f.text_area :body, :id => "primary_input", :class => "span-12", :rows => 5 %>
-	</div>
-	<div class="span-4 last">
+	<%= f.text_area :body, :id => "primary_input", :rows => 5 %>
+	<div class="block">
 		<%= f.hidden_field :user_id %>
 		<%= f.hidden_field :commentable_id %>
 		<%= f.hidden_field :commentable_type %>
-		<%= f.submit "Comment on this #{comment.commentable.class.display_name}" %>
-		<a href="#" data-behavior="expander" data-action="contract" data-id="new_comment_form">cancel</a>
+  	<button type="submit" class="row_item button round small light ">comment</button>
 	</div>
 <% end %>

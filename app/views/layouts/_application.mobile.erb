@@ -1,36 +1,34 @@
-<div data-role="page" data-cache="never">
-  <div id="top_nav" data-role="header" class="mytime" data-position="inline">
-  		<% if current_user %>
-  			<%= link_to 'account', user_url(@this_user), :class => 'mytime', :rel => 'external' %>
-  			<h1><%= @page_title %></h1>
-  			<%= link_to 'sign out', sign_out_url, :class => 'mytime', :rel => 'external' %>
-  		<% else %>
-  			<%= link_to 'sign up', sign_up_url, :class => 'mytime', :rel => 'external' %>
-  			<h1><%= @page_title %></h1>
-  			<%= link_to 'sign in', sign_in_url, :class => 'mytime', :rel => 'external' %>
-  		<% end %>
-      <% if @this_user %>
-      <div data-role="navbar">
-      <ul>
-      <li>
-  				<%= link_to 'Dashboard', dashboard_url, :rel => 'external', :class => 'mytime' + ((controller_name == 'dashboard') ? 'ui-btn-active' : '') %>
-  		</li>
-  		<li>
-  				<%= link_to 'Schedule', schedule_url, :rel => 'external', :class => 'mytime' + ((controller_name == 'schedule') ? 'ui-btn-active' : '') %>
-  		</li>
-  		<li>
-  				<%= link_to 'Plans', plans_url, :rel => 'external', :class => 'mytime' + ((controller_name == 'projects') ? 'ui-btn-active' : '') %>
-  		</li>
-  		<li>
-  				<%= link_to 'Labels', labels_url, :rel => 'external', :class => 'mytime' + ((controller_name == 'labels') ? 'ui-btn-active' : '') %>
-  		</li>
-  		</ul>
-  		</div>
-  		<% end %>
-  </div>
-  <div id="main_content" class="container" data-role="content">
-	<%= yield %>
+<div id="top_nav" class="mytime">
+  <div class="meta_nav">
+		<% if @this_user %>
+			<div class="left"><%= link_to 'account', user_url(@this_user), :class => 'button round dark' %></div>
+			<h1><%= @page_title %></h1>
+			<div class="right"><%= link_to 'sign out', sign_out_url, :class => 'button round dark' %></div>
+		<% else %>
+			<div class="left"><%= link_to 'sign up', sign_up_url, :class => 'button round dark' %></div>
+			<h1><%= @page_title %></h1>
+			<div class="right"><%= link_to 'sign in', sign_in_url, :class => 'button round dark' %></div>
+		<% end %>
 	</div>
+    <% if @this_user %>
+    <div data-role="navbar" class="main_nav">
+      <div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control"><div class="border_wrapper button <% if controller_name == 'dashboard' %> dark<% else %> medium <% end %>">
+  				<%= link_to 'Dashboard', dashboard_url %>
+  		</div></div>
+  		<div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control"><div class="border_wrapper button <% if controller_name == 'schedule' %> dark<% else %> medium<% end %>">
+  				<%= link_to 'Schedule', schedule_url %>
+  		</div></div>
+  		<div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control"><div class="border_wrapper button <% if controller_name == 'projects' %> dark<% else %> medium<% end %>">
+  				<%= link_to 'Plans', plans_url %>
+  		</div></div>
+  		<div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control" data-button="true"><div class="border_wrapper button <% if controller_name == 'labels' %> dark<% else %> medium<% end %> last">
+  				<%= link_to 'Labels', labels_url %>
+  		</div></div>
+		</div>
+		<% end %>
+</div>
+<div id="main_content" class="container" data-role="content">
+<%= yield %>
 </div>
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){

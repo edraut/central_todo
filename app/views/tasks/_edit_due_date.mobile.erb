@@ -6,26 +6,27 @@
 	:'data-ajax_error_element' => 'task_due_date',
 	:id => 'edit_due_date'
 } do |f| %>
-<%= f.date_select :due_date, {:use_short_month => true}, {:'data-role' => 'none'} %><br/>
-<select id="task_due_date_4i" name="task[due_date(4i)]"><%= options_for_select hour_select_options_array %></select>
-<%= select_minute @task.due_date, {:prefix => 'task',:field_name => 'due_date(5i)', :minute_step => 5},{:'data-role' => 'none'} %>
+<%= f.date_select :due_date, {:use_short_month => true}, {:class => 'auto_width'} %><br/>
+<select id="task_due_date_4i" name="task[due_date(4i)]" class="auto_width"><%= options_for_select hour_select_options_array, (@task.due_date.blank? ? (Time.now() + 1.hour).in_time_zone(@this_user.time_zone).hour : @task.due_date.in_time_zone(@this_user.time_zone).hour) %></select>
+<%= select_minute @task.due_date, {:prefix => 'task',:field_name => 'due_date(5i)', :minute_step => 5, :value => (@task.due_date.blank? ? 0 : @task.due_date.in_time_zone(@this_user.time_zone).min)},{:class => 'auto_width'} %>
 	<%= hidden_field_tag 'attribute', 'due_date', :id => 'attribute_due_date_fiel' %>
   <div class="row">
-	<div class="row_item list_action">&nbsp;
-    <% unless @task.due_date.blank? %>
-		<%= link_to 'remove', task_url(@task),
+  	<button type="submit" class="row_item button round small light ">save due date</button>
+	<div class="row_item small padding_top_button">
+    <% unless @task.due_date.blank? %>,
+		<%= link_to '(remove)', task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'PUT',
 			:'data-ajax_success_element' => 'task_due_date',
-			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%> or
-		<% end %>
-	<%= link_to 'cancel', task_url(@task),
+			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%>
+    <% else %>
+    &nbsp;
+		<% end %>or
+	<%= link_to '(cancel)', task_url(@task),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_element' => 'task_due_date',
 		:'data-ajax_data' => "{attribute: 'due_date'}"%>
 	</div>
-	<div class="row_item last list_action">
-	<%= f.submit 'save due date' %>
 	</div>
 <% end %>

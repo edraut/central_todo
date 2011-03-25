@@ -124,6 +124,11 @@ class UsersController < ApplicationController
     end
   end
   
+  def handle_title
+    @page_title = 'Account'
+    @html_page_title = 'Account'
+  end
+  
   private
   def load_user_using_perishable_token  
     @user = User.find_using_perishable_token(params[:id])  

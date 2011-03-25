@@ -44,4 +44,9 @@ module ApplicationHelper
       [hour.to_s + ' ' + ampm,h]
     end
   end
+  def mobile_device_type
+    return 'ios' if request.user_agent.to_s.downcase =~ Regexp.new('ipad|iphone')
+    return 'non-ios'
+  end
+  
 end

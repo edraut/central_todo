@@ -3,26 +3,31 @@
 	<% form_for @label, :url => labels_url do |f| %>
 			<%= f.text_field :title, :class => "span-9" %>
 			<%= f.hidden_field :user_id %>
-			<%= f.submit "Save", :id => "label_submit_button" %>
+    	<button type="submit" class="row_item button round small light ">save</button>
 	<% end %>
 </div>
 <% if @this_user.labels.count > 0 %>
-<div class="row section">
+<div class="row">
   <div class="row_item">
     <h2>Labels</h2>
   </div>
-  <div class="row_item control_font" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_label_form">&nbsp;+</div>
-  <div class="row_item control_font" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_label_form" style="display: none;">&nbsp;&darr;</div>
+  <div class="row_item">&nbsp;&nbsp;</div>
+  <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_label_form" data-button="true">+</div>
+  <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_label_form" style="display: none;" data-button="true">&uarr;</div>
 </div>
+<div class="list_container">
 	<% for label in @this_user.labels %>
 		<div id="label_<%= label.id %>" class="row border_bottom">
 		  <div class="row_item line_item_height">
-		    <div class="label <%= label.color %>">
-    			<%= link_to label.title, label_url(label) %>
-    		</div>
+		    <div class="padding_left">
+  		    <div class="label <%= label.color %>">
+      			<%= link_to label.title, label_url(label) %>
+      		</div>
+        </div>
 			</div>
 		</div>
 	<% end %>
+</div>
 <% else %>
   <div class="section">
   	<h2>You haven't created any labels yet</h2>

@@ -10,8 +10,8 @@
 	</div>
 	<div class="span-16 last">&nbsp;</div>
 	<div class="span-16 last">
-  <div id="project_delete" class="list_action attributes" onclick="void(0)" data-behavior="attribute_control"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
-  <div id="project_done" class="list_action attributes" onclick="void(0)"  data-behavior="check_box_proxy" data-check_box="project_state_checkbox"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
+  <div id="project_delete" class="list_action attributes buttons_up" onclick="void(0)" data-behavior="attribute_control" data-button="true"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
+  <div id="project_done" class="list_action attributes buttons_up" onclick="void(0)"  data-behavior="check_box_proxy" data-check_box="project_state_checkbox" data-button="true"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
   </div>
   <div id="project_description" class="span-16 last section_margin_top">
   	<%= render :partial => @project.description.blank? ? 'edit_description' : 'show_description' %>

@@ -4,13 +4,14 @@
   </div>
 </div>
 <% if @due_date_items.any?%>
-<div data_role="list" class="block">
+<div class="list_container"><div class="padding">
   <% for due_date in @due_dates %>
-	<div class="section controls<% if due_date < Date.today %> overdue<% end %>">
+	<div class="section heading<% if due_date < Date.today %> overdue<% end %>">
     &nbsp; <%= due_date.to_formatted_s(:full) %>
   </div>
-  <% for item in @due_date_items.select{|t| Time.parse(t['due_date']).to_date == due_date} %>
-		<div class="section padding_bottom padding_top" id="due_date_<%= item['item_type'].downcase %>_<%= item['id'] %>">
+  <% these_items = @due_date_items.select{|t| Time.parse(t['due_date']).to_date == due_date}
+      these_items.each_with_index do |item,index| %>
+		<div class="<% if (index + 1) == these_items.length %>block<% else %>section<% end %> padding_top padding_bottom" id="due_date_<%= item['item_type'].downcase %>_<%= item['id'] %>">
 		  <span class="small"><%= item['item_type'].constantize.display_name %></span>:
 		    <% if item['item_type'] == 'Project' %>
 		      <%= link_to item['title'], plan_url(item['id'].to_i) %>
@@ -21,7 +22,7 @@
 	<% end %>
   <% end %>
   <%= will_paginate @due_date_items %>
-</div>
+</div></div>
 <% else %>
 <div class="section">
   <p>

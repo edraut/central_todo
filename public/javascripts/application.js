@@ -61,6 +61,7 @@ function hideDialog(selector){
 }
 function addDatePicker(){
 	jQuery("[data-behavior='date_picker']").datetimepicker({
-  	ampm: true
+  	ampm: true,
+  	stepMinute: 5
   });
 }

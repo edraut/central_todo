@@ -1,0 +1,24 @@
+<div class="list_container">
+  <div class="block padding_bottom" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_comment_form">
+    <div class="padding" id="new_comment_wrapper">
+      <%= render :partial => '/comments/new', :locals => {:comment => Comment.new(:commentable_id => commentable.id, :commentable_type => commentable.class.name)} %>
+    </div>
+	</div>
+	<div id="comment_list_heading" class="row">
+	  <div class="padding">
+  		<div class="row_item">
+  			<h3>comments</h3>
+  		</div>
+  	  <div class="row_item">&nbsp;&nbsp;</div>
+      <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_comment_form" data-button="true">+</div>
+      <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_comment_form" style="display: none;" data-button="true">&uarr;</div>
+    </div>
+	</div>
+	<div id="comments_list" class="block" data-role="list">
+		<% commentable.comments.by_date.each_with_index do |comment,index| %>
+			<div class="row" id="comment_<%= comment.id %>" data-role="list_item">
+				<%= render :partial => '/comments/show', :locals => {:comment => comment} %>
+			</div>
+		<% end %>
+	</div>
+</div>

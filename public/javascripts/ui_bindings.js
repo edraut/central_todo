@@ -22,37 +22,6 @@ function bindSortables(){
 		}
 	});
 }
-jQuery.fn.moveToParent = function(parent){
-	var $old_item = jQuery(this);
-	var $new_item = $old_item.clone().appendTo(parent);
-	var $placeholder = jQuery('<div id="tmp_placeholder' + $old_item.attr('id') + '" class="span-18 last">&nbsp;</div>').appendTo(parent);
-	var newOffset = $new_item.offset();
-	var oldOffset = $old_item.offset();
-	var height = $new_item.outerHeight();
-	var $temp = $old_item.clone().appendTo('body');
-	var newTop = 0;
-	if (newOffset.top > oldOffset.top){
-		newTop = newOffset.top - height;
-	} else {
-		newTop = newOffset.top;
-	}
-	$temp
-	  .css('position', 'absolute')
-	  .css('left', oldOffset.left)
-	  .css('top', oldOffset.top)
-	  .css('zIndex', 1000);
-	$new_item.hide();
-	$old_item.hide();
-	$placeholder.height(height);
-	//animate the $temp to the position of the new img
-	$temp.animate( {'top': newTop, 'left':newOffset.left}, 1000, function(){
-	   //callback function, we remove $old_item and $temp and show $new_item
-	   $new_item.show();
-	   $old_item.remove();
-	   $temp.remove();
-	   $placeholder.remove();
-	});
-}
 function bindHoverShowMore(){
 	jQuery("[data-binding='hover_show_more']").hover(
 		function(){

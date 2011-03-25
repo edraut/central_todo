@@ -7,7 +7,8 @@
 	<%= link_to (@project.shared? ? 'edit sharing' : 'add sharers'), edit_plan_url(@project, :attribute => 'sharing'),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'project_sharing'
+		:'data-ajax_success_element' => 'project_sharing',
+		:class => 'button round light small'
 	%>
 </div>
 <% end %>

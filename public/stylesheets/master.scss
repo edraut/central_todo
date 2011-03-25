@@ -51,15 +51,27 @@ $compact-line-height: 20px;
 }
 @mixin dark-gradient {
 	background: $gray8;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray7}", endColorstr="#{$gray9}"); /* for IE */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray6}", endColorstr="#{$gray9}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray6), to($gray9)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  $gray7,  $gray9); /* for firefox 3.6+ */
+	background: -moz-linear-gradient(top,  $gray6,  $gray9); /* for firefox 3.6+ */
+}
+@mixin dark-gradient-down {
+	background: $gray8;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray9}", endColorstr="#{$gray6}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray9), to($gray6)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray9,  $gray6); /* for firefox 3.6+ */
 }
 @mixin light-gradient {
 	background: $paper;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr="#{$gray2}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from(white), to($gray2)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  white,  $gray2); /* for firefox 3.6+ */
+}
+@mixin light-gradient-down {
+	background: $paper;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray2}", endColorstr='white'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray2), to(white)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray2,  white); /* for firefox 3.6+ */
 }
 @mixin text-right {
 	text-align: right;
@@ -288,7 +300,6 @@ select.with_text_field{
 	margin-bottom: .4em;
 	line-height: 30px;
 	background-color: $paper;
-	@include light-gradient;
 	@include small-shadow;
 	a:hover {
 	  color: $gray4;
@@ -436,10 +447,13 @@ a:hover.selected {
   border: 1px solid $gray4;
   z-index: 10;
   cursor: pointer;
-}
-.attributes:hover {
   background-color: $paper;
+}
+.buttons_up {
 	@include light-gradient;
+}
+.buttons_down {
+	@include light-gradient-down;
 }
 .attribute_action {
   position: relative;

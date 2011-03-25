@@ -61,6 +61,12 @@ function attributeControl(e){
 	if(link){
 		link.click();
 	}
+	if(link.length == 0){
+		link = target.find('a');
+		if(link){
+			document.location.href = link.attr('href');
+		}
+	}
 }
 function bindAttributeControl(){
 	jQuery("[data-behavior='attribute_control']").die('click');
@@ -118,4 +124,5 @@ jQuery.fn.reDraw = function(){
 }
 jQuery(document).ready(function(){
 	bindAttributeControl();
+	bindButtonDisplay();	
 });

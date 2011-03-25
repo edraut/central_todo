@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   
   def index
     @project = Project.new(:user_id => @this_user.id)
-    @projects = Project.for_user(@this_user).unarchived.ordered.paginate(:page => params[:page], :per_page => 40)
+    @projects = Project.for_user(@this_user).unarchived.ordered.paginate(:page => params[:page], :per_page => 50)
     @sortable = true
     respond_with(@projects) do |format|
       format.any {render :action => 'index' and return}
@@ -14,11 +14,11 @@ class ProjectsController < ApplicationController
   end
   
   def archived
-    @projects = Project.for_user(@this_user).archived.by_create_date.paginate(:page => params[:page],:per_page => 40)
+    @projects = Project.for_user(@this_user).archived.by_create_date.paginate(:page => params[:page],:per_page => 50)
   end
   
   def shared
-    @projects = @this_user.shared_projects.active.by_create_date.paginate(:page => params[:page],:per_page => 40)
+    @projects = @this_user.shared_projects.active.by_create_date.paginate(:page => params[:page],:per_page => 50)
   end
   
   def sort
@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
     @html_page_title = @page_title = 'Plan'
     @sortable = true
     @task = Task.new(:user_id => @this_user.id, :project_id => @project.id)
-    @archived_tasks = @project.tasks.archived.ordered.paginate(:page => params[:page], :per_page => 40)
+    @archived_tasks = @project.tasks.archived.ordered.paginate(:page => params[:page], :per_page => 50)
   end
   
   def edit
@@ -70,10 +70,11 @@ class ProjectsController < ApplicationController
       @sharer = User.find(:first, :conditions => ["lower(email) = :sharer_email",{:sharer_email => params[:sharer_email].downcase}])
       if @sharer
         ProjectSharer.create(:user_id => @sharer.id,:project_id => @project.id)
+        Notifier.share_plan(@project,params[:sharer_email],true).deliver
         flash.now[:ajax_notice] = "#{@sharer.email} now has access to this list"
       else
         ProjectEmail.create(:project_id => @project.id,:email => params[:sharer_email])
-        Notifier.share_plan(@project,params[:sharer_email]).deliver
+        Notifier.share_plan(@project,params[:sharer_email],false).deliver
         flash.now[:ajax_notice] = "We sent a copy of this plan to #{params[:sharer_email]} via email."
       end
       @project.sharers.reload

@@ -11,11 +11,14 @@ $gray1: #EDECE8;
 $gray2: #DDDCD8;
 $gray3: #CDCCC8;
 $gray4: #bdbcb8;
+$gray5: #adaca8;
 $gray6: #9d9c98;
 $gray7: #8E8D89;
 $gray8: #6D6C68;
 $gray9: #5D5C58;
 $gray10: #4D4C48;
+$gray11: #3D3C38;
+$gray12: #2D2C28;
 $black: #0D0C08;
 $light-yellow: #FFF8D0;
 $yellow: #fcefa1;
@@ -48,17 +51,65 @@ $compact-line-height: 20px;
 	-moz-box-shadow: 4px 4px 4px rgba(0, 0, 0, .2);
 	box-shadow: 4px 4px 4px rgba(0, 0, 0, .2);
 }
+@mixin black-gradient {
+	background: $gray8;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray11}", endColorstr="#{$black}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray9), to($gray12)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray11,  $black); /* for firefox 3.6+ */
+}
+@mixin black-gradient-down {
+	background: $gray8;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray9}", endColorstr="#{$gray6}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray9), to($gray6)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray9,  $gray6); /* for firefox 3.6+ */
+}
 @mixin dark-gradient {
 	background: $gray8;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray7}", endColorstr="#{$gray9}"); /* for IE */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray6}", endColorstr="#{$gray9}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray6), to($gray9)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  $gray7,  $gray9); /* for firefox 3.6+ */
+	background: -moz-linear-gradient(top,  $gray6,  $gray9); /* for firefox 3.6+ */
+}
+@mixin dark-gradient-down {
+	background: $gray8;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray9}", endColorstr="#{$gray6}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray9), to($gray6)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray9,  $gray6); /* for firefox 3.6+ */
 }
 @mixin light-gradient {
-	background: $paper;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr="#{$gray2}"); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(white), to($gray2)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  white,  $gray2); /* for firefox 3.6+ */
+	background: $gray2;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="white", endColorstr="#{$gray3}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(white), to($gray3)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  white,  $gray3); /* for firefox 3.6+ */
+}
+@mixin light-gradient-down {
+	background: $gray2;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray3}", endColorstr="white"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray3), to(white)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray3,  white); /* for firefox 3.6+ */
+}
+@mixin medium-gradient {
+	background: $gray5;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray3}", endColorstr="#{$gray6}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray3), to($gray6)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray3,  $gray6); /* for firefox 3.6+ */
+}
+@mixin medium-gradient-down {
+	background: $gray5;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray6}", endColorstr="#{$gray3}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray6), to($gray3)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray6,  $gray3); /* for firefox 3.6+ */
+}
+@mixin gradient2 {
+	background: $gray3;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray1}", endColorstr="#{$gray4}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray1), to($gray4)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray1,  $gray4); /* for firefox 3.6+ */
+}
+@mixin gradient2-down {
+	background: $gray3;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray4}", endColorstr="#{$gray1}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray4), to($gray1)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray4,  $gray1); /* for firefox 3.6+ */
 }
 @mixin full-width {
   position: relative;
@@ -71,6 +122,10 @@ body {
 }
 h2 {
   color: $gray7;
+	padding-left: .2em;
+}
+h3 {
+	
 }
 p {
   margin: 0;
@@ -80,20 +135,35 @@ a{
   text-decoration: none;
   color: $black;
 }
+h2{
+	font-size: 1.5em;
+}
 a:hover {
   color: $gray4;
 }
 textarea {
-  width: 100%;
+  width: 97%;
   margin-bottom: 1em;
+	font-size: 1em;
 }
 select {
+	width: 97%;
   margin-bottom: 2em;
+	font-size: 1em;
 }
-.mytime input[type="text"]{
+select.auto_width {
+	width: auto;
+}
+input[type="text"],input[type="password"]{
+	width: 95%;
   margin-bottom: 1em;
+	font-size: 1em;
+	line-height: 1.5em;
 }
-.mytime input[type="submit"]{
+input[type="text"].title{
+	width: 95%;
+}
+input[type="submit"]{
   font-size: 1em;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -106,11 +176,106 @@ select {
   margin-top: -.4em;
   margin-bottom: .5em;
 }
+.meta_nav {
+	position:relative;
+	float: left;
+	display: block;
+	width: 100%;
+	text-align: center;
+	color: $paper;
+	height: 3.3em;
+	font-size: .75em;
+	@include black-gradient;
+	h1 {
+		font-size: 1.1em;
+		font-weight: bold;
+		text-align: center;
+	}
+	div{
+		position:absolute;
+		display: block;
+		top: .5em;
+	}
+	div.left {
+		left: .6em;
+	}
+	div.right {
+		right: .6em;
+	}
+}
+.main_nav {
+	position:relative;
+	float:left;
+	display: block;
+	width: 100%;
+	border-top: 1px solid $gray10;
+	border-bottom: 1px solid $gray10;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	overflow: hidden;
+	font-size: .75em;
+	@include medium-gradient;
+	background-color: $gray10;
+	.quarter_nav {
+		position:relative;
+		float:left;
+		width: 25%;
+		overflow: hidden;
+		display: block;
+		.border_wrapper.button {
+			position:relative;
+			border-top: 1px solid rgba(255,255,255,.8);
+			border-left: 1px solid $gray10;
+			border-right: none;
+			border-bottom: none;
+			text-align: center;
+			padding: .5em 0;
+			line-height: 1.75em;
+			a {
+				color: $paper;
+				font-weight: bold;
+				text-shadow: 0px -1px 1px rgba(0,0,0,.7);
+			}
+		}
+	}
+}
+.container {
+	position: relative;
+	float: left;
+	width: 96%;
+	padding: 0 2%;
+}
+.list_container {
+	position:relative;
+	float:left;
+	width: 100%;
+	background-color: $gray1;
+	margin-bottom: .5em;
+	@include large-shadow;
+}
 .section {
   border: none;
   @include full-width;
   clear: both;
   border-bottom: 1px solid $gray4;
+}
+.half_section {
+	position: relative;
+	float: left;
+	width: 50%;
+	padding: .7em 0;
+	text-align: center;
+}
+.third_section {
+	position: relative;
+	float: left;
+	width: 33%;
+	padding: .7em 0;
+	text-align: center;
+}
+.half_section.selected, .third_section.selected {
+	background-color: $gray1;
+	@include large-shadow;
 }
 div.section.borderless {
   border: none;
@@ -121,17 +286,7 @@ div.section.borderless {
   width: 100%;
 }
 .user_title {
-  font-size: 20px;
   color: $gray9;
-}
-.border_bottom {
-  border-bottom: 1px solid $gray4;
-}
-.padding_bottom {
-  padding-bottom: 10px;
-}
-.padding_top {
-  padding-top: 10px;
 }
 .list {
   position:relative;
@@ -139,35 +294,14 @@ div.section.borderless {
 .row {
   @include full-width;
 }
-.controls {
-  background-color: $gray4;
-  border-left: 1px solid $gray4;
-  border-right: 1px solid $gray4;
-	color: $paper;
-	@include dark-gradient;
-	@include small-shadow;
-}
-.controls.overdue {
-	background-color: $paper;
-	color: $carmine;
-	@include light-gradient;
-}
-.half_control {
-	position: relative;
-	float: left;
-	width: 50%;
-}
-.half_control_border {
-	position: relative;
-	float: left;
-	border-right: 1px solid $black;
-	width: 99%;
-}
 .row_item {
   position: relative;
   float: left;
   z-index: 0;
   display: inline-block;
+}
+.row_item.right {
+	float: right;
 }
 .list_action {
   position:relative;
@@ -181,14 +315,159 @@ div.section.borderless {
   margin-top: .9em;
   margin-bottom: .9em;
 }
+.heading {
+  background-color: $gray7;
+	color: $paper;
+	@include small-shadow;
+}
+.heading.overdue{
+ 	background-color: $paper;
+	color: $carmine;
+}
+.controls {
+	padding-top: 1em;
+	height: 2em;
+}
+.control {
+	position: absolute;
+	top: .5em;
+	margin-bottom: 1em;
+	padding: 0 1em;
+	font-size: .8em;
+	text-align: center;
+	line-height: 2.5em;
+}
+.control.left {
+	left: .6em;
+}
+.control.right {
+	right: .6em;
+}
+a.button {
+	display: block;
+	position: relative;
+	font-size: .8em;
+	text-align: center;
+	line-height: 2em;
+	text-align: center;
+  cursor: pointer;
+  padding: .4em .5em .4em .6em; /* Links */
+	text-shadow: 0px -1px 1px rgba(0,0,0,.7);
+}
+a.button.left {
+	float: left;
+}
+a.button.right {
+	float: right;
+}
+.button.round, a.button.round {
+	border-radius: 1.5em;
+}
+.button.dark, a.button.dark {
+	@include dark-gradient;
+  border:1px solid $gray10;
+  border-top:1px solid $gray9;
+  border-left:1px solid $gray9;
+  color:$paper;
+}
+.button.dark:active, a.button.dark:active {
+	@include dark-gradient-down;
+  border:1px solid $gray9;
+  border-top:1px solid $gray10;
+  border-left:1px solid $gray10;
+}
+.button.medium, a.button.medium {
+	@include medium-gradient;
+  border:1px solid $gray7;
+  border-top:1px solid $gray6;
+  border-left:1px solid $gray6;
+  color:$paper;
+}
+.button.medium:active, a.button.medium:active {
+	@include medium-gradient-down;
+  border:1px solid $gray6;
+  border-top:1px solid $gray7;
+  border-left:1px solid $gray7;
+}
+.button.color2, a.button.color2 {
+	@include gradient2;
+  border:1px solid $gray5;
+  border-top:1px solid $gray4;
+  border-left:1px solid $gray4;
+  color:$gray9;
+	text-shadow: 0px -1px 1px rgba(255,255,255,1);
+}
+.button.color2:active, a.button.color2:active {
+	@include gradient2-down;
+  border:1px solid $gray4;
+  border-top:1px solid $gray5;
+  border-left:1px solid $gray5;
+}
+.button.light, a.button.light {
+	@include light-gradient;
+  border:1px solid $gray4;
+  border-top:1px solid $gray3;
+  border-left:1px solid $gray3;
+  color:$gray8;
+	text-shadow: 0px -1px 1px rgba(255,255,255,1);
+}
+.button.light:active, a.button.light:active {
+	@include light-gradient-down;
+  border:1px solid $gray3;
+  border-top:1px solid $gray4;
+  border-left:1px solid $gray4;
+}
+a.button.small {
+	font-size: .8em;
+	font-weight: normal;
+	display: inline;
+}
+.button.control_font {
+	padding-left: .4em;
+	padding-right: .4em;
+	padding-bottom: .1em;
+	border-radius: 2em;
+}
+button.button {
+	padding: .6em;
+}
+.controls.overdue {
+	background-color: $paper;
+	color: $carmine;
+	@include light-gradient;
+}
+.border_bottom {
+  border-bottom: 1px solid $gray4;
+}
+.padding_bottom {
+  padding-bottom: .5em;
+}
+.padding_top {
+  padding-top: .5em;
+}
+.padding_top_button {
+  padding-top: .5em;
+}
+.padding_top_button.small {
+  padding-top: .9em;
+}
+.padding_left {
+  padding-left: .5em;
+}
+.padding {
+	position: relative;
+	float: left;
+  padding: .5em 1.5%;
+	width: 97%;
+}
+.text_center {
+	text-align: center;
+}
+.eightteen {
+	width: 18%;
+}
 .check_box{
-  width: 18%;
   margin-right: 0;
-  margin-top: .85em;
-  input[type="checkbox"]{
-    height: 2em;
-    width: 2em;
-  }
   .checkbox_placeholder{
     margin-left: 3px;
   }
@@ -208,34 +487,26 @@ div.section.borderless {
   width: 82%;
 }
 .row_item.h2_padding {
-  padding-top: 1.5em;
+  padding-top: 1.4em;
 }
 .row_item.check_box.h2_padding {
-  padding-top: .5em;
+  padding-top: .8em;
 }
 .row_item.h3_padding {
   padding-top: 1.2em;
 }
-.row_item.check_box_proxy, .row_item .check_box_proxy{
-  margin-top: -.15em;
-  font-size: 2.5em;
-  line-height: 1.4em;
-  width: 18%;
-}
-.controls .check_box_proxy {
+.check_box_proxy {
   width: auto;
 }
-.check_box_proxy.checked {
+div.checked {
 	color: $carmine;
 }
 .control_font {
-  margin-top: .35em;
-  font-size: 2em;
+  margin-top: .65em;
+  font-size: 1.5em;
 }
 .row_item.delete{
   position:relative;
-  font-size: 1.8em;
-  top: .3em;
 }
 .attach_bottom {
   border-bottom: 1px solid $gray4;
@@ -247,45 +518,22 @@ div.section.borderless {
 .archived a{
   color: $paper;
 }
-.ui-bar-a.mytime {
-  background: $gray8;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($gray8), to($gray10));
-}
-.ui-btn-up-a.mytime  {
-  background: $gray8;
-  border: 1px solid $black;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($gray7), to($gray8));
-}
-.ui-btn-down-a.mytime  {
-  background: $gray8;
-  border: 1px solid $black;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($gray8), to($gray7));
-}
-.mytime .ui-btn-up-c  {
-  background: $paper;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($paper), to($gray1));
-  border: 1px solid $gray2;
-  border-bottom: 1px solid $gray4;
-}
-.mytime .ui-btn-up-c.selected  {
-  background: $gray1;
-  border: 1px solid $gray4;
-  border-bottom: none;
-}
-.mytime .ui-body-c {
-  background: $gray1;
-  color: $gray8;
-}
-.mytime div.last{
-  margin-right: 0;
-}
-.text_center {
-  text-align: center;
+.small {
+	font-size: .8em;
 }
 .section_margin_top {
   margin-top: 1em;
 }
-
+.asterisk_icon {
+	position: relative;
+	top: -.15em;
+	font-size: 2em;
+}
+.otimes_icon {
+	position: relative;
+	top: -.1em;
+	font-size: 1.3em;
+}
 /* Labels */
 .label {
 	position: relative;
@@ -329,3 +577,47 @@ div.section.borderless {
 .mytime .Black { background-color: $black; color: $paper; a{ color: $paper; } a:hover{ color: $gray1 } }
 .mytime .Gray { background-color: $gray6; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
 .mytime .White { background-color: $paper; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+/* reset
+html { 
+	margin:0; 
+	padding:0; 
+	border:0; 
+}
+
+body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, code,
+del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, dialog, figure, footer, header,
+hgroup, nav, section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+/* Remove annoying border on linked images. */
+a img { border: none; }
+
+/* Remember to define your own focus styles! */
+// :focus { outline: 0; }
+/* Default font settings.
+/*   The font-size percentage is of 16px. (0.75 * 16px = 12px) */
+html { font-size:100.01%; }
+body {
+	font-size: 1em;
+  color: $gray9;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: $paper;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	position: relative;
+	float: left;
+	width: 100%;
+}

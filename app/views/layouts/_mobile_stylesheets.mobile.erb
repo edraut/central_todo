@@ -1,2 +1,8 @@
-<link rel="stylesheet" href="/stylesheets/jquery.mobile-1.0a3.min.css" />
-<link rel="stylesheet" href="/stylesheets/mobile.css" type="text/css" media="screen">	
+<link rel="stylesheet" href="/stylesheets/mobile.css" type="text/css" media="screen">
+<%  case mobile_device_type
+    when 'ios' %>
+  <link rel="stylesheet" href="/stylesheets/ios.css" type="text/css" media="screen">
+<%  else %>
+  <link rel="stylesheet" href="/stylesheets/other_mobile.css" type="text/css" media="screen">
+<%  end %>
+    

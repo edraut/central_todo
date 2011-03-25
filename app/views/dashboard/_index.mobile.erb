@@ -6,23 +6,25 @@
 			<%= text_field_tag :title_3, '', :id => "inbox_text_field_3" %>
 			<%= f.hidden_field :user_id %>
 			<%= f.hidden_field :state, :value => 'active' %>
-			<%= f.submit "Add them to the list.", :id => "inbox_submit_button" %>
+    	<button type="submit" class="row_item button round small light ">add tasks</button>
 	<% end %>
 </div>
 <% if @this_user.tasks.active.unorganized.any? %>
 <div data_role="list" class="block">
-  <div class="row section">
+  <div class="row">
     <div class="row_item">
       <h2>Unorganized Tasks</h2>
     </div>
-    <div class="row_item control_font" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form">&nbsp;+</div>
-    <div class="row_item control_font" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;">&nbsp;&darr;</div>
+    <div class="row_item">&nbsp;&nbsp;</div>
+    <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
+    <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
   <% if @this_user.show_help_text %>
     <p class="quiet">
   Consider adding these tasks to a plan, label, or both for organization. You can tap the title of the task below to view full controls for that task, including plan and label controls.
   </p>
   <% end %>
   </div>
+  <div class="list_container">
 	<% for task in @this_user.tasks.active.unorganized.recent.five %>
 		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
 		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized'} %>
@@ -34,6 +36,7 @@
     </div>
 	<% end %>
 	</div>
+	</div>
 <% else %>
   <div class="section section_margin_top">
     <% if @this_user.tasks.count > 0 %>You've organized all your current tasks.<% else %>
@@ -42,9 +45,10 @@
   </div>
 <% end %>
 <% if @this_user.tasks.active.priority.any? %>
-    <div class="section">
+    <div class="block">
       <h2>Priority Tasks</h2>
     </div>
+    <div class="list_container">
 		<% for task in @this_user.tasks.active.priority.recent.five %>
 			<div id="priority_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
 			<%= render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'priority'} %>
@@ -53,8 +57,9 @@
 		<% if @this_user.tasks.active.priority.count > 5 %>
         <%= link_to 'See all', due_date_tasks_url %> &rarr;
 		<% end %>
+		</div>
 <% else %>
-  <div class="section section_margin_top">
+  <div class="block section_margin_top">
     <h2>High Priority</h2>
     <p>
     You don't have any priority tasks.<br/>

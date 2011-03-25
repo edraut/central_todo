@@ -9,12 +9,16 @@
   add email
   <%= text_field_tag :sharer_email %>
   <%= hidden_field_tag :project_id %>
-  <%= f.submit 'share', :id => 'project_sharing_submit' %> or
-  <%= link_to (@project.shared? ? 'cancel' : "don't share"), plan_url(@project),
-   	:'data-ajax_behavior' => 'ajax_link',
-  	:'data-ajax_method' => 'GET',
-  	:'data-ajax_success_element' => 'project_sharing',
-  	:'data-ajax_data' => "{attribute: 'sharing'}"%>
+  <div class="row">
+  	<button type="submit" class="row_item button round small light ">share</button>
+    <div class="row_item last padding_top_button small">&nbsp;or
+      <%= link_to (@project.shared? ? '(cancel)' : "(don't share)"), plan_url(@project),
+       	:'data-ajax_behavior' => 'ajax_link',
+      	:'data-ajax_method' => 'GET',
+      	:'data-ajax_success_element' => 'project_sharing',
+      	:'data-ajax_data' => "{attribute: 'sharing'}"%>
+    </div>
+  </div>
 <% end %>
 <% if @project.project_sharers.count > 0 %>
 <div class="section">

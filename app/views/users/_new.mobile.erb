@@ -1,5 +1,6 @@
-<h1>Sign up</h1>
-<div class="section">
+<h2>Sign up</h2>
+<div class="list_container">
+  <div class="padding">
 	<% form_for @user, :url => users_path(@user) do |f| %>
 		<% if @user.errors.any? %> <div class="error"><%= @user.errors.full_messages %></div> <% end %>
 		<%= f.label :email %><br />
@@ -10,6 +11,8 @@
 		<br />
 		<%= f.label :password_confirmation %><br />
 		<%= f.password_field :password_confirmation %><br />
-	  	<%= f.submit "Create My Account" %>
+		<br />
+	  	<button type="submit" class="button round small light ">Create My Account</button>
 	<% end %>
+  </div>
 </div>

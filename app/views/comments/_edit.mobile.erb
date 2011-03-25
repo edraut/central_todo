@@ -1,29 +1,26 @@
+<div class="section">
+  <div class="padding">
 <%= form_for comment, :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
 	:'data-ajax_success_element' => "comment_#{comment.id}",
 	:id => "comment_edit_form_#{comment.id}"} do |f| %>
-	<div class="span-12">
-		<div class="line_item_height span-12 last">
-      <%= f.text_area :body, :id => "comment_body_textarea_#{comment.id}", :class => "span-12", :rows => 5 %>
-		</div>
-	</div>
-	<div class="span-4 last">
-	  <div class="span-4 last text-right">
-	    <%= f.submit :save %>,
-    <%= link_to 'cancel', comment_url(comment),
+  <%= f.text_area :body, :id => "comment_body_textarea_#{comment.id}", :class => "span-12", :rows => 5 %>
+	<div class="row">
+  	<button type="submit" class="row_item button round small light ">comment</button>
+    <div class="row_item padding_top_button small">,
+    <%= link_to '(cancel)', comment_url(comment),
 	    :'data-ajax_behavior' => 'ajax_link',
 	    :'data-ajax_method' => 'GET',
 	    :'data-ajax_success_element' => "comment_#{comment.id}" %>
-	  </div>
-	  <div class="span-4 last text-right">
-		or delete <a href="<%= comment_url(comment) %>"
+		or <a href="<%= comment_url(comment) %>"
 			data-ajax_behavior="ajax_link"
 			data-ajax_method="DELETE"
 			data-ajax_success_callback="jQuery('#comment_<%= comment.id %>').remove();"
 			data-ajax_data="{_method: 'DELETE'}"
-			data-ajax_confirm="Are you sure you want to delete this comment?"
-			class="delete">&otimes;</a>
+			data-ajax_confirm="Are you sure you want to delete this comment?">(delete)</a>
     </div>
 	</div>
 <% end %>
+  </div>
+</div>

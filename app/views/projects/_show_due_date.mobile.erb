@@ -6,7 +6,8 @@
 	<%= link_to (@project.due_date.blank? ? 'add due date' : 'edit due_date'), edit_plan_url(@project, :attribute => 'due_date'),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'project_due_date'
+		:'data-ajax_success_element' => 'project_due_date',
+		:class => 'button round light small'
 	%>
 </div>
 </div>

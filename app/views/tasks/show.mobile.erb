@@ -1,19 +1,35 @@
-<div class="section padding_bottom">Does this task involve multiple steps or parts? <%= link_to 'Convert it to plan.', convert_task_url(@task) %></div>
-<div id="task_title" class="section">
+<div id="task_title" class="block padding_bottom">
 	<%= render :partial => 'show_title' %>
 </div>
-<div class="section controls">
-<div id="task_priority" class="half_control"><div class="half_control_border"><%= render :partial => 'show_priority' %></div></div><div id="task_delete" class="half_control"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
+<div class="list_container">
+  <div class="block">&nbsp;</div>
+<div class="block controls">
+  <div id="task_priority" class="control left button round color2 " onclick="void(0)" data-behavior="check_box_proxy" data-check_box="priority_<%= @task.id %>" data-button="true"><%= render :partial => 'show_priority' %></div>
+  <div id="task_delete" class="control right button round color2 " onclick="void(0)" data-behavior="attribute_control" data-button="true"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
 </div>
-<div id="task_description" class="section">
-	<%= render :partial => 'show_description' %>
+<div class="section">
+  <div class="padding text_center">
+      <%= link_to '(convert to plan)', convert_task_url(@task), :onclick => "if(!confirm('are you sure you want to convert this task to a plan?')){return false;}else{return true};", :class => 'small' %>
+  </div>
 </div>
-<div id="task_due_date" class="section">
-	<%= render :partial => 'show_due_date' %>
+<div class="section">
+  <div id="task_description" class="padding">
+  	<%= render :partial => 'show_description' %>
+  </div>
 </div>
-<div id="task_project" class="section">
-	<%= render :partial => 'show_project_id' %>
+<div class="section">
+  <div id="task_due_date" class="padding">
+  	<%= render :partial => 'show_due_date' %>
+  </div>
 </div>
-<div id="task_label" class="section">
-	<%= render :partial => 'show_labels' %>
+<div class="section">
+  <div id="task_project" class="padding">
+	  <%= render :partial => 'show_project_id' %>
+  </div>
+</div>
+<div class="section">
+  <div id="task_label" class="padding">
+  	<%= render :partial => 'show_labels' %>
+  </div>
+</div>
 </div>

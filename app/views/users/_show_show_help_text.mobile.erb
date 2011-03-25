@@ -7,7 +7,8 @@
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'PUT',
 			:'data-ajax_success_element' => 'account_show_help_text',
-			:'data-ajax_data' => "{'attribute':'show_help_text','user[show_help_text]':'#{@user.show_help_text ? '0' : '1'}'}"
+			:'data-ajax_data' => "{'attribute':'show_help_text','user[show_help_text]':'#{@user.show_help_text ? '0' : '1'}'}",
+  		:class => 'button round light small'
 		%>
 	</div>
 </div>

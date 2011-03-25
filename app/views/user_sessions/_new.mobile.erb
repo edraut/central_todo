@@ -1,5 +1,6 @@
-  <h1>Sign In</h1>
-  <div class="">
+  <h2>Sign In</h2>
+  <div class="list_container">
+    <div class="padding">
   	<%= form_for @user_session, :as => :user_session, :url => user_session_url do |f| %>
   	  <% if @user_session.errors.any? %> <%= @user_session.errors.full_messages %><br/> <% end %>
   	  <%= f.label :email %><br />
@@ -8,7 +9,9 @@
   	  <%= f.label :password %><br />
   	  <%= f.password_field :password %><br />
   	  <br />
-  	  <%= f.submit "Login" %>
+	  	<button type="submit" class="button round small light ">Login</button>
   	<% end %>
+  	<br />
   	<%= link_to 'Forget your password?', forgot_password_user_url('none') %>
+    </div>
   </div>

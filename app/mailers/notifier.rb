@@ -24,8 +24,10 @@ class Notifier < ActionMailer::Base
           :to => user.sms_email )
   end
 
-  def share_plan(plan,email)
+  def share_plan(plan,email,account_holder)
     @plan = plan
+    @account_holder = account_holder
+    @plan_url = plan_url(plan)
     mail( :subject => "#{plan.user.email} shared the plan '#{plan.title}' with you",
           :to => email)
   end

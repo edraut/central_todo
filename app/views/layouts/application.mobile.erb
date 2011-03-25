@@ -6,12 +6,20 @@
   <%= render :partial => '/layouts/mobile_javascripts' %>
   <%= csrf_meta_tag %>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta content='True' name='HandheldFriendly' />
+  <meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' />
+  <meta name="viewport" content="width=device-width" />
+
 </head>
 <body class="mytime">
 <%= render :partial => 'layouts/application' %>
 <%= javascript_tag do %>
   jQuery(document).ready(function(){
     bindExpanders();
+  })
+  jQuery(window).load(function(){
+    jQuery('body').css('min-height',screen.height);
+    setTimeout("jQuery(window).scrollTop(0)",100);
   })
 <% end %>
 </body>

@@ -7,7 +7,7 @@
 		:'data-ajax_error_element' => 'task_due_date',
 		:id => 'edit_task_due_date'
 	} do |f| %>
-		<%= f.text_field :due_date, :id => 'task_due_date_field' %>
+		<%= f.text_field :due_date, :value => @task.due_date.blank? ? Time.now.in_time_zone(@this_user.time_zone).to_formatted_s(:input).downcase : @task.due_date.in_time_zone(@this_user.time_zone).to_formatted_s(:input).downcase, :id => 'task_due_date_field', :'data-behavior' => 'date_picker' %>
     <% unless @task.due_date.blank? %>
 		<%= link_to 'remove', task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
@@ -27,7 +27,8 @@
 <%= javascript_tag do %>
   jQuery(document).ready(function(){
     jQuery('#task_due_date_field').datetimepicker({
-    	ampm: true
+    	ampm: true,
+    	stepMinute: 5
     });
   })
 <% end %>

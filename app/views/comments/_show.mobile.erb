@@ -1,0 +1,26 @@
+<div class="section">
+  <div class="padding">
+    <div class="block padding_bottom">
+        <%= comment.body %>
+    </div>
+    <div class="block">
+      <% if comment.user_id == @this_user.id %>
+      <div class="row_item">
+        <%= link_to 'edit', edit_comment_url(comment),
+          :'data-ajax_behavior' => 'ajax_link',
+          :'data-ajax_method' => 'GET',
+          :'data-ajax_success_element' => "comment_#{comment.id}",
+          :class => 'button round small color2 ' %>
+      </div>
+      <% end %>
+      <div class="row_item right small">
+        <%= comment.user.email %>
+      </div>
+      <div class="block">
+        <div class="row_item right small">
+        <%= time_ago_in_words(comment.created_at) %> ago
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.check_box {
+  margin-top: .8em; }
+  .check_box input[type="checkbox"] {
+    height: 1.3em;
+    width: 1.3em; }
+
+.row_item.check_box {
+  margin-top: .6em; }
+  .row_item.check_box input[type="checkbox"] {
+    height: 2em;
+    width: 2em; }
+
+.row_item.delete {
+  font-size: 1.3em;
+  top: .45em; }
+
+.row_item.check_box_proxy, .row_item .check_box_proxy {
+  margin-top: 0;
+  font-size: 1.8em;
+  line-height: 1.4em; }

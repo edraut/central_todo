@@ -1,17 +1,25 @@
-<div id="project_title" class="borderless section">
+<div id="project_title" class="borderless section padding_bottom">
 	<%= render :partial => 'show_title' %>
 </div>
 <%= render :partial => 'tabs' %>
+<div class="list_container">
 <div class="section controls">
-  <div id="project_delete" class="row_item list_action last" onclick="void(0)" data-behavior="attribute_control"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
-  <div id="project_done" class="row_item last" onclick="void(0)" data-behavior="attribute_control"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
+  <div id="project_done" class="control left button round color2 " onclick="void(0)" data-behavior="check_box_proxy" data-check_box="project_state_checkbox" data-button="true"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
+  <div id="project_delete" class="control right button round color2 " onclick="void(0)" data-behavior="attribute_control" data-button="true"><%= render :partial => 'show_delete', :locals => {:project => @project} %></div>
 </div>
-<div id="project_description" class="section">
-	<%= render :partial => @project.description.blank? ? 'edit_description' : 'show_description' %>
+<div class="section">
+  <div id="project_description" class="padding">
+  	<%= render :partial => @project.description.blank? ? 'edit_description' : 'show_description' %>
+  </div>
 </div>
-<div id="project_due_date" class="section">
-	<%= render :partial => @project.due_date.blank? ? 'edit_due_date' : 'show_due_date' %>
+<div class="section">
+  <div id="project_due_date" class="padding">
+  	<%= render :partial => @project.due_date.blank? ? 'edit_due_date' : 'show_due_date' %>
+  </div>
 </div>
-<div id="project_sharing" class="section">
-	<%= render :partial => @project.shared? ? 'show_sharing' : 'edit_sharing' %>
+<div class="section">
+  <div id="project_sharing" class="padding">
+  	<%= render :partial => @project.shared? ? 'show_sharing' : 'edit_sharing' %>
+  </div>
+</div>
 </div>

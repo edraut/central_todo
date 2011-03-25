@@ -3,11 +3,7 @@
 	:'data-ajax_method' => 'PUT',
 	:'data-ajax_success_element' => "project_done",
 	:id => 'edit_project_done'} do |f| %>
-	<div class="row_item check_box">
-	<%= f.check_box :state, {:'data-behavior' => 'auto_submit', :'data-role' => 'none'}, 'archived', 'active' %>
-  <%= hidden_field_tag 'attribute','done' %>
-  </div>
-  <div class="row_item last line_item_height">
-    archived
-  </div>
+	<%= f.check_box :state, {:'data-behavior' => 'auto_submit', :'data-role' => 'none', :id => 'project_state_checkbox'}, 'archived', 'active' %>
+  <%= hidden_field_tag 'attribute','done', :id => 'attribute_done_field' %>
+  archived
 <% end %>

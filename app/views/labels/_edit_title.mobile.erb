@@ -7,12 +7,12 @@
 } do |f| %>
 	<%= f.text_field :title %>
 	<%= hidden_field_tag 'attribute', 'title' %>
-	<div class="row_item last list_action">&nbsp;or
-	<%= link_to 'cancel', label_url(@label),
+	<button type="submit" class="row_item button round small light ">save title</button>
+	<div class="row_item last padding_top_button small">&nbsp;or
+	<%= link_to '(cancel)', label_url(@label),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_element' => 'label_title',
 		:'data-ajax_data' => "{attribute: 'title'}"%>
 	</div>
-	<%= f.submit 'save title', :class => 'row_item list_action', :'data-role' => 'none' %>
 <% end %>
