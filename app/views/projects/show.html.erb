@@ -1,11 +1,11 @@
 <div class="span-16" id="header_wrapper">
   <div class="span-16 last section_margin_top">
-  	<h1>Plan </h1>
+  	<h1>Plan</h1>
   </div>
   <%= render :partial => 'tabs' %>
 </div>
-<div class="span-18 last page_content">
-<div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
+<div class="span-17 last page_content">
+  <div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
 		<%= form_for @task do |f| %>
 			<div class="span-12">
 				<%= f.text_field :title, :id => "primary_input", :class => "span-12" %>
@@ -26,15 +26,27 @@
   <% else %>
 	<div id="unarchived_item_list" class="span-16 last">
 		<div id="task_list_heading" class="span-16 last">
-			<div id="unarchived_item_heading" class="span-12<% if @project.all_complete %> completed<% end %>">
+			<div id="unarchived_item_heading" class="span-14<% if @project.all_complete %> completed<% end %>">
 				<h2><%= @project.title %></h2>
 			</div>
-			<div class="span-4 last">
-        	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a task</a></div>
-          <% if @project.tasks.unarchived.count == 0 and @project.tasks.count > 0 %>
-          <div id="project_done" class="list_action attach_above"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
-          <% end %>
-			</div>
+		</div>
+		<div id="task_list_heading" class="span-16 last">
+      <div id="archive_completed_items" class="list_action attach_above" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
+    	<%= link_to 'archive completed tasks', archive_completed_tasks_plan_url(@project),
+    	 	:'data-ajax_behavior' => 'ajax_link',
+    		:'data-ajax_method' => 'GET',
+    		:'data-ajax_success_callback' => "handleArchivementSuccess(true);",
+    		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %>
+    	</div>
+			<% if @project.tasks.unarchived.with_due_date.count > 0 %>
+		  <div class="list_action attach_above">
+    		<%= link_to ('sort by due date', sort_tasks_plan_url(@project) + '?by_due_date=true') %>
+      </div>
+      <% end %>
+      	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a task</a></div>
+        <% if @project.tasks.unarchived.count == 0 and @project.tasks.count > 0 %>
+        <div id="project_done" class="list_action attach_above"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
+        <% end %>
 		</div>
 		<div id="unarchived_items_wrapper" class="span-16 last list_section" data-role="list">
       <div class="span-16 last line_item">
@@ -52,18 +64,6 @@
 	</div>
   <div class="span-16 last">
     <div class="span-12 prepend-4 last">
-      <div id="archive_completed_items" class="list_action attach_below" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
-    	<%= link_to 'archive completed tasks', archive_completed_tasks_plan_url(@project),
-    	 	:'data-ajax_behavior' => 'ajax_link',
-    		:'data-ajax_method' => 'GET',
-    		:'data-ajax_success_callback' => "handleArchivementSuccess(true);",
-    		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %> &darr;
-    	</div>
-			<% if @project.tasks.unarchived.with_due_date.count > 0 %>
-		  <div class="list_action attach_below">
-    		<%= link_to ('sort by due date', sort_tasks_plan_url(@project) + '?by_due_date=true') %>
-      </div>
-      <% end %>
     </div>
   </div>
 	<% end %>

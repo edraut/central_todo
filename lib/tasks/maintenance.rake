@@ -9,9 +9,7 @@ namespace :maintenance do
           Notifier.remind(reminder).deliver
         end
         reminder.complete
-        Rails.logger.info("%%%%%%%beforesave: #{reminder.inspect}")
         reminder.save
-        Rails.logger.info("%%%%%%%aftersave: #{reminder.inspect}")
       rescue
         Rails.logger.error "Error sending mail via gmail SMTP servers:"
         Rails.logger.error $!

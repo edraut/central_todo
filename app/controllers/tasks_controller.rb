@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_filter :require_user
-  before_filter :get_task, :only => [:show,:edit,:update,:destroy,:convert]
+  before_filter :get_task, :only => [:show,:comments,:edit,:update,:destroy,:convert]
+  before_filter :set_nav_tab
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
   respond_to :html, :mobile
   
@@ -76,6 +77,10 @@ class TasksController < ApplicationController
     respond_with(@task)
   end
   
+  def comments
+    @comments = @task.comments.by_date
+  end
+  
   def edit
     @item = @task
     return if handle_attribute_partials('edit')
@@ -149,6 +154,7 @@ class TasksController < ApplicationController
   
   def get_task
     @task = Task.find(params[:id])
+    @project = @task.project
     if @task.user_id != @this_user.id and (!@task.project.sharer_ids.include? @this_user.id)
       flash[:notice] = "You don't have privileges to access that task."
       redirect_to root_url and return

@@ -34,7 +34,7 @@ class Notifier < ActionMailer::Base
 
   def remind(reminder)  
     @reminder = reminder
-    @plan_url = "http://#{DOMAIN_NAME}/#{@reminder.remindable_type.underscore.pluralize}/#{@reminder.remindable_id}"
+    @plan_url = "http://#{DOMAIN_NAME}/#{@reminder.remindable_type.constantize.display_name.downcase.pluralize}/#{@reminder.remindable_id}"
     mail( :from => "'#{APP_NAME} Reminders' <notifications@#{DOMAIN_NAME}>",
           :subject => "#{reminder.remindable.class.display_name} due -- #{truncate_clean(reminder.remindable.title,{:length => 100, :omission => '...'})}",
           :to => reminder.user.email)

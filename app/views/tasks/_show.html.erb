@@ -21,12 +21,7 @@
     </div>
 		<div class="line_item_height span-11 last">
       <%= link_to task.title, task_url(task),
-        :class => task.done? ? 'completed' : nil,
-		    :'data-ajax_behavior' => 'ajax_link',
-		    :'data-ajax_method' => 'GET',
-		    :'data-ajax_success_element' => 'main_modal_view',
-		    :'data-ajax_success_callback' => "showDialog('#main_modal_view')",
-		    :'data-ajax_data' => "{'full_view':'true'}"%>
+        :class => task.done? ? 'completed' : nil %>
       <% unless controller_name == 'labels' and ['show','edit'].include? action_name %>
       <div class="span-11 last">
         <% for label in task.labels.for_user(@this_user) %><div class="label <%= label.color %>"><%= label.title %></div><% end %>

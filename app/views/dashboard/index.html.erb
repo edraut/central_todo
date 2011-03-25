@@ -67,12 +67,7 @@
     <ul>
 		<% @priority_tasks.each_with_index do |task,index| %>
 			<li class="line_item_soft" id="priority_task_<%= task.id %>" data-role="list_item">
-	      <%= link_to task.title, task_url(task),
-			    :'data-ajax_behavior' => 'ajax_link',
-			    :'data-ajax_method' => 'GET',
-			    :'data-ajax_success_element' => 'main_modal_view',
-			    :'data-ajax_success_callback' => "showDialog('#main_modal_view')",
-			    :'data-ajax_data' => "{'full_view':'true'}"%>
+	      <%= link_to task.title, task_url(task)%>
 			</li>
 		<% end %>
 		<% if @total_priority_task_count > 5 %>
@@ -107,12 +102,7 @@
 			    <% if item.class.name == 'Project' %>
 			      <%= link_to item.title, plan_url(item) %>
 			    <% else %>
-			      <%= link_to item.title, task_url(item),
-    			    :'data-ajax_behavior' => 'ajax_link',
-    			    :'data-ajax_method' => 'GET',
-    			    :'data-ajax_success_element' => 'main_modal_view',
-    			    :'data-ajax_success_callback' => "showDialog('#main_modal_view')",
-    			    :'data-ajax_data' => "{'full_view':'true'}"%>
+			      <%= link_to item.title, task_url(item) %>
     			<% end %>
 			</div>
 		<% end %>

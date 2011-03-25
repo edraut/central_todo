@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   before_filter :init_ajax_forms
   before_filter :get_this_user
   after_filter :handle_flash_header
-
+  
   def string_to_money(string)
     Money.new(string.to_f * 100)
   end
@@ -73,6 +73,51 @@ class ApplicationController < ActionController::Base
     @ajax_forms_enabled = false
   end
   
+  def set_nav_tab
+    case controller_name
+    when 'tasks'
+      case action_name
+      when 'show','comments'
+        if @task.project
+          @nav_tab = 'plans'
+          @subnav_tab = @task.project_id
+          @mobile_subnav = true
+        else
+          @nav_tab = 'tasks'
+          @subnav_tab = 'unorganized'
+        end
+      when 'index'
+        @nav_tab = 'tasks'
+        @subnav_tab = 'unorganized'
+      when 'priority'
+        @nav_tab = 'tasks'
+        @subnav_tab = 'priority'
+      when 'archived_unorganized'
+        @nav_tab = 'tasks'
+        @subnav_tab = 'archived'
+      end
+    when 'projects'
+      @nav_tab = 'plans'
+      case action_name
+      when 'show','edit','comments'
+        @subnav_tab = @project.id
+      when 'index'
+        @subnav_tab = 'active'
+      when 'archived'
+        @subnav_tab = 'archived'
+      end
+    when 'dashboard'
+      @nav_tab = 'dashboard'
+    when 'schedule'
+      @nav_tab = 'schedule'
+    when 'labels'
+      @nav_tab = 'labels'
+      case action_name
+      when 'show','edit'
+        @subnav_tab = @label.id
+      end
+    end
+  end
   private
     def get_method
       if params.has_key? '_method'

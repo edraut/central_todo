@@ -1,10 +1,11 @@
 <div id="task_done" class="line_item_height in_header"><%= render :partial => 'show_done' %></div>
-<div class="span-14">
+<div class="span-13">
 <h2><span id="task_title_display" class="user_title"<% if @task.done? %> class="completed"<% end %>><%= @task.title %></span></h2></div>
 <div class="span-2 last">
-	<%= link_to 'edit title', edit_task_url(@project, :attribute => 'title'),
+	<%= link_to '(edit title)', edit_task_url(@task, :attribute => 'title'),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'task_title'
+		:'data-ajax_success_element' => 'task_title',
+		:class => 'small'
 	%>
 </div>

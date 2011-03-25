@@ -1,5 +1,5 @@
-<div class="span-18 last section_margin_top">
-	<div class="span-14">
+<div class="span-16 last section_margin_top">
+	<div class="span-12">
 		<h2>Time Zone</h2>
 	</div>
 	<div class="span-4 last">
@@ -10,6 +10,6 @@
 		%>
 	</div>
 </div>
-<div class="span-18 last section">
+<div class="span-16 last section">
 	<%= @user.time_zone.blank? ? ActiveSupport::TimeZone[-session[:time_zone_offset].to_i] : @user.time_zone %>
 </div>

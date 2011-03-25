@@ -1,24 +1,35 @@
-<div class="span-17 last" id="header_wrapper">
-  <div class="span-17 last text_right quiet">Does this task involve multiple steps or parts? <%= link_to 'Convert it to plan.', convert_task_url(@task) %></div>
-  <div id="task_title" class="span-17 last">
-  	<%= render :partial => 'show_title' %>
+<div class="span-16" id="header_wrapper">
+  <div class="span-16 last section_margin_top">
+  	<h1>Task</h1>
   </div>
+  <%= render :partial => 'tabs' %>
 </div>
 <div class="span-17 last page_content">
+  <div id="task_title" class="span-16 last border_bottom padding_bottom">
+	<%= render :partial => 'show_title' %>
+	</div>
+	<div class="span-16 last">&nbsp;</div>
   <div class="span-16 last">
-    <div id="task_delete" class="list_action attributes last"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
-    <div id="task_priority" class="list_action attributes"><%= render :partial => 'show_priority', :locals => {:task => @task} %></div>
+    <div class="list_action attributes last" onclick="void(0)" data-behavior="attribute_control">
+      <%= link_to 'convert to plan', convert_task_url(@task) %>
+    </div>
+    <div id="task_delete" class="list_action attributes" onclick="void(0)" data-behavior="attribute_control"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
+    <div id="task_priority" class="list_action attributes" onclick="void(0)" data-behavior="check_box_proxy"  data-check_box="full_view_priority_<%= @task.id %>"><%= render :partial => 'show_priority', :locals => {:task => @task} %></div>
   </div>
-  <div id="task_description" class="span-7 append-2 section_margin_top">
+  <div class="span-16 last">
+  <div id="task_description" class="span-16 last section_margin_top">
   	<%= render :partial => (@task.description.blank? ? 'edit_description' : 'show_description') %>
   </div>
-  <div id="task_due_date" class="span-7 last section_margin_top">
+  <div id="task_due_date" class="span-16 last section_margin_top">
   	<%= render :partial => (@task.due_date.blank? ? 'edit_due_date' : 'show_due_date') %>
   </div>
-  <div id="task_project" class="span-7 append-2 section_margin_top">
+  </div>
+  <div class="span-16 last">
+  <div id="task_project" class="span-16 last section_margin_top">
   	<%= render :partial => (@task.project ? 'show_project_id' : 'edit_project_id') %>
   </div>
-  <div id="task_label" class="span-7 last section_margin_top">
-  	<%= render :partial => (@task.label ? 'show_label_id' : 'edit_label_id') %>
+  <div id="task_label" class="span-16 last section_margin_top">
+  	<%= render :partial => (@task.labels.for_user(@this_user).any? ? 'show_labels' : 'edit_labels') %>
+  </div>
   </div>
 </div>

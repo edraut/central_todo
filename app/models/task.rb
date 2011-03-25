@@ -1,4 +1,5 @@
 class Task < ActiveRecord::Base
+  include Remindable
   #constants
 
   #associations
@@ -6,6 +7,8 @@ class Task < ActiveRecord::Base
   belongs_to :project
   has_many :task_labels, :dependent => :destroy
   has_many :labels, :through => :task_labels
+  has_many :reminders, :as => :remindable, :dependent => :destroy
+  has_many :comments, :as => :commentable, :dependent => :destroy
   
   #named_scopes
   scope :unorganized, where( {:project_id => nil} )

@@ -53,6 +53,7 @@ CentralTodo::Application.routes.draw do
     end
     member do
       get 'convert'
+      get 'comments'
     end
   end
   resources :comments

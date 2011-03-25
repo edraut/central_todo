@@ -1,4 +1,4 @@
-<div id="top_nav" class="mytime">
+<div id="top_nav">
   <div class="meta_nav">
 		<% if @this_user %>
 			<div class="left"><%= link_to 'account', user_url(@this_user), :class => 'button round dark' %></div>
@@ -12,21 +12,32 @@
 	</div>
     <% if @this_user %>
     <div data-role="navbar" class="main_nav">
-      <div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control"><div class="border_wrapper button <% if controller_name == 'dashboard' %> dark<% else %> medium <% end %>">
+      <div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control"><div class="border_wrapper button <% if @nav_tab == 'dashboard' %> dark<% else %> medium <% end %>">
   				<%= link_to 'Dashboard', dashboard_url %>
   		</div></div>
-  		<div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control"><div class="border_wrapper button <% if controller_name == 'schedule' %> dark<% else %> medium<% end %>">
+  		<div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control"><div class="border_wrapper button <% if @nav_tab == 'schedule' %> dark<% else %> medium<% end %>">
   				<%= link_to 'Schedule', schedule_url %>
   		</div></div>
-  		<div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control"><div class="border_wrapper button <% if controller_name == 'projects' %> dark<% else %> medium<% end %>">
+  		<div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control"><div class="border_wrapper button <% if @nav_tab == 'plans' %> dark<% else %> medium<% end %>">
   				<%= link_to 'Plans', plans_url %>
   		</div></div>
-  		<div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control" data-button="true"><div class="border_wrapper button <% if controller_name == 'labels' %> dark<% else %> medium<% end %> last">
+  		<div class="quarter_nav" onclick="void(0)" data-behavior="attribute_control" data-button="true"><div class="border_wrapper button <% if @nav_tab == 'labels' %> dark<% else %> medium<% end %> last">
   				<%= link_to 'Labels', labels_url %>
   		</div></div>
 		</div>
 		<% end %>
 </div>
+<% if @mobile_subnav %>
+<div id="subnav" class="sub_nav">
+  <% if @nav_tab == 'plans' and @task %>
+    <div class="full_nav">
+      <div class="border_wrapper last">
+        <%= link_to @task.project.title, plan_url(@task.project) %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<% end %>
 <div id="main_content" class="container" data-role="content">
 <%= yield %>
 </div>

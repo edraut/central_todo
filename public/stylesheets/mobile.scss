@@ -239,6 +239,30 @@ input[type="submit"]{
 		}
 	}
 }
+.sub_nav {
+	position:relative;
+	float:left;
+	display: block;
+	width: 100%;
+	overflow: hidden;
+	font-size: .75em;
+	.full_nav {
+		position:relative;
+		float:left;
+		width: 100%;
+		overflow: hidden;
+		display: block;
+		background-color: $gray9;
+		.border_wrapper{
+			padding: .8em;
+			a {
+				color: $paper;
+				font-weight: bold;
+				text-shadow: 0px -1px 1px rgba(0,0,0,.7);
+			}
+		}
+	}
+}
 .container {
 	position: relative;
 	float: left;
@@ -435,6 +459,9 @@ button.button {
 	background-color: $paper;
 	color: $carmine;
 	@include light-gradient;
+}
+.completed {
+  text-decoration:line-through;
 }
 .border_bottom {
   border-bottom: 1px solid $gray4;

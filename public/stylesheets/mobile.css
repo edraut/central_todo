@@ -123,6 +123,27 @@ input[type="submit"] {
         font-weight: bold;
         text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.7); }
 
+.sub_nav {
+  position: relative;
+  float: left;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  font-size: .75em; }
+  .sub_nav .full_nav {
+    position: relative;
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    background-color: #5d5c58; }
+    .sub_nav .full_nav .border_wrapper {
+      padding: .8em; }
+      .sub_nav .full_nav .border_wrapper a {
+        color: #fdfcf8;
+        font-weight: bold;
+        text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.7); }
+
 .container {
   position: relative;
   float: left;
@@ -384,6 +405,9 @@ button.button {
   /* for webkit browsers */
   background: -moz-linear-gradient(top, white, #cdccc8);
   /* for firefox 3.6+ */ }
+
+.completed {
+  text-decoration: line-through; }
 
 .border_bottom {
   border-bottom: 1px solid #bdbcb8; }

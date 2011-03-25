@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
   before_filter :get_project, :only => [:show,:edit,:comments,:update,:destroy,:archive_completed_tasks,:sort_tasks]
+  before_filter :set_nav_tab
   
   respond_to :html, :mobile
   

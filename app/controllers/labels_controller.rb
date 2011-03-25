@@ -1,6 +1,7 @@
 class LabelsController < ApplicationController
   before_filter :require_user
   before_filter :get_label, :only => [:show,:edit,:update,:destroy,:archive_completed_tasks,:sort_tasks]
+  before_filter :set_nav_tab
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
   respond_to :html, :mobile
   

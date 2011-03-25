@@ -1,0 +1,7 @@
+<div class="span-16" id="header_wrapper">
+  <div class="span-16 last section_margin_top">
+  	<h1>Task</h1>
+  </div>
+  <%= render :partial => 'tabs' %>
+</div>
+<%= render :partial => '/comments/index', :locals => {:commentable => @task} %>

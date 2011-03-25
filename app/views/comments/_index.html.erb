@@ -1,14 +1,14 @@
-<div class="span-18 last page_content">
+<div class="span-17 last page_content">
   <div id="new_comment_wrapper" class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_comment_form">
     <%= render :partial => '/comments/new', :locals => {:comment => Comment.new(:commentable_id => commentable.id, :commentable_type => commentable.class.name)} %>
 	</div>
 	<div id="comment_list_heading" class="span-16 last">
-		<div class="span-11">
-			<h2><%= commentable.title %></h2>
+    <div class="span-14">
+  		<h2><%= commentable.title %></h2>
 		</div>
-		<div class="span-5 last">
-      	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_comment_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_comment_form">add a comment</a></div>
-		</div>
+	</div>
+	<div class="span-16 last">
+    	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_comment_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_comment_form">add a comment</a></div>
 	</div>
 	<div id="comments_list" class="span-16 last list_section" data-role="list">
     <div class="span-16 last line_item">

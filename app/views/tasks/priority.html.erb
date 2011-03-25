@@ -11,7 +11,7 @@
     </div>
 		<% for task in @tasks %>
 			<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item">
-			<%= render :partial => 'show', :locals => {:task => task} %>
+  			<%= render :partial => 'show', :locals => {:task => task} %>
 			</div>
 		<% end %>
 	</div>

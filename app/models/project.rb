@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  include Remindable
   #constants
 
   #associations
@@ -7,8 +8,8 @@ class Project < ActiveRecord::Base
   has_many :project_sharers, :dependent => :destroy
   has_many :sharers, :through => :project_sharers, :source => :user
   has_many :project_emails, :dependent => :destroy
-  has_many :comments, :as => :commentable
-  has_many :reminders, :as => :remindable
+  has_many :comments, :as => :commentable, :dependent => :destroy
+  has_many :reminders, :as => :remindable, :dependent => :destroy
   
   #named_scopes
   scope :with_due_date, :conditions => "projects.due_date is not null"
@@ -81,17 +82,4 @@ class Project < ActiveRecord::Base
   end
   
   # Needs to be pulled out into a mixin shared amond remindables
-  def handle_reminders
-    if self.due_date_changed? and self.due_date.nil?
-      self.reminders.destroy_all
-    end
-  end
-  
-  def overdue?
-    !self.all_complete and self.due_date_past?
-  end
-    
-  def due_date_past?
-    !self.due_date.nil? and self.due_date < Time.now
-  end
 end
