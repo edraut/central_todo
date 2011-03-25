@@ -1,2 +1,2 @@
-DOMAIN_NAME = 'my-ti.me'
-APP_NAME = 'My Time'
+DOMAIN_NAME = 'getgolist.com'
+APP_NAME = 'Go List'

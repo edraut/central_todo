@@ -1,7 +1,7 @@
-role :app, "my-ti.me"
-role :web, "my-ti.me"
-role :db,  "my-ti.me", :primary => true
-role :push, "my-ti.me"
+role :app, "getgolist.com"
+role :web, "getgolist.com"
+role :db,  "getgolist.com", :primary => true
+role :push, "getgolist.com"
 
 set :db_user, "mytime"
 set :db_pass, "D5j35hq9C"
