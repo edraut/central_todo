@@ -414,12 +414,14 @@ a:hover.selected {
 	border: 1px solid $gray6;
 	height: $line-height-minus-two;
 	z-index: 1002;
+	cursor: pointer;
 }
 .line_item_control_expander_labels {
 	background-color: $paper;
 	border: 1px solid $gray6;
 	height: $compact-line-height;
 	z-index: 1002;
+	cursor: pointer;
 }
 .line_item_control_expander_active{
 	border-bottom: none;
@@ -443,6 +445,7 @@ a:hover.selected {
 	position:relative;
 	float: left;
 	top: .2em;
+	cursor: pointer;
 }
 .list_action {
   position: relative;
@@ -631,6 +634,7 @@ a:hover[data-role=delete].delete {
 	padding-right: 12px;
 	margin-right: 7px;
 	border: 1px solid $gray10;
+	cursor: pointer;
 }
 .label_placeholder {
 	position: relative;
