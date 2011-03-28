@@ -29,17 +29,19 @@ function bindClickToSelect(){
 	})
 }
 function bindClickMultiSelect(){
-	jQuery("[data-click_multi_select='true']").click(function(e){
-		target = jQuery(e.target);
-		if(!target.attr('data-click_multi_select')){
-			target = target.parents("[data-click_multi_select='true']");
-		}
-		if(target.hasClass('selected')){
-			target.removeClass('selected');
-		} else {
-			target.addClass('selected');
-		}
-	})
+	jQuery("[data-click_multi_select='true']").unbind('click',clickMultiSelect);
+	jQuery("[data-click_multi_select='true']").bind('click',clickMultiSelect);
+}
+function clickMultiSelect(e){
+	target = jQuery(e.target);
+	if(!target.attr('data-click_multi_select')){
+		target = target.parents("[data-click_multi_select='true']");
+	}
+	if(target.hasClass('selected')){
+		target.removeClass('selected');
+	} else {
+		target.addClass('selected');
+	}
 }
 function bindAutoSubmit(){
 	jQuery("[data-behavior='auto_submit']").live('change',function(e){
@@ -111,31 +113,28 @@ function handleListDisplay(){
 }
 // Refactor Expanders into a jQuery function that applies full functionality to the selected elements.
 function bindExpanders(){
-	jQuery(document).ready(function(){
-		jQuery("[data-behavior='expander'][data-action='expand']").die('click');
-		jQuery("[data-behavior='expander'][data-action='expand']").live('click', function(e){
-			actual_target = getActualLinkTarget(jQuery(e.target));
-			expandExpander(actual_target.attr('data-id'));
-			return false;
-		});
-		jQuery("[data-behavior='expander'][data-action='contract']").die('click');
-		jQuery("[data-behavior='expander'][data-action='contract']").live('click', function(e){
-			actual_target = getActualLinkTarget(jQuery(e.target));
-			contractExpander(actual_target.attr('data-id'));
-			return false;
-		});
+	jQuery("[data-behavior='expander'][data-action='expand']").die('click');
+	jQuery("[data-behavior='expander'][data-action='expand']").live('click', function(e){
+		actual_target = getActualLinkTarget(jQuery(e.target));
+		expandExpander(actual_target.attr('data-id'));
+		e.preventDefault();
+		return false;
+	});
+	jQuery("[data-behavior='expander'][data-action='contract']").die('click');
+	jQuery("[data-behavior='expander'][data-action='contract']").live('click', function(e){
+		actual_target = getActualLinkTarget(jQuery(e.target));
+		contractExpander(actual_target.attr('data-id'));
+		e.preventDefault();
+		return false;
 	});
 };
 function expandExpander(data_id) {
 	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").show();
 	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").hide();
-	jQuery('#primary_input').focus();
 }
 function contractExpander(data_id) {
 	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").hide();
 	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").show();
-	jQuery("[data-role=\'footer\']").hide();
-	setTimeout('jQuery("[data-role=\'footer\']").show();',200);
 }
 function pausecomp(millis) 
 {
@@ -202,4 +201,18 @@ jQuery.fn.moveToParent = function(parent){
 	   $temp.remove();
 	   $placeholder.remove();
 	});
+}
+function bindConfirm(){
+	jQuery("[data-confirm]").click(function(e){
+		target = jQuery(e.target);
+		if(!target.attr('data-confirm')){
+			target = target.parents("[data-confirm]");
+		};
+		if(confirm(target.attr('data-confirm'))){
+			return true;
+		} else {
+			e.preventDefault();
+			return false;
+		};
+	})
 }

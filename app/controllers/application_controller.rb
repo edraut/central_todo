@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
     case controller_name
     when 'tasks'
       case action_name
-      when 'show','comments'
+      when 'show','comments','update'
         if @task.project
           @nav_tab = 'plans'
           @subnav_tab = @task.project_id

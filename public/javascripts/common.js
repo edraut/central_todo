@@ -41,14 +41,35 @@ function hiddenMultiProxy(e){
 	if(!target.attr('data-hidden_field')){
 		target = target.parents("[data-hidden_field]");
 	}
-	hidden_field = jQuery("input[type='hidden'][name='" + target.attr('data-hidden_field') + "[]'][value='" + target.attr('data-value') + "']");
+	hidden_field = jQuery("input[type='hidden'][name='" + target.attr('data-hidden_field') + "[]'][value='" + target.attr('data-value') + "'][data-id='" + target.attr('data-id') + "']");
 	if(hidden_field.length == 0){
-		hidden_field = jQuery('<input type="hidden" name="' + target.attr('data-hidden_field') + '[]" value="' + target.attr('data-value') + '"/>');
+		hidden_field = jQuery('<input type="hidden" name="' + target.attr('data-hidden_field') + '[]" value="' + target.attr('data-value') + '" data-id="' + target.attr('data-id') + '"/>');
 		target.parents('form').append(hidden_field);
 	} else {
 		hidden_field.remove();
 	}
+	if(target.parents("[data-behavior='expander']").length > 0){
+		save_button = jQuery("[data-hidden_proxy_save='true'][data-id='" + target.parents("[data-behavior='expander']:first").attr('data-id') + "']");
+		close_button = jQuery("[data-hidden_proxy_close='true'][data-id='" + target.parents("[data-behavior='expander']:first").attr('data-id') + "']");
+	} else {
+		save_button = jQuery("[data-hidden_proxy_save='true']");
+		close_button = jQuery("[data-hidden_proxy_close='true']");
+	}
+	close_button.hide();
+	save_button.show();
 }
+function bindLabelSubmit(){
+	jQuery("[data-label_submit='true']").live('click',function(e){
+		target = jQuery(e.target);
+		if(!target.attr('data-label_submit')){
+			target = target.parents("[data-label_submit]");
+		}
+		labels_field = jQuery('<input type="hidden" name="has_labels" value="true" data-id="' + target.attr('data-id') + '"/>');
+		target.parents('form').append(labels_field);
+		target.trigger('submitme');
+	})
+}
+
 function attributeControl(e){
 	target = jQuery(e.target);
 	if(target.attr('data-behavior') != 'attribute_control'){
@@ -124,5 +145,5 @@ jQuery.fn.reDraw = function(){
 }
 jQuery(document).ready(function(){
 	bindAttributeControl();
-	bindButtonDisplay();	
+	bindButtonDisplay();
 });

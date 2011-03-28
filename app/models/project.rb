@@ -77,6 +77,10 @@ class Project < ActiveRecord::Base
     User.joins(:project_sharers).where(["project_sharers.project_id = :project_id",{:project_id => self.id}])
   end
   
+  def all_users
+    self.sharers + [self.user]
+  end
+  
   def shared?
     self.project_sharers.count > 0
   end

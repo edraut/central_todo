@@ -1,17 +1,11 @@
 <h2>Plan</h2>
 <div class="span-16 last section">
-	<%= form_for @task, :html => {
-		:'data-ajax_behavior' => 'ajax_form',
-		:'data-ajax_method' => 'PUT',
-		:'data-ajax_success_element' => 'task_project',
-		:'data-ajax_error_element' => 'task_project',
-		:id => 'edit_task_project_id'
+	<%= form_for @task, :html => {		:id => 'edit_task_project_id'
 	} do |f| %>
-	  <%  project_array = @this_user.projects.active
+	  <%  project_array = Project.for_user(@this_user).active
 	      (project_array = project_array | [@task.project]) if @task.project
 	      %>
 		<%= f.select :project_id, [['none',nil]] + project_array.map{|p| [p.title,p.id]}, {}, :class => 'span-11', :rows => 4 %>
-		<%= hidden_field_tag 'attribute', 'project_id', :id => 'attribute_project_id' %>
     <div class="span-5 last">
 		<%= f.submit 'save' %> or
 		<%= link_to (@task.project ? 'cancel' : 'leave blank'), task_url(@task),

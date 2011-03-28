@@ -11,7 +11,7 @@
 	<div class="span-16 last">&nbsp;</div>
   <div class="span-16 last">
     <div class="list_action attributes last" onclick="void(0)" data-behavior="attribute_control">
-      <%= link_to 'convert to plan', convert_task_url(@task) %>
+      <%= link_to 'convert to plan', convert_task_url(@task), :'data-confirm' => "are you sure you want to convert this task to a plan?" %>
     </div>
     <div id="task_delete" class="list_action attributes" onclick="void(0)" data-behavior="attribute_control"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
     <div id="task_priority" class="list_action attributes" onclick="void(0)" data-behavior="check_box_proxy"  data-check_box="full_view_priority_<%= @task.id %>"><%= render :partial => 'show_priority', :locals => {:task => @task} %></div>

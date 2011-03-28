@@ -315,7 +315,7 @@ a:hover.selected {
 
 .line_item {
   border-bottom: 1px solid #6d6c68;
-  padding-bottom: .4em;
+  padding: .4em 0;
   margin-bottom: 0; }
   .line_item select {
     position: relative;
@@ -324,9 +324,51 @@ a:hover.selected {
     position: relative;
     top: -0.25em; }
 
+.task_line_item_left {
+  position: absolute;
+  left: 0; }
+
+.task_line_item_middle {
+  left: 40px; }
+
 .line_item_soft {
   padding-bottom: .4em;
   padding-top: .4em; }
+
+.line_item_control_expander {
+  background-color: #fdfcf8;
+  border: 1px solid #9d9c98;
+  height: 24px;
+  z-index: 1002; }
+
+.line_item_control_expander_labels {
+  background-color: #fdfcf8;
+  border: 1px solid #9d9c98;
+  height: 20px;
+  z-index: 1002; }
+
+.line_item_control_expander_active {
+  border-bottom: none; }
+
+.line_item_expand_control {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 128px;
+  z-index: 1001;
+  padding: 1em;
+  background-color: #fdfcf8;
+  border: 1px solid #9d9c98; }
+
+.line_item_expand_control_labels {
+  width: 200px;
+  top: 20px;
+  left: 0; }
+
+.line_item_expand_control_clickable {
+  position: relative;
+  float: left;
+  top: .2em; }
 
 .list_action {
   position: relative;
@@ -534,6 +576,12 @@ a:hover[data-role=delete].delete {
   margin-right: 7px;
   border: 1px solid #4d4c48; }
 
+.label_placeholder {
+  position: relative;
+  float: left;
+  font-size: 12px;
+  line-height: "22px"; }
+
 .label_nav {
   position: relative;
   float: left;
@@ -542,6 +590,7 @@ a:hover[data-role=delete].delete {
 
 .label_wrapper {
   padding: 7px 0 7px 7px;
+  margin-right: 7px;
   position: relative;
   float: left;
   border: 1px solid #f0f8f8; }
@@ -712,6 +761,9 @@ a:hover[data-role=delete].delete {
 .mytime .ui-datepicker {
   width: 20em;
   font-size: .7em; }
+
+.hasDatepicker {
+  z-index: 20; }
 
 .mytime .ui-timepicker-div dl dd.ui_tpicker_time {
   margin-top: -2.3em; }

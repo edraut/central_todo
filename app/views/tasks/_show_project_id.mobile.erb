@@ -1,6 +1,7 @@
 <div class="row_item">
 	<h3>Plan</h3>
 </div>
+<% if @task.user_id == @this_user.id %>
 <div class="row_item last list_action h3_padding">
 		<%= link_to (@task.project ? 'change plan' : 'add to a plan'), edit_task_url(@task, :attribute => 'project_id'),
 		 	:'data-ajax_behavior' => 'ajax_link',
@@ -9,4 +10,9 @@
   		:class => 'button round light small'
 		%>
 </div>
+<% else %>
+<div class="row_item last list_action h3_padding small">
+  (task shared by<br/> <%= @task.user.email %>)
+</div>
+<% end %>
 <% if @task.project %><div class="block"><%= @task.project.title %></div><% end %>

@@ -2,6 +2,8 @@ function roundCorners(){
 	jQuery(".list_section").corner("20px");
 	jQuery(".section").corner("13px");
 	jQuery(".label").corner("4px");
+	jQuery(".line_item_expand_control_plan").corner("7px");
+	jQuery(".line_item_expand_control_labels").corner("tr bottom 7px");
 }
 jQuery(document).ready(function(){
 	bindCheckBoxProxy();
@@ -12,6 +14,9 @@ jQuery(document).ready(function(){
 	bindSortables();
 	bindFocusTaskInput();
 	bindHoverShowMore();
+	bindLabelSubmit();
+	bindLineItemControls();
+	bindConfirm();
 	jQuery("[data-role='top_nav_element']").each(function(i){
 		vertCenterDiv(jQuery(this),jQuery('#top_nav_wrapper'));
 	});
@@ -56,6 +61,22 @@ function showDialog(selector) {
 	jQuery(selector).show();
 	roundCorners();
 };
+function showModalMask() {
+
+	var mask_height = jQuery(document).height();
+	var mask_width = jQuery(document).width();
+
+	jQuery('#modal_mask').css('top', '0px');
+	jQuery('#modal_mask').css('left', '0px');
+	jQuery('#modal_mask').css('height', mask_height);
+	jQuery('#modal_mask').css('width', mask_width);
+	jQuery('#modal_mask').show();
+	jQuery('#modal_mask').fadeTo('fast',0.4);
+	roundCorners();
+};
+function hideModalMask(){
+	jQuery('#modal_mask').hide();
+}
 function hideDialog(selector){
   location.reload();
 }
@@ -64,4 +85,21 @@ function addDatePicker(){
   	ampm: true,
   	stepMinute: 5
   });
+}
+function bindLineItemControls(){
+	jQuery("[data-auto_submit='true']").bind('submitme',function(e){
+		jQuery(e.target).parents('form').submit();
+	});
+	jQuery("[data-hover_stop='true']").live('click', function(e){
+		showModalMask();
+		jQuery(e.target).addClass('line_item_control_expander_active');
+		unbindHoverShowMore();
+	});
+	jQuery("[data-hover_rebind='true']").live('click change', function(e){
+		hideModalMask();
+		jQuery("[data-hover_stop='true']").removeClass('line_item_control_expander_active');
+		bindHoverShowMore();
+	});
+	bindClickMultiSelect();
+	bindHiddenMultiProxy();
 }

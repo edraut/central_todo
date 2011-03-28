@@ -47,7 +47,7 @@
 					</div>
 				</div>
 				<div id="task_nav" class="left_nav_wrapper last">
-					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'tasks' %> selected<% end %>" <% unless @nav_tab == 'tasks' %> data-binding="hover_show_more" data-hover_div="task_subnav"<% end %>>
+					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'tasks' %> selected<% end %>" <% unless @nav_tab == 'tasks' %> data-binding="hover_show_more" data-hover_div="#task_subnav"<% end %>>
 						<%= link_to 'Tasks', tasks_url, :class => (@nav_tab == 'tasks') ? 'selected loud' : 'loud' %>
 						<div id="task_subnav"<% unless @nav_tab == 'tasks' %>style="display:none;" class="hover_nav"<% end %>>
 						  <% unless @nav_tab == 'tasks' %>
@@ -71,9 +71,9 @@
 					</div>
 				</div>
 				<div id="project_nav" class="left_nav_wrapper last<% if @nav_tab == 'plans' %> selected<% end %>">
-					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'plans' %> selected<% end %>" <% unless @nav_tab == 'plans' %>data-binding="hover_show_more" data-hover_div="project_subnav"<% end %>>
+					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'plans' %> selected<% end %>" <% unless @nav_tab == 'plans' %>data-binding="hover_show_more" data-hover_div="#project_subnav"<% end %>>
 						<% if @nav_tab == 'plans' %>
-            <div class="hover_nav_selected"<% if ['active','archived'].include? @subnav_tab or Project.for_user(@this_user).active.count > 1 %> data-binding="hover_show_more" data-hover_div="project_subnav"<% end %>>
+            <div class="hover_nav_selected"<% if ['active','archived'].include? @subnav_tab or Project.for_user(@this_user).active.count > 1 %> data-binding="hover_show_more" data-hover_div="#project_subnav"<% end %>>
               <%= link_to 'Plans', plans_url, :class => 'selected loud' %>
   						<div id="project_subnav" style="display:none;" class="hover_nav">
   						  <div class="hover_nav_pointer">&rarr;</div>
@@ -120,7 +120,7 @@
 					</div>
 				</div>
 				<div id="label_nav" class="left_nav_wrapper last">
-					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'labels' %> selected<% end %>"<% unless @nav_tab == 'labels' %> data-binding="hover_show_more" data-hover_div="label_subnav"<% end %>>
+					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'labels' %> selected<% end %>"<% unless @nav_tab == 'labels' %> data-binding="hover_show_more" data-hover_div="#label_subnav"<% end %>>
 						<%= link_to 'Labels', labels_url, :class => (@nav_tab == 'labels') ? 'selected loud' : 'loud' %>
 						<% if @this_user.labels.count > 0 %>
 						<div id="label_subnav"<% unless @nav_tab == 'labels' %>style="display:none;"<% end %> class="left_subnav_wrapper<% unless @nav_tab == 'labels' %> hover_nav<% end %>">

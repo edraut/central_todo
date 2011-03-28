@@ -40,7 +40,7 @@ class CommentsController < ApplicationController
   end
   
   def update
-    unless @comment.commentable.sharers.include? @this_user
+    unless @comment.commentable.all_users.include? @this_user
       flash[:notice] = "You don't have privileges to access that comment."
       redirect_to root_url and return
     end
@@ -62,7 +62,7 @@ class CommentsController < ApplicationController
 
   def get_comment
     @comment = Comment.find(params[:id])
-    if @comment.commentable.user_id != @this_user.id and !@comment.commentable.sharers.include? @this_user
+    if @comment.commentable.user_id != @this_user.id and !@comment.commentable.all_users.include? @this_user
       flash[:notice] = "You don't have privileges to access that comment."
       redirect_to root_url and return
     end

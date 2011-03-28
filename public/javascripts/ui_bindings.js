@@ -24,13 +24,27 @@ function bindSortables(){
 }
 function bindHoverShowMore(){
 	jQuery("[data-binding='hover_show_more']").hover(
-		function(){
-			target_div = jQuery('#' + jQuery(this).attr('data-hover_div'));
-			target_div.fadeIn(150);
-		},
-		function(){
-			jQuery('#' + jQuery(this).attr('data-hover_div')).fadeOut(250);
+		function(event) {
+			if (jQuery(this).attr('data-hover_fadein_time')){
+				fade_speed = parseInt(jQuery(this).attr('data-hover_fadein_time'));
+			} else{
+				fade_speed = 150
+			}
+			target_div = jQuery(jQuery(this).attr('data-hover_div'));
+			target_div.fadeIn(fade_speed);
+	  },
+	 	function(event){
+			if (jQuery(this).attr('data-hover_fade_time')){
+				fade_speed = parseInt(jQuery(this).attr('data-hover_fade_time'));
+			} else{
+				fade_speed = 250
+			}
+			jQuery(jQuery(this).attr('data-hover_div')).fadeOut(fade_speed);
 		}
 	);
 }
+function unbindHoverShowMore(){
+	jQuery("[data-binding='hover_show_more']").unbind();
+}
+
 

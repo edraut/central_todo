@@ -104,8 +104,12 @@ class Task < ActiveRecord::Base
     end
   end
 
+  def all_users
+    self.project.all_users
+  end
+  
   def handle_ownership
-    if self.project and self.project.user_id != self.user_id
+    if self.project and self.project.user_id != self.user_id and !self.project.sharers.map{|s| s.id}.include? self.user_id
       self.project_id = nil
     end
   end

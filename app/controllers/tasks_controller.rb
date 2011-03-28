@@ -40,7 +40,8 @@ class TasksController < ApplicationController
       @tasks = []
       for title in [params[:title_1],params[:title_2],params[:title_3]]
         unless title.blank?
-          @tasks.push Task.create(params[:task].merge(:title => title))
+          task = Task.create(params[:task].merge(:title => title))
+          @tasks.push task
         end
       end
       @task = @tasks.detect{|t| !t.title.blank?}
@@ -87,17 +88,24 @@ class TasksController < ApplicationController
   end
   
   def update
+    if(params.has_key? :partial and params.has_key? :app_context)
+      @app_context = params[:app_context]
+      if (params[:app_context] == 'project' and @state_changed == 'archived')
+        @move = true
+      end
+    end
     if params.has_key? :nullify
       @task.update_attributes({params[:attribute]=> nil})
-    elsif params.has_key? :attribute and params[:attribute] == 'labels'
+    elsif (params.has_key? :attribute and params[:attribute] == 'labels') or ( params.has_key? :has_labels and params.has_key? :partial)
       label_ids = params[:labels]
       label_ids ||= []
+      label_ids = label_ids.map{|lid| lid.to_i}
       old_task_labels = @this_user.task_labels.for_task(@task)
       old_label_ids = old_task_labels.map{|ts| ts.label_id}
       new_label_ids = label_ids - old_label_ids
       delete_label_ids = old_label_ids - label_ids
       for id in delete_label_ids
-        old_task_labels.detect{|ots| ots.label_id == id}.destroy
+        old_task_labels.select{|ots| ots.label_id == id}.each{|l| l.destroy}
       end
       for id in new_label_ids
         TaskLabel.create(:task_id => @task.id,:label_id => id)
@@ -106,13 +114,9 @@ class TasksController < ApplicationController
     else
       @these_params = params[:task].dup
       @state_changed = @task.handle_attributes(@these_params)
-      if(params.has_key? :app_context)
-        @app_context = params[:app_context]
-        if (params[:app_context] == 'project' and @state_changed == 'archived')
-          @move = true
-        end
-      end
       @task.update_attributes(@these_params)
+      @task.reload
+      @project = @task.project
     end
     @item = @task
     if params[:attribute]
@@ -132,7 +136,7 @@ class TasksController < ApplicationController
       end
       @item = @task
       respond_with(@task) do | format |
-        format.any {render @render_type => 'show', :layout => "ajax_line_item", :locals => {:task => @task, :sortable => (params.has_key? :sortable), :needs_organization => (params.has_key? :needs_organization)} and return}
+        format.any {render @render_type => 'show', :layout => (@render_type == :partial) ? "ajax_line_item" : 'application', :locals => {:task => @task, :sortable => (params.has_key? :sortable), :needs_organization => (params.has_key? :needs_organization)} and return}
       end
     end
   end
@@ -155,7 +159,7 @@ class TasksController < ApplicationController
   def get_task
     @task = Task.find(params[:id])
     @project = @task.project
-    if @task.user_id != @this_user.id and (!@task.project.sharer_ids.include? @this_user.id)
+    if @task.user_id != @this_user.id and (!(@task.project.sharer_ids + [@task.project.user_id]).include? @this_user.id)
       flash[:notice] = "You don't have privileges to access that task."
       redirect_to root_url and return
     end

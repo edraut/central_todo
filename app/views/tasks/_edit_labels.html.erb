@@ -10,16 +10,16 @@
 	  <div class="span-11">
       <% for label in @this_user.labels %>
         <div class="label_wrapper <%= (@task.labels.for_user(@this_user).include? label) ? 'selected' : '' %> margin_bottom" data-click_multi_select="true" data-click_id="task_labels">
-          <div class="label <%= label.color %>" data-behavior="hidden_multi_proxy" data-hidden_field="labels" data-value="<%= label.id %>"><%= label.title %></div>
+          <div class="label <%= label.color %>" data-behavior="hidden_multi_proxy" data-hidden_field="labels" data-value="<%= label.id %>" data-id="task_<%= @task.id %>_label_<%= label.id %>"><%= label.title %></div>
         </div>
         <% if @task.labels.for_user(@this_user).include? label %>
-          <input type="hidden" name="labels[]" value="<%= label.id %>">
+          <input type="hidden" name="labels[]" value="<%= label.id %>" data-id="task_<%= @task.id %>_label_<%= label.id %>">
         <% end %>
       <% end %>
 		</div>
 		<%= hidden_field_tag 'attribute', 'labels', :id => 'attribute_labels' %>
   	<div class="span-5 last">
-		<%= f.submit 'save', :id => 'task_labels_submit' %> or
+		<%= f.submit 'save', :id => 'task_labels_submit', :'data-hidden_proxy_save' => "true", :style => 'display:none;' %> <span data-hidden_proxy_save="true" style="display:none;">or</span>
 		<%= link_to (@task.labels.for_user(@this_user).any? ? 'cancel' : 'leave blank'), task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',

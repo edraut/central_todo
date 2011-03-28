@@ -38,6 +38,8 @@ $Cotton_Candy: #FFBCD9;
 $normal-font-size: 16px;
 $compact-font-size: 12px;
 $line-height: 26px;
+$line-height-minus-two: 24px;
+$line-height-minus-three: 23px;
 $compact-line-height: 20px;
 @mixin small-shadow {
 	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
@@ -393,12 +395,54 @@ a:hover.selected {
 		top: -.25em;
 	}
   border-bottom: 1px solid $gray8;
-  padding-bottom: .4em;
+  padding: .4em 0;
   margin-bottom: 0;
+}
+.task_line_item_left{
+	position: absolute;
+	left: 0;
+}
+.task_line_item_middle{
+	left: 40px;
 }
 .line_item_soft {
   padding-bottom: .4em;
   padding-top: .4em;
+}
+.line_item_control_expander {
+	background-color: $paper;
+	border: 1px solid $gray6;
+	height: $line-height-minus-two;
+	z-index: 1002;
+}
+.line_item_control_expander_labels {
+	background-color: $paper;
+	border: 1px solid $gray6;
+	height: $compact-line-height;
+	z-index: 1002;
+}
+.line_item_control_expander_active{
+	border-bottom: none;
+}
+.line_item_expand_control {
+	position:absolute;
+	top: $line-height-minus-two;
+	left: 0;
+	width: 128px;
+	z-index: 1001;
+	padding: 1em;
+	background-color: $paper;
+	border: 1px solid $gray6;
+}
+.line_item_expand_control_labels {
+	width: 200px;
+	top: $compact-line-height;
+	left: 0;
+}
+.line_item_expand_control_clickable{
+	position:relative;
+	float: left;
+	top: .2em;
 }
 .list_action {
   position: relative;
@@ -588,6 +632,12 @@ a:hover[data-role=delete].delete {
 	margin-right: 7px;
 	border: 1px solid $gray10;
 }
+.label_placeholder {
+	position: relative;
+	float: left;
+	font-size: $compact-font-size;
+	line-height: "#{$compact-line-height + 2}";
+}
 .label_nav {
 	position: relative;
 	float: left;
@@ -596,6 +646,7 @@ a:hover[data-role=delete].delete {
 }
 .label_wrapper {
 	padding: 7px 0 7px 7px;
+	margin-right: 7px;
 	position: relative;
 	float: left;
 	border: 1px solid $pale-blue;
@@ -631,6 +682,9 @@ a:hover[data-role=delete].delete {
 .mytime .ui-datepicker {
   width: 20em;
   font-size: .7em;
+}
+.hasDatepicker {
+	z-index: 20;
 }
 .mytime .ui-timepicker-div dl dd.ui_tpicker_time {
   margin-top: -2.3em;

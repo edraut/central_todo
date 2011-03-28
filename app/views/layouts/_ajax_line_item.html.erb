@@ -20,5 +20,8 @@
 		jQuery('#flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>').fadeIn(500);
 		setTimeout(clearFlash,3000);
   	<% end %>
+	  roundCorners();
+    bindHoverShowMore();
+    bindLineItemControls();
 	});
 <% end %>

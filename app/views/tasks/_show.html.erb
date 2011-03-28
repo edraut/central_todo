@@ -1,49 +1,69 @@
 <% sortable = false unless defined? sortable
 	needs_organization = false unless defined? needs_organization
 	if (controller_name == 'projects' and ['show','sort_tasks'].include? action_name)
-	  @app_context = 'project'
+	  @app_context ||= 'project'
   end
   if (controller_name == 'labels' and action_name == 'show')
-    @app_context = 'label'
+    @app_context ||= 'label'
   end
 	 %>
-<div class="span-16 last">
+<div id="line_item_wrapper_<%= task.id %>" class="span-16 last" data-binding="hover_show_more" data-hover_div="[data-hover_id='task_line_item_<%= task.id %>']" data-hover_fade_time="0" data-hover_fadein_time="0">
 <%= form_for task, :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
 	:'data-ajax_success_callback' => "handleArchivementLink();",
 	:'data-ajax_success_element' => "task_#{task.id}"} do |f| %>
-	<div class="span-12">
+	<div class="span-13">
+	  <div class="task_line_item_left" data-hover_id="task_line_item_<%= task.id %>" style="display:none;">
 		<%= f.hidden_field :priority, :id => "priority_#{task.id}", :'data-behavior' => 'auto_submit' %>
 		<div data-behavior="check_box_proxy" data-check_box="priority_<%= task.id %>" class="check_box_proxy <% if task.priority? %>checked<% end %>">&lowast;</div>
 		<div class="line_item_height">
 		<%= f.check_box :state, {:'data-behavior' => 'auto_submit'}, task.archived? ? 'archived' : 'complete', 'active' %>
     </div>
-		<div class="line_item_height span-11 last">
+    </div>
+		<div class="line_item_height span-12 last task_line_item_middle">
       <%= link_to task.title, task_url(task),
         :class => task.done? ? 'completed' : nil %>
       <% unless controller_name == 'labels' and ['show','edit'].include? action_name %>
-      <div class="span-11 last">
+      <div class="span-12 last">
+        <div id="existing_label_wrapper_<%= task.id %>" data-behavior="expander" data-state="contracted" data-id="task_labels_expander_<%= task.id %>">
         <% for label in task.labels.for_user(@this_user) %><div class="label <%= label.color %>"><%= label.title %></div><% end %>
+        </div>
+        <div class="span-2">
+    	    <div class="span-2 line_item_control_expander_labels text_center small" data-behavior="expander" data-action="expand" data-id="task_labels_expander_<%= task.id %>" data-hover_id="task_line_item_<%= task.id %>" data-hover_stop="true" style="display:none;" data-hover_stop="true">(edit labels)</div>
+          <div name="task_labels_expander_<%= task.id %>" class="line_item_expand_control line_item_expand_control_labels" data-behavior="expander" data-state="expanded" style="display:none;" data-id="task_labels_expander_<%= task.id %>">
+            <% for label in @this_user.labels %>
+              <div class="label_wrapper <%= (task.labels.for_user(@this_user).include? label) ? 'selected' : '' %> margin_bottom" data-click_multi_select="true" data-click_id="task_labels">
+                <div class="label <%= label.color %>" data-behavior="hidden_multi_proxy" data-hidden_field="labels" data-value="<%= label.id %>" data-id="task_<%= task.id %>_label_<%= label.id %>"><%= label.title %></div>
+              </div>
+              <% if task.labels.for_user(@this_user).include? label %>
+                <input type="hidden" name="labels[]" value="<%= label.id %>" data-id="task_<%= task.id %>_label_<%= label.id %>">
+              <% end %>
+            <% end %>
+            <div class="line_item_expand_control_clickable" data-behavior="expander" data-action="contract" data-id="task_labels_expander_<%= task.id %>" data-hover_rebind="true" data-hidden_proxy_close="true">close</div>
+            <div id="task_label_submit_<%= task.id %>" class="line_item_expand_control_clickable" data-behavior="expander" data-action="contract" data-id="task_labels_expander_<%= task.id %>" data-hover_rebind="true" data-auto_submit="true" data-label_submit="true" data-hidden_proxy_save="true" style="display:none;">save</div>
+      		</div>
+    		</div>
+    		<% if task.labels.for_user(@this_user).empty? %><div class="label_placeholder">&nbsp;</div><% end %>
       </div>
       <% end %>
 		</div>
 	</div>
-	<div class="span-4 last text_right">
+	<div class="span-3 last text_right">
     <% if @app_context == 'project' %>
-    <div class="span-3 text_left line_item_height"><% if task.due_date %><%= task.due_date.to_date.to_formatted_s(:short) %><% else %>&nbsp;<% end %></div>
-		<% elsif needs_organization %>
-  		<%= f.select :project_id, [['choose',nil]] + Project.for_user(@this_user).active.map{|p| [p.title,p.id]}, {}, :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :class => "span-3" %>
-    <% else %>
-    <div class="span-3 text_left">
-      <% if task.project_id.nil? %>&mdash;<% else %>
-      <%= link_to truncate_clean(task.project.title, {:length => 18, :omission => '-'}), plan_url(task.project_id) %>
-      <% end %>
-    </div>
+    <div class="span-2 text_left line_item_height"><% if task.due_date %><%= task.due_date.to_date.to_formatted_s(:short) %><% else %>&nbsp;<% end %></div>
+		<% else %>
+		  <div class="span-1 prepend-1 text_right line_item_height">
+		    <a href='javascript:void(0);' class="span-1 line_item_control_expander text_center" data-behavior="expander" data-action="expand" data-id="task_project_id_expander_<%= task.id %>" data-hover_id="task_line_item_<%= task.id %>" data-hover_stop="true" style="display:none;" data-hover_stop="true">P</a>
+        <div class="line_item_expand_control line_item_expand_control_plan" data-behavior="expander" data-state="expanded" style="display:none;" data-id="task_project_id_expander_<%= task.id %>">
+      		<%= f.select :project_id, [['choose',nil]] + Project.for_user(@this_user).active.map{|p| [p.title,p.id]}, {}, :id => "task_project_id_select", :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :'data-hover_rebind' => 'true', :class => "span-3" %> <div class="line_item_expand_control_clickable" data-behavior="expander" data-action="contract" data-id="task_project_id_expander_<%= task.id %>" data-hover_rebind="true">close</div>
+    		</div>
+    	</div>
 		<% end %>
     <% if needs_organization %>
       <%= hidden_field_tag 'needs_organization', true, :'data-role' => 'organize_item' %>
 		<% end %>
+		<div  style="display:none;" data-hover_id="task_line_item_<%= task.id %>">
 		<a href="<%= task_url(task) %>"
 			data-ajax_behavior="ajax_link"
 			data-ajax_method="DELETE"
@@ -52,6 +72,7 @@
 			data-ajax_confirm="Are you sure you want to delete this task?"
 			class="delete" data-role="delete">&otimes;</a>
 		<% if sortable == true %><span data-role="sortable_drag_handle" class="sortable_drag_handle">&equiv;</span><% end %>
+		</div>
 		<%= hidden_field_tag ('sortable', true) if (sortable == true) %>
 		<%= hidden_field_tag 'partial', true %>
 		<% if @app_context %>
