@@ -53,7 +53,11 @@ function startSort(candidate){
 	target.data('sorting',true);
 }
 function handleSortBegin(e){
-	touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+	if(e.originalEvent.touches){
+		touch = e.originalEvent.touches[0];
+	} else {
+		touch = e.pageY;
+	}
 	target = jQuery(e.target);
 	if(!target.attr('data-sort_element')){
 		target = target.parents("[data-sort_element='true']");
@@ -86,16 +90,22 @@ function handleSortBegin(e){
 	return false;
 }
 function handleSortMove(e){
-	touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+	if(e.originalEvent.touches){
+		touch = e.originalEvent.touches[0];
+	} else {
+		touch = e;
+	}
 	target = jQuery(e.target);
 	if(!target.attr('data-sort_element')){
 		target = target.parents("[data-sort_element]");
 	}
 	if(target.data('sorting')){
+		jQuery('#testone').html(target.get(0).style.length);
 		target_offset = target.data('original_offset');
 		y_change = touch.pageY - target.data('touchstart_top');
 		new_top = target_offset.top + y_change;
-		target.offset({left: target_offset.left,top: new_top});
+		target.css('-webkit-transform','translate3d(0,' + y_change + 'px,0)');
+		// target.offset({left: target_offset.left,top: new_top});
 		if(y_change > 0){
 			target.data('lower_siblings').forEach(function(sibling){
 				if (new_top < sibling.offset().top){
@@ -107,7 +117,7 @@ function handleSortMove(e){
 					move_sibling.offset({left: move_sibling_offset.left,top: (move_sibling_offset.top - target.outerHeight())})
 				}
 			});
-		} else {
+		} else if(y_change < 0) {
 			target.data('higher_siblings').forEach(function(sibling){
 				if (new_top > sibling.offset().top){
 					break;
@@ -187,6 +197,9 @@ jQuery(document).ready(function(){
 	jQuery("[data-drag_handle]").live('touchstart',handleSortBegin);
 	jQuery("[data-drag_handle]").live('touchmove',handleSortMove);
 	jQuery("[data-drag_handle]").live('touchend',handleSortEnd);
+	jQuery("[data-drag_handle]").live('mousedown',handleSortBegin);
+	jQuery("[data-drag_handle]").live('mousemove',handleSortMove);
+	jQuery("[data-drag_handle]").live('mouseup',handleSortEnd);
 });
 jQuery(window).load(function(){
 	setTimeout(handleHalfSections,100);
