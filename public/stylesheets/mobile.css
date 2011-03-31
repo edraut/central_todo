@@ -476,6 +476,9 @@ div.checked {
 .row_item.delete {
   position: relative; }
 
+.sorting {
+  background-color: #fdfcf8; }
+
 .attach_bottom {
   border-bottom: 1px solid #bdbcb8;
   border-left: 1px solid #bdbcb8;
@@ -491,6 +494,11 @@ div.checked {
 
 .section_margin_top {
   margin-top: 1em; }
+
+.sort_drag_handle {
+  position: relative;
+  float: left;
+  top: .9em; }
 
 .asterisk_icon {
   position: relative;

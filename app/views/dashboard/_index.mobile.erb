@@ -9,7 +9,7 @@
     	<button type="submit" class="row_item button round small light ">add tasks</button>
 	<% end %>
 </div>
-<div data_role="list" class="block">
+<div data_role="list" class="block" id="unarchived_items_wrapper">
   <div class="row">
     <div class="row_item">
       <h2>Unorganized Tasks</h2>
@@ -24,6 +24,15 @@
   </p>
   <% end %>
   </div>
+  	<div class="block"><div class="padding">
+  <div id="archive_completed_items" class="list_action" style="display: none;">
+  	<%= link_to 'archive completed tasks', archive_completed_tasks_url,
+  	 	:'data-ajax_behavior' => 'ajax_link',
+  		:'data-ajax_method' => 'GET',
+  		:'data-ajax_success_callback' => "handleArchivementSuccess(false);",
+  		:class => 'button round small color2 ' %>
+  </div>
+  </div></div>
   <div class="list_container">
 	<% for task in @this_user.tasks.active.unorganized.recent.five %>
 		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">

@@ -13,4 +13,6 @@
 </div>
 <% unless @project.due_date.blank? %>
 <div><%= @project.due_date.to_formatted_s(:full) + ' ' + @project.due_date.zone %></div>
+<%= render :partial => '/reminders/index', :locals => {:remindable => @project} %>
+
 <% end %>

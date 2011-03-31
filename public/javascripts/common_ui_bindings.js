@@ -152,7 +152,8 @@ function pressButton(e){
 	if(target.hasClass('buttons_up')){
 		target.removeClass('buttons_up');
 		target.addClass('buttons_down');
-	}}
+	}
+}
 function releaseButton(e){
 	target = jQuery(e.target);
 	if(!target.attr('data-button')){

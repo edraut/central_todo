@@ -20,8 +20,8 @@
 			:'data-ajax_success_element' => 'project_due_date',
 			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%> or 
     <% else %>
-      &nbsp;
-		<% end %>or
+      &nbsp;or
+		<% end %>
 	<%= link_to (@project.due_date.blank? ? '(leave blank)' : '(cancel)'), plan_url(@project),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',

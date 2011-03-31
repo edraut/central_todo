@@ -6,7 +6,7 @@ module Remindable
   end
   
   def overdue?
-    !self.all_complete and self.due_date_past?
+    !self.all_complete? and self.due_date_past?
   end
     
   def due_date_past?

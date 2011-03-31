@@ -48,6 +48,128 @@ function handleQuarterSections(){
 		}
 	}
 }
+function startSort(candidate){
+	candidate.addClass('sorting');
+	target.data('sorting',true);
+}
+function handleSortBegin(e){
+	touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+	target = jQuery(e.target);
+	if(!target.attr('data-sort_element')){
+		target = target.parents("[data-sort_element='true']");
+	}
+	target_offset = target.offset();
+	target.data('sorting',false);
+	target.data('touchstart_top',touch.pageY);
+	target.data('timer',setTimeout(function(){startSort(target)},150));
+	target.data('original_offset',target_offset);
+	siblings = jQuery("[data-sort_element]:not('#" + target.attr('id') + "')");
+	lower_siblings = [];
+	higher_siblings = [];
+	siblings.each(function(i){
+		sibling = jQuery(this);
+		if (sibling.offset().top > target_offset.top){
+			lower_siblings.push(sibling);
+		} else {
+			higher_siblings.push(sibling);
+		}
+	});
+	lower_siblings.sort(function(a,b){
+		return a.offset().top - b.offset().top;
+	});
+	higher_siblings.sort(function(a,b){
+		return b.offset().top - a.offset().top;
+	});
+	target.data('lower_siblings',lower_siblings);
+	target.data('higher_siblings',higher_siblings);
+	e.preventDefault();
+	return false;
+}
+function handleSortMove(e){
+	touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+	target = jQuery(e.target);
+	if(!target.attr('data-sort_element')){
+		target = target.parents("[data-sort_element]");
+	}
+	if(target.data('sorting')){
+		target_offset = target.data('original_offset');
+		y_change = touch.pageY - target.data('touchstart_top');
+		new_top = target_offset.top + y_change;
+		target.offset({left: target_offset.left,top: new_top});
+		if(y_change > 0){
+			target.data('lower_siblings').forEach(function(sibling){
+				if (new_top < sibling.offset().top){
+					break;
+				} else {
+					target.data('higher_siblings').unshift(target.data('lower_siblings').shift());
+					move_sibling = target.data('higher_siblings')[0];
+					move_sibling_offset = move_sibling.offset();
+					move_sibling.offset({left: move_sibling_offset.left,top: (move_sibling_offset.top - target.outerHeight())})
+				}
+			});
+		} else {
+			target.data('higher_siblings').forEach(function(sibling){
+				if (new_top > sibling.offset().top){
+					break;
+				} else {
+					target.data('lower_siblings').unshift(target.data('higher_siblings').shift());
+					move_sibling = target.data('lower_siblings')[0];
+					move_sibling_offset = move_sibling.offset();
+					move_sibling.offset({left: move_sibling_offset.left,top: (move_sibling_offset.top + target.outerHeight())})
+				}
+			});
+		}
+		e.preventDefault();
+		return false;
+	} else {
+		return true;
+	}
+}
+function handleSortEnd(e){
+	target = jQuery(e.target);
+	if(!target.attr('data-sort_element')){
+		target = target.parents("[data-sort_element]");
+	}
+	if(target.data('timer')){
+		clearTimeout(target.data('timer'));
+	}
+	target_offset = target.offset();
+	same_left = target_offset.left;
+	if(target.data('higher_siblings').length > 0){
+		sibling_above = target.data('higher_siblings')[0];
+		new_top = sibling_above.offset().top + sibling_above.outerHeight();
+		target.offset({left: same_left,top:new_top});
+	} else {
+		new_top = target.parent().offset().top;
+		target.offset({left: same_left,top:new_top});
+	}
+	target.removeClass('sorting');
+	sort_container = target.parents("[data-sort_container]");
+	sort_url = sort_container.attr('data-sort_url');
+	sorted_items = [];
+	higher_siblings.reverse();
+	sorted_items = sorted_items.concat(target.data('higher_siblings'));
+	sorted_items.push(target);
+	sorted_items = sorted_items.concat(target.data('lower_siblings'));
+	sorted_ids = [];
+	sorted_items.forEach(function(item){
+		these_parts = item.attr('id').split('_');
+		name = these_parts[0];
+		id = these_parts[1];
+		sorted_ids.push(name + '[]=' + id);
+	});
+	jQuery.ajax({
+		type: 'GET',
+		dataType: 'html',
+		data: sorted_ids.join('&'),
+		url: sort_url
+	});
+	target.data('sorting',false);
+	target.data('touchstart_top',null);
+	target.data('timer',null);
+	target.data('higher_siblings',null);
+	target.data('lower_siblings',null);
+}
 jQuery(window).bind('orientationchange',function(){
 	handleHalfSections();
 	handleQuarterSections();
@@ -62,6 +184,9 @@ jQuery(document).ready(function(){
     bindLinkToForm();
 	bindDeleteProxy();
 	bindPreventDoubleClick();
+	jQuery("[data-drag_handle]").live('touchstart',handleSortBegin);
+	jQuery("[data-drag_handle]").live('touchmove',handleSortMove);
+	jQuery("[data-drag_handle]").live('touchend',handleSortEnd);
 });
 jQuery(window).load(function(){
 	setTimeout(handleHalfSections,100);

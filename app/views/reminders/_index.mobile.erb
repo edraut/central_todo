@@ -1,0 +1,26 @@
+<% unless remindable.overdue? %>
+<div id="new_reminder_wrapper" class="block" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_reminder_form">
+  <%= render :partial => '/reminders/new', :locals => {:reminder => Reminder.new(:remindable_id => remindable.id, :remindable_type => remindable.class.name)} %>
+</div>
+<% end %>
+<div class="block">
+  <div class="padding">
+    <div class="row_item">
+      <h3>Reminders</h3>
+    </div>
+    <% unless remindable.overdue? %>
+    <div class="row_item">&nbsp;&nbsp;</div>
+    <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_reminder_form" data-button="true">+</div>
+    <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_reminder_form" style="display: none;" data-button="true">&uarr;</div>
+    <% end %>
+  </div>
+</div>
+<div class="block" data-role="list">
+  <div id="reminders_list" class="padding">
+	<% remindable.reminders.for_user(@this_user).by_time.each_with_index do |reminder,index| %>
+		<div class="block padding_bottom padding_top" id="reminder_<%= reminder.id %>" data-role="list_item">
+			<%= render :partial => '/reminders/show', :locals => {:reminder => reminder} %>
+		</div>
+	<% end %>
+	</div>
+</div>

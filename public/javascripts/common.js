@@ -129,7 +129,7 @@ function handleArchivementSuccess(move){
 						handleListDisplay();
 	} else {
 		jQuery('#unarchived_items_wrapper')
-			.find("input[type='checkbox'][name='task[state]']:checked,input[type='checkbox'][name='project[state]']:checked")
+			.find("input[type='checkbox'][name='task[state]']:checked,a.completed")
 				.parents("[data-role='list_item']")
 					.each(function(i){
 						jQuery(this).remove();})

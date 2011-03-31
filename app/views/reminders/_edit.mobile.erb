@@ -1,0 +1,26 @@
+<%= form_for :reminder, reminder, :url => reminder_url(reminder), :html => {
+	:'data-ajax_behavior' => 'ajax_form',
+	:'data-ajax_method' => 'PUT',
+	:'data-ajax_success_element' => "reminder_#{reminder.id}",
+	:id => "reminder_edit_form_#{reminder.id}"} do |f| %>
+  
+  <%= f.select :type, @this_user.available_reminder_types, {}, {:id => "reminder_type_#{reminder.id}", :class => 'auto_width'} %>
+  <%= f.select :lead_time, (0..59).to_a.map{|lt| [lt,lt]}, {}, {:id => 'new_reminder_lead_time', :class => 'auto_width'} %><br/>
+	<%= f.select :time_units, Reminder::TIME_UNITS.map{|tu| [tu,tu]}, {}, {:id => "reminder_time_units_#{reminder.id}", :class => 'auto_width'} %>&nbsp;before<br/>
+  <div class="row">
+  	<button type="submit" class="row_item button round small light ">save</button>
+  	<div class="row_item last padding_top_button small">,
+    <%= link_to '(cancel)', reminder_url(reminder),
+	    :'data-ajax_behavior' => 'ajax_link',
+	    :'data-ajax_method' => 'GET',
+	    :'data-ajax_success_element' => "reminder_#{reminder.id}" %>
+		or <a href="<%= reminder_url(reminder) %>"
+			data-ajax_behavior="ajax_link"
+			data-ajax_method="DELETE"
+			data-ajax_success_callback="jQuery('#reminder_<%= reminder.id %>').remove();"
+			data-ajax_data="{_method: 'DELETE'}"
+			data-ajax_confirm="Are you sure you want to delete this reminder?"
+			class="delete">(delete)</a>
+    </div>
+	</div>
+<% end %>

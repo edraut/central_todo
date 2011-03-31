@@ -1,3 +1,3 @@
-<h2>Plan  <span class="user_title"<% if @project.all_complete %> class="completed"<% end %>> <%= @project.title %></span></h2>
+<h2>Plan  <span class="user_title"<% if @project.all_complete? %> class="completed"<% end %>> <%= @project.title %></span></h2>
 <%= render :partial => 'tabs' %>
 <%= render :partial => '/comments/index', :locals => {:commentable => @project} %>

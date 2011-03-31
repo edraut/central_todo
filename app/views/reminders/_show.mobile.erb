@@ -1,0 +1,14 @@
+<div class="row_item">
+<%= reminder.class.display_name %>
+</div>
+<div class="row_item">
+&nbsp;<%= reminder.lead_time %>
+<%= reminder.time_units_display %>
+before
+</div>
+<div class="row_item list_action small">
+<%= link_to '(edit)', edit_reminder_url(reminder),
+  :'data-ajax_behavior' => 'ajax_link',
+  :'data-ajax_method' => 'GET',
+  :'data-ajax_success_element' => "reminder_#{reminder.id}" %>
+</div>

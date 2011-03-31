@@ -16,11 +16,12 @@
     <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_project_form" data-button="true">+</div>
     <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_project_form" style="display: none;" data-button="true">&uarr;</div>
 	</div>
-  <div id="archive_completed_items" class="list_action" <% unless @this_user.projects.complete.any? %>style="display: none;"<% end %>>
+  <div id="archive_completed_items" class="list_action padding_bottom" <% unless @projects.detect{|p| p.all_complete?} %>style="display: none;"<% end %>>
   	<%= link_to 'archive completed plans', archive_completed_plans_url,
   	 	:'data-ajax_behavior' => 'ajax_link',
   		:'data-ajax_method' => 'GET',
-  		:'data-ajax_success_callback' => "handleArchivementSuccess();" %>
+  		:'data-ajax_success_callback' => "handleArchivementSuccess();",
+  		:class => 'button round small color2 ' %>
   </div>
 	<div id="unarchived_items_wrapper" data-role="list" class="list_container">
 		<% for project in @projects %>
