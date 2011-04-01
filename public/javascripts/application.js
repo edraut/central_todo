@@ -107,6 +107,7 @@ function bindLineItemControls(){
 function startSort(candidate){
 	candidate.addClass('sorting');
 	candidate.data('sorting',true);
+	jQuery(document).bind('select',stopSelect);
 }
 function handleSortBegin(e){
 	if(e.originalEvent.touches){
@@ -125,7 +126,6 @@ function handleSortBegin(e){
 		target_offset = target.offset();
 		target.data('sorting',false);
 		target.data('touchstart_top',touch.pageY);
-		jQuery('#testone').html('binding');
 		target.data('timer',setTimeout(function(){startSort(target)},150));
 		if(!target.data('original_offset',target_offset)){
 			target.data('original_offset',target_offset);
@@ -155,40 +155,72 @@ function handleSortBegin(e){
 	}
 }
 function handleSortMove(e){
+	clearTimeout(jQuery(document).data('scrollTimer'));
 	if(e.originalEvent.touches){
 		touch = e.originalEvent.touches[0];
 	} else {
 		touch = e;
 	}
+	if(sortMove(touch.pageY)){
+		e.preventDefault();
+		return false;
+	} else {
+		return true;
+	}
+}
+function stopSelect(e){
+	e.preventDefault();
+	return false;
+}
+function sortMove(top){
 	target = jQuery(document).data('element_being_dragged');
 	if(!target.attr('data-sort_element')){
 		target = target.parents("[data-sort_element]");
 	}
 	if(target.data('sorting')){
-		jQuery('#testone')
 		target_offset = target.data('original_offset');
-		y_change = touch.pageY - target.data('touchstart_top');
+		y_change = top - target.data('touchstart_top');
 		new_top = target_offset.top + y_change;
 		target.offset({left: target_offset.left,top: new_top});
-		if(y_change > 0){
-			while ((target.data('lower_siblings').length > 0) && (new_top > (target.data('lower_siblings')[0].offset().top) -10)){
-				target.data('higher_siblings').unshift(target.data('lower_siblings').shift());
-				move_sibling = target.data('higher_siblings')[0];
-				move_sibling_offset = move_sibling.offset();
-				move_sibling.offset({left: move_sibling_offset.left,top: (move_sibling_offset.top - target.outerHeight())})
-			}
-		} else if(y_change < 0) {
-			while ((target.data('higher_siblings').length > 0) && (new_top < (target.data('higher_siblings')[0].offset().top) +10)){
-				target.data('lower_siblings').unshift(target.data('higher_siblings').shift());
-				move_sibling = target.data('lower_siblings')[0];
-				move_sibling_offset = move_sibling.offset();
-				move_sibling.offset({left: move_sibling_offset.left,top: (move_sibling_offset.top + target.outerHeight())})
-			}
+		while ((target.data('lower_siblings').length > 0) && (new_top > (target.data('lower_siblings')[0].offset().top) -10)){
+			target.data('higher_siblings').unshift(target.data('lower_siblings').shift());
+			move_sibling = target.data('higher_siblings')[0];
+			move_sibling_offset = move_sibling.offset();
+			move_sibling.offset({left: move_sibling_offset.left,top: (move_sibling_offset.top - target.outerHeight())})
 		}
-		e.preventDefault();
-		return false;
-	} else {
+		while ((target.data('higher_siblings').length > 0) && (new_top < (target.data('higher_siblings')[0].offset().top) +10)){
+			target.data('lower_siblings').unshift(target.data('higher_siblings').shift());
+			move_sibling = target.data('lower_siblings')[0];
+			move_sibling_offset = move_sibling.offset();
+			move_sibling.offset({left: move_sibling_offset.left,top: (move_sibling_offset.top + target.outerHeight())})
+		}
+		if((jQuery(window).scrollTop() + 8) > top){
+			autoScroll(top,'up','fast');
+		} else if((jQuery(window).scrollTop() + 16) > top){
+			autoScroll(top,'up','slow');
+		}
+		if(((jQuery(window).scrollTop() + jQuery(window).height()) - 8) < top){
+			autoScroll(top,'down','fast');
+		} else if(((jQuery(window).scrollTop() + jQuery(window).height()) - 16) < top){
+			autoScroll(top,'down','slow');
+		}
 		return true;
+	} else {
+		return false;
+	}
+}
+function autoScroll(top,direction,speed){
+	if(speed == 'fast'){
+		pixels = 12;
+	} else {
+		pixels = 8
+	}
+	if(direction == 'up'){
+		jQuery(window).scrollTop(jQuery(window).scrollTop() - pixels);
+		jQuery(document).data('scrollTimer',setTimeout(function(){sortMove(top - pixels)},15));
+	} else {
+		jQuery(window).scrollTop(jQuery(window).scrollTop() + pixels);
+		jQuery(document).data('scrollTimer',setTimeout(function(){sortMove(top + pixels)},15));
 	}
 }
 function handleSortEnd(e){
@@ -239,5 +271,6 @@ function handleSortEnd(e){
 		target.data('lower_siblings',null);
 		jQuery(document).unbind('mousemove',handleSortMove);
 		jQuery(document).data('element_being_dragged',null);
+		jQuery(document).unbind('select',stopSelect)
 	}
 }

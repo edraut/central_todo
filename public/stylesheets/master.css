@@ -345,7 +345,7 @@ a:hover.selected {
 .line_item_control_expander_labels {
   background-color: #fdfcf8;
   border: 1px solid #9d9c98;
-  height: 20px;
+  height: 18px;
   z-index: 1002;
   cursor: pointer; }
 
@@ -581,7 +581,6 @@ a:hover[data-role=delete].delete {
   padding-left: 12px;
   padding-right: 12px;
   margin-right: 7px;
-  border: 1px solid #4d4c48;
   cursor: pointer; }
 
 .label_placeholder {
