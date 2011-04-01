@@ -514,6 +514,10 @@ a:hover.selected {
 .in_header {
   margin-top: 3px; }
 
+.sorting {
+  background-color: #fdfcf8;
+  z-index: 100; }
+
 .sortable_drag_handle {
   cursor: move; }
 

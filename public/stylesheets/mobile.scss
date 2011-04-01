@@ -176,6 +176,12 @@ input[type="submit"]{
   margin-top: -.4em;
   margin-bottom: .5em;
 }
+div#testone.testone{
+	position:relative;
+	height: 120px;
+	width: 100%;
+}
+
 .meta_nav {
 	position:relative;
 	float: left;
@@ -537,6 +543,7 @@ div.checked {
 }
 .sorting{
 	background-color: $paper;
+	z-index: 100;
 }
 .attach_bottom {
   border-bottom: 1px solid $gray4;

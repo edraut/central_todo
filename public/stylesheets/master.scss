@@ -164,7 +164,6 @@ select.with_text_field{
 	top: .4em;
 }
 // These classes define layout for specific elements
-
 #inbox_text_area {
 	width: 335px;
 	height: 78px;
@@ -568,6 +567,10 @@ a:hover.selected {
 }
 .in_header{
   margin-top: 3px;
+}
+.sorting{
+	background-color: $paper;
+	z-index: 100;
 }
 .sortable_drag_handle {
 	cursor: move;

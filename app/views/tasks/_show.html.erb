@@ -71,7 +71,7 @@
 			data-ajax_data="{_method: 'DELETE'}"
 			data-ajax_confirm="Are you sure you want to delete this task?"
 			class="delete" data-role="delete">&otimes;</a>
-		<% if sortable == true %><span data-role="sortable_drag_handle" class="sortable_drag_handle">&equiv;</span><% end %>
+		<% if sortable == true %><span data-drag_handle="true" data-role="sortable_drag_handle" class="sortable_drag_handle">&equiv;</span><% end %>
 		</div>
 		<%= hidden_field_tag ('sortable', true) if (sortable == true) %>
 		<%= hidden_field_tag 'partial', true %>
