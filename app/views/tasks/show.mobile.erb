@@ -7,11 +7,10 @@
   <div id="task_priority" class="control left button round color2 " onclick="void(0)" data-behavior="check_box_proxy" data-check_box="priority_<%= @task.id %>" data-button="true"><%= render :partial => 'show_priority' %></div>
   <div id="task_delete" class="control right button round color2 " onclick="void(0)" data-behavior="attribute_control" data-button="true"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
 </div>
-<div class="section">
-  <div class="padding text_center">
-      <%= link_to '(convert to plan)', convert_task_url(@task), :onclick => "if(!confirm('are you sure you want to convert this task to a plan?')){return false;}else{return true};", :class => 'small' %>
-  </div>
+<div class="controls padding_bottom">
+      <%= link_to 'convert to plan', convert_task_url(@task), :onclick => "if(!confirm('are you sure you want to convert this task to a plan?')){return false;}else{return true};", :class => 'button control  right round color2 small' %>
 </div>
+<div class="section">&nbsp;</div>
 <div class="section">
   <div id="task_description" class="padding">
   	<%= render :partial => 'show_description' %>

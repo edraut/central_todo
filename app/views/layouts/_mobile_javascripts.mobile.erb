@@ -12,7 +12,13 @@
 <%= javascript_tag do %>
 	var authenticity_token = '<%= form_authenticity_token %>';
 	var preload_date = new Date();
-	<% unless session[:time_zone_offset] %>
-		document.location.href = '<%= user_session_url %>?time_zone_offset='+(preload_date.getTimezoneOffset()/60);
-	<% end %>
+	if(screen){
+  	<% unless session[:time_zone_offset] %>
+  		document.location.href = '<%= user_session_url %>?time_zone_offset='+(preload_date.getTimezoneOffset()/60)+'&screen_width='+screen.width;
+  	<% end %>
+  } else {
+  	<% unless session[:time_zone_offset] %>
+  		document.location.href = '<%= user_session_url %>?time_zone_offset='+(preload_date.getTimezoneOffset()/60);
+  	<% end %>
+  }
 <% end %>

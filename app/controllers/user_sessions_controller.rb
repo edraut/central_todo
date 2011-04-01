@@ -26,6 +26,9 @@ class UserSessionsController < ApplicationController
     if params[:time_zone_offset]
       session[:time_zone_offset] = params[:time_zone_offset]
     end
+    if params[:screen_width]
+      session[:screen_width] = params[:screen_width]
+    end
     redirect_back_or_default(root_url)
   end
   
