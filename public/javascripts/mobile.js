@@ -157,16 +157,16 @@ function handleSortEnd(e){
 		target.removeClass('sorting');
 		sort_container = target.parents("[data-sort_container]");
 		sort_url = sort_container.attr('data-sort_url');
-		sorted_items = [];
 		higher_siblings.reverse();
+		var sorted_items = []
 		sorted_items = sorted_items.concat(target.data('higher_siblings'));
 		sorted_items.push(target);
 		sorted_items = sorted_items.concat(target.data('lower_siblings'));
-		sorted_ids = [];
+		var sorted_ids = [];
 		sorted_items.forEach(function(item){
-			these_parts = item.attr('id').split('_');
-			name = these_parts[0];
-			id = these_parts[1];
+			var these_parts = item.attr('id').split('_');
+			var name = these_parts[0];
+			var id = these_parts[1];
 			sorted_ids.push(name + '[]=' + id);
 		});
 		jQuery.ajax({

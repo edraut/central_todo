@@ -171,14 +171,14 @@ function handleSortMove(e){
 		new_top = target_offset.top + y_change;
 		target.offset({left: target_offset.left,top: new_top});
 		if(y_change > 0){
-			while ((target.data('lower_siblings').length > 0) && (new_top > target.data('lower_siblings')[0].offset().top)){
+			while ((target.data('lower_siblings').length > 0) && (new_top > (target.data('lower_siblings')[0].offset().top) -10)){
 				target.data('higher_siblings').unshift(target.data('lower_siblings').shift());
 				move_sibling = target.data('higher_siblings')[0];
 				move_sibling_offset = move_sibling.offset();
 				move_sibling.offset({left: move_sibling_offset.left,top: (move_sibling_offset.top - target.outerHeight())})
 			}
 		} else if(y_change < 0) {
-			while ((target.data('higher_siblings').length > 0) && (new_top < target.data('higher_siblings')[0].offset().top)){
+			while ((target.data('higher_siblings').length > 0) && (new_top < (target.data('higher_siblings')[0].offset().top) +10)){
 				target.data('lower_siblings').unshift(target.data('higher_siblings').shift());
 				move_sibling = target.data('lower_siblings')[0];
 				move_sibling_offset = move_sibling.offset();
@@ -213,12 +213,12 @@ function handleSortEnd(e){
 		target.removeClass('sorting');
 		sort_container = target.parents("[data-sort_container]");
 		sort_url = sort_container.attr('data-sort_url');
-		sorted_items = [];
 		higher_siblings.reverse();
-		var sorted_items = sorted_items.concat(target.data('higher_siblings'));
+		var sorted_items = [];
+		sorted_items = sorted_items.concat(target.data('higher_siblings'));
 		sorted_items.push(target);
 		sorted_items = sorted_items.concat(target.data('lower_siblings'));
-		sorted_ids = [];
+		var sorted_ids = [];
 		for(var i = 0; i < sorted_items.length; i++){
 			var item = sorted_items[i];
 			var these_parts = item.attr('id').split('_');
