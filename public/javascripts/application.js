@@ -107,9 +107,9 @@ function bindLineItemControls(){
 function startSort(candidate){
 	candidate.addClass('sorting');
 	candidate.data('sorting',true);
-	jQuery(document).bind('select',stopSelect);
 }
 function handleSortBegin(e){
+	jQuery(document).bind('select',stopSelect);
 	if(e.originalEvent.touches){
 		touch = e.originalEvent.touches[0];
 	} else {
@@ -161,14 +161,12 @@ function handleSortMove(e){
 	} else {
 		touch = e;
 	}
-	if(sortMove(touch.pageY)){
-		e.preventDefault();
-		return false;
-	} else {
-		return true;
-	}
+	sortMove(touch.pageY)
+	e.preventDefault();
+	return false;
 }
 function stopSelect(e){
+	alert('trying to select');
 	e.preventDefault();
 	return false;
 }
@@ -181,7 +179,13 @@ function sortMove(top){
 		target_offset = target.data('original_offset');
 		y_change = top - target.data('touchstart_top');
 		new_top = target_offset.top + y_change;
-		target.offset({left: target_offset.left,top: new_top});
+		if(((jQuery(window).scrollTop() > 10) || (new_top > 10)) && 
+			(((jQuery(window).scrollTop() + jQuery(window).height()) < (jQuery(document).height() - 20)) ||
+				((new_top + jQuery(document).data('element_being_dragged').outerHeight()) < (jQuery(document).height() - 20)))){
+			target.offset({left: target_offset.left,top: new_top});
+		} else {
+			return true;
+		}
 		while ((target.data('lower_siblings').length > 0) && (new_top > (target.data('lower_siblings')[0].offset().top) -10)){
 			target.data('higher_siblings').unshift(target.data('lower_siblings').shift());
 			move_sibling = target.data('higher_siblings')[0];
@@ -194,12 +198,15 @@ function sortMove(top){
 			move_sibling_offset = move_sibling.offset();
 			move_sibling.offset({left: move_sibling_offset.left,top: (move_sibling_offset.top + target.outerHeight())})
 		}
-		if((jQuery(window).scrollTop() + 8) > top){
+		if(((jQuery(window).scrollTop() + 8) > top) && (jQuery(window).scrollTop() > 0)){
 			autoScroll(top,'up','fast');
 		} else if((jQuery(window).scrollTop() + 16) > top){
 			autoScroll(top,'up','slow');
 		}
-		if(((jQuery(window).scrollTop() + jQuery(window).height()) - 8) < top){
+		if(
+				(((jQuery(window).scrollTop() + jQuery(window).height()) - 8) < top) &&
+				((jQuery(window).scrollTop() + jQuery(window).height()) < jQuery(document).height())
+			){
 			autoScroll(top,'down','fast');
 		} else if(((jQuery(window).scrollTop() + jQuery(window).height()) - 16) < top){
 			autoScroll(top,'down','slow');

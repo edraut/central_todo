@@ -120,7 +120,13 @@ function sortMove(top){
 		target_offset = target.data('original_offset');
 		y_change = top - target.data('touchstart_top');
 		new_top = target_offset.top + y_change;
-		target.css('-webkit-transform','translate3d(0,' + y_change + 'px,0)');
+		if(((jQuery(window).scrollTop() > 10) || (new_top > 10)) && 
+			(((jQuery(window).scrollTop() + window.innerHeight) < (jQuery('body').outerHeight() - 20)) ||
+				((new_top + jQuery(document).data('element_being_dragged').outerHeight()) < (jQuery('body').outerHeight() - 20)))){
+					target.css('-webkit-transform','translate3d(0,' + y_change + 'px,0)');
+		} else {
+			return true;
+		}
 		while ((target.data('lower_siblings').length > 0) && (new_top > (target.data('lower_siblings')[0].offset().top) -10)){
 			target.data('higher_siblings').unshift(target.data('lower_siblings').shift());
 			move_sibling = target.data('higher_siblings')[0];

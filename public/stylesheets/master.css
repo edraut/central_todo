@@ -338,13 +338,6 @@ a:hover.selected {
 .line_item_control_expander {
   background-color: #fdfcf8;
   border: 1px solid #9d9c98;
-  height: 24px;
-  z-index: 1002;
-  cursor: pointer; }
-
-.line_item_control_expander_labels {
-  background-color: #fdfcf8;
-  border: 1px solid #9d9c98;
   height: 18px;
   z-index: 1002;
   cursor: pointer; }
@@ -354,17 +347,18 @@ a:hover.selected {
 
 .line_item_expand_control {
   position: absolute;
-  top: 24px;
-  left: 0;
-  width: 128px;
+  top: 18px;
+  left: -30px;
+  min-width: 150px;
+  width: auto;
   z-index: 1001;
   padding: 1em;
   background-color: #fdfcf8;
   border: 1px solid #9d9c98; }
 
 .line_item_expand_control_labels {
-  width: 200px;
-  top: 20px;
+  min-width: 300px;
+  top: 18px;
   left: 0; }
 
 .line_item_expand_control_clickable {

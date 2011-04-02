@@ -30,7 +30,7 @@
         <% for label in task.labels.for_user(@this_user) %><div class="label <%= label.color %>"><%= label.title %></div><% end %>
         </div>
         <div class="span-2">
-    	    <div class="span-2 line_item_control_expander_labels text_center small" data-behavior="expander" data-action="expand" data-id="task_labels_expander_<%= task.id %>" data-hover_id="task_line_item_<%= task.id %>" data-hover_stop="true" style="display:none;" data-hover_stop="true">(edit labels)</div>
+    	    <div class="span-2 line_item_control_expander text_center small" data-behavior="expander" data-action="expand" data-id="task_labels_expander_<%= task.id %>" data-hover_id="task_line_item_<%= task.id %>" data-hover_stop="true" style="display:none;" data-hover_stop="true">(edit labels)</div>
           <div name="task_labels_expander_<%= task.id %>" class="line_item_expand_control line_item_expand_control_labels" data-behavior="expander" data-state="expanded" style="display:none;" data-id="task_labels_expander_<%= task.id %>">
             <% for label in @this_user.labels %>
               <div class="label_wrapper <%= (task.labels.for_user(@this_user).include? label) ? 'selected' : '' %> margin_bottom" data-click_multi_select="true" data-click_id="task_labels">
@@ -53,11 +53,21 @@
     <% if @app_context == 'project' %>
     <div class="span-2 text_left line_item_height"><% if task.due_date %><%= task.due_date.to_date.to_formatted_s(:short) %><% else %>&nbsp;<% end %></div>
 		<% else %>
-		  <div class="span-1 prepend-1 text_right line_item_height">
-		    <a href='javascript:void(0);' class="span-1 line_item_control_expander text_center" data-behavior="expander" data-action="expand" data-id="task_project_id_expander_<%= task.id %>" data-hover_id="task_line_item_<%= task.id %>" data-hover_stop="true" style="display:none;" data-hover_stop="true">P</a>
+		  <div class="span-2">
+		    <% if task.project %>
+		    <div class="span-2 line_item_control_expander text_center small" data-behavior="expander" data-action="expand" data-id="task_project_id_expander_<%= task.id %>" data-hover_id="task_line_item_<%= task.id %>" data-hover_stop="true" style="display:none;" data-hover_stop="true">(see plan)</div>
+        <div class="line_item_expand_control line_item_expand_control_plan text_left" data-behavior="expander" data-state="expanded" style="display:none;" data-id="task_project_id_expander_<%= task.id %>">
+          <div class="small text_left">
+            <%= truncate_clean(task.project.title, :length => 256, :omission => '...', :max_word_length => 25) %>
+          </div><br/>
+        <div class="line_item_expand_control_clickable" data-behavior="expander" data-action="contract" data-id="task_project_id_expander_<%= task.id %>" data-hover_rebind="true">close</div>
+    		</div>
+		    <% else %>
+		    <div class="span-2 line_item_control_expander text_center small" data-behavior="expander" data-action="expand" data-id="task_project_id_expander_<%= task.id %>" data-hover_id="task_line_item_<%= task.id %>" data-hover_stop="true" style="display:none;" data-hover_stop="true">(add plan)</div>
         <div class="line_item_expand_control line_item_expand_control_plan" data-behavior="expander" data-state="expanded" style="display:none;" data-id="task_project_id_expander_<%= task.id %>">
       		<%= f.select :project_id, [['choose',nil]] + Project.for_user(@this_user).active.map{|p| [p.title,p.id]}, {}, :id => "task_project_id_select", :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :'data-hover_rebind' => 'true', :class => "span-3" %> <div class="line_item_expand_control_clickable" data-behavior="expander" data-action="contract" data-id="task_project_id_expander_<%= task.id %>" data-hover_rebind="true">close</div>
     		</div>
+    		<% end %>
     	</div>
 		<% end %>
     <% if needs_organization %>
