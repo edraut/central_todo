@@ -14,11 +14,11 @@
     </div>
     <% for item in @due_date_items.select{|t| Time.parse(t['due_date']).to_date == due_date} %>
 			<div class="span-16 last line_item_soft" id="due_date_<%= item['item_type'].downcase %>_<%= item['id'] %>">
-			  <span class="small"><%= item['item_type'].constantize.display_name %></span>:
+			  <div class="span-1 small"><%= item['item_type'].constantize.display_name %>:</div>
 			    <% if item['item_type'] == 'Project' %>
-			      <%= link_to item['title'], plan_url(item['id'].to_i) %>
+			      <a href="<%= plan_url(item['id'].to_i) %>" class="span-15 last"><div class="row_item"><%= item['title'] %></div></a>
 			    <% else %>
-			      <%= link_to item['title'], task_url(item['id'].to_i) %>
+		        <a href="<%= task_url(item['id'].to_i) %>" class="span-15 last"><div class="row_item"><%= item['title'] %></div></a>
     			<% end %>
 			</div>
 		<% end %>

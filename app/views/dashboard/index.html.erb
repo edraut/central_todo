@@ -27,9 +27,7 @@
     <% end %>
   </div>
   <div class="span-16 last list_section" id="unarchived_items_wrapper">
-    <div class="span-16 last line_item">
-      <div class="span-11 append-2 text_center small">task title</div>
-    </div>
+    <div class="span-16 last list_topper">&nbsp;</div>
 		<% @this_user.tasks.active.unorganized.recent.five.each_with_index do |task, index| %>
 			<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item">
 			<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true} %>
@@ -63,18 +61,17 @@
     <h2>Priority Tasks</h2>
   </div>
   <div class="span-7 last list_section">
-    <ul>
+	  <div class="span-7 last list_topper">&nbsp;</div>
 		<% @priority_tasks.each_with_index do |task,index| %>
-			<li class="line_item_soft" id="priority_task_<%= task.id %>" data-role="list_item">
-	      <%= link_to task.title, task_url(task)%>
-			</li>
+		  <div class="span-7 last line_item">
+	      <a href="<%= task_url(task) %>"><div class="block"><%= task.title %></div></a>
+	    </div>
 		<% end %>
 		<% if @total_priority_task_count > 5 %>
       <div class=" text_right section_margin_top">
         <%= link_to 'See all', due_date_tasks_url %> &rarr;
       </div>
 		<% end %>
-    </ul>
   </div>
   </div>
   <% else %>
@@ -97,11 +94,11 @@
     </div>
     <% for item in @due_date_items.select{|t| t.due_date.to_date == due_date} %>
 			<div class="span-7 last line_item_soft" id="due_date_<%= item.class.display_name.downcase %>_<%= item.id %>">
-			  <span class="small"><%= item.class.display_name %></span>:
+			  <div class="span-1 small"><%= item.class.display_name %>:</div>
 			    <% if item.class.name == 'Project' %>
-			      <%= link_to item.title, plan_url(item) %>
+			      <a href="<%= plan_url(item) %>" class="span-6 last"><div class="block"><%= item.title%></div></a>
 			    <% else %>
-			      <%= link_to item.title, task_url(item) %>
+		        <a href="<%= task_url(item) %>" class="span-6 last"><div class="block"><%= item.title%></div></a>
     			<% end %>
 			</div>
 		<% end %>

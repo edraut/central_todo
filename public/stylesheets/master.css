@@ -8,9 +8,8 @@ a {
   color: #4d4c48;
   text-decoration: none; }
 
-a:hover {
-  color: #bdbcb8;
-  background-color: #edece8;
+a:hover, a:hover div {
+  color: #8e8d89;
   text-decoration: none; }
 
 a.quiet, div.quiet, span.quiet, .explanatory {
@@ -158,12 +157,14 @@ select.with_text_field {
   -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); }
-  .list_section a:hover {
-    background-color: #dddcd8;
-    color: #6d6c68; }
 
 .list_section_inner {
   margin-left: 20px; }
+
+.block {
+  position: relative;
+  float: left;
+  width: 100%; }
 
 .section {
   background-color: #f0f8f8;
@@ -324,6 +325,14 @@ a:hover.selected {
     position: relative;
     top: -0.25em; }
 
+.row_item {
+  position: relative;
+  float: left; }
+
+.list_topper {
+  height: 1px;
+  border-bottom: 1px solid #6d6c68; }
+
 .task_line_item_left {
   position: absolute;
   left: 0; }
@@ -341,6 +350,9 @@ a:hover.selected {
   height: 18px;
   z-index: 1002;
   cursor: pointer; }
+
+.line_item_control_expander_plan {
+  top: 3px; }
 
 .line_item_control_expander_active {
   border-bottom: none; }

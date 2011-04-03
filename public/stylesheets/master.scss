@@ -90,9 +90,9 @@ a {
 	color: $gray10;
 	text-decoration: none;
 }
-a:hover {
-  color: $gray4;
-  background-color: $gray1;
+a:hover, a:hover div {
+  // background-color: $gray2;
+	color: $gray7;
 	text-decoration: none;
 }
 a.quiet, div.quiet, span.quiet, .explanatory {
@@ -241,13 +241,14 @@ select.with_text_field{
 	background-color: $gray4;
 	line-height: $compact-line-height;
 	@include small_shadow;
-	a:hover {
-	  background-color: $gray2;
-		color: $gray8;
-	}
 }
 .list_section_inner {
 	margin-left: 20px;
+}
+.block {
+	position: relative;
+	float: left;
+	width: 100%;
 }
 .section {
 	background-color: $pale-blue;
@@ -398,6 +399,14 @@ a:hover.selected {
   padding: .4em 0;
   margin-bottom: 0;
 }
+.row_item {
+	position: relative;
+	float: left;
+}
+.list_topper {
+	height: 1px;
+	border-bottom: 1px solid $gray8
+}
 .task_line_item_left{
 	position: absolute;
 	left: 0;
@@ -415,6 +424,9 @@ a:hover.selected {
 	height: $compact-line-height-minus-two;
 	z-index: 1002;
 	cursor: pointer;
+}
+.line_item_control_expander_plan{
+	top: 3px;
 }
 .line_item_control_expander_active{
 	border-bottom: none;
