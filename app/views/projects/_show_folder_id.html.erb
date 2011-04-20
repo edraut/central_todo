@@ -1,0 +1,14 @@
+<div class="span-3">
+	<h2>Folder</h2>
+</div>
+<div class="span-13 last">
+  <div class="attribute_action">
+		<%= link_to (@project.folder_for(@this_user) ? 'change folder' : 'add to a folder'), edit_plan_url(@project, :attribute => 'folder_id'),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'project_folder_id'
+		%>
+  </div>
+</div>
+
+<div class="span-16 last section"><% if @project.folder_for(@this_user) %><%= @project.folder_for(@this_user).title %><% else %>&nbsp; <% end %></div>

@@ -5,7 +5,7 @@
   <div class="block">&nbsp;</div>
 <div class="block controls">
   <div id="task_priority" class="control left button round color2 " onclick="void(0)" data-behavior="check_box_proxy" data-check_box="priority_<%= @task.id %>" data-button="true"><%= render :partial => 'show_priority' %></div>
-  <div id="task_delete" class="control right button round color2 " onclick="void(0)" data-behavior="attribute_control" data-button="true"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
+  <div id="task_delete" class="control right button round color2 " onclick="void(0)" data-button="true" data-button="true"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
 </div>
 <div class="controls padding_bottom">
       <%= link_to 'convert to plan', convert_task_url(@task), :onclick => "if(!confirm('are you sure you want to convert this task to a plan?')){return false;}else{return true};", :class => 'button control  right round color2 small' %>

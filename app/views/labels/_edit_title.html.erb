@@ -12,12 +12,16 @@
   	<%= hidden_field_tag 'attribute', 'title' %>
     </div>
     <div class="span-4 last text_right">
-    <%= f.submit 'save' %> or
-  	<%= link_to 'cancel', label_url(@label),
-  	 	:'data-ajax_behavior' => 'ajax_link',
-  		:'data-ajax_method' => 'GET',
-  		:'data-ajax_success_element' => 'label_title',
-  		:'data-ajax_data' => "{attribute: 'title'}"%>&nbsp;&nbsp;
+    	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+    	  <div class="button_content">save</div>
+    	</div>
+    	<div class="text_with_small_button small">
+			or <%= link_to 'cancel', label_url(@label),
+      	 	:'data-ajax_behavior' => 'ajax_link',
+      		:'data-ajax_method' => 'GET',
+      		:'data-ajax_success_element' => 'label_title',
+      		:'data-ajax_data' => "{attribute: 'title'}"%>
+      </div>
   	</div>
   <% end %>
 </div>

@@ -70,28 +70,50 @@ function bindLabelSubmit(){
 	})
 }
 
-function attributeControl(e){
+function buttonControl(e){
 	target = jQuery(e.target);
-	if(target.attr('data-behavior') != 'attribute_control'){
-		target = target.parents("[data-behavior='attribute_control']");
+	if(!target.attr('data-button')){
+		target = target.parents("[data-button]");
+	}
+	if(target.attr('data-submit')){
+		target.parents('form').submit();
+		e.preventDefault();
+		e.stopPropagation();
+		return false;
 	}
 	link = target.find("[data-behavior='link_to_form']");
 	if(link.length == 0){
 		link = target.find("[data-role='delete']");
 	}
-	if(link){
+	if(link.length == 0){
+		link = target.find("[data-ajax_behavior='ajax_link']");
+	}
+	if(link.length == 0){
+		link = target.find("[data-behavior='expander'][data-action]");
+	}
+	if(link.length > 0){
+		e.stopPropagation();
+		e.preventDefault();
 		link.click();
+		return false;
 	}
 	if(link.length == 0){
 		link = target.find('a');
-		if(link){
+		if(link.length > 0){
 			document.location.href = link.attr('href');
+			return true;
+		}
+	}
+	if(link.length == 0){
+		form = target.find('form');
+		if(form.length > 0){
+			form.submit();
 		}
 	}
 }
-function bindAttributeControl(){
-	jQuery("[data-behavior='attribute_control']").die('click');
-	jQuery("[data-behavior='attribute_control']").live('click',attributeControl);
+function bindButtonControl(){
+	jQuery("[data-button]").die('click');
+	jQuery("[data-button]").live('click',buttonControl);
 }
 function bindCheckBoxProxy(){
 	jQuery("[data-behavior='check_box_proxy']").die('click');
@@ -138,12 +160,37 @@ function handleArchivementSuccess(move){
 		setTimeout(roundCorners,1500);
 	}
 }
+function popButtons(){
+	jQuery('.button').each(function(i){
+		if(jQuery(this).find('.glare').length == 0){
+			glare = jQuery('<div class="glare">&nbsp;</div>');
+			jQuery(this).prepend(glare);
+		} else {
+			glare = jQuery(this).find('.glare');
+		}
+		width = jQuery(this).outerWidth();
+		if (!jQuery.browser.msie) {
+			if(jQuery(this).hasClass('small')){
+				glare.width(width - 10);
+			} else {
+				glare.width(width - 16);
+			}
+		}
+	});
+}
 jQuery.fn.reDraw = function(){
 	dummy = jQuery(" <!--placeholder--> ");
 	jQuery(this).append(dummy);
 	dummy.remove();
 }
 jQuery(document).ready(function(){
-	bindAttributeControl();
-	bindButtonDisplay();
+	bindButtonControl();
+	popButtons();
 });
+function printObj(myObj){
+	output = "";
+	for (myKey in myObj){
+		output = output.concat(myKey+" = "+myObj[myKey]+"\n");
+	}
+	return output;
+}

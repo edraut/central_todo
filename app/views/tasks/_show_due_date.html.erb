@@ -11,7 +11,9 @@
   </div>
 </div>
 <div class="span-16 last section">
-  <% unless @task.due_date.blank? %>
+  <% if @task.due_date.blank? %>
+  none
+  <% else %>
     <div class="border_bottom padding_bottom<% if @task.overdue? %> overdue<% end %>">
       <%= @task.due_date.to_formatted_s(:full) + ' ' + @task.due_date.zone %>
     </div>

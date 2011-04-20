@@ -5,9 +5,10 @@ class ProjectSharersController < ApplicationController
     if @sharer
       ProjectSharer.create(:user_id => @sharer.id,:project_id => @project.id)
     else
-      Notifier.share_plan(@project,params[:sharer_email])
-      flash[:notice] = "We sent a copy of this plan to #{params[:sharer_email]} via email."
-      
+      tmp_pass = User.generate_code(8)
+      @sharer = FreeAccount.create(:email => params[:sharer_email], :password => tmp_pass, :password_confirmation => tmp_pass)
+      Notifier.share_plan(@project,@sharer)
+      flash[:notice] = "We created a free account for #{params[:sharer_email]} and sent a welcome email including information about the plan you shared."
     end
   end
   

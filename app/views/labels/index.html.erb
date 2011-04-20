@@ -8,14 +8,21 @@
 			<div class="span-12">
 				<%= f.text_field :title, :id => 'primary_input', :class => "span-12" %>
 			</div>
-			<div class="span-6 last">
+			<div class="span-4 last">
 				<%= f.hidden_field :user_id %>
-				<%= f.submit "Save"%>
+      	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+      	  <div class="button_content">add label</div>
+      	</div>
 			</div>
 		<% end %>
 	</div>
 	<% if @this_user.labels.count > 0 %>
 	<div class="span-16 last list_section section_margin_top">
+	  <% if @this_user.labels.count == 1 %>
+    <div class="span-16 last padding_bottom">
+      You can change the color and name of a label by clicking on it, then clicking on the 'edit label' tab at the top of the content area.
+    </div>
+	  <% end %>
 		<% for label in @this_user.labels %>
 			<div id="label_<%= label.id %>" class="span-16 last padding_bottom">
 			  <div class="label <%= label.color %>">

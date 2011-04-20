@@ -3,7 +3,7 @@
 </div>
 <div class="span-13 last">
 <% if @project.user_id == @this_user.id %>
-  <div class="list_action">
+  <div class="attribute_action">
 		<%= link_to (@project.shared? ? 'edit sharing' : 'add sharers'), edit_plan_url(@project, :attribute => 'sharing'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',

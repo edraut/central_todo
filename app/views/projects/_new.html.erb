@@ -1,0 +1,17 @@
+<div id="folder_<%= folder.id %>_new_project_form" style="display: none;" class="span-15 last list_section_indent section_margin_top" data-behavior="expander" data-state="expanded" data-id="folder_<%= folder.id %>_new_project_form">
+	<%= form_for Project.new(:folder_id => folder.id, :state => 'active'), :url => plans_url, :html => {:id => "folder_#{folder.id}_new_project_form"} do |f| %>
+		<div class="span-11">
+			<%= f.text_field :title, :id => "folder_#{folder.id}_new_project_title", :class => "span-11" %>
+		</div>
+		<div class="span-4 last">
+			<%= f.hidden_field :state, :id => "folder_#{folder.id}_new_project_state" %>
+			<%= f.hidden_field :folder_id, :id => "folder_#{folder.id}_new_project_folder_id" %>
+    	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+    	  <div class="button_content">add plan</div>
+    	</div>
+    	<div class="text_with_small_button small" onclick="void(0)" data-behavior="expander" data-action="contract" data-id="folder_<%= folder.id %>_new_project_form">
+			or cancel
+      </div>
+		</div>
+	<% end %>
+</div>

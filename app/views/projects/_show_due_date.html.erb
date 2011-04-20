@@ -2,7 +2,7 @@
 		<h2>Due Date</h2>
 	</div>
 	<div class="span-13 last">
-    <div class="list_action">
+    <div class="attribute_action">
   		<%= link_to (@project.due_date.blank? ? 'add due date' : 'edit due date'), edit_plan_url(@project, :attribute => 'due_date'),
   		 	:'data-ajax_behavior' => 'ajax_link',
   			:'data-ajax_method' => 'GET',
@@ -11,7 +11,9 @@
     </div>
 	</div>
 	<div class="span-16 last section">
-	  <% unless @project.due_date.blank? %>
+	  <% if @project.due_date.blank? %>
+    none
+    <% else %>
 	  <div class="border_bottom padding_bottom<% if @project.overdue? %> overdue<% end %>">
   	  <%= @project.due_date.to_formatted_s(:full) + ' ' + @project.due_date.zone %>
   	</div>

@@ -1,0 +1,9 @@
+<div class="padding" data-behavior="expander" data-state="expanded" data-id="folder_<%= folder.id %>_new_project_form" style="display:none;">
+  <b>Add a Plan</b>
+	<% form_for Project.new(:folder_id => folder.id, :state => 'active'), :url => plans_url, :html => {:id => "folder_#{folder.id}_new_project_form"} do |f| %>
+			<%= f.text_field :title, :class => "span-9" %>
+			<%= f.hidden_field :state, :id => "folder_#{folder.id}_new_project_state" %>
+			<%= f.hidden_field :folder_id, :id => "folder_#{folder.id}_new_project_folder_id" %>
+    	<button type="submit" class="row_item button round small light ">save</button>
+	<% end %>
+</div>

@@ -1,0 +1,2 @@
+class PaidAccount < User
+end

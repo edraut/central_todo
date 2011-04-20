@@ -2,14 +2,19 @@
 <h1>
 <%= @plan.user.email %> shared this plan with you from http://<%= DOMAIN_NAME %>.
 </h1>
-<% unless @account_holder %>
+</center>
+<% unless @account_holder.is_a? PaidAccount %>
 <p>
-<%= APP_NAME %> is a simple online task manager accessible from any computer and most phones. If you sign up for a 30-day free trial (http://<%= DOMAIN_NAME %>/sign_up) you can view this plan with all the powerful features available in <%= APP_NAME %>, and then you can start organizing your own plans with the simplest, most powerful online task manager available.
+<%= APP_NAME %> is a simple online task manager accessible from any computer and most touch screen phones.<br/>
+We've created a free account for you. Your login is <%= @account_holder.email %> and your password is <%= @tmp_pass %><br/>
+You can change your email and/or password when you log in at http://<%= DOMAIN_NAME %>/sign_in.
+</p>
+<p>
+Because <%= @plan.user.email %> shared this plan with you, you can use many of the features of <%= APP_NAME %> with the free account we created for you. If you sign up for a 30-day free trial of one of our paid accounts (see http://<%= DOMAIN_NAME %>/users/<%= @account_holder.id %>) you can create your own plans, organize them, and share them with others with the simplest, most powerful online task manager available.
 </p>
 <% end %>
-</center>
 <h2>
-Plan: <% if @account_holder %> <%= link_to @plan.title, @plan_url, :target => '_blank' %> <% else %> <%= @plan.title %> <% end %>
+Plan: <%= link_to @plan.title, @plan_url, :target => '_blank' %>
 </h2>
 
 <ul>

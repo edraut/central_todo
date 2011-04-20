@@ -43,6 +43,35 @@ function bindHoverShowMore(){
 		}
 	);
 }
+function bindHoverReveal(){
+	jQuery("[data-hover_reveal]").mouseover(
+		function(e){
+			stunt_double = jQuery(this).clone();
+			stunt_double.attr('data-hover_reveal',null)
+			jQuery('body').append(stunt_double);
+			left_margin = parseInt(jQuery(this).css('margin-left'));
+			if(isNaN(left_margin)){
+				left_margin = 0;
+			}
+			stunt_double
+				.css('position','absolute')
+				.css('left',(jQuery(this).offset().left - left_margin))
+				.css('top',jQuery(this).offset().top)
+				.css('overflow','visible')
+				.css('z-index',1004);
+			stunt_double.attr('data-hover_reveal_stunt_double',true);
+			stunt_double.attr('id',jQuery(this).attr('id') + 'stunt_double');
+			return true;
+		}
+	);
+	jQuery("[data-hover_reveal_stunt_double]").live('mouseout',
+		function(e){
+			jQuery('#testone').html('out');
+			jQuery(this).remove();
+			return true;
+		}
+	);
+}
 function unbindHoverShowMore(){
 	jQuery("[data-binding='hover_show_more']").unbind();
 }

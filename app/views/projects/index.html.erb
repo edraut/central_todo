@@ -1,68 +1,116 @@
 <div class="span-17 last section_margin_top" id="header_wrapper">
-	<div class="span-9"><h1>Plans</h1></div><% if (@help_text = true) and @this_user.projects.count > 0%><div class="span-8 last quiet text_right">You can add tasks to a plan, add a plan description, and more by clicking on the plan title in any list</div><% end %>
+	<div class="span-9"><h1>All Active Plans</h1></div>
+	<% if (@help_text = true) and @this_user.projects.count > 0%>
+	  <div class="span-8 last quiet text_right">You can add tasks to a plan, add a plan description, and more by clicking on the plan title in any list</div>
+	<% end %>
 </div>
 <div class="span-17 last page_content">
-  <h2>Make a new plan.</h2>
-	<div class="span-16 last">
-		<% form_for @project, :url => plans_url do |f| %>
-			<div class="span-12">
-				<%= f.text_field :title, :id => 'primary_input', :class => "span-12" %>
+<% if @this_user.folders.count == 0 %>
+  <h2>Make a folder to organize your plans.</h2>
+  <div class="span-15 explanatory section_margin_top">'work' and 'personal' are common examples of folders. As you create plans you will think of other folder categories to create. You can use any names that help you group plans in a way that makes sense to you.</div>
+  <div class="span-15 section_margin_top">
+  <%= form_for @folder do |f| %>
+    <div class="span-12">
+      <%= f.label :title, 'Folder Title' %>
+			<%= f.text_field :title, :class => "span-12" %>
+		</div>
+		<div class="span-4 last">
+			<%= f.hidden_field :user_id %>
+			<%= f.submit "Save", :id => "folder_submit_button" %>
+		</div>
+  <% end %>
+  </div>
+<% else %>
+  <div class="span-17 last" data-behavior="expander" data-state="contracted" data-id="new_folder_form">
+    <div id="archive_completed_items" class="list_action button round light" data-button="true" <% unless  @this_user.projects.active.detect{|p| p.all_complete?} %>style="display: none;"<% end %>><div class="button_content">
+    	<%= link_to 'archive completed plans', archive_completed_plans_url,
+    	 	:'data-ajax_behavior' => 'ajax_link',
+    		:'data-ajax_method' => 'GET',
+    		:'data-ajax_success_callback' => "handleArchivementSuccess();" %>
+    	</div>
+    </div>
+    <div class="list_action button round light" onclick="void(0)" data-behavior="expander" data-action="expand" data-id="new_folder_form"><div class="button_content">add a folder</div></div>
+  </div>
+  <div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_folder_form">
+    <%= form_for Folder.new(:user_id => @this_user.id) do |f| %>
+      <div class="span-12">
+				<%= f.text_field :title, :class => "span-12" %>
 			</div>
 			<div class="span-4 last">
 				<%= f.hidden_field :user_id %>
-				<%= f.hidden_field :state, :value => 'active' %>
-				<%= f.submit "Save", :id => "plan_submit_button" %>
+      	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+      	  <div class="button_content">save</div>
+      	</div>
+      	<div class="text_with_small_button small">
+				or <a href="#" data-behavior="expander" data-action="contract" data-id="new_folder_form">cancel</a>
+        </div>
 			</div>
-		<% end %>
-	</div>
-	<% if @projects.any? %>
-	<div class="span-16 last section_margin_top">
-    <div class="span-6">
-  		<h2>Active Plans</h2>
-  	</div>
-  	<div class="span-10 last">
-      <div id="archive_completed_items" class="list_action attach_above" <% unless  @projects.detect{|p| p.all_complete?} %>style="display: none;"<% end %>>
-      	<%= link_to 'archive completed plans', archive_completed_plans_url,
-      	 	:'data-ajax_behavior' => 'ajax_link',
-      		:'data-ajax_method' => 'GET',
-      		:'data-ajax_success_callback' => "handleArchivementSuccess();" %>
+    <% end %>
+  </div>
+  <div class="span-17 last page_pull_left" data-sort_container="true">
+  <% for folder in @folders %>
+    <div id="folder_<%= folder.id %>" class="span-17 last padding_top padding_bottom">
+    	<div class="span-16 last" data-binding="hover_show_more" data-hover_div="[data-hover_id='folder_line_item_<%= folder.id %>']" data-hover_fade_time="50" data-hover_fadein_time="50">
+    	  <div class="span-13">
+      		<h2>
+      		  <div onclick="void(0)" class="row_item rarr_width" data-behavior="expander" data-state="contracted" data-action="expand" data-id="folder_<%= folder.id %>_project_list">&nbsp;&gt;</div>
+      		  <div class="row_item rarr_width" onclick="void(0)" data-behavior="expander" data-state="expanded" data-action="contract" data-id="folder_<%= folder.id %>_project_list" style="display:none;">&nbsp;&or;</div>
+      		  <div class="span-12"> <%= link_to folder.title, folder_url(folder) %></div>
+      	  </h2>
+      	</div>
+  		  <div class="span-1_5 line_item_height">
+  		    <span class="count" data-sort_count="true" data-sort_id="folder_plan_list" data-sort_count_id="folder_<%= folder.id %>_plan_list"><%= Project.for_folder(folder).active.count %></span>
+    		  <span style="display:none;" data-behavior="expander" data-state="expanded" data-id="folder_<%= folder.id %>_project_list"> &nbsp;
+    		    <a class="plus_icon" data-behavior="expander" data-action="expand" data-id="folder_<%= folder.id %>_new_project_form"  data-hover_id="folder_line_item_<%= folder.id %>" style="display:none;">&oplus;</a>
+          </span>
+        </div>
+      	<div style="display:none;" class="span-1_5 last text_right" data-hover_id="folder_line_item_<%= folder.id %>">
+      	  <span>
+          <a href="<%= folder_url(folder) %>"
+      			data-ajax_behavior="ajax_link"
+      			data-ajax_method="DELETE"
+      			data-ajax_success_callback="jQuery('#folder_<%= folder.id %>').remove();handleListDisplay();"
+      			data-ajax_data="{_method: 'DELETE'}"
+      			data-ajax_confirm="Are you sure you want to delete this folder? You'll delete all the plans and tasks inside as well."
+      			class="delete" data-role="delete">&otimes;</a>
+      		</span>&nbsp;&nbsp;
+      	</div>
+      </div>
+      <div class="span-17 list_section_indent last" data-behavior="expander" data-state="expanded" data-id="folder_<%= folder.id %>_project_list" style="display:none;">
+        <%= render :partial => 'new', :locals => {:folder => folder} %>
+    	<% if @this_user.projects.active.any? %>
+        <div class="span-16 list_section last section_margin_top">
+        	<div id="unarchived_items_wrapper" data-role="list" class="span-16 last">
+            <div id="folder_<%= folder.id %>_plan_list" class="span-16 last">
+        		<% for project in Project.for_folder(folder).active.shared_order %>
+        			<div id="project_<%= project.id %>" class="span-16 last" data-role="list_item">
+          			<%= render :partial => 'show', :locals => {:project => project, :sortable => true, :hierarchical => true} %>
+        			</div>
+        		<% end %>
+            </div>
+    	    </div>
+      	</div>
+    	<% else %>
+        <div class="span-16 last section_margin_top">
+          <p>The folder <strong><%= folder.title %></strong> doesn't have any active plans right now.</p>
+        </div>
+        <% if @this_user.show_help_text %>
+        <div class="span-16 last">
+          <p class="explanatory">
+            Plans are groups of tasks that work together to accomplish a goal. If I want to sell my old car I could make a plan 'Sell Car'. I could then add tasks 'Fix taillight', 'Research market value', and 'Place ad'. I might need to do those in order or not. For example, I could research the market value before fixing the taillight, but I can't place the ad until both of the others are done. I can sort tasks in a plan view by grabbing a task and dragging it to a new position in the project list.<br/>&nbsp;<br/>
+            Sometimes the tasks required to complete a plan can all be done in one sitting, other times tasks require that I be in different locations or have different tools available. In order to efficiently use your time when tools are available or when you're in a certain place like the office or the car, check out the Labels tab to the left. There you find an explanation of how to use labels to increase your efficiency in completing multiple tasks for multiple plans.
+          </p>
+        </div>
+        <% end %>
+      <% end %>
       </div>
     </div>
-	</div>
-	<div id="unarchived_items_wrapper" data-role="list" class="span-16 last list_section">
-    <div class="span-16 last line_item">
-      <div class="span-9 text_center small">plan title</div>
-      <div class="span-3 small">&nbsp;</div>
-      <div class="span-3 append-1 last small">active tasks</div>
-    </div>
-    <div data-behavior="sortable" data-sort_url="<%= sort_plans_url %>">
-		<% for project in @projects %>
-			<div id="project_<%= project.id %>" class="span-16 last" data-role="list_item">
-  			<%= render :partial => 'show', :locals => {:project => project, :sortable => true} %>
-			</div>
-		<% end %>
-    </div>
-	</div>
-	<div class="span-17">
-	<%= will_paginate @projects %>
-	</div>
-	<% else %>
-    <div class="span-16 last section_margin_top">
-      <p>You don't have any active plans right now.</p>
-    </div>
-    <% if @this_user.show_help_text %>
-    <div class="span-16 last">
-      <p class="explanatory">
-        Plans are groups of tasks that work together to accomplish a goal. If I want to sell my old car I could make a plan 'Sell Car'. I could then add tasks 'Fix taillight', 'Research market value', and 'Place ad'. I might need to do those in order or not. For example, I could research the market value before fixing the taillight, but I can't place the ad until both of the others are done. I can sort tasks in a plan view by grabbing a task and dragging it to a new position in the project list.<br/>&nbsp;<br/>
-        Sometimes the tasks required to complete a plan can all be done in one sitting, other times tasks require that I be in different locations or have different tools available. In order to efficiently use your time when tools are available or when you're in a certain place like the office or the car, check out the Labels tab to the left. There you find an explanation of how to use labels to increase your efficiency in completing multiple tasks for multiple plans.
-      </p>
-    </div>
-    <% end %>
   <% end %>
+  </div>
+<% end %>
 </div>
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
-		bindSortables();
 		focusPrimaryInput();
 	})
 <% end -%>

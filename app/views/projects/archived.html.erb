@@ -7,14 +7,9 @@
 		<h2>You got these done.</h2>
 	</div>
 	<div id="archived_items_wrapper" class="span-16 last archived list_section" data-role="list">
-    <div class="span-16 last line_item">
-      <div class="span-9 text_center small">plan title</div>
-      <div class="span-3 small">&nbsp;</div>
-      <div class="span-3 append-1 last small">active tasks</div>
-    </div>
 		<% for project in @projects %>
 			<div class="span-16 last" id="project_<%= project.id %>" data-role="list_item">
-				<%= render :partial => '/projects/show', :locals => {:project => project} %>
+				<%= render :partial => '/projects/show', :locals => {:project => project, :hierarchical => true} %>
 			</div>
 		<% end %>
 	</div>

@@ -36,17 +36,18 @@ class TasksController < ApplicationController
   
   def create
     project_id = params[:task][:project_id]
+    @project = Project.find(project_id.to_i) if project_id
     if params.has_key? :title_1
       @tasks = []
       for title in [params[:title_1],params[:title_2],params[:title_3]]
         unless title.blank?
-          task = Task.create(params[:task].merge(:title => title))
+          task = Task.create(params[:task].merge!(:title => title,:user_id => @this_user.id))
           @tasks.push task
         end
       end
       @task = @tasks.detect{|t| !t.title.blank?}
     else
-      @task = Task.new(params[:task])
+      @task = Task.new(params[:task].merge!(:user_id => @this_user.id))
       if @task.user_id != @this_user.id
         flash[:notice] = "You can't create tasks for other users, please try again."
         redirect_to dashboard_url and return
@@ -54,13 +55,21 @@ class TasksController < ApplicationController
       @task.save
     end
     if params[:app_context]
+      @item = @task
       case params[:app_context]
       when 'project'
         flash[:notice] = "Another task well organized!"
-        redirect_to plan_url(project_id) + '?added_task=true' and return
+        render :partial => 'show', :locals => {:task => @task, :project => @project, :sortable => true}, :layout => 'new_task'
+      when 'hierarchical'
+        render :partial => 'show', :locals => {:task => @task, :project => @project, :hierarchical => true}, :layout => 'new_task'
       end
     else
-      redirect_to dashboard_url
+      if(params[:return_to])
+        flash[:notice] = "Your task was successfully created."
+        redirect_to params[:return_to] and return
+      else
+        redirect_to dashboard_url
+      end
     end
   end
 
@@ -136,7 +145,7 @@ class TasksController < ApplicationController
       end
       @item = @task
       respond_with(@task) do | format |
-        format.any {render @render_type => 'show', :layout => (@render_type == :partial) ? "ajax_line_item" : 'application', :locals => {:task => @task, :sortable => (params.has_key? :sortable), :needs_organization => (params.has_key? :needs_organization)} and return}
+        format.any {render @render_type => 'show', :layout => (@render_type == :partial) ? "ajax_line_item" : 'application', :locals => {:task => @task, :sortable => (params.has_key? :sortable), :needs_organization => (params.has_key? :needs_organization), :hierarchical => (params.has_key? :hierarchical)} and return}
       end
     end
   end
@@ -159,6 +168,9 @@ class TasksController < ApplicationController
   def get_task
     @task = Task.find(params[:id])
     @project = @task.project
+    if(@project)
+      @folder = @project.folder_for(@this_user)
+    end
     if @task.user_id != @this_user.id and (!(@task.project.sharer_ids + [@task.project.user_id]).include? @this_user.id)
       flash[:notice] = "You don't have privileges to access that task."
       redirect_to root_url and return

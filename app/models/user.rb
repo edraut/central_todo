@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   #associations
   has_many :tasks, :dependent => :destroy
   has_many :projects, :dependent => :destroy
+  has_many :folders, :dependent => :destroy
   has_many :labels, :dependent => :destroy
   has_many :task_labels, :through => :labels
   has_many :project_sharers, :dependent => :destroy
@@ -33,7 +34,11 @@ class User < ActiveRecord::Base
   before_save :handle_sms
   
   #class methods
-
+  def self.generate_code(size = 5)
+    charset = %w{ 2 3 4 6 7 9 A C D E F G H J K L M N P Q R T V W X Y Z}
+    (0...size).map{ charset.to_a[rand(charset.size)] }.join
+  end
+  
   #instance methods
 
   def available_reminder_types
@@ -59,17 +64,12 @@ class User < ActiveRecord::Base
   def handle_sms
     if self.sms_number_changed? and !self.sms_number.blank?
       self.clean_sms_number
-      self.sms_code = generate_code
+      self.sms_code = self.class.generate_code
     end
   end
   
   def send_sms_verification
     Notifier.sms_verification(self).deliver
-  end
-  
-  def generate_code(size = 5)
-    charset = %w{ 2 3 4 6 7 9 A C D E F G H J K L M N P Q R T V W X Y Z}
-    (0...size).map{ charset.to_a[rand(charset.size)] }.join
   end
   
   def least_used_color

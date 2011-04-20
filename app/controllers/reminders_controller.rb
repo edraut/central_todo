@@ -22,7 +22,7 @@ class RemindersController < ApplicationController
   
   def create
     @reminder_class = params[:reminder][:type].constantize
-    @reminder = @reminder_class.new(params[:reminder].merge(:user_id => @this_user.id))
+    @reminder = @reminder_class.new(params[:reminder].merge!(:user_id => @this_user.id))
     if @reminder.save
       respond_with(@reminder) do |format|
         format.any {render :partial => 'show', :locals => {:reminder => @reminder}, :layout => 'new_reminder'}

@@ -11,7 +11,7 @@ class LabelsController < ApplicationController
   end
   
   def create
-    @label = Label.new(params[:label])
+    @label = Label.new(params[:label].merge!(:user_id => @this_user.id))
     @label.save
     redirect_to :action => 'index' and return
   end

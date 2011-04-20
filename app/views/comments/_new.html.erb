@@ -14,7 +14,9 @@
 		<%= f.hidden_field :user_id %>
 		<%= f.hidden_field :commentable_id %>
 		<%= f.hidden_field :commentable_type %>
-		<%= f.submit "Comment on this #{comment.commentable.class.display_name}" %>
-		<a href="#" data-behavior="expander" data-action="contract" data-id="new_comment_form">cancel</a>
+  	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)"><div class="button_content">add this comment</div></div>
+  	<div class="text_with_small_button small">
+		&nbsp;or <a href="#" data-behavior="expander" data-action="contract" data-id="new_comment_form">cancel</a>
+    </div>
 	</div>
 <% end %>

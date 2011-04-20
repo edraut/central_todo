@@ -34,9 +34,9 @@
       <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
       <% end %>
     </div>
-    <div class="block" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>">
-		<% for task in @project.tasks.unarchived.ordered %>
-		  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" data-sort_element="true" class="section">
+    <div class="block" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-sort_id="plan_<%= @project.id %>_task_list">
+		<% for task in @project.tasks.active.ordered %>
+		  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" data-sort_element="true" data-sort_id="plan_<%= @project.id %>_task_list" class="section">
 				<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
 			</div>
 		<% end %>

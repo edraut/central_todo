@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   
   def index
     @project = Project.new(:user_id => @this_user.id)
-    @projects = Project.for_user(@this_user).unarchived.ordered.paginate(:page => params[:page], :per_page => 50)
+    @folders = @this_user.folders.ordered.includes(:projects)
     @sortable = true
     respond_with(@projects) do |format|
       format.any {render :action => 'index' and return}
@@ -19,15 +19,17 @@ class ProjectsController < ApplicationController
   end
   
   def shared
-    @projects = @this_user.shared_projects.active.by_create_date.paginate(:page => params[:page],:per_page => 50)
+    @friends_projects = @this_user.shared_projects.active.by_create_date.paginate(:page => params[:friends_page],:per_page => 50)
+    @shared_projects = @this_user.projects.shared.active.ordered.paginate(:page => params[:shared_page],:per_page => 50)
   end
   
   def sort
-    projects = @this_user.projects.active
-    projects.each do |project|
+    @projects = Project.find(params[:project].map{|p| p.to_i})
+    @projects.each do |project|
       project.position = params[:project].index(project.id.to_s)
       project.save
     end
+    render :nothing => true and return
   end
   
   def archive_completed
@@ -39,9 +41,19 @@ class ProjectsController < ApplicationController
   end
   
   def create
-    @project = Project.new(params[:project])
-    @project.save
-    redirect_to plan_url(@project) and return
+    if @this_user.is_a? PaidAccount
+      @project = Project.new(params[:project].merge!(:user_id => @this_user.id))
+      @project.save
+      if(params[:return_to])
+        flash[:notice] = "Your plan was successfully created."
+        redirect_to params[:return_to] and return
+      else
+        redirect_to plan_url(@project) and return
+      end
+    else
+      flash[:notice] = "You need to upgrade to a paid account to create plans"
+      redirect_to dashboard_url and return
+    end
   end
 
   def show
@@ -49,8 +61,7 @@ class ProjectsController < ApplicationController
     return if handle_attribute_partials('show')
     @html_page_title = @page_title = 'Plan'
     @sortable = true
-    @task = Task.new(:user_id => @this_user.id, :project_id => @project.id)
-    @archived_tasks = @project.tasks.archived.ordered.paginate(:page => params[:page], :per_page => 50)
+    get_archived_tasks
   end
   
   def edit
@@ -71,12 +82,14 @@ class ProjectsController < ApplicationController
       @sharer = User.find(:first, :conditions => ["lower(email) = :sharer_email",{:sharer_email => params[:sharer_email].downcase}])
       if @sharer
         ProjectSharer.create(:user_id => @sharer.id,:project_id => @project.id)
-        Notifier.share_plan(@project,params[:sharer_email],true).deliver
+        Notifier.share_plan(@project,@sharer).deliver
         flash.now[:ajax_notice] = "#{@sharer.email} now has access to this list"
       else
-        ProjectEmail.create(:project_id => @project.id,:email => params[:sharer_email])
-        Notifier.share_plan(@project,params[:sharer_email],false).deliver
-        flash.now[:ajax_notice] = "We sent a copy of this plan to #{params[:sharer_email]} via email."
+        tmp_pass = User.generate_code(8)
+        @sharer = FreeAccount.create(:email => params[:sharer_email], :password => tmp_pass, :password_confirmation => tmp_pass)
+        ProjectSharer.create(:user_id => @sharer.id,:project_id => @project.id,:folder_id => @sharer.folder_ids.first)
+        Notifier.share_plan(@project,@sharer,tmp_pass).deliver
+        flash.now[:ajax_notice] = "We created a free account for #{params[:sharer_email]} and sent a welcome email including information about the plan you shared."
       end
       @project.sharers.reload
       attribute = 'sharing'
@@ -86,9 +99,15 @@ class ProjectsController < ApplicationController
       else
         attribute = false
       end
-      @these_params = params[:project].dup
-      @state_changed = @project.handle_attributes(@these_params)
-      @project.save
+      if(params[:shared_folder_id])
+        project_sharer = @project.project_sharers.where(:user_id => @this_user.id).first
+        project_sharer.folder_id = params[:shared_folder_id]
+        project_sharer.save
+      else
+        @these_params = params[:project].dup
+        @state_changed = @project.handle_attributes(@these_params)
+        @project.save
+      end
       flash.now[:ajax_notice] = "Your changes were saved."
     end
     @item = @project
@@ -99,7 +118,10 @@ class ProjectsController < ApplicationController
       return
     else
       @item = @project
-      render @render_type => 'show', :locals => {:project => @project, :sortable => (params.has_key? :sortable)}, :layout => 'ajax_line_item' and return
+      if @render_type == :action
+        get_archived_tasks
+      end
+      render @render_type => 'show', :locals => {:project => @project, :sortable => (params.has_key? :sortable)}, :layout => (@render_type == :partial) ? "ajax_line_item" : 'application' and return
     end
   end
   
@@ -137,6 +159,7 @@ class ProjectsController < ApplicationController
       show
       render :action => 'show' and return
     else
+      @project.task_ids = params[:task].map{|tid| tid.to_i}
       tasks = @project.tasks
       tasks.each do |task|
         task.position = params[:task].index(task.id.to_s)
@@ -147,8 +170,13 @@ class ProjectsController < ApplicationController
     render :nothing => true and return
   end
   
+  def get_archived_tasks
+    @archived_tasks = @project.tasks.archived.ordered.paginate(:page => params[:page], :per_page => 50)
+  end
+  
   def get_project
     @project = Project.find(params[:id])
+    @folder = @project.folder_for(@this_user)
     if (@project.user_id != @this_user.id) and (!@project.sharer_ids.include? @this_user.id)
       flash[:notice] = "You don't have privileges to access that project."
       redirect_to root_url and return

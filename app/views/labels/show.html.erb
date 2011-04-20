@@ -14,12 +14,16 @@
       </div>
 		</div>
 		<div id="unarchived_items_wrapper" class="span-16 last list_section" data-role="list">
+      <% if @tasks.any? %>
       <div class="span-16 last list_topper">&nbsp;</div>
 			<% @tasks.each_with_index do |task,index| %>
 				<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item">
-					<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true, :needs_organization => true} %>
+					<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true} %>
 				</div>
 			<% end %>
+			<% else %>
+			  You haven't labelled any tasks with "<%= @label.title %>".
+		  <% end %>
 		</div>
   	<div class="span-17">
 		<%= will_paginate @tasks %>

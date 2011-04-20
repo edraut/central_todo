@@ -59,6 +59,14 @@ CentralTodo::Application.routes.draw do
   resources :comments
   resources :reminders
   resources :pages
+  resources :folders do
+    collection do
+      get 'sort'
+    end
+    member do
+      get 'sort_plans'
+    end
+  end
   match 'dashboard' => 'dashboard#index'
   match 'schedule' => 'schedule#index'
   # Sample resource route (maps HTTP verbs to controller actions automatically):

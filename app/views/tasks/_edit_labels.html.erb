@@ -1,5 +1,11 @@
 <h2>Labels</h2>
 <div class="span-16 last section">
+  <% if @task.labels.count == 0 %>
+  <div class="span-16 last">
+    Click on some labels to add them to this task.
+  </div>
+  <% end %>
+  <div class="span-16 last section_margin_top">
 	<%= form_for @task, :html => {
 		:'data-ajax_behavior' => 'ajax_form',
 		:'data-ajax_method' => 'PUT',
@@ -19,13 +25,22 @@
 		</div>
 		<%= hidden_field_tag 'attribute', 'labels', :id => 'attribute_labels' %>
   	<div class="span-5 last">
-		<%= f.submit 'save', :id => 'task_labels_submit', :'data-hidden_proxy_save' => "true", :style => 'display:none;' %> <span data-hidden_proxy_save="true" style="display:none;">or</span>
-		<%= link_to (@task.labels.for_user(@this_user).any? ? 'cancel' : 'leave blank'), task_url(@task),
-		 	:'data-ajax_behavior' => 'ajax_link',
-			:'data-ajax_method' => 'GET',
-			:'data-ajax_success_element' => 'task_label',
-			:'data-ajax_data' => "{attribute: 'labels'}"%>
+  	  <div class="span-5 last">
+  	    &nbsp;<br/>
+      </div>
+    	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)" data-hidden_proxy_save="true" style="display: none;">
+    	  <div class="button_content">save</div>
+    	</div>
+    	<div class="text_with_small_button small">
+		    <span data-hidden_proxy_save="true" style="display:none;">or</span>
+		    <%= link_to (@task.labels.for_user(@this_user).any? ? 'cancel' : 'or leave blank'), task_url(@task),
+    		 	:'data-ajax_behavior' => 'ajax_link',
+    			:'data-ajax_method' => 'GET',
+    			:'data-ajax_success_element' => 'task_label',
+    			:'data-ajax_data' => "{attribute: 'labels'}"%>
+    	</div>
 		</div>
 	<% end %>
+	</div>
 </div>
 <%= javascript_tag "bindClickMultiSelect();bindHiddenMultiProxy();" %>

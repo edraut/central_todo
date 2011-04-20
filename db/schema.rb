@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110318154409) do
+ActiveRecord::Schema.define(:version => 20110407195245) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -19,6 +19,12 @@ ActiveRecord::Schema.define(:version => 20110318154409) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "folders", :force => true do |t|
+    t.string  "title"
+    t.integer "user_id"
+    t.integer "position"
   end
 
   create_table "labels", :force => true do |t|
@@ -50,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20110318154409) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "folder_id"
   end
 
   create_table "projects", :force => true do |t|
@@ -62,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20110318154409) do
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "folder_id"
   end
 
   create_table "reminders", :force => true do |t|

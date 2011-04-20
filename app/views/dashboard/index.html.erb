@@ -2,6 +2,7 @@
 	<div class="span-8"><h1>Dashboard</h1></div><% if @this_user.show_help_text and @this_user.tasks.count > 0 %><div class="span-8 last text_right"><p class="explanatory">You can convert a task to a plan, add a description and more by clicking on a task title in any list.</p></div><% end %>
 </div>
 <div class="span-17 last page_content">
+  <% if @this_user.is_a? PaidAccount %>
   <h2>Enter a task</h2>
 	<div class="span-16 last">
 		<%= form_for @task do |f| %>
@@ -11,7 +12,9 @@
 			<div class="span-4 last">
 				<%= f.hidden_field :user_id %>
 				<%= f.hidden_field :state, :value => 'active' %>
-				<%= f.submit "add it to the list." %>
+      	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+      	  <div class="button_content">add task</div>
+      	</div>
 			</div>
 		<% end %>
 	</div>
@@ -55,6 +58,7 @@
     You've organized all your current tasks.
   </div>
   <% end %>
+  <% end %>
   <% if @priority_tasks.any? %>
   <div class="span-7 append-2">
   <div class="span-7 last section_margin_top">
@@ -64,12 +68,12 @@
 	  <div class="span-7 last list_topper">&nbsp;</div>
 		<% @priority_tasks.each_with_index do |task,index| %>
 		  <div class="span-7 last line_item">
-	      <a href="<%= task_url(task) %>"><div class="block"><%= task.title %></div></a>
+	      <a href="<%= task_url(task) %>"><%= task.title %></a>
 	    </div>
 		<% end %>
 		<% if @total_priority_task_count > 5 %>
       <div class=" text_right section_margin_top">
-        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+        <%= link_to 'See all', priority_tasks_url %> &rarr;
       </div>
 		<% end %>
   </div>
@@ -78,7 +82,7 @@
   <div class="span-7 append-2 section_margin_top">
     <p>
     You don't have any priority tasks.</p>
-    <% if @this_user.show_help_text %><p class="explanatory">You can make any task a priority by clicking on the star to the left of the check box in any task list.</p><% end %>
+    <% if @this_user.show_help_text %><p class="explanatory">You can make any task a priority by clicking on the star to the left of the check box in a plan's task list.</p><% end %>
     </p>
   </div>
   <% end %>
@@ -96,9 +100,9 @@
 			<div class="span-7 last line_item_soft" id="due_date_<%= item.class.display_name.downcase %>_<%= item.id %>">
 			  <div class="span-1 small"><%= item.class.display_name %>:</div>
 			    <% if item.class.name == 'Project' %>
-			      <a href="<%= plan_url(item) %>" class="span-6 last"><div class="block"><%= item.title%></div></a>
+			      <a href="<%= plan_url(item) %>" class="span-6 last"><%= item.title%></a>
 			    <% else %>
-		        <a href="<%= task_url(item) %>" class="span-6 last"><div class="block"><%= item.title%></div></a>
+		        <a href="<%= task_url(item) %>" class="span-6 last"><%= item.title%></a>
     			<% end %>
 			</div>
 		<% end %>

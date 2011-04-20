@@ -11,6 +11,7 @@ $gray1: #EDECE8;
 $gray2: #DDDCD8;
 $gray3: #CDCCC8;
 $gray4: #bdbcb8;
+$gray5: #adaca8;
 $gray6: #9d9c98;
 $gray7: #8E8D89;
 $gray8: #6D6C68;
@@ -36,12 +37,15 @@ $Wisteria: #CDA4DE;
 $Shocking_Pink: #FB7EFD;
 $Cotton_Candy: #FFBCD9;
 $normal-font-size: 16px;
+$medium-font-size: 14px;
 $compact-font-size: 12px;
 $line-height: 26px;
 $line-height-minus-two: 24px;
 $line-height-minus-three: 23px;
 $compact-line-height: 20px;
 $compact-line-height-minus-two: 18px;
+$indent-width: 28px;
+$nav-indent-width: 15px;
 @mixin small-shadow {
 	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
 	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
@@ -65,16 +69,94 @@ $compact-line-height-minus-two: 18px;
 	background: -moz-linear-gradient(top,  $gray9,  $gray6); /* for firefox 3.6+ */
 }
 @mixin light-gradient {
-	background: $paper;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr="#{$gray2}"); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(white), to($gray2)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  white,  $gray2); /* for firefox 3.6+ */
+	background: $gray1;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray1}", endColorstr="#{$gray4}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray1), to($gray4)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray1 0%, $gray4 100%); /* for firefox 3.6+ */
 }
 @mixin light-gradient-down {
-	background: $paper;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray2}", endColorstr='white'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from($gray2), to(white)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  $gray2,  white); /* for firefox 3.6+ */
+	background: $gray2;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray2}", endColorstr="#{$gray3}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray2), to($gray3)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray2 0%, $gray3 100%); /* for firefox 3.6+ */
+}
+@mixin light-gradient-flat {
+	background: $gray1;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray1}", endColorstr="#{$gray4}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray1), color-stop(.85,$gray3), to($gray4)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray1 0%, $gray3 85%, $gray4 100%); /* for firefox 3.6+ */
+}
+@mixin light-gradient-flat-down {
+	background: $gray2;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray2}", endColorstr="#{$gray3}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray2), color-stop(.85,$gray3), to($gray3)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray2 0%, $gray3 85%, $gray3 100%); /* for firefox 3.6+ */
+}
+@mixin medium-gradient {
+	background: $gray5;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray3}", endColorstr="#{$gray6}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray3), to($gray6)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray3,  $gray6); /* for firefox 3.6+ */
+}
+@mixin medium-gradient-down {
+	background: $gray4;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray4}", endColorstr="#{$gray5}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray4), to($gray5)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray4,  $gray5); /* for firefox 3.6+ */
+}
+@mixin gradient2 {
+	background: $gray3;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray1}", endColorstr="#{$gray4}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray1), to($gray4));
+	background: -moz-linear-gradient(top,  $gray1,  $gray4); /* for firefox 3.6+ */
+}
+@mixin gradient2-down {
+	background: $gray3;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray4}", endColorstr="#{$gray1}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($gray4), to($gray1)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $gray4,  $gray1); /* for firefox 3.6+ */
+}
+@mixin glare-light {
+	background-color: rgba(255, 255, 255, 0.1);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 1)), color-stop(.3,rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.1)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#DDFFFFFF", endColorstr="#26FFFFFF"); /* for IE */
+}
+@mixin glare-light-down {
+	background-color: rgba(255, 255, 255, 0.1);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.7)), color-stop(.3,rgba(255, 255, 255, 0.4)), to(rgba(255, 255, 255, 0.1)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 30%, rgba(255, 255, 255, 0.1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#20FFFFFF"); /* for IE */
+}
+@mixin glare-medium {
+	background-color: rgba(255, 255, 255, 0.1);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.4)), to(rgba(255, 255, 255, 0.07)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.07) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF"); /* for IE */
+}
+@mixin glare-medium-down {
+	background-color: rgba(255, 255, 255, 0.1);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.2)), to(rgba(255, 255, 255, 0.1)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.07) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF"); /* for IE */
+}
+@mixin glare-gradient-dark {
+	background-color: rgba(255, 255, 255, 0.2);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.4)), to(rgba(255, 255, 255, 0.07)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.07) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF"); /* for IE */
+}
+@mixin glare-gradient-dark-down {
+	background-color: rgba(255, 255, 255, 0.2);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.07)), to(rgba(255, 255, 255, 0.4)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.4) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#11FFFFFF", endColorstr="#64FFFFFF"); /* for IE */
+}
+@mixin glare-gradient2 {
+	background-color: rgba(255, 255, 255, 0.5);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0.2)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.07) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF"); /* for IE */
 }
 @mixin text-right {
 	text-align: right;
@@ -83,16 +165,19 @@ body {
 	background-color: $gray1;
 	color: $gray8;
 	font-size: $normal-font-size;
-	line-height: $line-height;
+	line-height: 1.0;
 }
 
 a {
 	color: $gray10;
 	text-decoration: none;
+	padding: 1px 0 1px 0;
 }
-a:hover, a:hover div {
-  // background-color: $gray2;
-	color: $gray7;
+a:hover {
+	color: $gray8;
+}
+.line_item a:hover, a:hover div {
+	color: $gray8;
 	text-decoration: none;
 }
 a.quiet, div.quiet, span.quiet, .explanatory {
@@ -139,9 +224,6 @@ input {
 	vertical-align: bottom;
 	position: relative;
 }
-input[type="checkbox"]{
-  top: -3px;
-}
 input[type="text"],input[type="password"]{
   padding: .3em;
   height: auto;
@@ -174,14 +256,26 @@ select.with_text_field{
 	width: 300px;
 }
 #top_nav {
+	position: relative;
 	background-color: $gray8;
 	@include dark-gradient;
+	text-shadow: 0px -1px 1px rgba(0,0,0,.8);
 	color: $paper;
 	a {
 		color: $paper;
 	}
 	a:hover {
-		color: $gray8;
+		background: inherit;
+		color: $gray2;
+		text-shadow: 0px -1px 1px rgba(15,15,15,.8);
+	}
+	.glare {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 55%;
+		width: 100%;
+		@include glare-gradient-dark;
 	}
 }
 #main_modal_view {
@@ -194,6 +288,11 @@ select.with_text_field{
   width: 790px;
   padding: 20px 20px 20px 40px;
   z-index: 1000;
+}
+.form_modal {
+	position: absolute;
+	background: $gray2;
+	z-index: 1100;
 }
 #modal_mask {
   position: absolute;
@@ -218,9 +317,12 @@ select.with_text_field{
 .page_content {
   padding: $line-height 0 $line-height 38px;
   margin: 0 -16px 16px -16px;
-  min-height: 300px;
+  min-height: 500px;
   background-color: $gray2;
 	@include large-shadow;
+}
+.page_pull_left {
+	margin-left: -$indent-width;
 }
 .user_title {
   color: $gray9;
@@ -238,9 +340,20 @@ select.with_text_field{
 .list_section {
 	margin-left: -16px;
 	padding: 16px;
-	background-color: $gray4;
+	background-color: $gray3;
 	line-height: $compact-line-height;
 	@include small_shadow;
+	a:hover {
+		color: $gray8;
+	}
+	.delete, .plus_icon {
+		line-height: $compact-line-height-minus-two;
+		height: $compact-line-height-minus-two;
+	}
+}
+.list_section_indent {
+	margin-left: $indent-width;
+	line-height: $compact-line-height;
 }
 .list_section_inner {
 	margin-left: 20px;
@@ -259,6 +372,18 @@ select.with_text_field{
 	a:hover {
 	  background-color: $blue-wash;
 	}
+	a:active {
+		background-color: $gray1;
+	}
+	.button a:active, .button a:hover {
+		background-color: rgba(255,255,255,0);
+	}
+	select {
+		margin-top: .45em;
+	}
+	.line_item_height select{
+		margin-top: 0;
+	}
 }
 .half_section {
   position: relative;
@@ -275,16 +400,36 @@ select.with_text_field{
   width: 175px;
   margin-right: 10px;
 }
+.editing {
+	background-color: $yellow;
+}
+.archived .section_heading .title_text{
+	text-shadow: 0px -1px 1px rgba(128,128,128,.5);
+}
 .section_heading {
-  background-color: $gray7;
-  color: $paper;
-	@include dark-gradient;
+  background-color: $gray4;
 	@include small-shadow;
+  color: $gray8;
+	text-shadow: 0px 1px 1px rgba(255,255,255,.5);
+	border-top: 1px solid $gray4;
+	border-bottom: 1px solid $gray5;
+	.delete {
+		color: $gray8
+	}
+	.delete:hover {
+		color: $carmine;
+	}
+	line-height: $line-height;
+	
+}
+.section_heading.padded {
+	padding-bottom: .5em;
+	padding-top: .5em;
 }
 .section_heading.overdue {
-	background-color: $paper;
+	background-color: $gray1;
 	color: $carmine;
-	@include light-gradient;
+	text-shadow: 0px 1px 1px $paper;
 }
 .left_nav_wrapper {
   position: relative;
@@ -305,15 +450,29 @@ select.with_text_field{
 	background-color: $paper;
 	@include small-shadow;
 	a:hover {
-	  color: $gray4;
+	  color: $gray6;
 	  background-color: inherit;
 	}
 	a {
 		color: $gray10;
 	}
-	.vert_line_subnav_wrapper {
+	div.selected {
+		background-color: $gray3;
+		font-weight: bold;
+		.plus_icon, .delete, .count {
+			font-weight: normal;
+		}
+	}
+	div.bold {
+		font-weight: bold;
+		.plus_icon, .delete {
+			font-weight: normal;
+		}
+	}
+	.vert_line_subnav_wrapper, .vert_line_subsubnav_wrapper {
 		margin-right: 0;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 		padding-left: 8px;
 		position: relative;
 		float: left;
@@ -328,7 +487,7 @@ select.with_text_field{
 			color: $black;
 		}
     a:hover {
-	    color: $gray4;
+	    color: $gray6;
     }
 	}
 }
@@ -339,12 +498,126 @@ div.vert-line-nav-wrapper-main.selected {
 	filter: none;
 	@include large-shadow;
 }
-.vert_line_subnav_wrapper.selected {
+.vert_line_subnav_wrapper.selected, .vert_line_subsubnav_wrapper.selected {
   font-weight: bold;
   color: $black;
+	.hover_nav{
+		font-weight: normal;
+		color: $gray10;
+	}
+}
+.vert_line_subsubnav_wrapper.selected {
+	padding-top: 10px;
+	padding-bottom: 0;
 }
 .vert-line-nav-wrapper-header {
 	@include vert-line-nav-wrapper;
+}
+.left_nav_wrapper.selected .expandable_subnav {
+	width: 212px;
+}
+.expandable_subnav {
+	line-height: 30px;
+	font-size: $medium-font-size;
+	position: relative;
+	float:left;
+	width: 207px;
+	overflow: hidden;
+	.delete, .plus_icon {
+		font-size: 1.5em;
+	}
+	.delete:hover {
+		color: $carmine;
+	}
+	div.selected {
+		text-shadow: 0px 1px 1px rgba(255,255,255,.5);
+		font-weight: bold;
+		.plus_icon, .delete {
+			font-weight: normal;
+		}
+	}
+	div.bold {
+		font-weight: bold;
+		.plus_icon, .delete {
+			font-weight: normal;
+		}
+	}
+}
+.expandable_subnav_stretcher {
+	width: 900px;
+}
+.expandable_subnav_stretcher.show_all {
+	z-index: 10;
+	background-color: $paper;
+}
+.left_nav_wrapper.selected .expanded_subnav, .left_nav_wrapper.selected .expanded_subnav_indent{
+	width: 197px
+}
+.expanded_subnav, .expanded_subnav_indent {
+	position: relative;
+	float:left;
+	width: 192px;
+}
+div.expnaded_subnav_indent.selected {
+	background-color: $gray3;
+	font-weight: bold;
+	.plus_icon, .delete {
+		font-weight: normal;
+	}
+}
+.expanded_subnav_indent {
+	margin-left: $nav-indent-width;
+	line-height: $compact-line-height;
+	font-size: $medium-font-size;
+	overflow: hidden;
+}
+.nav_tools {
+	position: absolute;
+	top: .1em;
+	right: 0;
+	background: $gray4;
+	height: 26px;
+}
+.left_nav_wrapper .expandable_subnav .nav_tools a:hover {
+	color: $gray9;
+}
+.left_nav_wrapper .expandable_subnav .nav_tools a.delete:hover {
+	color: $carmine;
+}
+.expanded_subnav_indent .nav_tools{
+	height: $compact-line-height-minus-two;
+ .nav_tool_icons{
+		top: -.375em;
+	}
+}
+.nav_tool_text {
+	position: relative;
+	float: left;
+	top: -.1em;
+	padding-left: 5px;
+}
+.nav_tool_icons {
+	position: relative;
+	float: left;
+	top: 0;
+}
+.count {
+	position: relative;
+	float: left;
+	top: .3em;
+	background-color: $gray6;
+	color: $paper;
+	padding: 0 5px;
+	height: 1.2em;
+	line-height: 1.2em;
+}
+.left_nav_wrapper .count{
+	top: .5em;
+}
+.count.small{
+	top: .2em;
+	height: 1.5em;
+	line-height: 1.5em;
 }
 .hover_nav_selected {
   width: 212px;
@@ -359,7 +632,7 @@ div.vert-line-nav-wrapper-main.selected {
   top: -1px;
   z-index: 10;
   width: auto;
-  min-width: 130px;
+  min-width: 212px;
   background-color: $paper;
   padding: 0px 12px 5px 12px;
   border: 1px solid $gray4;
@@ -374,19 +647,22 @@ div.vert-line-nav-wrapper-main.selected {
   color: $black;
 }
 .selected a:hover {
-  color: $black;
+  color: $gray6;
+}
+.selected .hover_nav a {
+	color: $gray10;
+}
+.selected .hover_nav a:hover {
+	color: $gray6;
 }
 a.selected {
   font-weight: bold;
-}
-a:hover.selected {
-	color: $black;
 }
 .selected_indicator {
   position: absolute;
   left: 0em;
 }
-.line_item {
+.line_item, .line_item_quiet {
   select {
 		position: relative;
     top: .3em;
@@ -398,6 +674,27 @@ a:hover.selected {
   border-bottom: 1px solid $gray8;
   padding: .4em 0;
   margin-bottom: 0;
+}
+.line_item_quiet {
+	border-color: $gray5;
+}
+.span-14.side_borders {
+	width: 548px;
+	border-right: 1px solid $gray8;
+	border-left: 1px solid $gray8;
+}
+.height_zero {
+	height: 0px;
+}
+.height_zero.task {
+	border-bottom: 1px solid $gray5;
+}
+.height_zero.plan {
+	border-bottom: 1px solid $gray8;
+}
+.height_zero.nav_divider {
+	margin-top: 5px;
+	border-bottom: 1px solid $gray8;
 }
 .row_item {
 	position: relative;
@@ -422,7 +719,7 @@ a:hover.selected {
 	background-color: $paper;
 	border: 1px solid $gray6;
 	height: $compact-line-height-minus-two;
-	z-index: 1002;
+	z-index: 1001;
 	cursor: pointer;
 }
 .line_item_control_expander_plan{
@@ -437,7 +734,7 @@ a:hover.selected {
 	left: -30px;
 	min-width: 150px;
 	width: auto;
-	z-index: 1001;
+	z-index: 1000;
 	padding: 1em;
 	background-color: $paper;
 	border: 1px solid $gray6;
@@ -453,6 +750,155 @@ a:hover.selected {
 	top: .2em;
 	cursor: pointer;
 }
+.button{
+	display: block;
+	position: relative;
+  padding: 0 20px;
+  margin-right: 20px;
+  height: 2em;
+	line-height: 2em;
+	cursor: pointer;
+	.delete {
+		top: 3px;
+	}
+	.glare {
+		position: absolute;
+		top: 4%;
+		left: 0;
+		height: 55%;
+		margin: 0 8px;
+		border-radius: 1em;
+		-moz-border-radius: 1em;
+	}
+}
+.button.small {
+	margin-top: .4em;
+	margin-right: 10px;
+	height: 1.6em;
+	line-height: 1.6em;
+	padding-left: 10px;
+	padding-right: 10px;
+	.glare {
+		margin: 0 4px;
+	}
+}
+a.button {
+	display: inline;
+	.button_content {
+		float: none;
+	}
+}
+a.button.small {
+	margin-top: 0;
+}
+h2 .button.small {
+	margin-top: .25em;
+}
+.text_with_small_button {
+	position: relative;
+	float: left;
+	top: .5em;
+}
+.button.round, a.button.round {
+	border-radius: 1.5em;
+	-moz-border-radius: 1.5em;
+}
+.button.round.small{
+	border-radius: .8em;
+	-moz-border-radius: .8em;
+}
+.button.dark, a.button.dark {
+	@include dark-gradient;
+  border:1px solid $gray10;
+  border-top:1px solid $gray9;
+  border-left:1px solid $gray9;
+  color:$paper;
+}
+.button.dark:active, .button.dark.pseudo_active {
+	@include dark-gradient-down;
+  border:1px solid $gray9;
+  border-top:1px solid $gray10;
+  border-left:1px solid $gray10;
+}
+.button.light, a.button.light {
+	@include light-gradient-flat;
+  border:1px solid $gray6;
+  border-top:1px solid $gray4;
+  border-left:1px solid $gray4;
+  color:$gray8;
+	text-shadow: 0px 1px 1px rgba(255,255,255,1);
+	.glare {
+		@include glare-light;
+	}
+	a {
+		color: $gray8;
+	}
+	a:hover {
+		color: $gray6;
+	}
+}
+.button.light:active, a.button.light:active {
+	@include light-gradient-flat-down;
+	.glare {
+		@include glare-light-down;
+	}
+}
+.button.medium, a.button.medium {
+	@include medium-gradient;
+  border:1px solid $gray7;
+  border-top:1px solid $gray6;
+  border-left:1px solid $gray6;
+  color:$paper;
+	text-shadow: 0px -1px 1px rgba(0,0,0,.3);
+	.glare {
+		@include glare-medium;
+	}
+	a {
+		color: $paper;
+	}
+	a:hover {
+		color: $gray2;
+	}
+}
+.button.medium:active, .button.medium.pseudo_active {
+	@include medium-gradient-down;
+	.glare {
+		@include glare-medium-down;
+	}
+}
+.button.color2, a.button.color2 {
+	@include gradient2-down;
+  border:1px solid $gray5;
+  border-top:1px solid $gray4;
+  border-left:1px solid $gray4;
+  color:$paper;
+	text-shadow: 0px -1px 1px rgba(0,0,0,.3);
+	.glare {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 55%;
+		width: 90%;
+		margin: 2% 5% 0 5%;
+		border-radius: 1em;
+		@include glare-gradient2;
+	}
+}
+.button.color2:active, a.button.color2:active {
+	@include gradient2-down;
+  border:1px solid $gray4;
+  border-top:1px solid $gray5;
+  border-left:1px solid $gray5;
+	text-shadow: 0px -1px 1px rgba(255,255,255,1);
+}
+.button_content {
+	position: relative;
+	float: left;
+	z-index: 10;
+}
+[onclick="void(0)"] {
+	cursor: pointer;
+}
 .list_action {
   position: relative;
   float: right;
@@ -462,7 +908,7 @@ a:hover.selected {
 	line-height: 2em;
 	background-color: inherit;
   a, a:hover {
-    background-color: inherit;
+		color: $black;
   }
 }
 .list_action.last{
@@ -474,9 +920,9 @@ a:hover.selected {
   font-weight: bold;
 }
 .attach_above {
-  border-top: 1px solid $gray4;
-  border-left: 1px solid $gray4;
-  border-right: 1px solid $gray4;
+  border-top: 1px solid $gray2;
+  border-left: 1px solid $gray2;
+  border-right: 1px solid $gray2;
 	@include small-shadow;
 }
 .attach_above.selected {
@@ -498,15 +944,31 @@ a:hover.selected {
 }
 .attributes {
   border: 1px solid $gray4;
-  z-index: 10;
   cursor: pointer;
   background-color: $paper;
 }
-.buttons_up {
-	@include light-gradient;
+.rarr_width {
+	font-weight: bold;
+	width: $indent-width;
+	cursor: pointer;
 }
-.buttons_down {
-	@include light-gradient-down;
+.expand_arrow_width {
+	position: relative;
+	float: left;
+	width: $nav-indent-width;
+	cursor: pointer;
+	font-weight: bold;
+}
+.plus_icon {
+	font-size: 1.2em;
+	line-height: $line-height-minus-two;
+	height: $line-height-minus-two;
+	cursor: pointer;
+}
+.delete {
+  line-height: $line-height-minus-two;
+	height: $line-height-minus-two;
+	font-size: 1.2em;
 }
 .attribute_action {
   position: relative;
@@ -515,18 +977,28 @@ a:hover.selected {
   margin-right: 10px;
   height: 2em;
   a {
+		padding-left: 5px;
+		padding-right: 5px;
     background-color: inherit;
   }
   a:hover {
-    background-color: $paper;
-		@include light-gradient;
+    background-color: $gray1;
   }
+	a:active {
+		background-color: $paper;
+	}
 }
 .overdue, .overdue a {
   color: $carmine;
 }
 .archived, .archived a {
 	color: $gray1;
+	.hierarchical {
+		color: $paper;
+	}
+}
+.archived .hierarchical a {
+	color: $paper;
 }
 .flash_notice {
   border: 1px solid $gray4;
@@ -554,6 +1026,9 @@ a:hover.selected {
 .check_box_proxy:hover {
 	color: $carmine;
 }
+.archived .check_box_proxy:hover {
+	color: inherit;
+}
 .check_box_proxy.in_header {
   font-size: 33px;
 }
@@ -562,6 +1037,7 @@ a:hover.selected {
 	float: left;
   line-height: $line-height;
 	input[type="checkbox"]{
+		top: -.175em;
 		margin-bottom: -.1em;
 	}
 }
@@ -576,21 +1052,21 @@ a:hover.selected {
   margin-top: 3px;
 }
 .sorting{
-	background-color: $paper;
-	z-index: 100;
+	background-color: rgba(255,255,255,.3);
+	z-index: 1004;
 }
-.sortable_drag_handle {
+.sortable_drag_handle, .sortable_drag_handle_heading {
 	cursor: move;
 }
-.delete {
-  position: relative;
-  line-height: $line-height;
-	top: 0;
-	font-size: 18px;
+.sortable_drag_handle_heading{
+	font-size: 1.2em;
+	top: .25em;
 }
-a:hover[data-role=delete].delete {
-  background-color: inherit;
+.line_item a:hover[data-role=delete].delete {
 	color: $carmine;
+}
+[data-action] {
+	cursor: pointer;
 }
 .completed {
   text-decoration:line-through;
@@ -602,6 +1078,10 @@ a:hover[data-role=delete].delete {
 .strong_box {
   position: relative;
   float: left;
+}
+.allcaps{
+	font-size: $compact-font-size;
+	text-transform: uppercase;
 }
 .text_right {
 	@include text-right;
@@ -619,11 +1099,17 @@ a:hover[data-role=delete].delete {
 .padding_bottom {
   padding-bottom: 14px;
 }
+.padding_bottom_small {
+	padding-bottom: 1em;
+}
 .padding_top {
   padding-top: 14px;
 }
 .margin_bottom {
 	margin-bottom: 14px;
+}
+.margin_bottom_small {
+	margin-bottom: .8em;
 }
 .border_top {
   border-top: 1px solid $gray8;

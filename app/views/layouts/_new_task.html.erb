@@ -1,0 +1,12 @@
+<% if defined? hierarchical %>
+<div id="task_<%= task.id %>" class="span-15 last line_item_quiet" data-sort_element="true" data-sort_id="user_<%= project.user_id %>_project_task_lists">
+  <div id="task_<%= task.id %>_inner_wrapper" data-role="list_item" data-id="task_<%= task.id %>" class="list_section_indent span-14 last">
+    <%= yield %>
+  </div>
+</div>
+<% elsif defined? sortable %>
+<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item" data-sort_element="true" data-sort_id="plan_<%= project.id %>_task_list"><%= yield %></div>
+<% else %>
+<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item"><%= yield %></div>
+<% end %>
+<%= render :partial => '/layouts/line_item_javascript' %>

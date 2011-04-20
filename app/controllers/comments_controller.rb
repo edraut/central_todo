@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
   
   def edit
     respond_with(@comment) do |format|
-      format.any {render :partial => 'edit', :locals => {:comment => @comment}}
+      format.any {render :partial => 'edit', :locals => {:comment => @comment}, :layout => 'ajax_line_item'}
     end
   end
   
@@ -62,6 +62,7 @@ class CommentsController < ApplicationController
 
   def get_comment
     @comment = Comment.find(params[:id])
+    @item = @comment
     if @comment.commentable.user_id != @this_user.id and !@comment.commentable.all_users.include? @this_user
       flash[:notice] = "You don't have privileges to access that comment."
       redirect_to root_url and return

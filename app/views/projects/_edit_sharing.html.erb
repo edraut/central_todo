@@ -8,15 +8,22 @@
 		:'data-ajax_error_element' => 'project_sharing',
 		:id => 'edit_project_sharing'
 	} do |f| %>
+  	<div class="span-7 line_item_height">
     add email
     <%= text_field_tag :sharer_email %>
     <%= hidden_field_tag :project_id %>
-		<%= f.submit 'share', :id => 'project_sharing_submit' %> or
-		<%= link_to (@project.shared? ? 'cancel' : "don't share"), plan_url(@project),
-		 	:'data-ajax_behavior' => 'ajax_link',
-			:'data-ajax_method' => 'GET',
-			:'data-ajax_success_element' => 'project_sharing',
-			:'data-ajax_data' => "{attribute: 'sharing'}"%>
+    </div>
+  	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+  	  <div class="button_content">share</div>
+  	</div>
+  	<div class="text_with_small_button small">
+		or <%= link_to (@project.shared? ? 'cancel' : "don't share"), plan_url(@project),
+  		 	:'data-ajax_behavior' => 'ajax_link',
+  			:'data-ajax_method' => 'GET',
+  			:'data-ajax_success_element' => 'project_sharing',
+  			:'data-ajax_data' => "{attribute: 'sharing'}"%>
+    </div>
+		
 	<% end %>
   </div>
   <% if @project.project_sharers.count > 0 %>

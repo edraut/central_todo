@@ -173,6 +173,16 @@ div#testone.testone {
   clear: both;
   border-bottom: 1px solid #bdbcb8; }
 
+.section.side_borders {
+  border-left: 1px solid #bdbcb8;
+  border-right: 1px solid #bdbcb8; }
+
+.invisible_side_borders {
+  margin-top: -1px;
+  height: 0px;
+  border-left: 1px solid #bdbcb8;
+  border-right: 1px solid #bdbcb8; }
+
 .half_section {
   position: relative;
   float: left;
@@ -200,6 +210,10 @@ div.section.borderless {
   position: relative;
   float: left;
   width: 100%; }
+
+.block.padding_left {
+  width: 96%;
+  padding-left: 4%; }
 
 .user_title {
   color: #5d5c58; }
@@ -320,6 +334,7 @@ a.button.right {
   border: 1px solid #8e8d89;
   border-top: 1px solid #9d9c98;
   border-left: 1px solid #9d9c98;
+  text-shadow: 0px 1px 1px white;
   color: #fdfcf8; }
 
 .button.medium:active, a.button.medium:active {
@@ -346,7 +361,7 @@ a.button.right {
   border-top: 1px solid #bdbcb8;
   border-left: 1px solid #bdbcb8;
   color: #5d5c58;
-  text-shadow: 0px -1px 1px white; }
+  text-shadow: 0px 1px 1px white; }
 
 .button.color2:active, a.button.color2:active {
   background: #cdccc8;
@@ -391,7 +406,7 @@ a.button.small {
   font-weight: normal;
   display: inline; }
 
-.button.control_font {
+.button.control_font, .button.small_control_font {
   padding-left: .4em;
   padding-right: .4em;
   padding-bottom: .1em;
@@ -441,8 +456,24 @@ button.button {
 .text_center {
   text-align: center; }
 
+.text_right {
+  text-align: right; }
+
+.thirtteen_left {
+  width: 85.24%;
+  padding-left: 14.76%; }
+
+.twelve {
+  width: 12%; }
+
 .eightteen {
   width: 18%; }
+
+.sixty_four {
+  width: 64%; }
+
+.seventy {
+  width: 70%; }
 
 .check_box {
   margin-right: 0; }
@@ -478,11 +509,15 @@ div.checked {
   margin-top: .65em;
   font-size: 1.5em; }
 
+.small_control_font {
+  margin-top: 1em;
+  font-size: 1em; }
+
 .row_item.delete {
   position: relative; }
 
 .sorting {
-  background-color: #fdfcf8;
+  background-color: rgba(255, 255, 255, 0.8);
   z-index: 100; }
 
 .attach_bottom {

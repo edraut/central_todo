@@ -1,14 +1,38 @@
-<% sortable = false unless defined? sortable
-	needs_organization = false unless defined? needs_organization %>
-<%= form_for project, :url => plan_url(project), :html => {
-	:'data-ajax_behavior' => 'ajax_form',
-	:'data-ajax_method' => 'PUT',
-	:'data-ajax_success_callback' => "handleArchivementLink();",
-	:'data-ajax_error_callback' => "jQuery('#project_#{project.id}').append('<div class=\"flash_notice span-15 last\">Ooops! Something went wrong. We're looking into it, but feel free to contact customer support with any concerns.</div>'); setTimeout(\"jQuery('.flash_notice').fadeOut(1000)\",3000);",
-	:'data-ajax_success_element' => "project_#{project.id}"} do |f| %>
-		<div class="line_item_height project_variable_text row_item padding_left">
-  		<%= link_to project.title, plan_url(project), :class => project.all_complete? ? 'completed' : nil %>
-		</div>
-		<%= hidden_field_tag ('sortable', true) if (controller_name == 'projects' or sortable == true) %>
-		<%= hidden_field_tag 'partial', true %>
+<%  sortable = false unless defined? sortable
+    hierarchical = false unless defined? hierarchical %>
+<div class="block"><div class="padding">
+  <div class="line_item_height project_variable_text row_item">
+    <div class="block padding_left">
+      <% if hierarchical %>
+      	<div onclick="void(0)" class="row_item eightteen" data-behavior="expander" data-state="contracted" data-action="expand" data-id="project_<%= project.id %>_task_list">
+          &rarr;
+        </div>
+      	<div onclick="void(0)" class="row_item eightteen" data-behavior="expander" data-state="expanded" data-action="contract" data-id="project_<%= project.id %>_task_list" style="display:none;">
+      	  &darr;
+      	</div>
+      <% end %>
+    	<div class="row_item project_variable_text">
+        <div class="row_item">
+    	  <%= link_to project.title, plan_url(project), :class => project.all_complete? ? 'completed' : nil %>&nbsp;
+    	  </div>
+        <div class="row_item">(</div><div id="project_<%= project.id %>_count_display" data-sort_count="true" data-sort_id="project_task_lists" data-sort_count_id="project_<%= project.id %>_task_list" class="row_item text_right"><%= project.tasks.active.count %></div><div class="row_item">)</div>
+    	</div>
+    </div>
+  </div>
+  <% if sortable == true %>
+  <div data-drag_handle="true" class="drag_handle row_item eightteen text_right">&equiv;&nbsp;&nbsp;</div>
+  <% end %>
+</div></div>
+
+<% if hierarchical %>
+<div class="block"><div class="padding">
+  <div class="row_item thirtteen_left" data-behavior="expander" data-state="expanded" data-id="project_<%= project.id %>_task_list" style="display:none;"><div class="section invisible_side_borders">&nbsp;</div></div>
+  <div id="project_<%= project.id %>_task_list" class="row_item thirtteen_left" data-behavior="expander" data-state="expanded" data-id="project_<%= project.id %>_task_list" data-sort_container="true" data-sort_id="project_task_lists" data-sort_url="<%= sort_tasks_plan_url(project) %>" style="display:none;">
+    <% for task in project.tasks.active.ordered %>
+      <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" data-sort_element="true" data-sort_id="project_task_lists" class="section side_borders">
+        <%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
+  	  </div>
+    <% end %>
+  </div>
+</div></div>
 <% end %>

@@ -1,9 +1,13 @@
 <%= @plan.user.email %> shared this plan with you from http://<%= DOMAIN_NAME %>.
-<% unless @account_holder %>
-<%= APP_NAME %> is a simple online task manager accessible from any computer and most phones. If you sign up for a 30-day free trial (http://<%= DOMAIN_NAME %>/sign_up) you can view this plan with all the powerful features available in <%= APP_NAME %>, and then you can start organizing your whole life with the simplest, most powerful online task manager available.
+<% unless @account_holder.is_a? PaidAccount %>
+<%= APP_NAME %> is a simple online task manager accessible from any computer and most touch screen phones.
+We've created a free account for you. Your login is <%= @account_holder.email %> and your password is <%= @tmp_pass %>
+You can change your email and/or password when you log in at http://<%= DOMAIN_NAME %>/sign_in.
+
+Because <%= @plan.user.email %> shared this plan with you, you can use many of the features of <%= APP_NAME %> with the free account we created for you. If you sign up for a 30-day free trial (see http://<%= DOMAIN_NAME %>/users/<%= @account_holder.id %>) you can create your own plans, organize them, and share them with others with the simplest, most powerful online task manager available.
 <% end %>
 Plan: <%= @plan.title %>
-<% if @account_holder %>You can visit the plan here: <%= @plan_url %><% end %>
+You can visit the plan here: <%= @plan_url %>
 <% for task in @plan.tasks.active.ordered %>
   <%= task.title %> <% if !task.due_date.blank? %> -- due <%= task.due_date.to_formatted_s(:full) %><% end %>
 <% end %>

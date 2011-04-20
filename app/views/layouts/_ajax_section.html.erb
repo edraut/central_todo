@@ -1,7 +1,13 @@
 <%= yield %>
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
-	  roundCorners();
+    <% if params[:attribute] == 'title' %>
+    	<% if action_name == 'edit' %>
+      	jQuery('#<%= @item.class.name.underscore %>_<%= params[:attribute] %>').addClass('section');
+      <% else %>
+        jQuery('#<%= @item.class.name.underscore %>_<%= params[:attribute] %>').removeClass('section');
+      <% end %>
+    <% end %>
   	<% unless flash[:ajax_notice].blank? %>
   	function clearFlash(){
   		jQuery('#flash_notice').fadeOut(500);
@@ -12,5 +18,7 @@
   	setTimeout(clearFlash,2000);
   	<% end %>
   	addDatePicker("[data-behavior='date_picker']");
+	  roundCorners();
+	  popButtons();
 	});
 <% end %>

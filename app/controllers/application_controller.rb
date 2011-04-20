@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   before_filter :handle_title
   before_filter :init_ajax_forms
   before_filter :get_this_user
-  after_filter :handle_flash_header
   
   def string_to_money(string)
     Money.new(string.to_f * 100)
@@ -41,9 +40,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def handle_flash_header
-    flash.discard
-  end
   
   def handle_xhr
     if request.xhr?
@@ -80,36 +76,58 @@ class ApplicationController < ActionController::Base
       when 'show','comments','update'
         if @task.project
           @nav_tab = 'plans'
-          @subnav_tab = @task.project_id
+          this_folder = @task.project.folder_for(@this_user)
+          if(this_folder)
+            @subnav_tab = this_folder.id
+          else
+            @subnav_tab = 'shared'
+          end
+          @subsubnav_tab = @task.project_id
           @mobile_subnav = true
         else
-          @nav_tab = 'tasks'
+          @nav_tab = 'dashboard'
           @subnav_tab = 'unorganized'
         end
       when 'index'
-        @nav_tab = 'tasks'
+        @nav_tab = 'dashboard'
         @subnav_tab = 'unorganized'
       when 'priority'
-        @nav_tab = 'tasks'
+        @nav_tab = 'dashboard'
         @subnav_tab = 'priority'
       when 'archived_unorganized'
-        @nav_tab = 'tasks'
+        @nav_tab = 'dashboard'
         @subnav_tab = 'archived'
       end
     when 'projects'
       @nav_tab = 'plans'
       case action_name
-      when 'show','edit','comments'
-        @subnav_tab = @project.id
+      when 'show','edit','comments','update'
+        this_folder = @project.folder_for(@this_user)
+        if(this_folder)
+          @subnav_tab = this_folder.id
+        else
+          @subnav_tab = 'shared'
+        end
+        @subsubnav_tab = @project.id
       when 'index'
         @subnav_tab = 'active'
       when 'archived'
         @subnav_tab = 'archived'
+      when 'shared'
+        @subnav_tab = 'shared'
+      end
+    when 'folders'
+      @nav_tab = 'plans'
+      case action_name
+      when 'show','edit','update'
+        @subnav_tab = @folder.id
       end
     when 'dashboard'
       @nav_tab = 'dashboard'
+      @subnav_tab = 'overview'
     when 'schedule'
-      @nav_tab = 'schedule'
+      @nav_tab = 'dashboard'
+      @subnav_tab = 'schedule'
     when 'labels'
       @nav_tab = 'labels'
       case action_name

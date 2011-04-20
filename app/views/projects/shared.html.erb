@@ -1,24 +1,41 @@
 <div class="span-17 last section_margin_top" id="header_wrapper">
-	<h1>Plans Shared with You</h1>
+	<h1>Shared Plans</h1>
 </div>
 <div class="span-17 last page_content">
-  <% if @projects.any? %>
+  <% if @friends_projects.any? %>
+  <div class="span-17 last">
+    <h2>Plans Shared with You</h2>
+  </div>
 	<div id="unarchived_items_wrapper" class="span-16 last list_section" data-role="list">
-    <div class="span-16 last line_item">
-      <div class="span-9 text_center small">plan title</div>
-      <div class="span-3 small">&nbsp;</div>
-      <div class="span-3 append-1 last small">active tasks</div>
-    </div>
-		<% for project in @projects %>
-			<div class="span-16 last" id="project_<%= project.id %>" data-role="list_item">
-				<%= render :partial => '/projects/show', :locals => {:project => project} %>
+		<% for project in @friends_projects %>
+			<div class="span-17 last" id="project_<%= project.id %>" data-role="list_item">
+				<%= render :partial => '/projects/show', :locals => {:project => project, :hierarchical => true} %>
 			</div>
 		<% end %>
 	</div>
 	<div class="span-17 last">
-	<%= will_paginate @projects %>
+	<%= will_paginate @friends_projects, :param_name => 'friends_page' %>
   </div>
   <% else %>
-  <p>No one is sharing any plans with you right now.</p>
+  <div class="span-17 last">No one is sharing any plans with you right now.</div>
+  <% end %>
+  <% if @shared_projects.any? %>
+  <div class="span-17 last section_margin_top">
+    <h2>Plans You've Shared with Others</h2>
+  </div>
+	<div id="unarchived_items_wrapper" class="span-16 last list_section" data-role="list">
+		<% for project in @shared_projects %>
+			<div class="span-16 last" id="project_<%= project.id %>" data-role="list_item">
+				<%= render :partial => '/projects/show', :locals => {:project => project, :hierarchical => true} %>
+			</div>
+		<% end %>
+	</div>
+	<div class="span-17 last">
+	<%= will_paginate @shared_projects, :param_name => 'shared_page' %>
+  </div>
+  <% elsif @this_user.is_a? FreeAccount %>
+  <div class="span-17 last section_margin_top">Upgrade to a paid account to create your own plans and share them with your friends and colleagues now!</div>
+  <% else %>
+  <div class="span-17 last section_margin_top">You aren't sharing any plans with friends right now.</div>
   <% end %>
 </div>

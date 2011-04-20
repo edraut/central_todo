@@ -16,9 +16,9 @@
 			<div class="span-16 last line_item_soft" id="due_date_<%= item['item_type'].downcase %>_<%= item['id'] %>">
 			  <div class="span-1 small"><%= item['item_type'].constantize.display_name %>:</div>
 			    <% if item['item_type'] == 'Project' %>
-			      <a href="<%= plan_url(item['id'].to_i) %>" class="span-15 last"><div class="row_item"><%= item['title'] %></div></a>
+			      <a href="<%= plan_url(item['id'].to_i) %>" class="span-15 last"><%= item['title'] %></a>
 			    <% else %>
-		        <a href="<%= task_url(item['id'].to_i) %>" class="span-15 last"><div class="row_item"><%= item['title'] %></div></a>
+		        <a href="<%= task_url(item['id'].to_i) %>" class="span-15 last"><%= item['title'] %></a>
     			<% end %>
 			</div>
 		<% end %>

@@ -10,22 +10,26 @@
   	<div class="span-16 last line_item_height">
     	<%= f.text_field :due_date, :value => @project.due_date.blank? ? Time.now.in_time_zone(@this_user.time_zone).to_formatted_s(:input).downcase : @project.due_date.in_time_zone(@this_user.time_zone).to_formatted_s(:input).downcase, :id => 'project_due_date_field', :class => 'span-6', :'data-behavior' => 'date_picker' %>
   		<%= hidden_field_tag 'attribute', 'due_date', :id => "project_attribute_due_date" %>
-  		<%= f.submit 'save due date', :id => 'project_submit_due_date' %>
-      <% if @project.due_date.blank? %>
-        or
-      <% else %>
-      ,
-  		<%= link_to 'remove', plan_url(@project),
-  		 	:'data-ajax_behavior' => 'ajax_link',
-  			:'data-ajax_method' => 'PUT',
-  			:'data-ajax_success_element' => 'project_due_date',
-  			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%> or 
-  		<% end %>
-  		<%= link_to (@project.due_date.blank? ? 'leave blank' : 'cancel'), plan_url(@project),
-    	 	:'data-ajax_behavior' => 'ajax_link',
-    		:'data-ajax_method' => 'GET',
-    		:'data-ajax_success_element' => 'project_due_date',
-    		:'data-ajax_data' => "{attribute: 'due_date'}"%>
+    	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+    	  <div class="button_content">save</div>
+    	</div>
+    	<div class="text_with_small_button small">
+        <% if @project.due_date.blank? %>
+          or
+        <% else %>
+        ,
+    		<%= link_to 'remove', plan_url(@project),
+    		 	:'data-ajax_behavior' => 'ajax_link',
+    			:'data-ajax_method' => 'PUT',
+    			:'data-ajax_success_element' => 'project_due_date',
+    			:'data-ajax_data' => "{attribute: 'due_date',nullify: true}"%> or 
+    		<% end %>
+    		<%= link_to (@project.due_date.blank? ? 'leave blank' : 'cancel'), plan_url(@project),
+      	 	:'data-ajax_behavior' => 'ajax_link',
+      		:'data-ajax_method' => 'GET',
+      		:'data-ajax_success_element' => 'project_due_date',
+      		:'data-ajax_data' => "{attribute: 'due_date'}"%>
+      </div>
   	</div>
 	<% end %>
 </div>

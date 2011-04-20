@@ -115,14 +115,20 @@ function handleListDisplay(){
 function bindExpanders(){
 	jQuery("[data-behavior='expander'][data-action='expand']").die('click');
 	jQuery("[data-behavior='expander'][data-action='expand']").live('click', function(e){
-		actual_target = getActualLinkTarget(jQuery(e.target));
+		actual_target = jQuery(e.target);
+		if(!actual_target.attr('data-action')){
+			actual_target = actual_target.parents("[data-action='expand']:first");
+		}
 		expandExpander(actual_target.attr('data-id'));
 		e.preventDefault();
 		return false;
 	});
 	jQuery("[data-behavior='expander'][data-action='contract']").die('click');
 	jQuery("[data-behavior='expander'][data-action='contract']").live('click', function(e){
-		actual_target = getActualLinkTarget(jQuery(e.target));
+		actual_target = jQuery(e.target);
+		if(!actual_target.attr('data-action')){
+			actual_target = actual_target.parents("[data-action='contract']:first");
+		}
 		contractExpander(actual_target.attr('data-id'));
 		e.preventDefault();
 		return false;
@@ -131,6 +137,7 @@ function bindExpanders(){
 function expandExpander(data_id) {
 	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").show();
 	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").hide();
+	popButtons();
 }
 function contractExpander(data_id) {
 	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").hide();
@@ -163,9 +170,6 @@ function releaseButton(e){
 		target.removeClass('buttons_down');
 		target.addClass('buttons_up');
 	}
-}
-function myalert(e){
-	alert(e.type);
 }
 function bindButtonDisplay(){
 	jQuery("[data-button='true']").live('touchstart',pressButton);

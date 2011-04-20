@@ -1,0 +1,32 @@
+<h2>Folder</h2>
+<div class="span-16 last section">
+  <% if @this_user.is_a? PaidAccount %>
+	<%= form_for @project, :url => plan_url(@project), :html => {		:id => 'edit_project_folder_id'
+	} do |f| %>
+	  <div class="span-11">
+	  <% if @project.user_id == @this_user.id %>
+  		<%= f.select :folder_id, [['none',nil]] +  @this_user.folders.ordered.map{|p| [p.title,p.id]}, {}, :class => 'span-11', :rows => 4 %>
+  	<% else %>
+      <%= select_tag 'shared_folder_id', options_for_select([['none',nil]] +  @this_user.folders.ordered.map{|p| [p.title,p.id]}, @project.folder_for(@this_user)), :class => 'span-11', :rows => 4 %>
+  	<% end %>
+  	</div>
+    <div class="span-5 last">
+    	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+    	  <div class="button_content">save</div>
+    	</div>
+    	<div class="text_with_small_button small">
+  		or <%= link_to (@project.folder_for(@this_user) ? 'cancel' : 'leave blank'), plan_url(@project),
+    		 	:'data-ajax_behavior' => 'ajax_link',
+    			:'data-ajax_method' => 'GET',
+    			:'data-ajax_success_element' => 'project_folder_id',
+    			:'data-ajax_data' => "{attribute: 'folder_id'}"%>
+      </div>
+		</div>
+	<% end %>
+	<% else %>
+    <p>You currently have a free account. Upgrade to a paid account now and create your own plans and folders, share them with friends and colleagues, and more!<br/>&nbsp;
+    </p>
+    <p>With a free account all the plans that others have shared with you will be placed in the automatically created folder "Free Account Folder".
+    </p>
+	<% end %>
+</div>

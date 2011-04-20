@@ -2,7 +2,7 @@
 <h2>Description</h2>
 </div>
 <div class="span-13 last">
-  <div class="list_action">
+  <div class="attribute_action">
 		<%= link_to (@project.description.blank? ? 'add description' : 'edit description'), edit_plan_url(@project, :attribute => 'description'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',

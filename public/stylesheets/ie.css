@@ -5,9 +5,11 @@ input {
 	font-size: 16px;
 	font-family: "Lucida Sans Unicode";
 }
-.delete {
+.delete, .plus_icon {
+	top: -.1em;
 	font-family: "Lucida Sans Unicode";
 }
+
 .ie_shadow_small {
     display: block;
     position: absolute;
@@ -21,4 +23,13 @@ input {
     z-index: -1;
     background: #000;
     filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4', MakeShadow='true', ShadowOpacity='0.30');
+}
+.button .glare, .button.small .glare {
+	top: 0;
+	width: 100%;
+	margin: 0;
+}
+
+.button .delete {
+	top: .1em;
 }

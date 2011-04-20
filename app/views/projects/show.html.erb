@@ -5,22 +5,6 @@
   <%= render :partial => 'tabs' %>
 </div>
 <div class="span-17 last page_content">
-  <div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_task_form">
-		<%= form_for @task do |f| %>
-			<div class="span-12">
-				<%= f.text_field :title, :id => "primary_input", :class => "span-12" %>
-			</div>
-			<div class="span-4 last">
-				<%= f.hidden_field :user_id %>
-				<%= f.hidden_field :project_id %>
-				<%= f.hidden_field :state, :value => 'active' %>
-				<%= hidden_field_tag :app_context, 'project' %>
-				<%= f.submit "Add task to this Plan" %>
-				<a href="#" data-behavior="expander" data-action="contract" data-id="new_task_form">cancel</a>
-			</div>
-		<% end %>
-	</div>
-
   <% if @project.archived? %>
   <p>You archived this plan. If you would like to re-activate it, click on the 'edit plan' tab above and uncheck 'archived'.</p>
   <% else %>
@@ -30,32 +14,39 @@
 				<h2><%= @project.title %></h2>
 			</div>
 		</div>
-		<div id="task_list_heading" class="span-16 last">
-      <div id="archive_completed_items" class="list_action attach_above" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
+
+		<div id="task_list_heading" class="span-16 last section_margin_top" data-behavior="expander" data-state="contracted" data-id="project_<%= @project.id %>_new_task_form">
+      <div id="archive_completed_items" class="list_action button round light" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %> onclick="void(0)" data-button="true">
+      <div class="button_content">
     	<%= link_to 'archive completed tasks', archive_completed_tasks_plan_url(@project),
     	 	:'data-ajax_behavior' => 'ajax_link',
     		:'data-ajax_method' => 'GET',
     		:'data-ajax_success_callback' => "handleArchivementSuccess(true);",
     		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %>
+        </div>
     	</div>
 			<% if @project.tasks.unarchived.with_due_date.count > 0 %>
-		  <div class="list_action attach_above">
-    		<%= link_to ('sort by due date', sort_tasks_plan_url(@project) + '?by_due_date=true') %>
+		  <div class="list_action button round light" onclick="void(0)" data-button="true">
+        <div class="button_content">
+      		<%= link_to ('sort by due date', sort_tasks_plan_url(@project) + '?by_due_date=true') %>
+        </div>
       </div>
       <% end %>
-      	<div class="list_action attach_above" data-behavior="expander" data-state="contracted" data-id="new_task_form"><a href="#" data-behavior="expander" data-action="expand" data-id="new_task_form">add a task</a></div>
-        <% if @project.tasks.unarchived.count == 0 and @project.tasks.count > 0 %>
-        <div id="project_done" class="list_action attach_above"><%= render :partial => 'show_done', :locals => {:project => @project} %></div>
-        <% end %>
+      	<div class="list_action button round light" data-behavior="expander" data-state="contracted" data-id="project_<%= @project.id %>_new_task_form" onclick="void(0)" data-button="true">
+        	<div class="button_content">
+            <a href="#" data-behavior="expander" data-action="expand" data-id="project_<%= @project.id %>_new_task_form">add a task</a>
+          </div>
+        </div>
 		</div>
-		<div id="unarchived_items_wrapper" class="span-16 last list_section" data-role="list">
+    <%= render :partial => '/tasks/new', :locals => {:project => @project, :sortable => true} %>
+		<div id="unarchived_items_wrapper" class="span-16 last list_section section_margin_top" data-role="list">
       <div class="span-16 last line_item">
         <div class="span-13 text_center small">task title</div>
         <div class="span-3 last small">due date</div>
       </div>
-      <div id="plan_task_list" class="span-16 last" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>">
+      <div id="project_<%= @project.id %>_task_list" class="span-16 last" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-sort_id="plan_<%= @project.id %>_task_list">
 			<% @project.tasks.unarchived.ordered.each_with_index do |task,index| %>
-				<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item" data-sort_element="true">
+				<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item" data-sort_element="true" data-sort_id="plan_<%= @project.id %>_task_list">
 					<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true, :needs_organization => true} %>
 				</div>
 			<% end %>
