@@ -12,8 +12,11 @@
 	    :'data-ajax_success_element' => "comment_#{comment.id}" %>
     </div>
     <% end %>
-    <div class="span-4 last small">
-      <%= comment.user.email %>
+    <div class="span-4 last small line_fixed_width">
+      <div class="overflow_fade">&nbsp;</div>
+      <div class="span-24">
+      <%= comment.user.handle %>
+      </div>
     </div>
     <div class="span-4 last small">
       <%= time_ago_in_words(comment.created_at) %> ago

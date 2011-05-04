@@ -3,4 +3,6 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   
   scope :by_date, order('updated_at')
+  scope :recent, order('created_at desc')
+  
 end

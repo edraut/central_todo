@@ -99,22 +99,27 @@ class ApplicationController < ActionController::Base
         @subnav_tab = 'archived tasks'
       end
     when 'projects'
-      @nav_tab = 'plans'
-      case action_name
-      when 'show','edit','comments','update'
-        this_folder = @project.folder_for(@this_user)
-        if(this_folder)
-          @subnav_tab = this_folder.id
-        else
+      if @project and @project.folder_for(@this_user).nil? and @this_user.shared_project_ids.include? @project.id
+        @nav_tab = 'contacts'
+        @subnav_tab = @project.user_id
+      else
+        @nav_tab = 'plans'
+        case action_name
+        when 'show','edit','comments','update'
+          this_folder = @project.folder_for(@this_user)
+          if(this_folder)
+            @subnav_tab = this_folder.id
+          else
+            @subnav_tab = 'shared'
+          end
+          @subsubnav_tab = @project.id
+        when 'index'
+          @subnav_tab = 'active'
+        when 'archived'
+          @subnav_tab = 'archived'
+        when 'shared'
           @subnav_tab = 'shared'
         end
-        @subsubnav_tab = @project.id
-      when 'index'
-        @subnav_tab = 'active'
-      when 'archived'
-        @subnav_tab = 'archived'
-      when 'shared'
-        @subnav_tab = 'shared'
       end
     when 'folders'
       @nav_tab = 'plans'
@@ -125,6 +130,9 @@ class ApplicationController < ActionController::Base
     when 'dashboard'
       @nav_tab = 'dashboard'
       @subnav_tab = 'overview'
+    when 'comments'
+      @nav_tab = 'dashboard'
+      @subnav_tab = 'comments'
     when 'schedule'
       @nav_tab = 'dashboard'
       @subnav_tab = 'schedule'
@@ -213,7 +221,7 @@ class ApplicationController < ActionController::Base
       end 
     end 
     def store_location
-      session[:return_to] = request.request_uri
+      session[:return_to] = request.fullpath
     end
     
     def redirect_back_or_default(default)

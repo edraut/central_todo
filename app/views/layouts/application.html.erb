@@ -79,11 +79,12 @@
                  subnav_links = {
                    'overview' => dashboard_url,
                    'unorganized' => tasks_url,
+                   'comments' => comments_url(:full_page => true),
                    'priority' => priority_tasks_url,
                    'schedule' => schedule_url,
                    'archived tasks' => archived_unorganized_tasks_url
                  }
-                 subnav_tags = ['overview','unorganized','priority','schedule','archived tasks']
+                 subnav_tags = ['overview','unorganized','comments','priority','schedule','archived tasks']
                else
                  subnav_links = {
                    'overview' => dashboard_url,
@@ -95,7 +96,7 @@
             %>
             <% for subnav in subnav_tags %>
             <div class="vert_line_subnav_wrapper<% if @subnav_tab == subnav %> selected<% end %>">
-             <%= link_to subnav.split.map{|word| word.capitalize}.join(' '), subnav_links[subnav] %>
+             <span class="allcaps"><%= link_to subnav.split.map{|word| word.capitalize}.join(' '), subnav_links[subnav] %></span>
 						</div>
 						<% end %>
 						<% end %>
@@ -214,7 +215,12 @@
 						  <% end %>
 						  <% for contact in @this_user_contacts %>
 							<div class="vert_line_subnav_wrapper<% if @nav_tab == 'contacts' and @subnav_tab == contact.id %> selected<% end %>">
-                <%= link_to contact.handle, user_url(contact) %>
+							  <div class="line_fixed_width<% if @nav_tab == 'contacts' and @subnav_tab == contact.id %> selected<% end %>">
+                  <div class="overflow_fade">&nbsp;</div>
+                  <div class="span-24 allcaps">
+                    <%= link_to contact.handle, user_url(contact) %>
+                  </div>
+                </div>
               </div>
               <% end %>
             </div>
@@ -233,7 +239,7 @@
             %>
             <% for subnav in subnav_tags %>
             <div class="vert_line_subnav_wrapper<% if @subnav_tab == subnav %> selected<% end %>">
-              <%= link_to subnav.capitalize, subnav_links[subnav] %>
+              <span class="allcaps"><%= link_to subnav.capitalize, subnav_links[subnav] %></span>
 						</div>
 						<% end %>
 						<% end %>

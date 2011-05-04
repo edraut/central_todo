@@ -1,0 +1,25 @@
+<div class="span-17 last section_margin_top" id="header_wrapper">
+<h1>Recent Comments</h1>
+</div>
+<div class="span-17 last page_content">
+  <% if @this_user.comments.recent.count > 0%>
+  <div class="span-16 last list_section">
+    <% for comment in @this_user.comments.recent.limit(25) %>
+      <div class="span-16 last line_item">
+        <div class="span-16 last small">
+          <div class="span-1 allcaps">
+            <%= comment.commentable.class.display_name %>:
+          </div>
+          <div class="span-15 last line_fixed_width">
+            <div class="overflow_fade">&nbsp;</div>
+            <div class="span-24">
+              <%= link_to truncate_clean(comment.commentable.title,{:length => 100, :omission => '...'}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
+            </div>
+          </div>
+        </div>
+        <%= render :partial => 'show', :locals => {:comment => comment} %>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
+</div>

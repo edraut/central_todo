@@ -2,9 +2,13 @@ class CommentsController < ApplicationController
   before_filter :require_user
   before_filter :get_comment, :only => [:show,:edit,:update,:destroy]
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
+  before_filter :set_nav_tab
   respond_to :html, :mobile
   
   def index
+    if params[:full_page]
+      render :action => 'index' and return
+    end
     @commentable_class = params[:commentable_type].constantize
     @commentable = @commentable_class.find(params[:commentable_id])
     respond_with(@commentable) do |format|

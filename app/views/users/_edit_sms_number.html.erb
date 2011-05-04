@@ -3,7 +3,7 @@
 </div>
 <div class="span-16 last section">
   <p>If you want to receive due date reminders on your cell phone via SMS text message, enter your 10 digit cell number <span class="small">(e.g. 4105551111, not 1-410-123-4567)</span>. We'll send you a verification code on your phone, which you'll need to enter here once you have it.</p>
-  <%= form_for @user, :html => {
+  <%= form_for @user, :url => user_url(@user.id), :html => {
   	:'data-ajax_behavior' => 'ajax_form',
   	:'data-ajax_method' => 'PUT',
   	:'data-ajax_success_element' => 'account_sms_number',
@@ -14,7 +14,7 @@
   	<%= f.text_field :sms_number, :id => 'user_sms_number_field' %> 
   	<%= hidden_field_tag 'attribute', 'sms_number', :id => 'attribute_sms_number_field' %>
   	<%= f.submit 'save', :id => 'user_sms_number_submit' %>
-  	<%= link_to 'cancel', account_user_url(@user),
+  	<%= link_to 'cancel', user_url(@user),
   	 	:'data-ajax_behavior' => 'ajax_link',
   		:'data-ajax_method' => 'GET',
   		:'data-ajax_success_element' => 'account_sms_number',

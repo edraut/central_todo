@@ -1,10 +1,10 @@
-<%= @plan.user.email %> shared this plan with you from http://<%= DOMAIN_NAME %>.
+<%= @plan.user.handle %> shared this plan with you from http://<%= DOMAIN_NAME %>.
 <% unless @account_holder.is_a? PaidAccount %>
 <%= APP_NAME %> is a simple online task manager accessible from any computer and most touch screen phones.
-We've created a free account for you. Your login is <%= @account_holder.email %> and your password is <%= @tmp_pass %>
+We've created a free account for you. Your login is <%= @account_holder.handle %> and your password is <%= @tmp_pass %>
 You can change your email and/or password when you log in at http://<%= DOMAIN_NAME %>/sign_in.
 
-Because <%= @plan.user.email %> shared this plan with you, you can use many of the features of <%= APP_NAME %> with the free account we created for you. If you sign up for a 30-day free trial (see http://<%= DOMAIN_NAME %>/users/<%= @account_holder.id %>) you can create your own plans, organize them, and share them with others with the simplest, most powerful online task manager available.
+Because <%= @plan.user.handle %> shared this plan with you, you can use many of the features of <%= APP_NAME %> with the free account we created for you. If you sign up for a 30-day free trial (see http://<%= DOMAIN_NAME %>/users/<%= @account_holder.id %>) you can create your own plans, organize them, and share them with others with the simplest, most powerful online task manager available.
 <% end %>
 Plan: <%= @plan.title %>
 You can visit the plan here: <%= @plan_url %>

@@ -37,6 +37,8 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @item = @user
+    return if handle_attribute_partials('show')
     @projects_shared_to = @this_user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @user.id})
     @projects_shared_from = @user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @this_user.id})
     respond_with(@user)
@@ -44,6 +46,7 @@ class UsersController < ApplicationController
 
   def account
     @user = @this_user
+    @item = @user
     return if handle_attribute_partials('show')
     respond_with(@user)
   end
@@ -60,6 +63,7 @@ class UsersController < ApplicationController
     else
       require_user
       @user = @this_user
+      @item = @user
       return if handle_attribute_partials('edit')
     end
   end
@@ -70,6 +74,7 @@ class UsersController < ApplicationController
     else
       require_user
       @user = @this_user # makes our views "cleaner" and more consistent
+      @item = @user
     end
     
     if params[:reset_password]

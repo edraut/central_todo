@@ -83,7 +83,7 @@ class ProjectsController < ApplicationController
       if @sharer
         ProjectSharer.create(:user_id => @sharer.id,:project_id => @project.id)
         Notifier.share_plan(@project,@sharer).deliver
-        flash.now[:ajax_notice] = "#{@sharer.email} now has access to this list"
+        flash.now[:ajax_notice] = "#{@sharer.handle} now has access to this list"
       else
         tmp_pass = User.generate_code(8)
         @sharer = FreeAccount.create(:email => params[:sharer_email], :password => tmp_pass, :password_confirmation => tmp_pass)

@@ -18,16 +18,11 @@
 <% if @project.user_id == @this_user.id %>
   <% if @project.sharers.count > 0 %>
     You are sharing this plan with <%= DOMAIN_NAME %> users
-    <%= to_str_list(@project.sharers.map{|s| "<strong>#{s.email}</strong>"}).html_safe %>.
+    <%= to_str_list(@project.sharers.map{|s| "<strong>#{s.handle}</strong>"}).html_safe %>.
   <% else %>
     You aren't sharing this plan with any <%= DOMAIN_NAME %> users.
   <% end %>
-  <% if @project.project_emails.count > 0 %>
-    <br/>&nbsp;<br/> You sent this plan in an email to
-    <%= to_str_list(@project.project_emails.map{|e| "<strong>#{e.email}</strong>"}).html_safe %>.<br/>
-    If they join <%= DOMAIN_NAME %> using the same email address, they'll be able to add, edit, and complete tasks in this plan.
-  <% end %>
 <% else %>
-  This plan is shared with you by <%= @project.user.email %>
+  This plan is shared with you by <%= @project.user.handle %>
 <% end %>
 </div>

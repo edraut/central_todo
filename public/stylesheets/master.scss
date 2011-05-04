@@ -1,6 +1,6 @@
 $dark-blue: #557777;
 $blue: #90B0B0;
-$light-blue: #DDF5F5;
+$light-blue: #EAF5F5;
 $pale-blue: #f0f8f8;
 $blue-wash: #fbffff;
 $light-carmine: #CF2A00;
@@ -574,7 +574,7 @@ select.with_text_field{
 		position: relative;
 		float: left;
 		width: 93%;
-		font-size: $normal-font-size;
+		font-size: $medium-font-size;
 		line-height: $compact-line-height;
 		.label a.selected, .label a:hover.selected {
 			color: inherit;
@@ -797,6 +797,9 @@ a.selected {
   position: absolute;
   left: 0em;
 }
+.highlight {
+	background-color: $light-blue;
+}
 .line_item, .line_item_quiet {
   select {
 		position: relative;
@@ -862,6 +865,17 @@ a.selected {
 	background: -webkit-gradient(linear, left top, right top, from(rgba(205, 204, 200, 0)), to(rgba(205, 204, 200, 1)));
 	background: -moz-linear-gradient(left, rgba(205, 204, 200, 0) 0%, rgba(205, 204, 200, 1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00CDCCC8", endColorstr="#00CDCCC8", gradientType=1); /* for IE */
+}
+.line_fixed_width.highlight .overflow_fade{
+	background-color: rgba(234, 245, 245, 0);
+	background: -webkit-gradient(linear, left top, right top, from(rgba(234, 245, 245, 0)), to(rgba(234, 245, 245, 1)));
+	background: -moz-linear-gradient(left, rgba(234, 245, 245, 0) 0%, rgba(234, 245, 245, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00EAF5F5", endColorstr="#FFEAF5F5", gradientType=1); /* for IE */
+}
+#contacts_subnav .line_fixed_width {
+	width: 197px;
+	position: relative;
+	float: left;
 }
 .small_padding {
 	padding-top: 5px;
@@ -1264,7 +1278,7 @@ h2 .button.small {
 	clear: both;
 }
 .allcaps{
-	font-size: $compact-font-size;
+	font-size: .85em;
 	text-transform: uppercase;
 }
 .coolvetica {
@@ -1291,6 +1305,9 @@ h2 .button.small {
 }
 .padding_top {
   padding-top: 14px;
+}
+.padding_left {
+  padding-left: .5em;
 }
 .margin_bottom {
 	margin-bottom: 14px;

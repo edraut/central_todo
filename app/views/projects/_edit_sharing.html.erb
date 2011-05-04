@@ -31,7 +31,7 @@
     <h3>Shared with</h3>
     <% for project_sharer in @project.project_sharers %>
     <div class="span-16 last" id="project_sharer_<%= project_sharer.id %>">
-      <%= project_sharer.user.email %> <a href="<%= project_sharer_url(project_sharer) %>"
+      <%= project_sharer.user.handle %> <a href="<%= project_sharer_url(project_sharer) %>"
       	data-ajax_behavior="ajax_link"
       	data-ajax_method="DELETE"
       	data-ajax_confirm="Are you sure you want to remove this user from sharing this plan?"

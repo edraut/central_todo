@@ -1,5 +1,36 @@
-<div class="span-16 last section_margin_top" id="header_wrapper">
-	<div class="span-8"><h1>Dashboard</h1></div><% if @this_user.show_help_text and @this_user.tasks.count > 0 %><div class="span-8 last text_right"><p class="explanatory">You can convert a task to a plan, add a description and more by clicking on a task title in any list.</p></div><% end %>
+<div class="span-17 last section_margin_top" id="header_wrapper">
+	<div class="span-6"><h1>Dashboard</h1></div>
+	<div class="span-11 last">
+	  <% if @this_user.show_help_text and @this_user.tasks.count > 0 %>
+	    <p class="explanatory">You can convert a task to a plan, add a description and more by clicking on a task title in any list.</p>
+	  <% elsif @this_user.comments.recent.count > 0 %>
+	    <div class="span-11 last small">
+        <div class="span-3 line_fixed_width">
+          <div class="overflow_fade">&nbsp;</div>
+          <div class="span-24 allcaps small">
+            <% this_comment = @this_user.comments.recent.first %>
+	          <%= this_comment.user.handle %>
+	        </div>
+	      </div>
+	      <div class="span-0_5 allcaps small">re:</div>
+        <div class="span-7_5 last line_fixed_width">
+          <div class="overflow_fade">&nbsp;</div>
+          <div class="span-24 padding_left">
+  	        <%= link_to truncate_clean(this_comment.commentable.title,{:length => 120,:omission => "..."}), (this_comment.commentable_type == 'Project' ? comments_plan_url(this_comment.commentable_id) : comments_task_url(this_comment.commentable_id)) %>
+          </div>
+        </div>
+	    </div>
+	    <div class="span-11 last small line_fixed_width highlight">
+        <div class="overflow_fade">&nbsp;</div>
+        <div class="span-24 padding_left">
+	        <%= truncate_clean(this_comment.body,{:length => 120,:omission => "..."}) %>
+	      </div>
+	    </div>
+	    <div class="span-11 last small text_right">
+	      <%= link_to 'see all recent comments', comments_url(:full_page => true) %>
+	    </div>
+	  <% end %>
+  </div>
 </div>
 <div class="span-17 last page_content">
   <% if @this_user.is_a? PaidAccount %>

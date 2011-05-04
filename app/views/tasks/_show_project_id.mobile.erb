@@ -12,7 +12,7 @@
 </div>
 <% else %>
 <div class="row_item last list_action h3_padding small">
-  (task shared by<br/> <%= @task.user.email %>)
+  (task shared by<br/> <%= @task.user.handle %>)
 </div>
 <% end %>
 <% if @task.project %><div class="block"><%= @task.project.title %></div><% end %>

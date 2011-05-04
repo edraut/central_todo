@@ -386,7 +386,7 @@ select.with_text_field {
     position: relative;
     float: left;
     width: 93%;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px; }
     .vert-line-nav-wrapper-main .vert_line_subnav_wrapper .label a.selected, .vert-line-nav-wrapper-main .vert_line_subnav_wrapper .label a:hover.selected, .vert-line-nav-wrapper-main .vert_line_subsubnav_wrapper .label a.selected, .vert-line-nav-wrapper-main .vert_line_subsubnav_wrapper .label a:hover.selected {
       color: inherit; }
@@ -597,6 +597,9 @@ a.selected {
   position: absolute;
   left: 0em; }
 
+.highlight {
+  background-color: #eaf5f5; }
+
 .line_item, .line_item_quiet {
   border-bottom: 1px solid #adaca8;
   padding: .4em 0;
@@ -662,6 +665,18 @@ a.selected {
   background: -moz-linear-gradient(left, rgba(205, 204, 200, 0) 0%, #cdccc8 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00CDCCC8", endColorstr="#00CDCCC8", gradientType=1);
   /* for IE */ }
+
+.line_fixed_width.highlight .overflow_fade {
+  background-color: rgba(234, 245, 245, 0);
+  background: -webkit-gradient(linear, left top, right top, from(rgba(234, 245, 245, 0)), to(#eaf5f5));
+  background: -moz-linear-gradient(left, rgba(234, 245, 245, 0) 0%, #eaf5f5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00EAF5F5", endColorstr="#FFEAF5F5", gradientType=1);
+  /* for IE */ }
+
+#contacts_subnav .line_fixed_width {
+  width: 197px;
+  position: relative;
+  float: left; }
 
 .small_padding {
   padding-top: 5px; }
@@ -1115,7 +1130,7 @@ h2 .button.small {
   clear: both; }
 
 .allcaps {
-  font-size: 12px;
+  font-size: .85em;
   text-transform: uppercase; }
 
 .coolvetica {
@@ -1142,6 +1157,9 @@ h2 .button.small {
 
 .padding_top {
   padding-top: 14px; }
+
+.padding_left {
+  padding-left: .5em; }
 
 .margin_bottom {
   margin-bottom: 14px; }
