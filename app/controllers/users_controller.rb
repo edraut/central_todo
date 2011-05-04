@@ -2,7 +2,14 @@ class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => :show
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
+  before_filter :set_nav_tab
   respond_to :html, :mobile
+  
+  def index
+    @sharing_parents = User.sharing_parents_for(@this_user)
+    @sharing_children = User.sharing_children_for(@this_user)
+  end
+  
   def new
     @user = User.new
     @page_heading = "Create your toDo account"
@@ -29,8 +36,14 @@ class UsersController < ApplicationController
   end
   
   def show
+    @user = User.find(params[:id])
+    @projects_shared_to = @this_user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @user.id})
+    @projects_shared_from = @user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @this_user.id})
+    respond_with(@user)
+  end
+
+  def account
     @user = @this_user
-    @item = @user
     return if handle_attribute_partials('show')
     respond_with(@user)
   end
@@ -97,7 +110,7 @@ class UsersController < ApplicationController
           end
         end
       else
-        redirect_to user_url(@this_user)
+        redirect_to account_user_url(@this_user)
       end
     end
   end

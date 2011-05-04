@@ -1,7 +1,7 @@
 <div id="top_nav">
   <div class="meta_nav">
 		<% if @this_user %>
-			<div class="left"><%= link_to 'account', user_url(@this_user), :class => 'button round dark' %></div>
+			<div class="left"><%= link_to 'account', account_user_url(@this_user), :class => 'button round dark' %></div>
 			<h1><%= @page_title %></h1>
 			<div class="right"><%= link_to 'sign out', sign_out_url, :class => 'button round dark' %></div>
 		<% else %>

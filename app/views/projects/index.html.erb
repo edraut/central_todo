@@ -1,5 +1,5 @@
 <div class="span-17 last section_margin_top" id="header_wrapper">
-	<div class="span-9"><h1>All Active Plans</h1></div>
+	<div class="span-9"><h1>All Folders</h1></div>
 	<% if (@help_text = true) and @this_user.projects.count > 0%>
 	  <div class="span-8 last quiet text_right">You can add tasks to a plan, add a plan description, and more by clicking on the plan title in any list</div>
 	<% end %>
@@ -41,15 +41,15 @@
       	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
       	  <div class="button_content">save</div>
       	</div>
-      	<div class="text_with_small_button small">
+      	<div class="text_with_button small">
 				or <a href="#" data-behavior="expander" data-action="contract" data-id="new_folder_form">cancel</a>
         </div>
 			</div>
     <% end %>
   </div>
-  <div class="span-17 last page_pull_left" data-sort_container="true">
+  <div id="folder_list" class="span-17 last page_pull_left">
   <% for folder in @folders %>
-    <div id="folder_<%= folder.id %>" class="span-17 last padding_top padding_bottom">
+    <div id="folder_<%= folder.id %>" class="span-17 last padding_top padding_bottom" data-sort_element_id="<%= folder.id %>" data-sort_element_type="folder">
     	<div class="span-16 last" data-binding="hover_show_more" data-hover_div="[data-hover_id='folder_line_item_<%= folder.id %>']" data-hover_fade_time="50" data-hover_fadein_time="50">
     	  <div class="span-13">
       		<h2>
@@ -82,8 +82,8 @@
         <div class="span-16 list_section last section_margin_top">
         	<div id="unarchived_items_wrapper" data-role="list" class="span-16 last">
             <div id="folder_<%= folder.id %>_plan_list" class="span-16 last">
-        		<% for project in Project.for_folder(folder).active.shared_order %>
-        			<div id="project_<%= project.id %>" class="span-16 last" data-role="list_item">
+        		<% for project in Project.for_folder(folder).only_once.active.shared_order %>
+        			<div id="project_<%= project.id %>" class="span-16 last" data-role="list_item" data-sort_element_id="<%= project.id %>" data-sort_element_type="project">
           			<%= render :partial => 'show', :locals => {:project => project, :sortable => true, :hierarchical => true} %>
         			</div>
         		<% end %>

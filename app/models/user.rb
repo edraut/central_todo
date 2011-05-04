@@ -13,6 +13,16 @@ class User < ActiveRecord::Base
 
   #named_scopes
 
+  scope :sharing_parents_for, lambda {|user| 
+    select("distinct users.id,users.email,users.name").
+    joins("inner join projects pr1 on pr1.user_id = users.id inner join project_sharers on project_sharers.project_id = pr1.id").
+    where("project_sharers.user_id = #{user.id}")
+  }
+  scope :sharing_children_for, lambda {|user| 
+    select("distinct users.id,users.email,users.name").
+    joins("inner join project_sharers ps1 on ps1.user_id = users.id inner join projects pr1 on pr1.id = ps1.project_id").
+    where("pr1.user_id = #{user.id}")
+  }
   #special behaviors
   acts_as_authentic
 
@@ -39,8 +49,41 @@ class User < ActiveRecord::Base
     (0...size).map{ charset.to_a[rand(charset.size)] }.join
   end
   
+  def self.contacts_for(user)
+    self.find_by_sql("
+      SELECT distinct users.id,users.email,users.name from users inner join projects pr1 on pr1.user_id = users.id inner join project_sharers on project_sharers.project_id = pr1.id
+      WHERE project_sharers.user_id = #{user.id}
+      UNION
+      SELECT distinct users.id,users.email,users.name from users inner join project_sharers ps1 on ps1.user_id = users.id inner join projects pr1 on pr1.id = ps1.project_id
+      WHERE pr1.user_id = #{user.id}
+      ")
+  end
   #instance methods
 
+  def handle
+    self.name.blank? ? self.email : self.name
+  end
+  
+  def sharing_parents
+    User.sharing_parents_for(self)
+  end
+  
+  def sharing_parent_ids
+    User.sharing_parent_ids_for(self)
+  end
+  
+  def sharing_children
+    User.sharing_children_for(self)
+  end
+  
+  def sharing_children_ids
+    User.sharing_children_ids_for(self)
+  end
+  
+  def contacts
+    User.contacts_for(self)
+  end
+  
   def available_reminder_types
     if self.sms_valid?
       [['email','EmailReminder'],['SMS','SmsReminder']]

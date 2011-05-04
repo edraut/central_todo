@@ -5,21 +5,21 @@ class DashboardController < ApplicationController
   def index
     @page_title = 'Dashboard'
     @task = Task.new(:user_id => @this_user.id)
-    @priority_tasks = Task.for_user(@this_user).active.priority.recent.five
+    @priority_tasks = Task.only_once.for_user(@this_user).active.priority.recent.five
     if @priority_tasks.length > 4
-      @total_priority_task_count = Task.for_user(@this_user).active.priority.count
+      @total_priority_task_count = Task.only_once.for_user(@this_user).active.priority.count
     else
       @total_priority_task_count = @priority_tasks.length
     end
-    @due_date_tasks = Task.for_user(@this_user).active.with_due_date.by_due_date.find(:all, :limit => 2)
+    @due_date_tasks = Task.only_once.for_user(@this_user).active.with_due_date.by_due_date.find(:all, :limit => 2)
     if @due_date_tasks.length == 2
-      @due_date_task_count = Task.for_user(@this_user).active.with_due_date.count
+      @due_date_task_count = Task.only_once.for_user(@this_user).active.with_due_date.count
     else
       @due_date_task_count = @due_date_tasks.length
     end
-    @due_date_projects = Project.for_user(@this_user).active.with_due_date.by_due_date.find(:all, :limit => 2)
+    @due_date_projects = Project.for_user(@this_user).only_once.active.with_due_date.by_due_date.find(:all, :limit => 2)
     if @due_date_projects.length == 2
-      @due_date_project_count = Task.for_user(@this_user).active.with_due_date.count
+      @due_date_project_count = Task.only_once.for_user(@this_user).active.with_due_date.count
     else
       @due_date_project_count = @due_date_projects.length
     end

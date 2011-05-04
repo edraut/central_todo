@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110407195245) do
+ActiveRecord::Schema.define(:version => 20110503224659) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -57,11 +57,12 @@ ActiveRecord::Schema.define(:version => 20110407195245) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "folder_id"
+    t.boolean  "no_folder",  :default => false
   end
 
   create_table "projects", :force => true do |t|
     t.string   "title"
-    t.datetime "due_date"
+    t.date     "due_date"
     t.text     "description"
     t.string   "type"
     t.integer  "user_id"
@@ -94,7 +95,7 @@ ActiveRecord::Schema.define(:version => 20110407195245) do
   create_table "tasks", :force => true do |t|
     t.string   "title"
     t.integer  "project_id"
-    t.datetime "due_date"
+    t.date     "due_date"
     t.text     "description"
     t.string   "type"
     t.integer  "user_id"

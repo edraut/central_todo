@@ -12,6 +12,6 @@
 </div>
 </div>
 <% unless @task.due_date.blank? %>
-<div class="<% if @task.overdue? %> overdue<% end %>"><%= @task.due_date.to_formatted_s(:full) + ' ' + @task.due_date.zone %></div>
+<div class="<% if @task.overdue? %> overdue<% end %>"><%= @task.due_date.to_formatted_s(:full) %></div>
 <%= render :partial => '/reminders/index', :locals => {:remindable => @task} %>
 <% end %>

@@ -5,7 +5,7 @@
   <%= render :partial => 'tabs' %>
 </div>
 <div class="span-17 last page_content">
-  <div id="task_title" class="span-16 last border_bottom padding_bottom">
+  <div id="task_title" class="span-16 last padding_bottom">
 	<%= render :partial => 'show_title' %>
 	</div>
 	<div class="span-16 last">&nbsp;</div>
@@ -16,20 +16,21 @@
     <div class="list_action attributes button round light" onclick="void(0)" data-button="true"><div class="button_content" id="task_delete"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div></div>
     <div class="list_action attributes button round light" onclick="void(0)" data-behavior="check_box_proxy"  data-check_box="full_view_priority_<%= @task.id %>"><div class="button_content" id="task_priority"><%= render :partial => 'show_priority', :locals => {:task => @task} %></div></div>
   </div>
-  <div class="span-16 last">
   <div id="task_description" class="span-16 last section_margin_top">
   	<%= render :partial => (@task.description.blank? ? 'edit_description' : 'show_description') %>
   </div>
   <div id="task_due_date" class="span-16 last section_margin_top">
   	<%= render :partial => (@task.due_date.blank? ? 'edit_due_date' : 'show_due_date') %>
   </div>
+  <% if @task.project and @task.project.sharers.count > 0 %>
+  <div id="task_user" class="span-16 last section_margin_top">
+  	<%= render :partial => 'show_user_id' %>
   </div>
-  <div class="span-16 last">
-  <div id="task_project" class="span-16 last section_margin_top">
-  	<%= render :partial => (@task.project ? 'show_project_id' : 'edit_project_id') %>
-  </div>
+  <% end %>
   <div id="task_label" class="span-16 last section_margin_top">
   	<%= render :partial => (@task.labels.for_user(@this_user).any? ? 'show_labels' : 'edit_labels') %>
   </div>
+  <div id="task_project" class="span-16 last section_margin_top">
+  	<%= render :partial => (@task.project ? 'show_project_id' : 'edit_project_id') %>
   </div>
 </div>

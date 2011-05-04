@@ -1,0 +1,25 @@
+<div class="span-17 last section_margin_top" id="header_wrapper">
+<h1>Contacts </h1>
+</div>
+<div class="span-17 page_content">
+  <h2>Contacts who share projects with you</h2>
+  <div class="span-16 list_section">
+    <div class="span-16 last list_topper">&nbsp;</div>
+  <% for sharing_parent in @sharing_parents %>
+    <div class="span-16 last line_item">
+    &nbsp;<%= link_to sharing_parent.handle, user_url(sharing_parent) %>
+    </div>
+  <% end %>
+  </div>
+  <div class="span-16 section_margin_top">
+  <h2>Contacts you share projects with</h2>
+  <div class="span-16 last list_section">
+    <div class="span-16 last list_topper">&nbsp;</div>
+  <% for sharing_child in @sharing_children %>
+    <div class="span-16 last line_item">
+    &nbsp;<%= link_to sharing_child.handle, user_url(sharing_child) %>
+    </div>
+  <% end %>
+  </div>
+  </div>
+</div>

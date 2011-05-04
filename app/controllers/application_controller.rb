@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
         @subnav_tab = 'priority'
       when 'archived_unorganized'
         @nav_tab = 'dashboard'
-        @subnav_tab = 'archived'
+        @subnav_tab = 'archived tasks'
       end
     when 'projects'
       @nav_tab = 'plans'
@@ -133,6 +133,20 @@ class ApplicationController < ActionController::Base
       case action_name
       when 'show','edit'
         @subnav_tab = @label.id
+      end
+    when 'users'
+      case action_name
+      when 'settings'
+        @nav_tab = 'account'
+        @subnav_tab = 'settings'
+      when 'account'
+        @nav_tab = 'account'
+        @subnav_tab = 'info'
+      when 'show'
+        @nav_tab = 'contacts'
+        @subnav_tab = params[:id].to_i
+      when 'index'
+        @nav_tab = 'contacts'
       end
     end
   end

@@ -63,12 +63,36 @@ class FoldersController < ApplicationController
     render :nothing => true and return
   end
   
+  def update
+    if params[:attribute]
+      attribute = params[:attribute]
+      @item = @folder
+    else
+      attribute = false
+    end
+    if @folder.update_attributes(params[:folder]) and attribute
+      flash.now[:ajax_notice] = "Your changes were saved."
+      respond_with(@folder) do | format |
+        format.any {render :partial => 'show_' + attribute, :layout => 'ajax_section' and return}
+      end
+      return
+    end
+  end
+  
   def destroy
     @folder.destroy
     render :nothing => true and return
   end
   
   def show
+    @item = @folder
+    return if handle_attribute_partials('show')
+  end
+  
+  def edit
+    @item = @folder
+    @date_picker = true
+    return if handle_attribute_partials('edit')
   end
   
   def handle_title

@@ -7,8 +7,6 @@
 	:id => 'edit_due_date'
 } do |f| %>
 <%= f.date_select :due_date, {:use_short_month => true}, {:class => 'auto_width'} %><br/>
-<select id="task_due_date_4i" name="task[due_date(4i)]" class="auto_width"><%= options_for_select hour_select_options_array, (@task.due_date.blank? ? (Time.now() + 1.hour).in_time_zone(@this_user.time_zone).hour : @task.due_date.in_time_zone(@this_user.time_zone).hour) %></select>
-<%= select_minute @task.due_date, {:prefix => 'task',:field_name => 'due_date(5i)', :minute_step => 5, :value => (@task.due_date.blank? ? 0 : @task.due_date.in_time_zone(@this_user.time_zone).min)},{:class => 'auto_width'} %>
 	<%= hidden_field_tag 'attribute', 'due_date', :id => 'attribute_due_date_fiel' %>
   <div class="row">
   	<button type="submit" class="row_item button round small light ">save due date</button>

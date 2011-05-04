@@ -15,13 +15,21 @@
 			jQuery('#flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>').fadeOut(1000);
 			setTimeout("jQuery('#flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>').remove();",1000);
 		}
-		jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>').after('<div id="flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>" style="display:none;" class="span-17 last flash_notice"><%= flash[:ajax_notice] %></div>');
+		jQuery('body').append('<div id="flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>" style="display:none;" class="flash_notice"><%= flash[:ajax_notice] %></div>');
+		repositionDialog('#flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>', 'top');
 		jQuery('#flash_notice_<%= @item.class.name.underscore %>_<%= @item.id %>').fadeIn(500);
-		setTimeout(clearFlash,3000);
+    setTimeout(clearFlash,2500);
+  	<% end %>
+  	<% unless flash[:ajax_dialog].blank? %>
+  	jQuery('body').append('<div id="flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>" style="display:none;" class="flash_dialog"><%= flash[:ajax_dialog] %></div>');
+		repositionDialog('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>', 'center');
+		jQuery('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>').fadeIn(500);
+    <%= render :partial => @ajax_dialog_javascript %>
   	<% end %>
 	  roundCorners();
     bindHoverShowMore();
     bindLineItemControls();
     popButtons();
+  	addDatePicker("[data-behavior='date_picker']");
 	});
 <% end %>

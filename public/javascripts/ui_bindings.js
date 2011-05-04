@@ -23,6 +23,7 @@ function bindSortables(){
 	});
 }
 function bindHoverShowMore(){
+	jQuery("[data-binding='hover_show_more']").unbind('mouseenter mouseleave');
 	jQuery("[data-binding='hover_show_more']").hover(
 		function(event) {
 			if (jQuery(this).attr('data-hover_fadein_time')){

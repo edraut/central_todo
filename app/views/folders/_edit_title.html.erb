@@ -1,0 +1,27 @@
+<div class="span-16 last">
+  <%= form_for @folder, :url => folder_url(@folder), :html => {
+  	:'data-ajax_behavior' => 'ajax_form',
+  	:'data-ajax_method' => 'PUT',
+  	:'data-ajax_success_element' => 'folder_title',
+  	:'data-ajax_error_element' => 'folder_title',
+  	:id => 'edit_folder_title'
+  } do |f| %>
+    <div class="span-12">
+  	<%= f.text_field :title, :class => 'span-12' %>
+  	<%= hidden_field_tag 'attribute', 'title' %>
+  	<%= hidden_field_tag '_method', 'put' %>
+  	</div>
+  	<div class="span-4 last text_right">
+    	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+    	  <div class="button_content">save</div>
+    	</div>
+    	<div class="text_with_button small">
+			or <%= link_to 'cancel', folder_url(@folder),
+      	 	:'data-ajax_behavior' => 'ajax_link',
+      		:'data-ajax_method' => 'GET',
+      		:'data-ajax_success_element' => 'folder_title',
+      		:'data-ajax_data' => "{attribute: 'title'}"%>&nbsp;&nbsp;
+      </div>
+  	</div>
+  <% end %>
+</div>

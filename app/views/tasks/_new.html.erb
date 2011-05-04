@@ -6,7 +6,7 @@
     :'data-ajax_method' => 'POST',
     :'data-ajax_success_element' => "project_#{project.id}_task_list",
     :'data-ajax_success_placement' => 'append',
-    :'data-ajax_success_callback' => "jQuery('#project_#{project.id}_new_task_title').val('');jQuery('#project_#{project.id}_new_task_form').rebindSubmit();",
+    :'data-ajax_success_callback' => "jQuery('#project_#{project.id}_new_task_title').val('');jQuery('#project_#{project.id}_new_task_form').rebindSubmit();handleCount('project_#{project.id}_task_list','project_#{project.id}_task_list')",
 	  :id => "project_#{project.id}_new_task_form"} do |f| %>
 		<div class="span-<% if hierarchical %>10<% else %>12<% end %>">
 			<%= f.text_field :title, :id => "project_#{project.id}_new_task_title", :class => ("span-" + ((hierarchical) ? "10" : "12")) %>
@@ -22,8 +22,8 @@
     	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
     	  <div class="button_content">add task</div>
     	</div>
-    	<div class="text_with_small_button small" onclick="void(0)" data-behavior="expander" data-action="contract" data-id="project_<%= project.id %>_new_task_form">
-			or cancel
+    	<div class="text_with_button small" onclick="void(0)" data-behavior="expander" data-action="contract" data-id="project_<%= project.id %>_new_task_form">
+			or close
       </div>
 		</div>
 	<% end %>

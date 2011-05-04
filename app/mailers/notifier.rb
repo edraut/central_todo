@@ -24,7 +24,7 @@ class Notifier < ActionMailer::Base
           :to => user.sms_email )
   end
 
-  def share_plan(plan,account_holder,tmp_pass)
+  def share_plan(plan,account_holder,tmp_pass = nil)
     @plan = plan
     @account_holder = account_holder
     @tmp_pass = tmp_pass

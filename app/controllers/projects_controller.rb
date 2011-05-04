@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
   end
   
   def archived
-    @projects = Project.for_user(@this_user).archived.by_create_date.paginate(:page => params[:page],:per_page => 50)
+    @projects = Project.for_user(@this_user).only_once.archived.by_create_date.paginate(:page => params[:page],:per_page => 50)
   end
   
   def shared
@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
   end
   
   def archive_completed
-    Project.for_user(@this_user).complete.each do |project|
+    Project.for_user(@this_user).only_once.complete.each do |project|
       project.archive
       project.save
     end

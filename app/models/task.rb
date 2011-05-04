@@ -15,9 +15,6 @@ class Task < ActiveRecord::Base
   scope :with_due_date, where( "tasks.due_date is not null" )
   scope :without_due_date, where( "tasks.due_date is null" )
   scope :overdue, lambda{ where(["tasks.due_date < :now",{:now => Time.now}]) }
-  scope :due_today, lambda{ where(["tasks.due_date > :now and tasks.due_date < :end_today",{:now => Time.now,:end_today => Date.today.to_time + 1.day}])}
-  scope :due_7_days, lambda{ where(["tasks.due_date > :now and tasks.due_date < :seven_days",{:now => Time.now,:seven_days => Date.today.to_time + 7.day}])}
-  scope :due_30_days, lambda{ where(["tasks.due_date > :now and tasks.due_date < :thirty_days",{:now => Time.now,:thirty_days => Date.today.to_time + 30.day}])}
   scope :priority, where( {:priority => true} )
   scope :one_off, where( {:project_id => nil} )
   scope :ordered, order( 'position')
@@ -26,6 +23,7 @@ class Task < ActiveRecord::Base
   scope :recent, order('id desc')
   scope :five, limit(5)
   scope :twenty_five, limit(25)
+  scope :only_once, select("distinct tasks.id,tasks.title,tasks.project_id,tasks.user_id,tasks.due_date,tasks.description,tasks.position,tasks.priority,tasks.state")
   scope :active, where( "tasks.state = 'active'")
   scope :complete, where( {:state => 'complete'} )
   scope :unarchived, where( "tasks.state != 'archived' and tasks.state != 'cooler'" )
@@ -33,7 +31,8 @@ class Task < ActiveRecord::Base
   scope :done, where( "(tasks.state = 'complete' or tasks.state = 'archived')" )
   scope :for_user, lambda { |user| joins("left outer join project_sharers on project_sharers.project_id = tasks.project_id").
                                     where( "(project_sharers.user_id = #{user.id} or tasks.user_id = #{user.id})" )}
-
+  scope :for_label, lambda { |label|  joins("inner join task_labels on task_labels.task_id = tasks.id").
+                                      where("task_labels.label_id = #{label.id}")}
   #special behaviors
   state_machine :initial => :active, :action => nil do
     state :active
@@ -62,11 +61,23 @@ class Task < ActiveRecord::Base
   end
 
   #instance methods
+  
+  def shared?
+    self.sharers.count > 0
+  end
 
   def sharers
     User.joins(:project_sharers).where(["project_sharers.project_id = :project_id",{:project_id => self.project_id}])
   end
 
+  def available_labels
+    if self.project
+      self.project.user.labels
+    else
+      self.user.labels
+    end
+  end
+  
   def done?
     self.complete? or self.archived?
   end
@@ -115,6 +126,6 @@ class Task < ActiveRecord::Base
   end
   
   def self.overdue?(date)
-    !date.nil? and date < Time.now
+    !date.nil? and date < Date.today
   end
 end

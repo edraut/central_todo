@@ -1,0 +1,23 @@
+<h2>Assignment</h2>
+<div class="span-16 last section">
+	<%= form_for @task, :html => { :id => 'edit_task_user_id'
+	} do |f| %>
+		<%= f.select :user_id, @task.project.all_users.map{|u| [u.handle,u.id]}, {}, :class => 'span-5', :rows => 4 %>
+    <div class="span-5">
+    	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+    	  <div class="button_content">save</div>
+    	</div>
+    	<div class="text_with_button small">
+  		or <%= link_to 'cancel', task_url(@task),
+    		 	:'data-ajax_behavior' => 'ajax_link',
+    			:'data-ajax_method' => 'GET',
+    			:'data-ajax_success_element' => 'task_user',
+    			:'data-ajax_data' => "{attribute: 'user_id'}"%>
+      </div>
+		</div>
+		<div class="span-6 last">
+		  <% if @task.project.user_id == @this_user.id %>
+  		  <p class="explanatory">If you want to include other friends or colleagues as candidates for assignment, share this project with them. (<%= link_to 'click here', edit_plan_url(@task.project) %>.)</p>
+  		<% end %>
+	<% end %>
+</div>

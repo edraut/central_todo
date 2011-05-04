@@ -10,7 +10,7 @@ module Remindable
   end
     
   def due_date_past?
-    !self.due_date.nil? and self.due_date < Time.now
+    !self.due_date.nil? and self.due_date < Date.today
   end
 
 end

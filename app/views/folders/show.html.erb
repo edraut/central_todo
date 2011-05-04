@@ -1,9 +1,11 @@
 <div class="span-17 last section_margin_top" id="header_wrapper">
-	<h1><%= @folder.title %> Folder&nbsp;</h1>
+	<h1>Folder</h1>
 </div>
 <div class="span-17 last page_content">
+  <div id="folder_title" class="span-16 last padding_bottom">
+	<%= render :partial => 'show_title' %>
+	</div>
   <% if Project.for_folder(@folder).count > 0 %>
-  <h2>Plans</h2>
   <% if @this_user.is_a? PaidAccount %>
   <div class="span-16 last section_margin_top" data-behavior="expander" data-state="contracted" data-id="folder_<%= @folder.id %>_new_project_form">
     <div onclick="void(0)" class="list_action button round light" data-behavior="expander" data-action="expand" data-id="folder_<%= @folder.id %>_new_project_form"><div class="button_content">add a plan</div></div>
@@ -12,12 +14,21 @@
   <% end %>
 	<div id="unarchived_items_wrapper" data-role="list" class="span-16 last section_margin_top">
     <div id="folder_<%= @folder.id %>_plan_list" class="span-16 last list_section">
-		<% for project in Project.for_folder(@folder).active.shared_order %>
-			<div id="project_<%= project.id %>" class="span-17 last" data-role="list_item">
+		<% for project in Project.for_folder(@folder).active.only_once.shared_order %>
+			<div id="project_<%= project.id %>" class="span-17 last" data-role="list_item" data-sort_element_id="<%= project.id %>" data-sort_element_type="project">
   			<%= render :partial => '/projects/show', :locals => {:project => project, :sortable => true, :hierarchical => true} %>
 			</div>
 		<% end %>
     </div>
+    <% for folder in (@this_user.folders - [@folder]) %>
+      <div id="folder_<%= folder.id %>_plan_list" class="span-16 last list_section" style="display:none;">
+  		<% for project in Project.for_folder(folder).active.only_once.shared_order %>
+  			<div id="project_<%= project.id %>" class="span-17 last" data-role="list_item" data-sort_element_id="<%= project.id %>" data-sort_element_type="project">
+    			<%= render :partial => '/projects/show', :locals => {:project => project, :sortable => true, :hierarchical => true} %>
+  			</div>
+  		<% end %>
+      </div>
+    <% end %>
   </div>
   <% else %>
   <div class="span-16 last section_margin_top">

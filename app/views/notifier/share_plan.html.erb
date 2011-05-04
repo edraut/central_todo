@@ -17,7 +17,7 @@ Because <%= @plan.user.email %> shared this plan with you, you can use many of t
 Plan: <%= link_to @plan.title, @plan_url, :target => '_blank' %>
 </h2>
 
-<ul>
+<p>
 <% for task in @plan.tasks.active.ordered %>
 · <%= task.title %> <% if !task.due_date.blank? %> -- due <%= task.due_date.to_formatted_s(:full) %><% end %><br/>
 <% end %>

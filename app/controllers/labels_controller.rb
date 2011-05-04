@@ -13,6 +13,9 @@ class LabelsController < ApplicationController
   def create
     @label = Label.new(params[:label].merge!(:user_id => @this_user.id))
     @label.save
+    if params[:return_to]
+      redirect_to params[:return_to] and return
+    end
     redirect_to :action => 'index' and return
   end
 
@@ -21,7 +24,11 @@ class LabelsController < ApplicationController
     return if handle_attribute_partials('show')
     @html_page_title = @page_title = 'Label'
     @sortable = true
-    @tasks = @label.tasks.active.ordered.paginate(:page => params[:page],:per_page => 40)
+    if @label.user_id == @this_user.id
+      @tasks = @label.tasks.active.ordered.paginate(:page => params[:page],:per_page => 40)
+    else
+      @tasks = Task.only_once.for_user(@this_user).for_label(@label).active.ordered.paginate(:page => params[:page],:per_page => 40)
+    end
     respond_with(@label) and return
   end
   
@@ -59,7 +66,8 @@ class LabelsController < ApplicationController
     
   def get_label
     @label = Label.find(params[:id])
-    unless @label.user_id == @this_user.id
+    @user = @label.user
+    unless @label.user_id == @this_user.id or @this_user.sharing_parents.map{|sp| sp.id}.include? @label.user_id
       flash[:notice] = "You don't have privileges to access that label."
       redirect_to root_url and return
     end

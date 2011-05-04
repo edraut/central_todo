@@ -7,7 +7,8 @@ class TasksController < ApplicationController
   
   def index
     @page_title = "Tasks"
-    @tasks = @this_user.tasks.unarchived.unorganized.paginate(:page => params[:page],:per_page => 40)
+    @tasks = @this_user.tasks.unarchived.unorganized.recent.paginate(:page => params[:page],:per_page => 25)
+    @projects = Project.unorganized_for(@this_user).active.recent.paginate(:page => params[:plan_page],:per_page => 25)
     respond_with(@tasks) do |format|
       format.mobile { render @render_type => 'index', :layout => @this_layout}
       format.html {render @render_type => 'index'}
@@ -15,7 +16,7 @@ class TasksController < ApplicationController
   end
   
   def priority
-    @tasks = Task.for_user(@this_user).active.priority.paginate(:page => params[:page],:per_page => 40)
+    @tasks = Task.only_once.for_user(@this_user).active.priority.paginate(:page => params[:page],:per_page => 40)
   end
     
   def archived_unorganized
@@ -58,7 +59,8 @@ class TasksController < ApplicationController
       @item = @task
       case params[:app_context]
       when 'project'
-        flash[:notice] = "Another task well organized!"
+        flash[:ajax_dialog] = render_to_string :partial => '/tasks/move_to_top'
+        @ajax_dialog_javascript = '/tasks/move_to_top_javascript'
         render :partial => 'show', :locals => {:task => @task, :project => @project, :sortable => true}, :layout => 'new_task'
       when 'hierarchical'
         render :partial => 'show', :locals => {:task => @task, :project => @project, :hierarchical => true}, :layout => 'new_task'
@@ -109,17 +111,17 @@ class TasksController < ApplicationController
       label_ids = params[:labels]
       label_ids ||= []
       label_ids = label_ids.map{|lid| lid.to_i}
-      old_task_labels = @this_user.task_labels.for_task(@task)
-      old_label_ids = old_task_labels.map{|ts| ts.label_id}
+      old_labels = @task.labels.for_user(@this_user)
+      old_label_ids = old_labels.map{|l| l.id}
       new_label_ids = label_ids - old_label_ids
       delete_label_ids = old_label_ids - label_ids
       for id in delete_label_ids
-        old_task_labels.select{|ots| ots.label_id == id}.each{|l| l.destroy}
+        @task.task_labels.where(:label_id => id).each{|l| l.destroy}
       end
       for id in new_label_ids
         TaskLabel.create(:task_id => @task.id,:label_id => id)
       end
-      @task.task_labels.reload
+      @task.labels.reload
     else
       @these_params = params[:task].dup
       @state_changed = @task.handle_attributes(@these_params)

@@ -51,12 +51,14 @@ function bindAutoSubmit(){
 function flashBackground(id){
 	element = jQuery('#'+id);
 	old_bg_color = getBackground(element);
+	element.find('.overflow_fade').hide();
 	element.animate(
 		{'background-color':'#DDF5F5'},
 		300,
 		function(){element.animate(
 			{'background-color':old_bg_color},
-			1000
+			1000,
+			function(){element.find('.overflow_fade').show()}
 		)}
 	);
 }
@@ -110,6 +112,9 @@ function handleListDisplay(){
 			jQuery(this).hide();
 		}
 	});
+}
+function handleCount(list_id,source_list_id){
+	jQuery("[data-sort_count='true'][data-sort_count_id='" + list_id + "']").html(jQuery('#' + source_list_id).children().length);
 }
 // Refactor Expanders into a jQuery function that applies full functionality to the selected elements.
 function bindExpanders(){

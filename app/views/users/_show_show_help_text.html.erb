@@ -3,7 +3,7 @@
 		<h2>Help Text</h2>
 	</div>
 	<div class="span-4 last">
-		<%= link_to 'change setting', user_url(@user, :attribute => 'show_help_text'),
+		<%= link_to 'change setting', account_user_url(@user, :attribute => 'show_help_text'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'PUT',
 			:'data-ajax_success_element' => 'account_show_help_text',

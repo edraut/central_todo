@@ -15,7 +15,7 @@
     none
     <% else %>
 	  <div class="border_bottom padding_bottom<% if @project.overdue? %> overdue<% end %>">
-  	  <%= @project.due_date.to_formatted_s(:full) + ' ' + @project.due_date.zone %>
+  	  <%= @project.due_date.to_formatted_s(:full) %>
   	</div>
     <div class="span-15 list_section_inner section_margin_top">
       <%= render :partial => '/reminders/index', :locals => {:remindable => @project} %>

@@ -12,16 +12,25 @@
 	  <div class="glare">&nbsp;</div>
 		<div class="container">
 			<div id="top_nav_wrapper" class="span-24 vertical-padding">
-			  <div class="left_nav_wrapper">&nbsp;</div>
+			  <div class="left_nav_wrapper">
+			    <% if @this_user %>
+            <div id="top_logo_content">
+              <div class="row_item"><%= link_to 'Get Go', root_url %></div> <div class="row_item rarr_logo"><%= link_to '&rarr;'.html_safe, root_url %></div>
+            </div>
+          <% end %>
+			  </div>
 				<div class="span-18 last" data-role="top_nav_element">
-          <div class="span-9" style="padding-left:24px;">
-						<%= link_to 'Home', root_url, :class => 'loud' %>
+          <div class="span-7">
+            <div class="span-3" style="margin-left: -16px;">
+            </div>
+            <div class="span-2">
+						&nbsp;
+						</div>
 					</div>
-  				<div class="span-8 last text_center" data-role="top_nav_element">
+  				<div class="span-11 last text_center" data-role="top_nav_element">
   					<% if current_user %>
-  						hello <%= @this_user.email %>
+  						hello <%= @this_user.handle %>
   						<%= link_to '(sign out)', sign_out_url, :class => 'quiet' %>
-  						<%= link_to 'account', user_url(@this_user) %>
   					<% else %>
   						<%= link_to 'Sign Up', sign_up_url %> or
   						<%= link_to 'Sign in', sign_in_url %>
@@ -34,7 +43,8 @@
 	<div id="main_content" class="container">
 		<div class="span-24">
 			<div class="left_nav_wrapper">
-			  <div class="left_nav_wrapper last" id="left_nav_spacer">&nbsp;</div>
+			  <div class="left_nav_wrapper last" id="left_nav_spacer">
+			  </div>
         <% if @this_user %>
 				<div class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'dashboard' %> selected padding_bottom<% end %>">
@@ -46,9 +56,9 @@
                    'unorganized' => tasks_url,
                    'priority' => priority_tasks_url,
                    'schedule' => schedule_url,
-                   'archived' => archived_unorganized_tasks_url
+                   'archived tasks' => archived_unorganized_tasks_url
                  }
-                 subnav_tags = ['overview','unorganized','priority','schedule','archived']
+                 subnav_tags = ['overview','unorganized','priority','schedule','archived tasks']
                else
                  subnav_links = {
                    'overview' => dashboard_url,
@@ -60,7 +70,7 @@
             %>
             <% for subnav in subnav_tags %>
             <div class="vert_line_subnav_wrapper<% if @subnav_tab == subnav %> selected<% end %>">
-             <%= link_to subnav.capitalize, subnav_links[subnav] %>
+             <%= link_to subnav.split.map{|word| word.capitalize}.join(' '), subnav_links[subnav] %>
 						</div>
 						<% end %>
 						<% end %>
@@ -70,26 +80,26 @@
 					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'plans' %> selected<% end %>">
               <div onclick="void(0)" class="loud" <% unless @nav_tab == 'plans' %> data-behavior="expander" data-action="expand" data-state="contracted" data-id="folder_list"<% end %>>Plans</div>
               <div onclick="void(0)" class="loud" <% unless @nav_tab == 'plans' %> data-behavior="expander" data-action="contract" data-state="expanded" data-id="folder_list"<% end %> style="display: none;">Plans</div>
-  						<div class="expandable_subnav" id="folder_subnav" data-sort_container="true" data-sort_id="folder_list" data-sort_url="<%= sort_folders_url %>" <% unless @nav_tab == 'plans' %> style="display:none;" data-behavior="expander" data-state="expanded" data-id="folder_list"<% end %>>
+  						<div class="expandable_subnav" id="folder_subnav" data-sort_container="true" data-sort_mirror="#folder_list" data-sort_type="folder" data-sort_id="folder_list" data-sort_url="<%= sort_folders_url %>" <% unless @nav_tab == 'plans' %> style="display:none;" data-behavior="expander" data-state="expanded" data-id="folder_list"<% end %>>
   						  <% for folder in @this_user.folders.ordered %>
 						      <%  selected = (@nav_tab == 'plans' and @folder and !@project and @folder.id == @subnav_tab and @folder.id == folder.id)
 						          super_selected = (@nav_tab == 'plans' and @project and @project.folder_for(@this_user) == folder) %>
-                  <div id="folder_<%= folder.id %>" class="expandable_subnav" data-sort_element="true" data-sort_id="folder_list">
+                  <div id="folder_<%= folder.id %>_nav" class="expandable_subnav" data-sort_element="true" data-sort_id="folder_list">
                     <div class="expandable_subnav <% if selected %> selected<% end %>" data-binding="hover_show_more" data-hover_div="[data-hover_id='folder_nav_<%= folder.id %>']" data-hover_fade_time="50" data-hover_fadein_time="50">
       						    <div class="expand_arrow_width" data-behavior="expander" data-action="expand" data-state="contracted" data-id="folder_<%= folder.id %>" <% if selected or super_selected %>style="display:none;"<% end %>>&nbsp;&gt;</div>
       						    <div class="expand_arrow_width" data-behavior="expander" data-action="contract" data-state="expanded" data-id="folder_<%= folder.id %>" <% unless selected or super_selected %>style="display:none;"<% end %>>&nbsp;&or;</div>
       						    <div class="expanded_subnav">
                         <div data-drag_handle="true" class="allcaps">
-                          &nbsp;<%= link_to folder.title, folder_url(folder) %>
+                          &nbsp;<a href="<%= folder_url(folder) %>" data-resource_attr="folder_title" data-resource_id="<%= folder.id %>"><%= folder.title %></a>
                         </div>
                         <div class="nav_tools" data-hover_id="folder_nav_<%= folder.id %>" style="display:none;">
-                          <div class="nav_tool_text"><div class="count" data-sort_count="true" data-sort_id="folder_plan_list" data-sort_count_id="folder_<%= folder.id %>_plan_list"><%= Project.for_folder(folder).active.count %></div>&nbsp;</div>
+                          <div class="nav_tool_text"><div class="count" data-sort_count="true" data-sort_id="folder_plan_list" data-sort_count_id="folder_<%= folder.id %>_plan_list"><%= Project.for_folder(folder).only_once.active.count %></div>&nbsp;</div>
                           <div class="nav_tool_icons">
                           <a class="plus_icon" data-modal_trigger="true" data-modal_id="folder_new_project_form_nav" data-modal_insert_value="<%= folder.id %>" data-modal_display_name="<%= folder.title %>">&oplus;</a>
                   		    <a href="<%= folder_url(folder) %>"
                       			data-ajax_behavior="ajax_link"
                       			data-ajax_method="DELETE"
-                      			data-ajax_success_callback="jQuery('#folder_<%= folder.id %>').remove();handleListDisplay();"
+                      			data-ajax_success_callback="jQuery('#folder_<%= folder.id %>_nav').remove();jQuery('#folder_<%= folder.id %>').remove();handleListDisplay();"
                       			data-ajax_data="{_method: 'DELETE'}"
                       			data-ajax_confirm="Are you sure you want to delete this folder? You'll delete all the plans and tasks inside as well."
                       			class="delete" data-role="delete">&otimes;</a>&nbsp;
@@ -97,9 +107,10 @@
                     		</div>
                   		</div>
                   	</div>
-        						<div class="expandable_subnav" id="folder_<%= folder.id %>_plan_list" <% unless selected or super_selected %>style="display:none;"<% end %> data-behavior="expander"  data-state="expanded" data-id="folder_<%= folder.id %>" data-sort_container="true" data-sort_url="<%= sort_plans_folder_url(folder) %>" data-sort_id="folder_plan_list">
-        						  <% for project in Project.for_folder(folder).active.shared_order %>
-        							<div id="project_<%= project.id %>nav" class="expanded_subnav_indent <% if @project and @subsubnav_tab == @project.id and project.id == @project.id %>selected<% end %>" data-sort_element="true" data-sort_id="folder_plan_list" data-binding="hover_show_more" data-hover_div="[data-hover_id='project_nav_<%= project.id %>']" data-hover_fade_time="50" data-hover_fadein_time="50">
+        						<div class="expandable_subnav" id="folder_<%= folder.id %>_plan_list_nav" <% unless selected or super_selected %>style="display:none;"<% end %> data-behavior="expander"  data-state="expanded" data-id="folder_<%= folder.id %>" data-sort_container="true" data-sort_mirror="#folder_<%= folder.id %>_plan_list" data-sort_type="project" data-sort_url="<%= sort_plans_folder_url(folder) %>" data-sort_id="folder_plan_list" data-sort_count_id="folder_<%= folder.id %>_plan_list">
+        						  <% for project in Project.for_folder(folder).only_once.active.shared_order %>
+        							<div id="project_<%= project.id %>nav" class="expanded_subnav_indent <% if @project and @subsubnav_tab == @project.id and project.id == @project.id %>selected<% end %> line_fixed_width" data-sort_element="true" data-sort_id="folder_plan_list" data-binding="hover_show_more" data-hover_div="[data-hover_id='project_nav_<%= project.id %>']" data-hover_fade_time="50" data-hover_fadein_time="50">
+        							  <div class="overflow_fade">&nbsp;</div>
                         <div class="nav_tools" data-hover_id="project_nav_<%= project.id %>" style="display:none;">
           							  <div class="nav_tool_text"><div class="count small" data-sort_count="true" data-sort_id="project_task_lists" data-sort_count_id="project_<%= project.id %>_task_list" data-hover_id="project_nav_<%= project.id %>" style="display:none;"><%= project.tasks.active.count %></div>&nbsp;</div>
                           <div class="nav_tool_icons">
@@ -107,21 +118,21 @@
                   		    <a href="<%= plan_url(project) %>"
                       			data-ajax_behavior="ajax_link"
                       			data-ajax_method="DELETE"
-                      			data-ajax_success_callback="jQuery('#project_<%= project.id %>nav').remove();jQuery('#project_<%= project.id %>').remove();handleListDisplay();"
+                      			data-ajax_success_callback="jQuery('#project_<%= project.id %>nav').remove();jQuery('#project_<%= project.id %>').remove();handleListDisplay();handleCount('folder_<%= project.folder_for(@this_user).id %>_plan_list','folder_<%= project.folder_for(@this_user).id %>_plan_list_nav');"
                       			data-ajax_data="{_method: 'DELETE'}"
                       			data-ajax_confirm="Are you sure you want to delete this project? You'll delete all the tasks inside as well."
                       			class="delete" data-role="delete">&otimes;</a>&nbsp;
                       		</div>
                     		</div>
         							  <div class="expandable_subnav_stretcher" data-drag_handle="true">
-                        &nbsp;  <%= link_to project.title, plan_url(project) %>
+                          &nbsp; <a href="<%= plan_url(project) %>" data-resource_attr="project_title" data-resource_id="<%= project.id %>"><%= project.title %></a>
                         </div>
                       </div>
                       <% end %>
                     </div>
                   </div>
                 <% end %>
-                <div class="span-5 height_zero nav_divider">&nbsp;</div>
+                <div class="span-5 nav_divider">&nbsp;</div>
   						  <div class="expandable_subnav">
   						    <%  selected = (@nav_tab == 'plans' and !@folder and @subnav_tab)
   						        super_selected = selected %>
@@ -131,17 +142,10 @@
                     <div class="expanded_subnav allcaps">&nbsp;Misc.</div>
                   </div>
       						<div id="folder_misc_subnav" class="expandable_subnav margin_bottom" <% unless selected or super_selected %>style="display:none;"<% end %> data-behavior="expander"  data-state="expanded" data-id="folder_misc">
-                    <% if (@this_user.shared_projects.active.count + @this_user.projects.shared.count) > 0 %>
-      							<div class="expandable_subnav">
-                      <div class="expanded_subnav_indent<% if @subnav_tab == 'shared' %> selected<% end %>">
-        								<%= link_to "Shared Plans", shared_plans_url %>
-        							</div>
-      							</div>
-      							<% end %>
-      						  <% if Project.for_user(@this_user).archived.count > 0 %>
+      						  <% if Project.for_user(@this_user).only_once.archived.count > 0 %>
       							<div class="expandable_subnav">
                       <div class="expanded_subnav_indent<% if @subnav_tab == 'archived' %> selected<% end %>">
-      								  <%= link_to "Archived Plans (#{Project.for_user(@this_user).archived.count})", archived_plans_url %>
+      								  &nbsp;<%= link_to "Archived Plans", archived_plans_url %>
       								</div>
       							</div>
       							<% end %>
@@ -152,7 +156,7 @@
                           <a class="plus_icon" data-modal_trigger="true" data-modal_id="new_folder_form_nav">&nbsp;&oplus;&nbsp;</a>
                       		</div>
                     		</div>
-      								  <%= link_to "All Folders (#{Project.for_user(@this_user).active.count})", plans_url %>
+      								  &nbsp;<%= link_to "All Folders", plans_url %>
       								</div>
       							</div>
                   </div>
@@ -161,24 +165,67 @@
 					</div>
 				</div>
 				<div id="label_nav" class="left_nav_wrapper last">
-					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'labels' %> selected <% if @subnav_tab %>padding_bottom<% end %><% end %>"<% unless @nav_tab == 'labels' %> data-binding="hover_show_more" data-hover_div="#label_subnav" data-hover_fade_time="100"<% end %>>
+					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'labels' %> selected <% if @subnav_tab %>padding_bottom<% end %><% end %>">
 						<%= link_to 'Labels', labels_url, :class => (@nav_tab == 'labels') ? 'selected loud' : 'loud' %>
-						<% if @this_user.labels.count > 0 and !(@nav_tab == 'labels' and !@subnav_tab) %>
-						<div id="label_subnav"<% unless @nav_tab == 'labels' %>style="display:none;"<% end %> class="left_subnav_wrapper<% unless @nav_tab == 'labels' %> hover_nav<% end %>">
-              <% unless @nav_tab == 'labels' %>
+						<% if @nav_tab == 'labels' and @subnav_tab and @label %>
+						<div id="label_subnav" class="left_subnav_wrapper">
+							<div class="vert_line_subnav_wrapper selected">
+                <div class="label <%= @label.color %>">
+                <%= link_to truncate_clean(@label.title,{:length => 100, :max_word_length => 20, :omission => '-'}) + " (#{@label.tasks.only_once.for_user(@this_user).active.count})", label_url(@label), :class => 'selected' %>
+                </div>
+              </div>
+            </div>
+            <% end %>
+					</div>
+				</div>
+				<div id="label_nav" class="left_nav_wrapper last">
+					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'contacts' %> selected <% if @subnav_tab %>padding_bottom<% end %><% end %>"<% unless @nav_tab == 'contacts' %> data-binding="hover_show_more" data-hover_div="#contacts_subnav" data-hover_fade_time="100"<% end %>>
+						<%= link_to 'Contacts', users_url, :class => (@nav_tab == 'contacts') ? 'selected loud' : 'loud' %>
+						<%  @this_user_contacts = User.contacts_for(@this_user)
+						    if @this_user_contacts.length > 0 and !(@nav_tab == 'contacts' and !@subnav_tab) %>
+						<div id="contacts_subnav"<% unless @nav_tab == 'contacts' %>style="display:none;"<% end %> class="left_subnav_wrapper<% unless @nav_tab == 'contacts' %> hover_nav<% end %>">
+              <% unless @nav_tab == 'contacts' %>
 						  <div class="hover_nav_pointer">&rarr;</div>
 						  <% end %>
-						  <% for label in @this_user.labels %>
-							<div class="vert_line_subnav_wrapper<% if @nav_tab == 'labels' and @subnav_tab == label.id %> selected<% end %>">
-                <div class="label <%= label.color %>">
-                <%= link_to truncate_clean(label.title,{:length => 100, :max_word_length => (@nav_tab == 'labels') ? 20 : nil, :omission => '-'}) + " (#{label.tasks.active.count})", label_url(label), :class => (@nav_tab == 'labels' and @subnav_tab == label.id) ? 'selected' : '' %>
-                </div>
+						  <% for contact in @this_user_contacts %>
+							<div class="vert_line_subnav_wrapper<% if @nav_tab == 'contacts' and @subnav_tab == contact.id %> selected<% end %>">
+                <%= link_to contact.handle, user_url(contact) %>
               </div>
               <% end %>
             </div>
             <% end %>
 					</div>
 				</div>
+				<div class="left_nav_wrapper last">
+					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'account' %> selected padding_bottom<% end %>">
+						<%= link_to 'Account', account_user_url(@this_user), :class => (@nav_tab == 'account') ? 'selected loud' : 'loud' %>
+            <% if @nav_tab == 'account' %>
+            <% subnav_links = {
+                 'info' => account_user_url(@this_user),
+                 'settings' => settings_user_url(@this_user)
+               }
+               subnav_tags = ['info','settings']
+            %>
+            <% for subnav in subnav_tags %>
+            <div class="vert_line_subnav_wrapper<% if @subnav_tab == subnav %> selected<% end %>">
+              <%= link_to subnav.capitalize, subnav_links[subnav] %>
+						</div>
+						<% end %>
+						<% end %>
+					</div>
+				</div>
+				<% else %>
+        <div class="span-6">
+          <div class="span-6 last">&nbsp;</div>
+          <div id="main_logo">
+            <div id="main_logo_inner">
+              <div id="main_logo_glare">&nbsp;</div>
+              <div id="main_logo_content">
+                Get Go <span class="rarr_logo">&rarr;</span>
+              </div>
+            </div>
+          </div>
+        </div>
   			<% end %>
   			<div id="testone" class="span-3 last">
         </div>
@@ -207,7 +254,7 @@
       	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
       	  <div class="button_content">add folder</div>
       	</div>
-      	<div class="text_with_small_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="new_folder_form_nav">
+      	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="new_folder_form_nav">
   			or cancel
         </div>
   		</div>
@@ -218,7 +265,7 @@
           You currently have a free account. Upgrade to a paid account now and create your own plans and folders, share them with friends and colleagues, and more!
         </div>
         <div class="span-3 prepend-13 last padding_bottom">
-        	<div class="text_with_small_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="new_folder_form_nav">
+        	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="new_folder_form_nav">
     			close
           </div>
         </div>
@@ -240,7 +287,7 @@
         	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
         	  <div class="button_content">add plan</div>
         	</div>
-        	<div class="text_with_small_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="folder_new_project_form_nav">
+        	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="folder_new_project_form_nav">
     			or cancel
           </div>
     		</div>
@@ -252,7 +299,7 @@
           You currently have a free account. Upgrade to a paid account and create your own plans and folders, share them with friends and colleagues, and more!
         </div>
         <div class="span-3 prepend-13 last padding_bottom">
-        	<div class="text_with_small_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="folder_new_project_form_nav">
+        	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="folder_new_project_form_nav">
     			close
           </div>
         </div>
@@ -274,7 +321,7 @@
         	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
         	  <div class="button_content">add task</div>
         	</div>
-        	<div class="text_with_small_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="project_new_task_form_nav">
+        	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="project_new_task_form_nav">
     			or cancel
           </div>
     		</div>
@@ -292,7 +339,7 @@
   		jQuery('#main_content').before('<div id="flash_notice" style="display:none;margin-top: -17px;" class="container flash_notice"><%= flash[:notice] %></div>');
   		jQuery('#flash_notice').fadeIn(500);
   		setTimeout(clearFlash,3000);
-  		flash.discard;
+  		<% flash.discard %>
   	<% end %>
 		<% if params.has_key? :added_task %>
       jQuery("[data-behavior='expander'][data-state='contracted'][data-id='new_task_form']")

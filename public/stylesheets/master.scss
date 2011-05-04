@@ -3,8 +3,9 @@ $blue: #90B0B0;
 $light-blue: #DDF5F5;
 $pale-blue: #f0f8f8;
 $blue-wash: #fbffff;
-$light-carmine: #E55;
-$carmine: #EE3434;
+$light-carmine: #CF2A00;
+$carmine: #EF3A00;
+$dark-carmine: #FF4A00;
 $paper: #FDFCF8;
 $gray0-5: #F5F4F0;
 $gray1: #EDECE8;
@@ -43,6 +44,7 @@ $line-height: 26px;
 $line-height-minus-two: 24px;
 $line-height-minus-three: 23px;
 $compact-line-height: 20px;
+$compact-line-height-plus_one: 21px;
 $compact-line-height-minus-two: 18px;
 $indent-width: 28px;
 $nav-indent-width: 15px;
@@ -50,6 +52,16 @@ $nav-indent-width: 15px;
 	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
 	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+}
+@mixin tiny-shadow {
+	-webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+	-moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+}
+@mixin inset-shadow {
+	-webkit-box-shadow: inset 1px 1px 1px rgba(15, 15, 15, .2);
+	-moz-box-shadow: inset 1px 1px 1px rgba(15, 15, 15, .2);
+	box-shadow: inset 1px 1px 1px rgba(15, 15, 15, .2);
 }
 @mixin large-shadow {
 	-webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, .2);
@@ -142,9 +154,9 @@ $nav-indent-width: 15px;
 }
 @mixin glare-gradient-dark {
 	background-color: rgba(255, 255, 255, 0.2);
-	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.4)), to(rgba(255, 255, 255, 0.07)));
-	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.07) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), color-stop(.3,rgba(255,255,255,0.3)), to(rgba(255, 255, 255, 0)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9AFFFFFF", endColorstr="#00FFFFFF"); /* for IE */
 }
 @mixin glare-gradient-dark-down {
 	background-color: rgba(255, 255, 255, 0.2);
@@ -162,7 +174,7 @@ $nav-indent-width: 15px;
 	text-align: right;
 }
 body {
-	background-color: $gray1;
+	background-color: $paper;
 	color: $gray8;
 	font-size: $normal-font-size;
 	line-height: 1.0;
@@ -255,6 +267,84 @@ select.with_text_field{
 .index_add_text_box {
 	width: 300px;
 }
+.left_nav_wrapper {
+	#top_logo_content {
+		font-family: CoolveticaRg-Regular;
+		a {
+			color: $yellow;
+		}
+		a:hover {
+			color: $paper;
+		}
+	}
+}
+#top_logo_content{
+	position: relative;
+	float: left;
+	z-index: 10;
+	color: $yellow;
+	font-size: 20px;
+	.rarr_logo {
+		line-height: 20px;
+		font-size: 26px;
+	}
+  -moz-transform:    skewX(350deg);
+  -o-transform:      skewX(350deg);
+  -webkit-transform: skewX(350deg);
+  transform:         skewX(350deg);
+	filter: progid:DXImageTransform.Microsoft.dropShadow(color="#663D3C38",offX=-1,offY=-1, positive=true) progid:DXImageTransform.Microsoft.Matrix(M11=1,M12=-0.17632698070846498,M21=0,M22=1,SizingMethod='auto expand');
+}
+#main_logo{
+	#main_logo_inner{
+		width: 177px;
+		-moz-border-radius-topleft:     25px;
+		-moz-border-radius-topright:    25px;
+		-moz-border-radius-bottomright: 25px;
+		-moz-border-radius-bottomleft:  25px;
+		border-top-left-radius: 25px;
+		border-bottom-left-radius: 25px;
+		border-top-right-radius: 25px;
+		border-bottom-right-radius: 25px;
+		font-family: CoolveticaRg-Regular;
+		font-size: 44px;
+		text-shadow: 2px 2px 1px rgba(0,0,0,.5);
+		color: $yellow;
+		background-color: $carmine;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$dark-carmine}", endColorstr="#{$light-carmine}"); /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
+		background: -webkit-gradient(linear, left top, left bottom, from(#FF4A00), to(#CF2A00)); /* for webkit browsers */
+		background: -moz-linear-gradient(top,  #FF4A00, #CF2A00); /* for firefox 3.6+ */
+		text-align: center;
+		#main_logo_content{
+			position:relative;
+			float: left;
+			z-index: 10;
+			color: $yellow;
+			.rarr_logo {
+				line-height: 44px;
+				font-size: 64px;
+			}
+		}
+	}
+	position: relative;
+	float: left;
+	height: 115px;
+	width: 177px;
+	-moz-border-radius-topleft:     28px;
+	-moz-border-radius-topright:    28px;
+	-moz-border-radius-bottomright: 28px;
+	-moz-border-radius-bottomleft:  28px;
+	border-top-left-radius: 28px;
+	border-bottom-left-radius: 28px;
+	border-top-right-radius: 28px;
+	border-bottom-right-radius: 28px;
+	border: 5px solid $yellow;
+	background-color: $yellow;
+	@include large-shadow;
+  -moz-transform:    skewX(350deg);
+  -o-transform:      skewX(350deg);
+  -webkit-transform: skewX(350deg);
+  transform:         skewX(350deg);
+}
 #top_nav {
 	position: relative;
 	background-color: $gray8;
@@ -275,8 +365,11 @@ select.with_text_field{
 		left: 0;
 		height: 55%;
 		width: 100%;
-		@include glare-gradient-dark;
+		@include glare-medium;
 	}
+}
+[data-role="top_nav_element"] {
+	filter: progid:DXImageTransform.Microsoft.dropShadow(color="#66111111",offX=-1,offY=-1, positive=true);
 }
 #main_modal_view {
   border: 1px solid $gray8;
@@ -419,8 +512,9 @@ select.with_text_field{
 	.delete:hover {
 		color: $carmine;
 	}
-	line-height: $line-height;
-	
+	.count {
+		top: 1px;
+	}
 }
 .section_heading.padded {
 	padding-bottom: .5em;
@@ -432,6 +526,7 @@ select.with_text_field{
 	text-shadow: 0px 1px 1px $paper;
 }
 .left_nav_wrapper {
+	// font-family: CoolveticaRg-Regular;
   position: relative;
   float: left;
   margin-right: 22px;
@@ -447,6 +542,8 @@ select.with_text_field{
 	width: 95%;
 	margin-bottom: .4em;
 	line-height: 30px;
+	border-top: 1px solid $gray2;
+	border-left: 1px solid $gray2;
 	background-color: $paper;
 	@include small-shadow;
 	a:hover {
@@ -489,6 +586,9 @@ select.with_text_field{
     a:hover {
 	    color: $gray6;
     }
+	}
+	.vert_line_subnav_wrapper.small {
+		font-size: $compact-font-size;
 	}
 }
 div.vert-line-nav-wrapper-main.selected {
@@ -570,13 +670,18 @@ div.expnaded_subnav_indent.selected {
 	line-height: $compact-line-height;
 	font-size: $medium-font-size;
 	overflow: hidden;
+	.delete, .plus_icon {
+		line-height: $compact-line-height;
+		height: $compact-line-height;
+	}
 }
 .nav_tools {
 	position: absolute;
-	top: .1em;
-	right: 0;
+	top: .15em;
+	right: 3px;
 	background: $gray4;
 	height: 26px;
+	z-index: 10;
 }
 .left_nav_wrapper .expandable_subnav .nav_tools a:hover {
 	color: $gray9;
@@ -587,7 +692,7 @@ div.expnaded_subnav_indent.selected {
 .expanded_subnav_indent .nav_tools{
 	height: $compact-line-height-minus-two;
  .nav_tool_icons{
-		top: -.375em;
+		top: -2px;
 	}
 }
 .nav_tool_text {
@@ -606,10 +711,40 @@ div.expnaded_subnav_indent.selected {
 	float: left;
 	top: .3em;
 	background-color: $gray6;
-	color: $paper;
+	color: $gray0_5;
 	padding: 0 5px;
 	height: 1.2em;
 	line-height: 1.2em;
+	text-shadow: 1px 1px 1px rgba(15,15,15,.2);
+	@include inset-shadow
+}
+.project_line_item_tools {
+	position: absolute;
+	right: 0;
+	z-index: 11;
+}
+.project_add_folder {
+	position: absolute;
+	left: 40px;
+	width: 80px;
+	padding-left: 3px;
+	margin-right: 0;
+	height: $compact-line-height;
+	z-index: 11;
+}
+.project_line_item_text {
+	position: relative;
+	float: left;
+	width: 550px;
+}
+.project_folder_select{
+	position: absolute;
+	right: 0;
+	top: $compact-line-height;
+	padding: 6px;
+	background: $gray1;
+	border: 1px solid $gray7;
+	z-index: 10;
 }
 .left_nav_wrapper .count{
 	top: .5em;
@@ -671,28 +806,14 @@ a.selected {
 		position: relative;
 		top: -.25em;
 	}
-  border-bottom: 1px solid $gray8;
+  border-bottom: 1px solid $gray5;
   padding: .4em 0;
   margin-bottom: 0;
 }
 .line_item_quiet {
 	border-color: $gray5;
 }
-.span-14.side_borders {
-	width: 548px;
-	border-right: 1px solid $gray8;
-	border-left: 1px solid $gray8;
-}
-.height_zero {
-	height: 0px;
-}
-.height_zero.task {
-	border-bottom: 1px solid $gray5;
-}
-.height_zero.plan {
-	border-bottom: 1px solid $gray8;
-}
-.height_zero.nav_divider {
+.nav_divider {
 	margin-top: 5px;
 	border-bottom: 1px solid $gray8;
 }
@@ -702,7 +823,7 @@ a.selected {
 }
 .list_topper {
 	height: 1px;
-	border-bottom: 1px solid $gray8
+	border-bottom: 1px solid $gray5
 }
 .task_line_item_left{
 	position: absolute;
@@ -715,18 +836,62 @@ a.selected {
   padding-bottom: .4em;
   padding-top: .4em;
 }
+.line_fixed_width {
+	overflow:hidden;
+	.overflow_fade{
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 10%;
+		height: 100%;
+		z-index: 9;
+		background-color: rgba(253, 252, 248, 0);
+		background: -webkit-gradient(linear, left top, right top, from(rgba(253, 252, 248, 0)), to(rgba(253, 252, 248, 1)));
+		background: -moz-linear-gradient(left, rgba(253, 252, 248, 0) 0%, rgba(253, 252, 248, 1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00FDFCF8", endColorstr="#FFFDFCF8", gradientType=1); /* for IE */
+	}
+}
+.selected .line_fixed_width .overflow_fade{
+	background-color: rgba(221, 220, 216, 0);
+	background: -webkit-gradient(linear, left top, right top, from(rgba(221, 220, 216, 0)), to(rgba(221, 220, 216, 1)));
+	background: -moz-linear-gradient(left, rgba(221, 220, 216, 0) 0%, rgba(221, 220, 216, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00DDDCD8", endColorstr="#FFDDDCD8", gradientType=1); /* for IE */
+}
+.list_section .line_fixed_width .overflow_fade, .selected .selected.line_fixed_width .overflow_fade{
+	background-color: rgba(205, 204, 200, 0);
+	background: -webkit-gradient(linear, left top, right top, from(rgba(205, 204, 200, 0)), to(rgba(205, 204, 200, 1)));
+	background: -moz-linear-gradient(left, rgba(205, 204, 200, 0) 0%, rgba(205, 204, 200, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00CDCCC8", endColorstr="#00CDCCC8", gradientType=1); /* for IE */
+}
+.small_padding {
+	padding-top: 5px;
+}
+.task_assignment_line_item_editor{
+	position: absolute;
+	top: $line-height-minus-two;
+	right: 0;
+	border: 1px solid $gray8;
+	background-color: $gray1;
+	padding: 5px;
+	z-index: 10;
+	text-align: right;
+	select {
+		margin-bottom: 5px;
+	}
+}
 .line_item_control_expander {
-	background-color: $paper;
-	border: 1px solid $gray6;
 	height: $compact-line-height-minus-two;
-	z-index: 1001;
+	z-index: none;
 	cursor: pointer;
 }
 .line_item_control_expander_plan{
-	top: 3px;
+	top: 5px;
 }
 .line_item_control_expander_active{
+	background-color: $gray1;
+	border: 1px solid $gray7;
 	border-bottom: none;
+	z-index: 1001;
 }
 .line_item_expand_control {
 	position:absolute;
@@ -736,13 +901,16 @@ a.selected {
 	width: auto;
 	z-index: 1000;
 	padding: 1em;
-	background-color: $paper;
-	border: 1px solid $gray6;
+	background-color: $gray1;
+	border: 1px solid $gray7;
 }
 .line_item_expand_control_labels {
 	min-width: 300px;
 	top: $compact-line-height-minus-two;
 	left: 0;
+}
+.line_item_expand_control_plan {
+	top: $compact-line-height_plus_one;
 }
 .line_item_expand_control_clickable{
 	position:relative;
@@ -758,6 +926,7 @@ a.selected {
   height: 2em;
 	line-height: 2em;
 	cursor: pointer;
+	// font-family: CoolveticaRg-Regular;
 	.delete {
 		top: 3px;
 	}
@@ -794,7 +963,7 @@ a.button.small {
 h2 .button.small {
 	margin-top: .25em;
 }
-.text_with_small_button {
+.text_with_button {
 	position: relative;
 	float: left;
 	top: .5em;
@@ -920,12 +1089,13 @@ h2 .button.small {
   font-weight: bold;
 }
 .attach_above {
-  border-top: 1px solid $gray2;
-  border-left: 1px solid $gray2;
-  border-right: 1px solid $gray2;
-	@include small-shadow;
+  border-top: 1px solid $gray3;
+  border-left: 1px solid $gray3;
+  border-right: 1px solid $gray3;
+	@include tiny-shadow;
 }
 .attach_above.selected {
+	border-color: $gray2;
 	@include large-shadow;
 }
 .attach_below {
@@ -960,12 +1130,14 @@ h2 .button.small {
 	font-weight: bold;
 }
 .plus_icon {
+	font-family: "Times New Roman";
 	font-size: 1.2em;
 	line-height: $line-height-minus-two;
 	height: $line-height-minus-two;
 	cursor: pointer;
 }
 .delete {
+	font-family: "Times New Roman";
   line-height: $line-height-minus-two;
 	height: $line-height-minus-two;
 	font-size: 1.2em;
@@ -1000,15 +1172,20 @@ h2 .button.small {
 .archived .hierarchical a {
 	color: $paper;
 }
-.flash_notice {
+@mixin flash {
   border: 1px solid $gray4;
-	background-color: $paper;
-	text-align: center;
+	background-color: $yellow;
 	position: absolute;
-	width: 90%;
-	top: 40%;
-	left: 5%;
-	z-index: 10;
+	z-index: 12;
+	padding: 20px;
+	
+}
+.flash_notice {
+	@include flash;
+	text-align: center;
+}
+.flash_dialog {
+	@include flash;
 }
 .checked {
 	color: $carmine;
@@ -1040,6 +1217,12 @@ h2 .button.small {
 		top: -.175em;
 		margin-bottom: -.1em;
 	}
+}
+.line_item_text {
+	position: relative;
+	float: left;
+	top: 4px;
+	margin-bottom: 6px;
 }
 .text_field_button_label{
   height: 30px;
@@ -1075,13 +1258,17 @@ h2 .button.small {
   vertical-align: middle;
 }
 // These classes define reusable design elements
-.strong_box {
+.full_width {
   position: relative;
   float: left;
+	clear: both;
 }
 .allcaps{
 	font-size: $compact-font-size;
 	text-transform: uppercase;
+}
+.coolvetica {
+	font-family: CoolveticaRg-Regular;
 }
 .text_right {
 	@include text-right;
@@ -1112,13 +1299,13 @@ h2 .button.small {
 	margin-bottom: .8em;
 }
 .border_top {
-  border-top: 1px solid $gray8;
+  border-top: 1px solid $gray5;
 }
 .border_bottom {
-  border-bottom: 1px solid $gray8;
+  border-bottom: 1px solid $gray5;
 }
 .border {
-	border: 1px solid $gray8;
+	border: 1px solid $gray5;
 }
 /* labels*/
 .label {
@@ -1136,7 +1323,8 @@ h2 .button.small {
 	position: relative;
 	float: left;
 	font-size: $compact-font-size;
-	line-height: "#{$compact-line-height + 2}";
+	line-height: #{$compact-line-height + 2};
+	height: #{$compact-line-height + 2};
 }
 .label_nav {
 	position: relative;

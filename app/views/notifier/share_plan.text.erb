@@ -9,7 +9,7 @@ Because <%= @plan.user.email %> shared this plan with you, you can use many of t
 Plan: <%= @plan.title %>
 You can visit the plan here: <%= @plan_url %>
 <% for task in @plan.tasks.active.ordered %>
-  <%= task.title %> <% if !task.due_date.blank? %> -- due <%= task.due_date.to_formatted_s(:full) %><% end %>
+· <%= task.title %> <% if !task.due_date.blank? %> -- due <%= task.due_date.to_formatted_s(:full) %><% end %>
 <% end %>
 
 <% if @plan.tasks.complete.count > 0 %>

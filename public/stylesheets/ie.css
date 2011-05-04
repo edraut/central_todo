@@ -1,11 +1,47 @@
 input {
 	overflow: hidden;
 }
+#main_logo{
+	height: 117px;
+	width: 179px;
+	border: none;
+}
+#main_logo_inner{
+	height: 115px;
+	border:none;
+	width: 177px;
+}
+#main_logo .jquery-corner{
+	z-index: 11;
+}
+#main_logo_inner .jquery-corner{
+	z-index: 10;
+}
+#main_logo_inner #main_logo_glare .jquery-corner{
+	z-index: 1;
+}
+#main_logo_glare{
+	margin: 0;
+	width: 177px;
+	height: 25px;
+	color: white;
+	z-index: 9;
+	background-color: white;
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60, FinishOpacity=0, Style=1, StartX=85, FinishX=85, StartY=0, FinishY=100);
+}
+#main_logo_content{
+	z-index: 10;
+	position: absolute;
+	left: -12px;
+	top: -10px;
+	background: transparent;
+	filter: progid:DXImageTransform.Microsoft.dropShadow(color="#66111111",offX=1,offY=2, positive=true) progid:DXImageTransform.Microsoft.Matrix(M11=1,M12=-0.17632698070846498,M21=0,M22=1,SizingMethod='auto expand');
+}
 .check_box_proxy {
 	font-size: 16px;
 	font-family: "Lucida Sans Unicode";
 }
-.delete, .plus_icon {
+.delete, .plus_icon, .expand_arrow_width, .rarr_width {
 	top: -.1em;
 	font-family: "Lucida Sans Unicode";
 }
@@ -32,4 +68,7 @@ input {
 
 .button .delete {
 	top: .1em;
+}
+.line_item_control_expander_active {
+	border: none;
 }

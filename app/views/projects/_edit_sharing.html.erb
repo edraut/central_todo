@@ -16,7 +16,7 @@
   	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
   	  <div class="button_content">share</div>
   	</div>
-  	<div class="text_with_small_button small">
+  	<div class="text_with_button small">
 		or <%= link_to (@project.shared? ? 'cancel' : "don't share"), plan_url(@project),
   		 	:'data-ajax_behavior' => 'ajax_link',
   			:'data-ajax_method' => 'GET',
