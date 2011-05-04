@@ -56,6 +56,7 @@ class TasksController < ApplicationController
       @task.save
     end
     if params[:app_context]
+      @app_context = params[:app_context]
       @item = @task
       case params[:app_context]
       when 'project'
@@ -66,6 +67,7 @@ class TasksController < ApplicationController
         render :partial => 'show', :locals => {:task => @task, :project => @project, :hierarchical => true}, :layout => 'new_task'
       end
     else
+      @app_context = nil
       if(params[:return_to])
         flash[:notice] = "Your task was successfully created."
         redirect_to params[:return_to] and return
