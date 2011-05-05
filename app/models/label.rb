@@ -16,7 +16,7 @@ class Label < ActiveRecord::Base
     "Melon",
     "Orange",
     "Atomic_Tangerine",
-    "Laser_Lemon",
+    "Lemon_Pie",
     "Electric_Lime",
     "Shamrock",
     "Pacific_Blue",

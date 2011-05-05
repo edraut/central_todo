@@ -14,7 +14,9 @@
 	  <a href="<%= plan_url(project) %>" <% if project.all_complete? %>class="completed"<% end %>><%= project.title %></a>
 	</div>
   <div class="span-4 last">
+    <% unless project.all_complete? %>
     <span class="count" data-sort_count="true" data-sort_id="project_task_lists" data-sort_count_id="project_<%= project.id %>_task_list"><%= project.archived? ? project.tasks.count : project.tasks.active.count %></span>
+    <% end %>
     <% if needs_organization %>
     <div id="project_<%= project.id %>_add_to_folder" class="project_add_folder" style="display:none;" onclick="void(0)" data-behavior="expander" data-action="expand" data-id="project_<%= project.id %>_folder_select" data-hover_id="plan_line_item_<%= project.id %>" data-hover_stop="true">
       <span class="small">add to folder</span>

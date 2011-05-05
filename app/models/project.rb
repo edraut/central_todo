@@ -24,7 +24,7 @@ class Project < ActiveRecord::Base
                       where("projects.state = 'active' and (tasks.state = 'active' or tasks.id is null)")
   scope :complete,  joins("left outer join tasks on tasks.project_id = projects.id").
                     where("projects.state = 'active'").
-                    group("projects.id,projects.title,projects.description,projects.due_date,projects.user_id,projects.state,projects.position,projects.created_at, shared_order").
+                    group("projects.id,projects.title,projects.description,projects.due_date,projects.user_id,projects.state,projects.position,projects.created_at,projects.folder_id, shared_order").
                     having("every(tasks.state != 'active')")
   scope :unarchived, where("projects.state != 'archived'")
   scope :archived, where(:state => 'archived')

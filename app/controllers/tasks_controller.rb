@@ -5,16 +5,6 @@ class TasksController < ApplicationController
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
   respond_to :html, :mobile
   
-  def index
-    @page_title = "Tasks"
-    @tasks = @this_user.tasks.unarchived.unorganized.recent.paginate(:page => params[:page],:per_page => 25)
-    @projects = Project.unorganized_for(@this_user).active.recent.paginate(:page => params[:plan_page],:per_page => 25)
-    respond_with(@tasks) do |format|
-      format.mobile { render @render_type => 'index', :layout => @this_layout}
-      format.html {render @render_type => 'index'}
-    end
-  end
-  
   def priority
     @tasks = Task.only_once.for_user(@this_user).active.priority.paginate(:page => params[:page],:per_page => 40)
   end

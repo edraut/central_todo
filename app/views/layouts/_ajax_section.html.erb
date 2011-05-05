@@ -18,7 +18,9 @@
   	jQuery('#flash_notice').fadeIn(500);
   	setTimeout(clearFlash,2000);
   	<% end %>
+  	<% if @item.respond_to?(params[:attribute]) %>
   	jQuery("[data-resource_attr='<%= @item.class.name.underscore %>_<%= params[:attribute] %>'][data-resource_id='<%= @item.id %>']").html('<%= @item.send(params[:attribute]) %>');
+    <% end %>
   	addDatePicker("[data-behavior='date_picker']");
 	  roundCorners();
 	  popButtons();

@@ -55,7 +55,7 @@
 		    <div id="task_<%= task.id %>_see_plan" class="span-2 line_item_control_expander line_item_control_expander_plan text_center small" data-behavior="expander" data-action="expand" data-id="task_project_id_expander_<%= task.id %>" data-hover_id="task_line_item_<%= task.id %>" data-hover_stop="true" style="display:none;">see plan</div>
         <div class="line_item_expand_control line_item_expand_control_plan text_left" data-behavior="expander" data-state="expanded" style="display:none;" data-id="task_project_id_expander_<%= task.id %>">
           <div class="small text_left">
-            <%= truncate_clean(task.project.title, :length => 256, :omission => '...', :max_word_length => 25) %>
+            <%= link_to truncate_clean(task.project.title, :length => 256, :omission => '...', :max_word_length => 25), plan_url(task.project) %>
           </div><br/>
         <div class="line_item_expand_control_clickable" data-behavior="expander" data-action="contract" data-id="task_project_id_expander_<%= task.id %>" data-hover_rebind="true">close</div>
     		</div>

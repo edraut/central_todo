@@ -78,13 +78,14 @@
             <% if @this_user.is_a? PaidAccount
                  subnav_links = {
                    'overview' => dashboard_url,
-                   'unorganized' => tasks_url,
+                   'unorganized' => dashboard_unorganized_url,
                    'comments' => comments_url(:full_page => true),
                    'priority' => priority_tasks_url,
                    'schedule' => schedule_url,
+                   'completed' => dashboard_completed_url,
                    'archived tasks' => archived_unorganized_tasks_url
                  }
-                 subnav_tags = ['overview','unorganized','comments','priority','schedule','archived tasks']
+                 subnav_tags = ['overview','unorganized','comments','priority','schedule','completed','archived tasks']
                else
                  subnav_links = {
                    'overview' => dashboard_url,

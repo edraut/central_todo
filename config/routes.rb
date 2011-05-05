@@ -69,6 +69,8 @@ CentralTodo::Application.routes.draw do
     end
   end
   match 'dashboard' => 'dashboard#index'
+  match 'dashboard/completed' => 'dashboard#completed'
+  match 'dashboard/unorganized' => 'dashboard#unorganized'
   match 'schedule' => 'schedule#index'
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
