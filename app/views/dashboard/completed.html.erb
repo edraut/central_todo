@@ -1,0 +1,31 @@
+<div class="span-17 last section_margin_top" id="header_wrapper">
+	<h1>Most Recently Completed Plans and Tasks</h1>
+</div>
+<div class="span-17 last page_content">
+  <h2>Completed Tasks</h2>
+  <% if @tasks.any? %>
+  <div  id="completed_tasks_wrapper" data-role="list" class="span-16 last list_section">
+    <% for task in @tasks %>
+      <%= render :partial => '/tasks/show', :locals => {:task => task} %>
+    <% end %>
+  </div>
+  <% else %>
+    <div class="span-15 prepend-1 last section_margin_top">
+      You don't have any recently completed tasks. Go get some done!
+    </div>
+  <% end %>
+  <div class="span-16 last section_margin_top">
+    <h2>Completed Projects</h2>
+  </div>
+  <% if @projects.any? %>
+  <div  id="completed_projects_wrapper" data-role="list" class="span-16 last list_section">
+    <% for project in @projects %>
+      <%= render :partial => '/projects/show', :locals => {:project => project} %>
+    <% end %>
+  </div>
+  <% else %>
+    <div class="span-15 prepend-1 last section_margin_top">
+      You don't have any recently completed projects. You will soon though, you look like a person who gets things done!
+    </div>
+  <% end %>
+</div>

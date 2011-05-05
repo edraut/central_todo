@@ -296,6 +296,9 @@ select.with_text_field {
   .section .line_item_height select {
     margin-top: 0; }
 
+#label_color .section {
+  background-color: #cdccc8; }
+
 .half_section {
   position: relative;
   float: left;
@@ -1205,90 +1208,45 @@ h2 .button.small {
   margin-right: 7px;
   position: relative;
   float: left;
-  border: 1px solid #f0f8f8; }
+  border: 1px solid #edece8; }
 
-.label_wrapper.selected {
+.label_wrapper.selected, #label_color .label_wrapper.selected {
   border: 1px solid #6d6c68; }
 
+#label_color .label_wrapper {
+  border: 1px solid #cdccc8; }
+
 .mytime .Red_Orange {
-  background-color: #ff5349;
+  background-color: #ef3a00;
   color: #fdfcf8; }
   .mytime .Red_Orange a {
     color: #fdfcf8; }
   .mytime .Red_Orange a:hover {
     color: #edece8; }
 
-.mytime .Melon {
-  background-color: #fdbcb4;
+.mytime .Lemon_Pie {
+  background-color: #fcefa1;
   color: #0d0c08; }
-  .mytime .Melon a {
+  .mytime .Lemon_Pie a {
     color: #0d0c08; }
-  .mytime .Melon a:hover {
+  .mytime .Lemon_Pie a:hover {
     color: #4d4c48; }
 
-.mytime .Orange {
-  background-color: #ff7538;
+.mytime .Grass {
+  background-color: #87a96b;
   color: #fdfcf8; }
-  .mytime .Orange a {
+  .mytime .Grass a {
     color: #fdfcf8; }
-  .mytime .Orange a:hover {
+  .mytime .Grass a:hover {
     color: #edece8; }
 
-.mytime .Atomic_Tangerine {
-  background-color: #ffa474;
-  color: #0d0c08; }
-  .mytime .Atomic_Tangerine a {
-    color: #0d0c08; }
-  .mytime .Atomic_Tangerine a:hover {
-    color: #4d4c48; }
-
-.mytime .Laser_Lemon {
-  background-color: #fdfc74;
-  color: #0d0c08; }
-  .mytime .Laser_Lemon a {
-    color: #0d0c08; }
-  .mytime .Laser_Lemon a:hover {
-    color: #4d4c48; }
-
-.mytime .Electric_Lime {
-  background-color: #1df914;
-  color: #0d0c08; }
-  .mytime .Electric_Lime a {
-    color: #0d0c08; }
-  .mytime .Electric_Lime a:hover {
-    color: #4d4c48; }
-
-.mytime .Shamrock {
-  background-color: #45cea2;
-  color: #0d0c08; }
-  .mytime .Shamrock a {
-    color: #0d0c08; }
-  .mytime .Shamrock a:hover {
-    color: #4d4c48; }
-
 .mytime .Pacific_Blue {
-  background-color: #1ca9c9;
+  background-color: #90b0b0;
   color: #fdfcf8; }
   .mytime .Pacific_Blue a {
     color: #fdfcf8; }
   .mytime .Pacific_Blue a:hover {
     color: #edece8; }
-
-.mytime .Cornflower {
-  background-color: #9aceeb;
-  color: #0d0c08; }
-  .mytime .Cornflower a {
-    color: #0d0c08; }
-  .mytime .Cornflower a:hover {
-    color: #4d4c48; }
-
-.mytime .Periwinkle {
-  background-color: #c5d0e6;
-  color: #0d0c08; }
-  .mytime .Periwinkle a {
-    color: #0d0c08; }
-  .mytime .Periwinkle a:hover {
-    color: #4d4c48; }
 
 .mytime .Indigo {
   background-color: #5d76cb;
@@ -1298,28 +1256,12 @@ h2 .button.small {
   .mytime .Indigo a:hover {
     color: #edece8; }
 
-.mytime .Purple_Heart {
-  background-color: #7442c8;
-  color: #fdfcf8; }
-  .mytime .Purple_Heart a {
-    color: #fdfcf8; }
-  .mytime .Purple_Heart a:hover {
-    color: #edece8; }
-
 .mytime .Wisteria {
   background-color: #cda4de;
   color: #0d0c08; }
   .mytime .Wisteria a {
     color: #0d0c08; }
   .mytime .Wisteria a:hover {
-    color: #4d4c48; }
-
-.mytime .Shocking_Pink {
-  background-color: #fb7efd;
-  color: #0d0c08; }
-  .mytime .Shocking_Pink a {
-    color: #0d0c08; }
-  .mytime .Shocking_Pink a:hover {
     color: #4d4c48; }
 
 .mytime .Cotton_Candy {
