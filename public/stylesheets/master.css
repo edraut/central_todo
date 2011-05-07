@@ -80,6 +80,14 @@ select.with_text_field {
   position: relative;
   top: .4em; }
 
+#top_nav_wrapper .row_item {
+  padding-right: 25px; }
+#top_nav_wrapper .selected a {
+  font-weight: bold;
+  color: #eaf5f5; }
+#top_nav_wrapper #top_logo_content .row_item {
+  padding-right: 0; }
+
 #inbox_text_area {
   width: 335px;
   height: 78px; }
@@ -110,6 +118,7 @@ select.with_text_field {
     font-size: 26px; }
 
 #main_logo {
+  cursor: pointer;
   position: relative;
   float: left;
   height: 115px;
@@ -206,6 +215,16 @@ select.with_text_field {
   padding: 20px 20px 20px 40px;
   z-index: 1000; }
 
+#create_account_button {
+  position: relative;
+  float: left;
+  width: 190px;
+  overflow: visible; }
+  #create_account_button #create_account_stretcher {
+    position: relative;
+    float: left;
+    width: 300px; }
+
 .form_modal {
   position: absolute;
   background: #dddcd8;
@@ -295,6 +314,15 @@ select.with_text_field {
     margin-top: .45em; }
   .section .line_item_height select {
     margin-top: 0; }
+
+.section_rule {
+  margin-left: -16px;
+  margin-top: 9px;
+  margin-bottom: 9px;
+  padding: 0 16px;
+  width: 100%;
+  height: 1px;
+  background-color: #dddcd8; }
 
 #label_color .section {
   background-color: #cdccc8; }
@@ -599,6 +627,19 @@ a.selected {
 .selected_indicator {
   position: absolute;
   left: 0em; }
+
+.selectable_group {
+  border: 3px solid #cdccc8;
+  height: 26px;
+  overflow: hidden; }
+
+.selectable {
+  position: relative;
+  padding: .2em;
+  color: #6d6c68; }
+
+.selectable.selected {
+  font-weight: bold; }
 
 .highlight {
   background-color: #eaf5f5; }
@@ -935,6 +976,9 @@ h2 .button.small {
   position: relative;
   float: left;
   z-index: 10; }
+
+.plan_button {
+  margin: 0 15px; }
 
 [onclick="void(0)"] {
   cursor: pointer; }

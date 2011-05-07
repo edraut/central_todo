@@ -30,17 +30,14 @@ function checkBoxProxy(e){
 }
 function hiddenFieldProxy(e){
 	target = jQuery(e.target);
-	if(!target.attr('data-hidden_field')){
-		target = target.parents("[data-hidden_field]");
+	if(!target.attr('data-click_to_select')){
+		target = target.parents("[data-click_to_select]:first");
 	}
 	hidden_field = jQuery('#' + target.attr('data-hidden_field'));
 	hidden_field.val(target.attr('data-value'));
 }
 function hiddenMultiProxy(e){
-	target = jQuery(e.target);
-	if(!target.attr('data-hidden_field')){
-		target = target.parents("[data-hidden_field]");
-	}
+	target = jQuery(this);
 	hidden_field = jQuery("input[type='hidden'][name='" + target.attr('data-hidden_field') + "[]'][value='" + target.attr('data-value') + "'][data-id='" + target.attr('data-id') + "']");
 	if(hidden_field.length == 0){
 		hidden_field = jQuery('<input type="hidden" name="' + target.attr('data-hidden_field') + '[]" value="' + target.attr('data-value') + '" data-id="' + target.attr('data-id') + '"/>');

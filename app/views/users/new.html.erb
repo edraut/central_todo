@@ -1,18 +1,82 @@
-<h1>Sign up</h1>
-<div class="span-18 last section">
+<div class="span-17 last section_margin_top" id="header_wrapper">
+  <h1>Sign up</h1>
+</div>
+<div class="span-12 last section">
 	<% form_for @user do |f| %>
-		<% if @user.errors[:email].any? %><div class="error"><%= f.label :email %>
-		<%= @user.errors[:email].join('<br/>') %></div><br/>
-		<% else %>
-    <%= f.label :email %>
-		<% end %>
-		<%= f.text_field :email %><br />
-		<br />
-		<%= f.label :password %><br />
-		<%= f.password_field :password %><br />
-		<br />
-		<%= f.label :password_confirmation %><br />
-		<%= f.password_field :password_confirmation %><br />&nbsp;<br/>
-	  	<%= f.submit "Create My Account" %>
+	  <div class="span-7">
+  		<% if @user.errors[:email].any? %><div class="error"><%= f.label :email %>
+  		<%= @user.errors[:email].join('<br/>') %></div><br/>
+  		<% else %>
+      <%= f.label :email %><br/>
+  		<% end %>
+  		<%= f.text_field :email %><br />
+  		<br />
+  		<%= f.label :password %><br />
+  		<%= f.password_field :password %><br />
+  		<br />
+  		<%= f.label :password_confirmation %><br />
+  		<%= f.password_field :password_confirmation, :'data-return_submit' => true %><br />
+      <br/>
+    </div>
+    <div class="span-5 last">
+      <%= hidden_field_tag :rate_class, 'BasicRate', :id => "rate_class_field" %>
+      <%= hidden_field_tag :frequency, 'month', :id => "frequency_field" %>
+      <div onclick="void(0)" class="selectable_group" id="rate_class_select">
+      <% for rate_class in [BasicRate,SuperRate,UnlimitedRate] %>
+        <div onclick="void(0)" class="selectable <% if rate_class.name == 'BasicRate' %>selected<% end %>" data-click_to_select="true" data-click_id="rate_class_field" data-behavior="hidden_field_proxy" data-hidden_field="rate_class_field" data-value="<%= rate_class.name %>"><%= rate_class.display_name %></div>
+      <% end %>
+      </div>
+      <div onclick="void(0)" class="selectable_group section_margin_top" id="frequency_select">
+        <% for frequency in Rate.frequencies %>
+          <div class="selectable<% if frequency[:name] == 'month' %> selected<% end %>" data-click_to_select="true" data-click_id="frequency_field" data-behavior="hidden_field_proxy" data-hidden_field="frequency_field" data-value="<%= frequency[:name] %>" onclick="void(0)">
+            <%= frequency[:display] %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="span-12 last">
+      <div class="section_rule">&nbsp;</div>
+      <%= label 'card[name]', "Name on Card" %><br/>
+      <%= text_field_tag 'card[name]', nil %><br/>
+      <br/>
+      <%= label 'card[number]', "Credit Card Number" %><br/>
+      <%= text_field_tag 'card[number]', nil %><br/>
+      <br/>
+      <%= label 'card[cvv]', "Security Code" %><br/>
+      <%= text_field_tag 'card[cvv]', nil %><br/>
+      <br/>
+      <%= label nil, "Expiration Date" %><br/>
+      <div class="span-12 last">
+        <div class="span-7">
+          <%= select_tag 'card[month]', options_for_select( Array.new(12){|i| i+1}.map{|m| [m,m]},1) %> /
+          <%= select_tag 'card[year]', options_for_select( Array.new(10){|i| i + Date.today.year}.map{|year| [year,year]},Date.today.year) %>
+        </div>
+        <div id="create_account_button">
+          <div id="create_account_stretcher">
+          	<div class="row_item button round light" data-button="true" data-submit="true" onclick="void(0)">
+          	  <div class="button_content">Create My Account</div>
+          	</div>
+          </div>
+      	</div>
+      </div>
+    </div>
 	<% end %>
 </div>
+<%= javascript_tag do %>
+function selectOption(e){
+  e.stopPropagation();
+  jQuery(this).add(jQuery(this).siblings()).css('top', (-26 * jQuery(this).parent().children().index(jQuery(this))) + 'px');
+  jQuery(this).parent().height(26);
+  jQuery(this).parent().children('.selectable').unbind('click',selectOption);
+  hiddenFieldProxy(e);
+}
+jQuery(document).ready(function(){
+  jQuery('.selectable_group').click(function(e){
+    jQuery(this).height(jQuery(this).children().length * 26);
+    jQuery(this).children('.selectable').css('top','0px');
+    jQuery(this).children('.selectable').bind('click',selectOption);
+  })
+  bindClickToSelect();
+  bindHiddenFieldProxy();
+})
+<% end %>

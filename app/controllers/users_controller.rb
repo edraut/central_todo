@@ -19,7 +19,9 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(params[:user].merge(:time_zone => Time.zone.name))
+    rate_class = params[:rate_class].constantize
+    rate = rate_class.where(:frequency => params[:frequency])
+    @user = User.new(params[:user].merge(:time_zone => Time.zone.name, :rate_id => rate.id))
     if @user.save
       for project_email in ProjectEmail.find(:all, :conditions => ["lower(email) = :email",{:email => @user.email.downcase}])
         project_email.convert_to_sharer

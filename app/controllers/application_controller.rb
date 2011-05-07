@@ -71,6 +71,9 @@ class ApplicationController < ActionController::Base
   
   def set_nav_tab
     case controller_name
+    when 'pages'
+      @nav_tab = 'pages'
+      @subnav_tab = @page.name
     when 'tasks'
       case action_name
       when 'show','comments','update'

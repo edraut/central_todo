@@ -59,7 +59,6 @@ CentralTodo::Application.routes.draw do
   end
   resources :comments
   resources :reminders
-  resources :pages
   resources :folders do
     collection do
       get 'sort'
@@ -68,6 +67,7 @@ CentralTodo::Application.routes.draw do
       get 'sort_plans'
     end
   end
+  match 'page/:name' => 'pages#show'
   match 'dashboard' => 'dashboard#index'
   match 'dashboard/completed' => 'dashboard#completed'
   match 'dashboard/unorganized' => 'dashboard#unorganized'
@@ -111,7 +111,7 @@ CentralTodo::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
-  root :to => "pages#show", :id => 1
+  root :to => "pages#show", :name => 'Home'
 
   # See how all your routes lay out with "rake routes"
 

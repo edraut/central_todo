@@ -20,10 +20,7 @@ function bindLinkToForm(){
 };
 function bindClickToSelect(){
 	jQuery("[data-click_to_select='true']").click(function(e){
-		target = jQuery(e.target);
-		if(!target.attr("data-click_to_select")){
-			target = target.parents("[data-click_to_select='true']");
-		}
+		target = jQuery(this);
 		jQuery("[data-click_to_select='true'][data-click_id='" + target.attr('data-click_id') + "']").removeClass('selected');
 		target.addClass('selected');
 	})
@@ -47,6 +44,23 @@ function bindAutoSubmit(){
 	jQuery("[data-behavior='auto_submit']").live('change',function(e){
 		jQuery(e.target).parents('form').submit();
 	})
+}
+function captureReturn(e){
+	switch(e.which)
+	{
+		// user presses the "return" key
+		case 13:
+			jQuery(this).parents('form').submit();
+			break;
+	};
+};
+function bindReturnSubmit(){
+	jQuery("[data-return_submit]").live('focus',function(e){
+		jQuery(this).bind('keypress',captureReturn);
+	});
+	jQuery("[data-return_submit]").live('blur',function(e){
+		jQuery(this).unbind('keypress',captureReturn);
+	});
 }
 function flashBackground(id){
 	element = jQuery('#'+id);
@@ -147,6 +161,15 @@ function expandExpander(data_id) {
 function contractExpander(data_id) {
 	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").hide();
 	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").show();
+}
+function bindTabs(){
+	jQuery("[data-tab='tab']").click(function(e){
+		jQuery("[data-tab='tab'][data-tab_set='" + jQuery(this).attr('data-tab_set') + "']").removeClass('selected');
+		jQuery(this).addClass('selected');
+		jQuery("[data-tab='tab_content'][data-tab_set='" + jQuery(this).attr('data-tab_set') + "']").hide();
+		jQuery('#' + jQuery(this).attr('data-tab_content')).show();
+		return(false);
+	});
 }
 function pausecomp(millis) 
 {

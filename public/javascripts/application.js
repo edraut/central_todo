@@ -14,9 +14,11 @@ jQuery(document).ready(function(){
 	bindCheckBoxProxy();
 	roundCorners();
 	bindAutoSubmit();
+	bindReturnSubmit();
   bindLinkToForm();
 	bindLineItemControls();
 	bindExpanders();
+	bindTabs();
 	bindSortables();
 	bindFocusTaskInput();
 	bindHoverShowMore();

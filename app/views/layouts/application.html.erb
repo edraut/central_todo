@@ -37,22 +37,34 @@
 	  <div class="glare">&nbsp;</div>
 		<div class="container">
 			<div id="top_nav_wrapper" class="span-24 vertical-padding">
-			  <div class="left_nav_wrapper">
-			    <% if @this_user %>
+		    <% if @this_user %>
+			    <div class="left_nav_wrapper">
             <div id="top_logo_content">
               <div class="row_item"><%= link_to 'Get Go', root_url %></div> <div class="row_item rarr_logo"><%= link_to '&rarr;'.html_safe, root_url %></div>
             </div>
-          <% end %>
-			  </div>
-				<div class="span-18 last" data-role="top_nav_element">
-          <div class="span-7">
-            <div class="span-3" style="margin-left: -16px;">
+  			  </div>
+  				<div class="span-18 last" data-role="top_nav_element">
+        <% else %>
+          <div class="span-24 last" data-role="top_nav_element">
+        <% end %>
+        <% if @this_user %>
+          <div class="span-2" style="margin-left: -16px;">
+        <% else %>
+          <div class="span-13">
+        <% end %>
+            <% unless current_user %>
+              <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Features') ? 'selected' : '' %>">
+                <%= link_to 'Features', '/page/Features' %>
+              </div>
+              <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Pricing') ? 'selected' : '' %>">
+                <%= link_to 'Plans/Pricing', '/page/Pricing' %>
+              </div>
+            <% end %>
+            <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Support') ? 'selected' : '' %>">
+              <%= link_to 'Support', '/page/Support' %>
             </div>
-            <div class="span-2">
-						&nbsp;
-						</div>
-					</div>
-  				<div class="span-11 last text_center" data-role="top_nav_element">
+          </div>
+  				<div class="span-<% if @this_user %>15<% else %>10<% end %> last text_right" data-role="top_nav_element">
   					<% if current_user %>
   						hello <%= @this_user.handle %>
   						<%= link_to '(sign out)', sign_out_url, :class => 'quiet' %>
@@ -248,8 +260,7 @@
 				</div>
 				<% else %>
         <div class="span-6">
-          <div class="span-6 last">&nbsp;</div>
-          <div id="main_logo">
+          <div id="main_logo" onclick="document.location.href = '<%= root_url %>'">
             <div id="main_logo_inner">
               <div id="main_logo_glare">&nbsp;</div>
               <div id="main_logo_content">

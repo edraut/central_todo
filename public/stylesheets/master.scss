@@ -251,6 +251,20 @@ select.with_text_field{
 	top: .4em;
 }
 // These classes define layout for specific elements
+#top_nav_wrapper {
+	.row_item {
+		padding-right: 25px;
+	}
+	.selected {
+		a {
+			font-weight: bold;
+			color: $light-blue;
+		}
+	}
+	#top_logo_content .row_item{
+		padding-right: 0;
+	}
+}
 #inbox_text_area {
 	width: 335px;
 	height: 78px;
@@ -317,6 +331,7 @@ select.with_text_field{
 			}
 		}
 	}
+	cursor: pointer;
 	position: relative;
 	float: left;
 	height: 115px;
@@ -373,6 +388,17 @@ select.with_text_field{
   width: 790px;
   padding: 20px 20px 20px 40px;
   z-index: 1000;
+}
+#create_account_button {
+	position: relative;
+	float: left;
+	width: 190px;
+	overflow:visible;
+	#create_account_stretcher {
+		position: relative;
+		float: left;
+		width: 300px;
+	}
 }
 .form_modal {
 	position: absolute;
@@ -469,6 +495,15 @@ select.with_text_field{
 	.line_item_height select{
 		margin-top: 0;
 	}
+}
+.section_rule {
+	margin-left: -16px;
+	margin-top: 9px;
+	margin-bottom: 9px;
+	padding: 0 16px;
+	width: 100%;
+	height: 1px;
+	background-color: $gray2;
 }
 #label_color .section {
 	background-color: $gray3;
@@ -792,6 +827,19 @@ a.selected {
   position: absolute;
   left: 0em;
 }
+.selectable_group {
+	border: 3px solid $gray3;
+	height: $line-height;
+	overflow: hidden;
+}
+.selectable {
+	position: relative;
+	padding: .2em;
+	color: $gray8;
+}
+.selectable.selected {
+	font-weight: bold;
+}
 .highlight {
 	background-color: $light-blue;
 }
@@ -1073,6 +1121,9 @@ h2 .button.small {
 	position: relative;
 	float: left;
 	z-index: 10;
+}
+.plan_button {
+	margin: 0 15px;
 }
 [onclick="void(0)"] {
 	cursor: pointer;

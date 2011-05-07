@@ -1,6 +1,8 @@
 class PagesController < ApplicationController
   before_filter :get_page
   respond_to :html, :mobile
+  before_filter :set_nav_tab
+
   def show
     (redirect_to dashboard_url and return) if @page.name == 'Home' and current_user
     @html_page_title = @page_title = @page.name
@@ -11,6 +13,6 @@ class PagesController < ApplicationController
   end
   
   def get_page
-    @page = Page.find(params[:id])
+    @page = Page.where("lower(name) = lower(:name)",{:name => params[:name]}).first
   end
 end

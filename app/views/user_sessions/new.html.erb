@@ -1,7 +1,7 @@
 <div class="span-17 last section_margin_top" id="header_wrapper">
 <h1>Sign In</h1>
 </div>
-<div class="span-12 last page_content">
+<div class="span-12 last section">
   <div class="span-11 last">
   	<% form_for :user_session, @user_session, :url => user_session_url do |f| %>
   	  <% if @user_session.errors.any? %> <%= @user_session.errors.full_messages %><br/> <% end %>
@@ -9,10 +9,14 @@
   	  <%= f.text_field :email %><br />
   	  <br />
   	  <%= f.label :password %><br />
-  	  <%= f.password_field :password %><br />
+  	  <%= f.password_field :password, :'data-return_submit' => true %><br />
   	  <br />
-  	  <%= f.submit "Login" %>
+    	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+    	  <div class="button_content">Login</div>
+    	</div>
   	<% end %>
-  	<%= link_to 'Forget your password?', forgot_password_user_url('none') %>
+  	<div class="text_with_button small">
+    	<%= link_to 'Forget your password?', forgot_password_user_url('none') %>
+  	</div>
   </div>
 </div>
