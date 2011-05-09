@@ -323,6 +323,13 @@ select.with_text_field{
   transform:         skewX(350deg);
 	filter: progid:DXImageTransform.Microsoft.dropShadow(color="#663D3C38",offX=-1,offY=-1, positive=true) progid:DXImageTransform.Microsoft.Matrix(M11=1,M12=-0.17632698070846498,M21=0,M22=1,SizingMethod='auto expand');
 }
+#beta_label {
+	padding: .3em;
+	background-color: $gray2;
+	color: $paper;
+	font-size: 24px;
+	width: 138px;
+}
 #main_logo{
 	#main_logo_inner{
 		width: 177px;

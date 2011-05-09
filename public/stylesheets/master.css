@@ -120,6 +120,13 @@ select.with_text_field {
     line-height: 20px;
     font-size: 26px; }
 
+#beta_label {
+  padding: .3em;
+  background-color: #dddcd8;
+  color: #fdfcf8;
+  font-size: 24px;
+  width: 138px; }
+
 #main_logo {
   cursor: pointer;
   position: relative;
