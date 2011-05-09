@@ -1,4 +1,12 @@
 class CreatePlan < ActiveRecord::Migration
+  class Rate < ActiveRecord::Base
+  end
+  class BasicRate < Rate
+  end
+  class SuperRate < Rate
+  end
+  class UnlimitedRate < Rate
+  end
   def self.up
     create_table :rates, :force => true do |t|
       t.integer :amount
@@ -11,14 +19,6 @@ class CreatePlan < ActiveRecord::Migration
     User.all.each do |user|
       user.rate_id = 1
       user.save
-    end
-    class Rate < ActiveRecord::Base
-    end
-    class BasicRate < Rate
-    end
-    class SuperRate < Rate
-    end
-    class UnlimitedRate < Rate
     end
     features_page = Page.create({ :name => 'Features', :template => 'features', :description => "Get Go has everything you need to organize your task lists and nothing else. Super simple."})
     pricing_page = Page.create({ :name => 'Pricing', :template => 'pricing', :description => "Get Go has a plan for you. From the Basic plan for individuals and freelancers to the Unlimited plan for larger organizations, we've got you covered."})

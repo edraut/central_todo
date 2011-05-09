@@ -1,11 +1,19 @@
 $dark-blue: #557777;
 $blue: #90B0B0;
+$blue4: #C0D8D8;
+$blue5: #D0E0E0;
+$blue6: #E0F0F0;
 $light-blue: #EAF5F5;
 $pale-blue: #f0f8f8;
 $blue-wash: #fbffff;
-$light-carmine: #CF2A00;
+$carmine1: #BF1A00;
+$dark-carmine: #CF2A00;
 $carmine: #EF3A00;
-$dark-carmine: #FF4A00;
+$carmine4: #F84200;
+$light-carmine: #FF4A00;
+$orange: #FF8800;
+// $carmine: #F04C00;
+// $light-carmine: #FF4D00;
 $paper: #FDFCF8;
 $gray0-5: #F5F4F0;
 $gray1: #EDECE8;
@@ -41,7 +49,7 @@ $compact-line-height-minus-two: 18px;
 $indent-width: 28px;
 $nav-indent-width: 15px;
 @mixin small-shadow {
-	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
 	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
 }
@@ -56,7 +64,7 @@ $nav-indent-width: 15px;
 	box-shadow: inset 1px 1px 1px rgba(15, 15, 15, .2);
 }
 @mixin large-shadow {
-	-webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, .3);
 	-moz-box-shadow: 4px 4px 4px rgba(0, 0, 0, .2);
 	box-shadow: 4px 4px 4px rgba(0, 0, 0, .2);
 }
@@ -120,6 +128,18 @@ $nav-indent-width: 15px;
 	background: -webkit-gradient(linear, left top, left bottom, from($gray4), to($gray1)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray4,  $gray1); /* for firefox 3.6+ */
 }
+@mixin carmine-gradient {
+	background-color: $carmine;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$light-carmine}", endColorstr="#{$carmine}"); /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($light-carmine), color-stop(.80,$carmine4), to($carmine)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $light-carmine, $carmine); /* for firefox 3.6+ */
+}
+@mixin light-carmine-gradient {
+	background-color: $carmine;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$carmine1}", endColorstr="#{$carmine}"); /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($orange), color-stop(.80,$light-carmine), to($light-carmine)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $light-carmine, $carmine); /* for firefox 3.6+ */
+}
 @mixin glare-light {
 	background-color: rgba(255, 255, 255, 0.1);
 	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 1)), color-stop(.3,rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.1)));
@@ -167,7 +187,7 @@ $nav-indent-width: 15px;
 }
 body {
 	background-color: $paper;
-	color: $gray8;
+	color: $gray9;
 	font-size: $normal-font-size;
 	line-height: 1.0;
 }
@@ -201,10 +221,13 @@ hr {
 	color: $gray8;
 }
 h1 {
-  color: $gray7;
+  color: $gray9;
   margin-left: -16px;
   margin-bottom: 20px;
   font-size: 32px;
+}
+h1.coolvetica {
+	font-size: 40px;
 }
 h2 {
   font-size: 22px;
@@ -258,7 +281,7 @@ select.with_text_field{
 	.selected {
 		a {
 			font-weight: bold;
-			color: $light-blue;
+			color: $yellow;
 		}
 	}
 	#top_logo_content .row_item{
@@ -315,10 +338,7 @@ select.with_text_field{
 		font-size: 44px;
 		text-shadow: 2px 2px 1px rgba(0,0,0,.5);
 		color: $yellow;
-		background-color: $carmine;
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$dark-carmine}", endColorstr="#{$light-carmine}"); /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
-		background: -webkit-gradient(linear, left top, left bottom, from(#FF4A00), to(#CF2A00)); /* for webkit browsers */
-		background: -moz-linear-gradient(top,  #FF4A00, #CF2A00); /* for firefox 3.6+ */
+		@include carmine-gradient;
 		text-align: center;
 		#main_logo_content{
 			position:relative;
@@ -475,7 +495,7 @@ select.with_text_field{
 	width: 100%;
 }
 .section {
-	background-color: $pale-blue;
+	background-color: $blue6;
 	margin-left: -16px;
 	padding: 16px;
 	line-height: $compact-line-height;
@@ -1061,6 +1081,23 @@ h2 .button.small {
 	}
 	a:hover {
 		color: $gray6;
+	}
+}
+.button.carmine, a.button.carmine {
+	@include light-carmine-gradient;
+  border:1px solid $gray6;
+  border-top:1px solid $gray4;
+  border-left:1px solid $gray4;
+  color:$paper;
+	text-shadow: 0px -1px 1px rgba(0,0,0,.5);
+	.glare {
+		@include glare-gradient-dark;
+	}
+	a {
+		color: $paper;
+	}
+	a:hover {
+		color: $gray2;
 	}
 }
 .button.light:active, a.button.light:active {

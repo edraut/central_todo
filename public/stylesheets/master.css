@@ -1,6 +1,6 @@
 body {
   background-color: #fdfcf8;
-  color: #6d6c68;
+  color: #5d5c58;
   font-size: 16px;
   line-height: 1.0; }
 
@@ -33,10 +33,13 @@ hr {
   color: #6d6c68; }
 
 h1 {
-  color: #8e8d89;
+  color: #5d5c58;
   margin-left: -16px;
   margin-bottom: 20px;
   font-size: 32px; }
+
+h1.coolvetica {
+  font-size: 40px; }
 
 h2 {
   font-size: 22px;
@@ -84,7 +87,7 @@ select.with_text_field {
   padding-right: 25px; }
 #top_nav_wrapper .selected a {
   font-weight: bold;
-  color: #eaf5f5; }
+  color: #fcefa1; }
 #top_nav_wrapper #top_logo_content .row_item {
   padding-right: 0; }
 
@@ -133,7 +136,7 @@ select.with_text_field {
   border-bottom-right-radius: 28px;
   border: 5px solid #fcefa1;
   background-color: #fcefa1;
-  -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
   -moz-transform: skewX(350deg);
@@ -155,11 +158,11 @@ select.with_text_field {
     text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
     color: #fcefa1;
     background-color: #ef3a00;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff4a00", endColorstr="#cf2a00");
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff4a00", endColorstr="#ef3a00");
     /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
-    background: -webkit-gradient(linear, left top, left bottom, from(#ff4a00), to(#cf2a00));
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff4a00), color-stop(0.8, #f84200), to(#ef3a00));
     /* for webkit browsers */
-    background: -moz-linear-gradient(top, #ff4a00, #cf2a00);
+    background: -moz-linear-gradient(top, #ff4a00, #ef3a00);
     /* for firefox 3.6+ */
     text-align: center; }
     #main_logo #main_logo_inner #main_logo_content {
@@ -250,7 +253,7 @@ select.with_text_field {
   margin: 0 -16px 16px -16px;
   min-height: 500px;
   background-color: #dddcd8;
-  -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2); }
 
@@ -275,7 +278,7 @@ select.with_text_field {
   padding: 16px;
   background-color: #cdccc8;
   line-height: 20px;
-  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); }
   .list_section a:hover {
@@ -297,11 +300,11 @@ select.with_text_field {
   width: 100%; }
 
 .section {
-  background-color: #f0f8f8;
+  background-color: #e0f0f0;
   margin-left: -16px;
   padding: 16px;
   line-height: 20px;
-  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); }
   .section a:hover {
@@ -350,7 +353,7 @@ select.with_text_field {
 
 .section_heading {
   background-color: #bdbcb8;
-  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   color: #6d6c68;
@@ -392,7 +395,7 @@ select.with_text_field {
   border-top: 1px solid #dddcd8;
   border-left: 1px solid #dddcd8;
   background-color: #fdfcf8;
-  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); }
   .vert-line-nav-wrapper-main a:hover {
@@ -434,7 +437,7 @@ div.vert-line-nav-wrapper-main.selected {
   background-color: #dddcd8;
   background: #dddcd8;
   filter: none;
-  -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2); }
 
@@ -878,6 +881,30 @@ h2 .button.small {
   .button.light a:hover, a.button.light a:hover {
     color: #9d9c98; }
 
+.button.carmine, a.button.carmine {
+  background-color: #ef3a00;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#bf1a00", endColorstr="#ef3a00");
+  /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff8800), color-stop(0.8, #ff4a00), to(#ff4a00));
+  /* for webkit browsers */
+  background: -moz-linear-gradient(top, #ff4a00, #ef3a00);
+  /* for firefox 3.6+ */
+  border: 1px solid #9d9c98;
+  border-top: 1px solid #bdbcb8;
+  border-left: 1px solid #bdbcb8;
+  color: #fdfcf8;
+  text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.5); }
+  .button.carmine .glare, a.button.carmine .glare {
+    background-color: rgba(255, 255, 255, 0.2);
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), color-stop(0.3, rgba(255, 255, 255, 0.3)), to(rgba(255, 255, 255, 0)));
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9AFFFFFF", endColorstr="#00FFFFFF");
+    /* for IE */ }
+  .button.carmine a, a.button.carmine a {
+    color: #fdfcf8; }
+  .button.carmine a:hover, a.button.carmine a:hover {
+    color: #dddcd8; }
+
 .button.light:active, a.button.light:active {
   background: #dddcd8;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dddcd8", endColorstr="#cdccc8");
@@ -1012,7 +1039,7 @@ h2 .button.small {
 
 .attach_above.selected {
   border-color: #dddcd8;
-  -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2); }
 
@@ -1022,7 +1049,7 @@ h2 .button.small {
   border-right: 1px solid #bdbcb8;
   background-color: #dddcd8;
   z-index: 10;
-  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); }
 
