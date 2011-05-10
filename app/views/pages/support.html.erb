@@ -1,6 +1,45 @@
 <div class="span-17 last section_margin_top" id="header_wrapper">
-  <h1 class="coolvetica">You Won't Need This Often</h1>
+  <h1 class="coolvetica">We're Here for You</h1>
 </div>
 <div class="span-19 last">
-  
+  <div class="span-18 section">
+    <h2>FAQ</h2>
+    <div class="span-18 last section_rule">&nbsp;</div>
+    <div class="span-18 last">
+      <div class="question" data-tab="tab" data-tab_set="faq" data-tab_content="question_1" onclick="void(0)">
+        Can I move a task from one plan to another?
+      </div>
+      <div id="question_1" class="answer" data-tab="tab_content" data-tab_set="faq" style="display:none;">
+        Yes! If you're viewing a folder that contains both the current plan and the desired one, you can expand the plans to show their tasks, then drag-and-drop tasks between the plans. If the current plan and the desired plan aren't in the same folder, you can view 'All Folders' by opening the Plans tab on the left side navigation, then open the 'Misc.' section at the bottom and choose 'All Folders'. Keep in mind that you cannot move tasks between plans that were created by different people or organizations.
+      </div>
+    </div>
+    <div class="span-18 last section_rule">&nbsp;</div>
+    <div class="span-18 last">
+      <div class="question" data-tab="tab" data-tab_set="faq" data-tab_content="question_2" onclick="void(0)">
+        Can I export my data if I decide not to use <span class="coolvetica">Get Go</span> anymore?
+      </div>
+      <div id="question_2" class="answer" data-tab="tab_content" data-tab_set="faq" style="display:none;">
+        This feature is slated for our next round of enhancements, it will be available soon. Please contact us at <a href="mailto:support@getgolist.com">support@getgolist.com</a> if you want more specific information.
+      </div>
+    </div>
+    <div class="span-18 last section_rule">&nbsp;</div>
+    <div class="span-18 last">
+      <div class="question" data-tab="tab" data-tab_set="faq" data-tab_content="question_3" onclick="void(0)">
+        Can I create a template for plans that have a set list of tasks?
+      </div>
+      <div id="question_3" class="answer" data-tab="tab_content" data-tab_set="faq" style="display:none;">
+        This feature is slated for our next round of enhancements, it will be available soon. Please contact us at <a href="mailto:support@getgolist.com">support@getgolist.com</a> if you want more specific information.
+      </div>
+    </div>
+  </div>
+  <div class="span-18 section section_margin_top">
+    <h2>Contact</h2>
+    <div class="section_rule">&nbsp;</div>
+    Feel free to email support at <a href="mailto:support@getgolist.com">support@getgolist.com</a> if you have a question that we didn't answer above.
+  </div>
 </div>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    bindTabs();
+  })
+<% end %>

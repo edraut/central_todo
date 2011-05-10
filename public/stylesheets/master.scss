@@ -6,14 +6,15 @@ $blue6: #E0F0F0;
 $light-blue: #EAF5F5;
 $pale-blue: #f0f8f8;
 $blue-wash: #fbffff;
-$carmine1: #BF1A00;
+$carmine5: #BF1A00;
 $dark-carmine: #CF2A00;
-$carmine: #EF3A00;
-$carmine4: #F84200;
-$light-carmine: #FF4A00;
+$carmine: #EF3F10;
+// $carmine: #DB3C2B;
+$carmine4: #F86028;
+$light-carmine: #FF8040;
+// $light-carmine: #EB5040;
+// $carmine1: #FB685C;
 $orange: #FF8800;
-// $carmine: #F04C00;
-// $light-carmine: #FF4D00;
 $paper: #FDFCF8;
 $gray0-5: #F5F4F0;
 $gray1: #EDECE8;
@@ -131,12 +132,12 @@ $nav-indent-width: 15px;
 @mixin carmine-gradient {
 	background-color: $carmine;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$light-carmine}", endColorstr="#{$carmine}"); /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from($light-carmine), color-stop(.80,$carmine4), to($carmine)); /* for webkit browsers */
+	background: -webkit-gradient(linear, left top, left bottom, from($light-carmine), color-stop(.74,$carmine4), to($carmine)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $light-carmine, $carmine); /* for firefox 3.6+ */
 }
 @mixin light-carmine-gradient {
 	background-color: $carmine;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$carmine1}", endColorstr="#{$carmine}"); /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$carmine4}", endColorstr="#{$carmine}"); /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($orange), color-stop(.80,$light-carmine), to($light-carmine)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $light-carmine, $carmine); /* for firefox 3.6+ */
 }
