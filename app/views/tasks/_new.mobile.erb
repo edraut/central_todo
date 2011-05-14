@@ -1,0 +1,21 @@
+<% hierarchical = false unless defined? hierarchical
+  sortable = false unless defined? sortable %>
+<%= form_for Task.new(:project_id => project.id, :state => 'active'), :html => {
+  :'data-ajax_behavior' => 'ajax_form',
+  :'data-ajax_method' => 'POST',
+  :'data-ajax_success_element' => "project_#{project.id}_task_list",
+  :'data-ajax_success_placement' => 'append',
+  :'data-ajax_success_callback' => "jQuery('#project_#{project.id}_new_task_title').val('');jQuery('#project_#{project.id}_new_task_form').rebindSubmit();",
+  :id => "project_#{project.id}_new_task_form"} do |f| %>
+		<%= f.text_field :title, :id => "project_#{project.id}_new_task_title" %>
+		<%= f.hidden_field :state, :id => "project_#{project.id}_new_task_state" %>
+		<%= f.hidden_field :project_id, :id => "project_#{project.id}_new_task_project_id" %>
+    <% if hierarchical %>
+			<%= hidden_field_tag :app_context, 'hierarchical', :id => "project_#{project.id}_new_task_app_context" %>
+    <% elsif sortable %>
+		  <%= hidden_field_tag :app_context, 'project', :id => "project_#{project.id}_new_task_app_context" %>
+		<% end %>
+  	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+  	  <div class="button_content">add task</div>
+  	</div>
+<% end %>

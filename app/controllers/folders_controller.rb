@@ -53,11 +53,14 @@ class FoldersController < ApplicationController
         project_sharer = shared_project.project_sharers.where(:user_id => @this_user.id).first
         project_sharer.folder = @folder
         project_sharer.position = params[:project].index(shared_project.id.to_s + 'nav')
+        project_sharer.position ||= params[:project].index(shared_project.id.to_s)
         project_sharer.save
       end
       @folder.project_ids = owned_projects.map{|op| op.id}
       owned_projects.each do |project|
-        project.update_attributes(:position => params[:project].index(project.id.to_s + 'nav'))
+        this_position = params[:project].index(project.id.to_s + 'nav')
+        this_position ||= params[:project].index(project.id.to_s)
+        project.update_attributes(:position => this_position)
       end
     end
     render :nothing => true and return

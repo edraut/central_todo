@@ -1,1 +1,24 @@
-<%= render :partial => 'index' %>
+<h2>Folders</h2>
+<div class="list_action padding_bottom" onclick="void(0)" data-behavior="expander" data-state="contracted" data-action="expand" data-id="new_folder_form">add a folder</div>
+<div class="block" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_folder_form">
+  <%= form_for Folder.new(:user_id => @this_user.id) do |f| %>
+		<%= f.text_field :title, :class => "span-12" %>
+		<%= f.hidden_field :user_id %>
+  	<button type="submit" class="row_item button round small light ">save</button>
+		<div data-behavior="expander" data-action="contract" data-id="new_folder_form" onclick="void(0)">&nbsp;or close</div>
+  <% end %>
+</div>
+<div class="list_container" data-sort_container="true" data-sort_id="folder_list" data-sort_url="<%= sort_folders_url %>">
+<% for folder in @this_user.folders.ordered %>
+  <div id="folder_<%= folder.id %>" class="block border_bottom" data-sort_element="true" data-sort_id="folder_list">
+    <div class="row padding">
+  	  <div class="row_item eightteen control_font" data-drag_handle="true">&nbsp;&nbsp;&equiv;</div>
+      <div class="row_item seventy">
+		    <div class="row_item"><h3><%= folder.title %> <span class="small">(</span><span class="small" data-sort_count="true" data-sort_id="folder_plan_list" data-sort_count_id="folder_<%= folder.id %>_plan_list"><%= folder.projects.active.count %></span><span class="small">)</span> &nbsp;</h3></div>
+      </div>
+      <div class="row_item twelve">
+        <div onclick="void(0)" class="row_item control_font" data-button="true" href="<%= folder_url(folder) %>">&nbsp;&nbsp;&rang;</div>
+      </div>
+  	</div>
+  </div>
+<% end %>

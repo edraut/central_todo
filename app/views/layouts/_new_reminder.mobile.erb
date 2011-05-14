@@ -1,1 +1,6 @@
 <div class="block padding_bottom padding_top" id="reminder_<%= reminder.id %>" data-role="list_item"><%= yield %></div>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    popButtons();
+  })
+<% end %>

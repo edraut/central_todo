@@ -1,0 +1,8 @@
+<% link_attributes = {}
+  if project.project_sharers.any?
+    link_attributes[:'data-confirm'] = "This template will include sharing settings. '#{project.title}' is shared with #{project.project_sharers.map{|ps| ((project.project_sharers.index(ps) == (project.project_sharers.length - 1)) ? 'and ' : '') + ps.user.handle}.join(', ')}. If you create this template, any new projects created from this template will also be shared with these users by default.
+    
+Do you want to use this plan including its sharing settings to create a template?"
+  end
+ %>
+<%= link_to 'create a template', templatize_plan_url(project) + "?attribute=template&return_to=#{request.fullpath}", link_attributes %>

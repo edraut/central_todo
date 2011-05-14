@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :shared_projects, :through => :project_sharers, :source => :project
   has_many :reminders, :dependent => :destroy
   has_many :comments
+  has_many :plan_templates, :dependent => :destroy
   belongs_to :rate
 
   #named_scopes

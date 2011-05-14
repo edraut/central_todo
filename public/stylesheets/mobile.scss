@@ -111,6 +111,30 @@ $compact-line-height: 20px;
 	background: -webkit-gradient(linear, left top, left bottom, from($gray4), to($gray1)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray4,  $gray1); /* for firefox 3.6+ */
 }
+@mixin glare-gradient2 {
+	background-color: rgba(255, 255, 255, 0.5);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), color-stop(.3,rgba(255, 255, 255, 0.4)), to(rgba(255, 255, 255, 0)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.07) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF"); /* for IE */
+}
+@mixin glare-gradient-dark {
+	background-color: rgba(255, 255, 255, 0.2);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), color-stop(.3,rgba(255,255,255,0.3)), to(rgba(255, 255, 255, 0)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9AFFFFFF", endColorstr="#00FFFFFF"); /* for IE */
+}
+@mixin glare-gradient-extra-dark {
+	background-color: rgba(255, 255, 255, 0.1);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.3)), color-stop(.3,rgba(255,255,255,0.15)), to(rgba(255, 255, 255, 0)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9AFFFFFF", endColorstr="#00FFFFFF"); /* for IE */
+}
+@mixin glare-light {
+	background-color: rgba(255, 255, 255, 0.1);
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 1)), color-stop(.3,rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.1)));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#DDFFFFFF", endColorstr="#26FFFFFF"); /* for IE */
+}
 @mixin full-width {
   position: relative;
   width: 100%;
@@ -181,7 +205,28 @@ div#testone.testone{
 	height: 120px;
 	width: 100%;
 }
-
+#ajax_loading {
+	position:absolute;
+	padding: .5em;
+	background-color: $paper;
+	border: 3px solid $gray4;
+	z-index: 20;
+}
+@mixin flash {
+  border: 3px solid $gray4;
+	background-color: $yellow;
+	position: absolute;
+	z-index: 12;
+	padding: 20px;
+	
+}
+.flash_notice {
+	@include flash;
+	text-align: center;
+}
+.flash_dialog {
+	@include flash;
+}
 .meta_nav {
 	position:relative;
 	float: left;
@@ -197,16 +242,19 @@ div#testone.testone{
 		font-weight: bold;
 		text-align: center;
 	}
-	div{
-		position:absolute;
-		display: block;
-		top: .5em;
+	div.button {
+		position:relative;
+		float: left;
 	}
 	div.left {
+		position:absolute;
 		left: .6em;
+		top: .5em;
 	}
 	div.right {
+		position:absolute;
 		right: .6em;
+		top: .5em;
 	}
 }
 .main_nav {
@@ -258,7 +306,7 @@ div#testone.testone{
 		width: 100%;
 		overflow: hidden;
 		display: block;
-		background-color: $gray9;
+		background-color: $gray8;
 		.border_wrapper{
 			padding: .8em;
 			a {
@@ -372,7 +420,7 @@ div.section.borderless {
 	padding-top: 1em;
 	height: 2em;
 }
-.control {
+.control, .button.control, a.button.control {
 	position: absolute;
 	top: .5em;
 	margin-bottom: 1em;
@@ -381,22 +429,42 @@ div.section.borderless {
 	text-align: center;
 	line-height: 2.5em;
 }
+.button.control {
+	padding: 0 1em;
+	line-height: 2.5em;
+}
 .control.left {
 	left: .6em;
 }
 .control.right {
 	right: .6em;
 }
-a.button {
+.glare {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+.button_content {
+	position: relative;
+	float: left;
+	z-index: 10;
+}
+.button, a.button {
 	display: block;
 	position: relative;
-	font-size: .8em;
 	text-align: center;
 	line-height: 2em;
 	text-align: center;
   cursor: pointer;
-  padding: .4em .5em .4em .6em; /* Links */
 	text-shadow: 0px -1px 1px rgba(0,0,0,.7);
+}
+a.button.round {
+  padding: .4em .5em .4em .6em; /* Links */
+}
+.meta_nav a.button {
+	padding-top: .05em;
+	padding-bottom: .05em;
 }
 a.button.left {
 	float: left;
@@ -404,8 +472,40 @@ a.button.left {
 a.button.right {
 	float: right;
 }
+.button.small {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+a.button.small {
+	font-size: .8em;
+	font-weight: normal;
+	display: inline;
+  padding: .4em .5em .4em .6em; /* Links */
+}
 .button.round, a.button.round {
 	border-radius: 1.5em;
+	padding-left: .5em;
+	padding-right: .5em;
+	.glare {
+		margin: 2% 10px 0 7px;
+		border-radius: 1em;
+	}
+}
+.button.round.circle, a.button.round.circle {
+	width: 13px;
+	height: 29px;
+	line-height: 29px;
+	padding: 0 10px 3px 9px;
+	.glare {
+		width: 16px;
+		height: 16px;
+		border-radius: 8px;
+		margin-left: 7px;
+		@include glare-gradient-dark;
+	}
+}
+.button.round.circle.arrow {
+	padding: 0 9px 4px 10px;
 }
 .button.dark, a.button.dark {
 	@include dark-gradient;
@@ -413,12 +513,19 @@ a.button.right {
   border-top:1px solid $gray9;
   border-left:1px solid $gray9;
   color:$paper;
+	.glare {
+		height: 55%;
+		@include glare-gradient-extra-dark;
+	}
 }
 .button.dark:active, a.button.dark:active {
 	@include dark-gradient-down;
   border:1px solid $gray9;
   border-top:1px solid $gray10;
   border-left:1px solid $gray10;
+	.glare {
+		background: none;
+	}
 }
 .button.medium, a.button.medium {
 	@include medium-gradient;
@@ -427,12 +534,19 @@ a.button.right {
   border-left:1px solid $gray6;
 	text-shadow: 0px 1px 1px rgba(255,255,255,1);
   color:$paper;
+	.glare {
+		height: 55%;
+		@include glare-gradient2;
+	}
 }
 .button.medium:active, a.button.medium:active {
 	@include medium-gradient-down;
   border:1px solid $gray6;
   border-top:1px solid $gray7;
   border-left:1px solid $gray7;
+	.glare {
+		background: none;
+	}
 }
 .button.color2, a.button.color2 {
 	@include gradient2;
@@ -441,12 +555,21 @@ a.button.right {
   border-left:1px solid $gray4;
   color:$gray9;
 	text-shadow: 0px 1px 1px rgba(255,255,255,1);
+	.glare {
+		height: 55%;
+		margin: 2% 10px 0 7px;
+		border-radius: 1em;
+		@include glare-gradient-dark;
+	}
 }
 .button.color2:active, a.button.color2:active {
 	@include gradient2-down;
   border:1px solid $gray4;
   border-top:1px solid $gray5;
   border-left:1px solid $gray5;
+	.glare {
+		background: none;
+	}
 }
 .button.light, a.button.light {
 	@include light-gradient;
@@ -454,20 +577,24 @@ a.button.right {
   border-top:1px solid $gray3;
   border-left:1px solid $gray3;
   color:$gray8;
-	text-shadow: 0px -1px 1px rgba(255,255,255,1);
+	text-shadow: 0px 1px 1px rgba(255,255,255,1);
+	.glare {
+		height: 55%;
+		margin: 2% 10px 0 7px;
+		border-radius: 1em;
+		@include glare-light;
+	}
 }
 .button.light:active, a.button.light:active {
 	@include light-gradient-down;
   border:1px solid $gray3;
   border-top:1px solid $gray4;
   border-left:1px solid $gray4;
+	.glare {
+		background: none;
+	}
 }
-a.button.small {
-	font-size: .8em;
-	font-weight: normal;
-	display: inline;
-}
-.button.control_font, .button.small_control_font {
+.button.control_font, .button.small_control_font, a.button.control_font, a.button.small_control_font {
 	padding-left: .4em;
 	padding-right: .4em;
 	padding-bottom: .1em;
@@ -494,10 +621,10 @@ button.button {
   padding-top: .5em;
 }
 .padding_top_button {
-  padding-top: .5em;
+  padding-top: .25em;
 }
 .padding_top_button.small {
-  padding-top: .9em;
+  padding-top: .5em;
 }
 .padding_left {
   padding-left: .5em;
@@ -577,7 +704,7 @@ div.checked {
   position:relative;
 }
 .sorting{
-	background-color: rgba(255,255,255,.8);
+	background-color: rgba(0,0,0,.2);
 	z-index: 100;
 }
 .attach_bottom {

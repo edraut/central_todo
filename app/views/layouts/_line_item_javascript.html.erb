@@ -21,7 +21,7 @@
     setTimeout(clearFlash,2500);
   	<% end %>
   	<% unless flash[:ajax_dialog].blank? %>
-  	jQuery('body').append('<div id="flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>" style="display:none;" class="flash_dialog"><%= flash[:ajax_dialog] %></div>');
+  	jQuery('body').append('<div id="flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>" style="display:none;" class="flash_dialog"><%= escape_javascript(flash[:ajax_dialog]) %></div>');
 		repositionDialog('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>', 'center');
 		jQuery('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>').fadeIn(500);
     <%= render :partial => @ajax_dialog_javascript %>

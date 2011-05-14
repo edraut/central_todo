@@ -14,7 +14,7 @@ $carmine4: #F86028;
 $light-carmine: #FF8040;
 // $light-carmine: #EB5040;
 // $carmine1: #FB685C;
-$orange: #FF8800;
+$orange: #FF6600;
 $paper: #FDFCF8;
 $gray0-5: #F5F4F0;
 $gray1: #EDECE8;
@@ -27,6 +27,7 @@ $gray7: #8E8D89;
 $gray8: #6D6C68;
 $gray9: #5D5C58;
 $gray10: #4D4C48;
+$gray12: #2D2C28;
 $black: #0D0C08;
 $light-yellow: #FFF8D0;
 $yellow: #fcefa1;
@@ -432,6 +433,15 @@ select.with_text_field{
 	position: absolute;
 	background: $gray2;
 	z-index: 1100;
+	padding: 0 1em 1em 1em;
+	border: 3px solid $gray5;
+}
+#ajax_loading {
+	position:absolute;
+	padding: 1em;
+	background-color: $gray1;
+	border: 3px solid $gray4;
+	z-index: 20;
 }
 #modal_mask {
   position: absolute;
@@ -895,6 +905,11 @@ a.selected {
 	position: relative;
 	float: left;
 }
+.clear_both {
+	position: relative;
+	float: left;
+	clear: both;
+}
 .list_topper {
 	height: 1px;
 	border-bottom: 1px solid $gray5
@@ -1119,16 +1134,16 @@ h2 .button.small {
   border:1px solid $gray7;
   border-top:1px solid $gray6;
   border-left:1px solid $gray6;
-  color:$paper;
-	text-shadow: 0px -1px 1px rgba(0,0,0,.3);
+  color:$gray12;
+	text-shadow: 0px 1px 1px rgba(255,255,255,.6);
 	.glare {
 		@include glare-medium;
 	}
 	a {
-		color: $paper;
+		color: $gray12;
 	}
 	a:hover {
-		color: $gray2;
+		color: $gray10;
 	}
 }
 .button.medium:active, .button.medium.pseudo_active {
@@ -1278,7 +1293,7 @@ h2 .button.small {
 	color: $paper;
 }
 @mixin flash {
-  border: 1px solid $gray4;
+  border: 3px solid $gray4;
 	background-color: $yellow;
 	position: absolute;
 	z-index: 12;

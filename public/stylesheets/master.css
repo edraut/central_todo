@@ -238,7 +238,16 @@ select.with_text_field {
 .form_modal {
   position: absolute;
   background: #dddcd8;
-  z-index: 1100; }
+  z-index: 1100;
+  padding: 0 1em 1em 1em;
+  border: 3px solid #adaca8; }
+
+#ajax_loading {
+  position: absolute;
+  padding: 1em;
+  background-color: #edece8;
+  border: 3px solid #bdbcb8;
+  z-index: 20; }
 
 #modal_mask {
   position: absolute;
@@ -676,6 +685,11 @@ a.selected {
   position: relative;
   float: left; }
 
+.clear_both {
+  position: relative;
+  float: left;
+  clear: both; }
+
 .list_topper {
   height: 1px;
   border-bottom: 1px solid #adaca8; }
@@ -892,7 +906,7 @@ h2 .button.small {
   background-color: #ef3f10;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f86028", endColorstr="#ef3f10");
   /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
-  background: -webkit-gradient(linear, left top, left bottom, from(#ff8800), color-stop(0.8, #ff8040), to(#ff8040));
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff6600), color-stop(0.8, #ff8040), to(#ff8040));
   /* for webkit browsers */
   background: -moz-linear-gradient(top, #ff8040, #ef3f10);
   /* for firefox 3.6+ */
@@ -938,8 +952,8 @@ h2 .button.small {
   border: 1px solid #8e8d89;
   border-top: 1px solid #9d9c98;
   border-left: 1px solid #9d9c98;
-  color: #fdfcf8;
-  text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.3); }
+  color: #2d2c28;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.6); }
   .button.medium .glare, a.button.medium .glare {
     background-color: rgba(255, 255, 255, 0.1);
     background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.4)), to(rgba(255, 255, 255, 0.07)));
@@ -947,9 +961,9 @@ h2 .button.small {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF");
     /* for IE */ }
   .button.medium a, a.button.medium a {
-    color: #fdfcf8; }
+    color: #2d2c28; }
   .button.medium a:hover, a.button.medium a:hover {
-    color: #dddcd8; }
+    color: #4d4c48; }
 
 .button.medium:active, .button.medium.pseudo_active {
   background: #bdbcb8;
@@ -1123,7 +1137,7 @@ h2 .button.small {
   color: #fdfcf8; }
 
 .flash_notice {
-  border: 1px solid #bdbcb8;
+  border: 3px solid #bdbcb8;
   background-color: #fcefa1;
   position: absolute;
   z-index: 12;
@@ -1131,7 +1145,7 @@ h2 .button.small {
   text-align: center; }
 
 .flash_dialog {
-  border: 1px solid #bdbcb8;
+  border: 3px solid #bdbcb8;
   background-color: #fcefa1;
   position: absolute;
   z-index: 12;

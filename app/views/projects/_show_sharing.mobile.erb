@@ -8,7 +8,7 @@
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_element' => 'project_sharing',
-		:class => 'button round light small'
+		:class => 'small'
 	%>
 </div>
 <% end %>
@@ -16,7 +16,7 @@
 <div>
   <% if @project.user_id == @this_user.id %>
     <% if @project.sharers.count > 0 %>
-      You are sharing this plan with <%= DOMAIN_NAME %> users
+      You are sharing this plan with
       <%= to_str_list(@project.sharers.map{|s| "<strong>#{s.handle}</strong>"}).html_safe %>.
     <% else %>
       You aren't sharing this plan with any <%= DOMAIN_NAME %> users.

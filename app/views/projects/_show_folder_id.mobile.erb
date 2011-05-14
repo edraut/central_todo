@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="row_item">
+  <h3>Folder</h3>
+  </div>
+  <div class="row_item last h3_padding list_action">
+  	<%= link_to (@project.folder_for(@this_user) ? 'change folder' : 'add to a folder'), edit_plan_url(@project, :attribute => 'folder_id'),
+  	 	:'data-ajax_behavior' => 'ajax_link',
+  		:'data-ajax_method' => 'GET',
+  		:'data-ajax_success_element' => 'project_folder_id',
+  		:class => 'small'
+  	%>
+  </div>
+</div>
+<% if @project.folder_for(@this_user) %>
+<div class="block">
+  <%= @project.folder_for(@this_user).title %>
+<% else %>
+  &nbsp;
+<% end %>
+</div>

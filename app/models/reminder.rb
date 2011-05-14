@@ -1,5 +1,5 @@
 class Reminder < ActiveRecord::Base
-  TIME_UNITS = ['minutes','hours','days']
+  TIME_UNITS = ['days','weeks','months']
   belongs_to :remindable, :polymorphic => true
   belongs_to :user
 

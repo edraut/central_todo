@@ -1,0 +1,11 @@
+<div class="span-16 last" data-binding="hover_show_more" data-hover_div="[data-hover_id='plan_template_<%= plan_template.id %>']" data-hover_fade_time="50" data-hover_fadein_time="50">
+  <div class="span-16 last"><%= plan_template.title %></div>
+  <div class="project_line_item_tools" data-hover_id="plan_template_<%= plan_template.id %>" style="display:none;">
+    <a href="<%= plan_template_url(plan_template) %>"
+  		data-ajax_behavior="ajax_link"
+  		data-ajax_method="DELETE"
+  		data-ajax_success_callback="jQuery('#plan_template_<%= plan_template.id %>').remove();handleListDisplay();"
+  		data-ajax_confirm="Are you sure you want to delete this plan template?"
+  		class="delete" data-role="delete">&otimes;</a>&nbsp;
+  </div>
+</div>

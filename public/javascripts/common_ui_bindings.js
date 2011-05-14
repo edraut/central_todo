@@ -9,11 +9,9 @@ function getActualLinkTarget(alleged_link_target){
 }
 function bindLinkToForm(){
     jQuery("[data-behavior='link_to_form']").live('click',function(e){
-        var form_string = jQuery('<form method="post" action="' + jQuery(e.target).attr('href') +'" style="display: none;"><input type="hidden" name="authenticity_token" value="'+ authenticity_token + '"><input type="hidden" name="_method" value="' + jQuery(e.target).attr('data-method') + '"></form>');
-        jQuery(e.target).after(form_string);
-		if(jQuery(e.target).attr('data-confirm') && confirm(jQuery(e.target).attr('data-confirm'))){
-	        form_string.submit();
-		}
+        var form_string = jQuery('<form method="post" action="' + jQuery(this).attr('href') +'" style="display: none;"><input type="hidden" name="authenticity_token" value="'+ authenticity_token + '"><input type="hidden" name="_method" value="' + jQuery(this).attr('data-method') + '"></form>');
+        jQuery(this).after(form_string);
+        form_string.submit();
         e.preventDefault();
         return false;
     });
@@ -179,31 +177,6 @@ var curDate = null;
 do { curDate = new Date(); } 
 while(curDate-date < millis);
 } 
-function pressButton(e){
-	target = jQuery(e.target);
-	if(!target.attr('data-button')){
-		target = target.parents("[data-button='true']");
-	}
-	if(target.hasClass('buttons_up')){
-		target.removeClass('buttons_up');
-		target.addClass('buttons_down');
-	}
-}
-function releaseButton(e){
-	target = jQuery(e.target);
-	if(!target.attr('data-button')){
-		target = target.parents("[data-button='true']");
-	}
-	if(target.hasClass('buttons_down')){
-		target.removeClass('buttons_down');
-		target.addClass('buttons_up');
-	}
-}
-function bindButtonDisplay(){
-	jQuery("[data-button='true']").live('touchstart',pressButton);
-	jQuery("[data-button='true']").live('mousedown',pressButton);
-	jQuery("[data-button='true']").live('mouseup',releaseButton);
-}
 jQuery.fn.moveToParent = function(parent){
 	var $old_item = jQuery(this);
 	var $new_item = $old_item.clone().appendTo(parent);
@@ -237,10 +210,7 @@ jQuery.fn.moveToParent = function(parent){
 }
 function bindConfirm(){
 	jQuery("[data-confirm]").click(function(e){
-		target = jQuery(e.target);
-		if(!target.attr('data-confirm')){
-			target = target.parents("[data-confirm]");
-		};
+		target = jQuery(this);
 		if(confirm(target.attr('data-confirm'))){
 			return true;
 		} else {

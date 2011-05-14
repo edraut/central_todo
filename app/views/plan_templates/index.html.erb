@@ -1,0 +1,12 @@
+<div class="span-17 last section_margin_top" id="header_wrapper">
+	<h1>Plan Templates</h1>
+</div>
+<div class="span-17 last page_content">
+  <div class="list_section span-16 last">
+    <% for plan_template in @plan_templates %>
+      <div id="plan_template_<%= plan_template.id %>" class="span-16 last line_item">
+        <%= render :partial => 'show', :locals => {:plan_template => plan_template} %>
+      </div>
+    <% end %>
+  </div>
+</div>

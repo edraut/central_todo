@@ -1,5 +1,5 @@
 <div class="borderless section">
-  <div class="third_section<% if action_name == 'show' %> selected<% end %>"><%= link_to 'tasks', plan_url(@project) %></div>
+  <div class="third_section<% if ['show','update'].include? action_name %> selected<% end %>"><%= link_to 'tasks', plan_url(@project) %></div>
   <div class="third_section<% if action_name == 'comments' %> selected<% end %>"><%= link_to 'comments', comments_plan_url(@project) %></div>
-  <div class="third_section<% if action_name == 'info' %> selected<% end %>"><%= link_to 'edit plan', edit_plan_url(@project) %></div>
+  <div class="third_section<% if action_name == 'edit' %> selected<% end %>"><%= link_to 'plan info', edit_plan_url(@project) %></div>
 </div>

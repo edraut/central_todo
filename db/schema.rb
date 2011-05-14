@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110505221855) do
+ActiveRecord::Schema.define(:version => 20110510173656) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -43,9 +43,25 @@ ActiveRecord::Schema.define(:version => 20110505221855) do
     t.datetime "updated_at"
   end
 
+  create_table "plan_templates", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "project_emails", :force => true do |t|
     t.integer  "project_id"
     t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "project_sharer_templates", :force => true do |t|
+    t.integer  "plan_template_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -96,6 +112,15 @@ ActiveRecord::Schema.define(:version => 20110505221855) do
     t.integer  "label_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "task_templates", :force => true do |t|
+    t.string  "title"
+    t.integer "plan_template_id"
+    t.integer "user_id"
+    t.text    "description"
+    t.string  "type"
+    t.integer "position"
   end
 
   create_table "tasks", :force => true do |t|

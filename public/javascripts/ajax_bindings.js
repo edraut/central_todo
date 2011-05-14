@@ -28,13 +28,23 @@ function ajaxEvent(e){
 				eval(our_element.attr('data-ajax_before_callback'));
 			};
 			if(our_element.attr('data-ajax_confirm')) {
-				return confirm(our_element.attr('data-ajax_confirm'));
+				confirmed = confirm(our_element.attr('data-ajax_confirm'));
+				if(confirmed){
+					repositionDialog('#ajax_loading', 'top');
+					jQuery('#ajax_loading').fadeIn(200);
+					return true;
+				} else {
+					return false;
+				};
 			} else {
+				repositionDialog('#ajax_loading', 'top');
+				jQuery('#ajax_loading').fadeIn(200);
 				return true;
 			};
 			
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			jQuery('#ajax_loading').hide();
 			if(jquery_error_element = our_element.attr('data-ajax_error_element')){
 				switch( our_element.attr('data-ajax_error_placement') ) {
 					case 'after':
@@ -61,6 +71,7 @@ function ajaxEvent(e){
 			}
 		},
 		success: function(data,textStatus) {
+			jQuery('#ajax_loading').hide();
 			if(jquery_success_element = our_element.attr('data-ajax_dynamic_success_element')) {
 				jquery_success_element = eval(jquery_success_element);
 			} else {

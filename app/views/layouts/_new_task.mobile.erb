@@ -1,0 +1,10 @@
+<% if defined? sortable %>
+<div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" data-sort_element="true" data-sort_id="plan_<%= task.project_id %>_task_list" class="section">
+  <%= yield %>
+</div>
+<% else %>
+<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
+  <%= yield %>
+</div>
+<% end %>
+<%= render :partial => '/layouts/line_item_javascript' %>

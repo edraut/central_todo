@@ -16,7 +16,7 @@
   	jQuery('body').append('<div id="flash_notice" style="display:none;" class="flash_notice"><%= flash[:ajax_notice] %></div>');
 		repositionDialog('#flash_notice', 'center');
   	jQuery('#flash_notice').fadeIn(500);
-  	setTimeout(clearFlash,2000);
+  	setTimeout(clearFlash,2500);
   	<% end %>
   	<% if @item.respond_to?(params[:attribute]) %>
   	jQuery("[data-resource_attr='<%= @item.class.name.underscore %>_<%= params[:attribute] %>'][data-resource_id='<%= @item.id %>']").html('<%= @item.send(params[:attribute]) %>');

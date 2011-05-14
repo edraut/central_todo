@@ -78,6 +78,10 @@ function buttonControl(e){
 		e.stopPropagation();
 		return false;
 	}
+	if(target.attr('href')){
+		document.location = target.attr('href');
+		return false;
+	}
 	link = target.find("[data-behavior='link_to_form']");
 	if(link.length == 0){
 		link = target.find("[data-role='delete']");
@@ -95,7 +99,7 @@ function buttonControl(e){
 		return false;
 	}
 	if(link.length == 0){
-		link = target.find('a');
+		link = target.find('[href]');
 		if(link.length > 0){
 			document.location.href = link.attr('href');
 			return true;
@@ -157,24 +161,6 @@ function handleArchivementSuccess(move){
 		setTimeout(roundCorners,1500);
 	}
 }
-function popButtons(){
-	jQuery('.button').each(function(i){
-		if(jQuery(this).find('.glare').length == 0){
-			glare = jQuery('<div class="glare">&nbsp;</div>');
-			jQuery(this).prepend(glare);
-		} else {
-			glare = jQuery(this).find('.glare');
-		}
-		width = jQuery(this).outerWidth();
-		if (!jQuery.browser.msie) {
-			if(jQuery(this).hasClass('small')){
-				glare.width(width - 10);
-			} else {
-				glare.width(width - 16);
-			}
-		}
-	});
-}
 jQuery.fn.reDraw = function(){
 	dummy = jQuery(" <!--placeholder--> ");
 	jQuery(this).append(dummy);
@@ -183,6 +169,7 @@ jQuery.fn.reDraw = function(){
 jQuery(document).ready(function(){
 	bindButtonControl();
 	popButtons();
+	bindConfirm();
 });
 function printObj(myObj){
 	output = "";

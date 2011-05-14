@@ -9,7 +9,7 @@
   <%= f.date_select :due_date, {:use_short_month => true}, {:class => 'auto_width'} %><br/>
 	<%= hidden_field_tag 'attribute', 'due_date', :id => 'attribute_due_date_field' %>
   <div class="row">
-	<button type="submit" class="row_item button round small light ">save due date</button>
+	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light "><div class="button_content">save due date</div></div>
 	<div class="row_item last padding_top_button small">
     <% unless @project.due_date.blank? %>,
 		<%= link_to '(remove)', plan_url(@project),

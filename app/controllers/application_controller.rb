@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :handle_title
   before_filter :init_ajax_forms
   before_filter :get_this_user
+  before_filter :handle_item
   
   def string_to_money(string)
     Money.new(string.to_f * 100)
@@ -57,6 +58,13 @@ class ApplicationController < ActionController::Base
       else
         @this_layout = false
       end
+    end
+  end
+  
+  def handle_item
+    if params[:item_type] and params[:item_id]
+      item_class = params[:item_type].constantize
+      @item = item_class.find(params[:item_id].to_i)
     end
   end
   
@@ -133,6 +141,9 @@ class ApplicationController < ActionController::Base
     when 'dashboard'
       @nav_tab = 'dashboard'
       @subnav_tab = 'overview'
+    when 'plan_templates'
+      @nav_tab = 'plans'
+      @subnav_tab = 'plan_templates'
     when 'comments'
       @nav_tab = 'dashboard'
       @subnav_tab = 'comments'

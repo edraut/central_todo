@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
   include ApplicationHelper
-  default :from => "'#{APP_NAME} Notifications' <notifications@#{DOMAIN_NAME}>"
+  default :from => "'Get Go Notifications' <notifications@#{DOMAIN_NAME}>"
   default_url_options[:host] = DOMAIN_NAME
 
   def password_reset_instructions(user)  

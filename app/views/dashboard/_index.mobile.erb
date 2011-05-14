@@ -15,13 +15,15 @@
       <h2>Unorganized Tasks</h2>
     </div>
     <div class="row_item">&nbsp;&nbsp;</div>
-    <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
-    <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
+    <div class="row_item control_font button round circle color2" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
+    <div class="row_item control_font button round circle color2 arrow" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
   <% if @this_user.tasks.active.unorganized.any? %>
   <% if @this_user.show_help_text %>
-    <p class="quiet">
+  <div class="row">
+    <p class="explanatory">
   Consider adding these tasks to a plan, label, or both for organization. You can tap the title of the task below to view full controls for that task, including plan and label controls.
-  </p>
+    </p>
+  </div>
   <% end %>
   </div>
   	<div class="block"><div class="padding">

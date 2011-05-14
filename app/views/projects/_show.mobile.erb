@@ -1,28 +1,17 @@
 <%  sortable = false unless defined? sortable
     hierarchical = false unless defined? hierarchical %>
-<div class="block"><div class="padding">
-  <div class="line_item_height project_variable_text row_item">
-    <div class="block padding_left">
-      <% if hierarchical %>
-      	<div onclick="void(0)" class="row_item eightteen" data-behavior="expander" data-state="contracted" data-action="expand" data-id="project_<%= project.id %>_task_list">
-          &rarr;
-        </div>
-      	<div onclick="void(0)" class="row_item eightteen" data-behavior="expander" data-state="expanded" data-action="contract" data-id="project_<%= project.id %>_task_list" style="display:none;">
-      	  &darr;
-      	</div>
-      <% end %>
-    	<div class="row_item project_variable_text">
-        <div class="row_item">
-    	  <%= link_to project.title, plan_url(project), :class => project.all_complete? ? 'completed' : nil %>&nbsp;
-    	  </div>
-        <div class="row_item">(</div><div id="project_<%= project.id %>_count_display" data-sort_count="true" data-sort_id="project_task_lists" data-sort_count_id="project_<%= project.id %>_task_list" class="row_item text_right"><%= project.tasks.active.count %></div><div class="row_item">)</div>
-    	</div>
-    </div>
+<div class="row padding">
+  <div data-drag_handle="true" class="row_item eightteen control_font">&nbsp;&nbsp;&equiv;</div>
+	<div class="row_item seventy">
+    <div class="row_item"><h3>
+	  <%= project.title %>
+	  <span class="small">(</span><span id="project_<%= project.id %>_count_display" data-sort_count="true" data-sort_id="project_task_lists" data-sort_count_id="project_<%= project.id %>_task_list" class="small"><%= project.tasks.active.count %></span><span class="small">)</span></h3>
+	  </div>
+	</div>
+  <div class="row_item twelve">
+    <div onclick="void(0)" class="row_item control_font" data-button="true" href="<%= plan_url(project) %>">&nbsp;&nbsp;&rang;</div>
   </div>
-  <% if sortable == true %>
-  <div data-drag_handle="true" class="drag_handle row_item eightteen text_right">&equiv;&nbsp;&nbsp;</div>
-  <% end %>
-</div></div>
+</div>
 
 <% if hierarchical %>
 <div class="block"><div class="padding">

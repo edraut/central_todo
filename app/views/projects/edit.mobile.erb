@@ -19,6 +19,11 @@
   </div>
 </div>
 <div class="section">
+  <div id="project_folder_id" class="padding">
+  	<%= render :partial => @project.folder_for(@this_user) ? 'show_folder_id' : 'edit_folder_id' %>
+  </div>
+</div>
+<div class="section">
   <div id="project_sharing" class="padding">
   	<%= render :partial => @project.shared? ? 'show_sharing' : 'edit_sharing' %>
   </div>

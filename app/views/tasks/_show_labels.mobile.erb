@@ -1,13 +1,13 @@
 <div class="row">
 <div class="row_item">
-	<h3>Label</h3>
+	<h3>Labels</h3>
 </div>
 <div class="row_item last list_action h3_padding">
 	<%= link_to (@task.labels.for_user(@this_user).any? ? 'change labels' : 'add labels'), edit_task_url(@task, :attribute => 'labels'),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_element' => 'task_label',
-		:class => 'button round light small'
+		:class => 'small'
 	%>
 </div>
 </div>

@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
-  before_filter :get_project, :only => [:show,:edit,:comments,:update,:destroy,:archive_completed_tasks,:sort_tasks]
+  before_filter :get_project, :only => [:show,:edit,:comments,:update,:destroy,:archive_completed_tasks,:sort_tasks,:templatize]
   before_filter :set_nav_tab
   
   respond_to :html, :mobile
@@ -29,7 +29,15 @@ class ProjectsController < ApplicationController
       project.position = params[:project].index(project.id.to_s)
       project.save
     end
-    render :nothing => true and return
+    render :text => '' and return
+  end
+  
+  def templatize
+    @project.generate_template
+    @item = @project
+    flash.now[:notice] = "We created a template for this plan. When creating future plans, you can choose to base them on this template now."
+    @date_picker = true
+    render :action => 'edit' and return
   end
   
   def archive_completed
@@ -42,11 +50,23 @@ class ProjectsController < ApplicationController
   
   def create
     if @this_user.is_a? PaidAccount
-      @project = Project.new(params[:project].merge!(:user_id => @this_user.id))
-      @project.save
+      if params[:plan_template_id]
+        @plan_template = PlanTemplate.find(params[:plan_template_id].to_i)
+        @project = @plan_template.generate_plan
+        @project.folder_id = params[:project][:folder_id]
+        unless params[:project][:title].blank?
+          @project.title = params[:project][:title]
+        end
+        @project.save
+      else
+        @project = Project.new(params[:project].merge!(:user_id => @this_user.id))
+        @project.save
+      end
       if(params[:return_to])
-        flash[:notice] = "Your plan was successfully created."
-        redirect_to params[:return_to] and return
+        @item = @project
+        flash[:ajax_dialog] = render_to_string :partial => '/projects/go_to'
+        @ajax_dialog_javascript = '/projects/go_to_javascript'
+        redirect_to params[:return_to] + ((params[:return_to] =~ /\?/) ? '&' : '?' ) + "item_type=Project&item_id=#{@project.id}" and return
       else
         redirect_to plan_url(@project) and return
       end
@@ -57,7 +77,9 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @item = @project
+    if params[:attribute]
+      @item = @project
+    end
     return if handle_attribute_partials('show')
     @html_page_title = @page_title = 'Plan'
     @sortable = true
@@ -121,7 +143,7 @@ class ProjectsController < ApplicationController
       if @render_type == :action
         get_archived_tasks
       end
-      render @render_type => 'show', :locals => {:project => @project, :sortable => (params.has_key? :sortable)}, :layout => (@render_type == :partial) ? "ajax_line_item" : 'application' and return
+      render @render_type => 'edit', :locals => {:project => @project, :sortable => (params.has_key? :sortable)}, :layout => (@render_type == :partial) ? "ajax_line_item" : 'application' and return
     end
   end
   

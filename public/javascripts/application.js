@@ -24,7 +24,6 @@ jQuery(document).ready(function(){
 	bindHoverShowMore();
 	bindHoverReveal();
 	bindLabelSubmit();
-	bindConfirm();
 	bindModalTriggers();
 	jQuery("[data-drag_handle]").live('mousedown',handleSortBegin);
 	jQuery("[data-role='top_nav_element']").each(function(i){
@@ -403,4 +402,22 @@ function updateSort(container_selector,child_id_list,type){
 			}
 		}
 	}
+}
+function popButtons(){
+	jQuery('.button').each(function(i){
+		if(jQuery(this).find('.glare').length == 0){
+			glare = jQuery('<div class="glare">&nbsp;</div>');
+			jQuery(this).prepend(glare);
+		} else {
+			glare = jQuery(this).find('.glare');
+		}
+		width = jQuery(this).outerWidth();
+		if (!jQuery.browser.msie) {
+			if(jQuery(this).hasClass('small')){
+				glare.width(width - 10);
+			} else {
+				glare.width(width - 16);
+			}
+		}
+	});
 }

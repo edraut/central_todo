@@ -1,0 +1,12 @@
+<div class="row">
+  You just added <%= @item.class.name.underscore %> <%= @item.title %>.<br/>&nbsp;<br/>
+</div>
+<div class="row">
+  <div id="move_to_top_<%= @item.class.name.underscore %>_<%= @item.id %>" onclick="void(0)" class="row_item button round light">
+    <div class="button_content">
+      move to top
+    </div>
+  </div>
+  <div class="row_item padding_top_button">&nbsp;or</div>
+</div>
+<div class="row padding_top" onclick="void(0)" id="move_to_top_<%= @item.class.name.underscore %>_<%= @item.id %>_cancel">leave it at the bottom</div>

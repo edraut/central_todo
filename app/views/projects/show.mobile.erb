@@ -10,16 +10,7 @@
 <% else %>
 <div data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
   <div class="padding">
-<%= form_for @task do |f| %>
-		<%= text_field_tag :title_1, '', :id => "inbox_text_field_1" %>
-		<%= text_field_tag :title_2, '', :id => "inbox_text_field_2" %>
-		<%= text_field_tag :title_3, '', :id => "inbox_text_field_3" %>
-		<%= f.hidden_field :project_id %>
-		<%= f.hidden_field :user_id %>
-		<%= f.hidden_field :state, :value => 'active' %>
-		<%= hidden_field_tag :app_context, 'project' %>
-  	<button type="submit" class="row_item button round small light ">add tasks</button>
-<% end %>
+  <%= render :partial => '/tasks/new', :locals => {:project => @project, :sortable => true} %>
   </div>
 </div>
 <% end %>
@@ -30,11 +21,11 @@
       </div>
       <% unless @project.archived? %>
   	  <div class="row_item">&nbsp;&nbsp;</div>
-      <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
-      <div class="row_item control_font button round color2 " onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
+      <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
+      <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
       <% end %>
     </div>
-    <div class="block" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-sort_id="plan_<%= @project.id %>_task_list">
+    <div id="project_<%= @project.id %>_task_list" class="block" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-sort_id="plan_<%= @project.id %>_task_list">
 		<% for task in @project.tasks.active.ordered %>
 		  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" data-sort_element="true" data-sort_id="plan_<%= @project.id %>_task_list" class="section">
 				<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>

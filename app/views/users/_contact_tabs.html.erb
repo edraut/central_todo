@@ -1,0 +1,7 @@
+<div class="span-16 last">
+  <% if @this_user.sharing_parents.map{|p| p.id}.include? @user.id %>
+    <div class="list_action attach_above last<% if action_name == 'labels' %> selected<% end %>"><%= link_to 'labels', labels_user_url(@user) %></div>
+  <% end %>
+  <div class="list_action attach_above<% if action_name == 'projects' %> selected<% end %>"><%= link_to 'projects', projects_user_url(@user) %></div>
+  <div class="list_action attach_above<% if action_name == 'show' %> selected<% end %>"><%= link_to 'contact info', user_url(@user) %></div>
+</div>

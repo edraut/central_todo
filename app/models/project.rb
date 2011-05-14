@@ -117,5 +117,13 @@ class Project < ActiveRecord::Base
     self.project_sharers.count > 0
   end
   
-  # Needs to be pulled out into a mixin shared amond remindables
+  def generate_template
+    plan_template = PlanTemplate.create(Hash[self.attributes.select{|a,v| ['title','description','type','user_id'].include? a}])
+    for task in self.tasks
+      TaskTemplate.create(Hash[task.attributes.select{|a,v| ['title','description','type','user_id','position'].include? a}].merge(:plan_template_id => plan_template.id))
+    end
+    for project_sharer in self.project_sharers
+      ProjectSharerTemplate.create(Hash[project_sharer.attributes.select{|a,v| ['user_id'].include? a}].merge(:plan_template_id => plan_template.id))
+    end
+  end
 end

@@ -1,0 +1,12 @@
+<div class="row_item">
+	<h3>Assignment</h3>
+</div>
+<div class="row_item last list_action h3_padding">
+	<%= link_to 'change assignment', edit_task_url(@task, :attribute => 'user_id'),
+	 	:'data-ajax_behavior' => 'ajax_link',
+		:'data-ajax_method' => 'GET',
+		:'data-ajax_success_element' => 'task_user',
+		:class => 'small'
+	%>
+</div>
+<div class="block"><%= @task.user.handle %></div>

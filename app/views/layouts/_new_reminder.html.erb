@@ -1,1 +1,6 @@
 <div id="reminder_<%= @reminder.id %>" class="span-15 last line_item" data-role="list_item"><%= yield %></div>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    popButtons();
+  })
+<% end %>

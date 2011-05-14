@@ -50,7 +50,7 @@ class TasksController < ApplicationController
       @item = @task
       case params[:app_context]
       when 'project'
-        flash[:ajax_dialog] = render_to_string :partial => '/tasks/move_to_top'
+        flash.now[:ajax_dialog] = render_to_string :partial => '/tasks/move_to_top'
         @ajax_dialog_javascript = '/tasks/move_to_top_javascript'
         render :partial => 'show', :locals => {:task => @task, :project => @project, :sortable => true}, :layout => 'new_task'
       when 'hierarchical'
@@ -68,13 +68,15 @@ class TasksController < ApplicationController
   end
 
   def show
-    @item = @task
     @date_picker = true
     if params[:full_view]
       respond_with(@task) do |format|
         format.html {render :partial => 'full_view' and return}
       end
       return
+    end
+    if params[:attribute]
+      @item = @task
     end
     return if handle_attribute_partials('show')
     @html_page_title = @page_title = 'Task'
@@ -153,6 +155,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     if request.xhr?
+      flash.now[:notice] = "Your task was successfully deleted."
       render :nothing => true, :status => 200 and return
     end
     flash[:notice] = "Your task was successfully deleted."

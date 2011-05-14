@@ -1,0 +1,12 @@
+function bindMoveToTop(){
+  jQuery('#move_to_top_<%= @item.class.name.underscore %>_<%= @item.id %>').click(function(e){
+    item = jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>');
+    item.parent().prepend(item);
+    jQuery('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>').remove();
+    sendSortData(item.parent(),item);
+  });
+  jQuery('#move_to_top_<%= @item.class.name.underscore %>_<%= @item.id %>_cancel').click(function(e){
+    jQuery('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>').remove();
+  });
+}
+setTimeout(bindMoveToTop,150);

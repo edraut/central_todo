@@ -1,1 +1,6 @@
 <%= yield %>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    popButtons();
+  })
+<% end %>

@@ -35,6 +35,7 @@ CentralTodo::Application.routes.draw do
       get 'archive_completed_tasks'
       get 'sort_tasks'
       get 'comments'
+      get 'templatize'
     end
   end
   resources :project_sharers
@@ -67,6 +68,7 @@ CentralTodo::Application.routes.draw do
       get 'sort_plans'
     end
   end
+  resources :plan_templates
   match 'page/:name' => 'pages#show'
   match 'dashboard' => 'dashboard#index'
   match 'dashboard/completed' => 'dashboard#completed'

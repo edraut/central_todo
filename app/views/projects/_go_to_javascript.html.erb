@@ -1,0 +1,9 @@
+function bindGoTo(){
+  jQuery('#go_to_<%= @item.class.name.underscore %>_<%= @item.id %>').click(function(e){
+    document.location = '<%= plan_url(@item.id) %>';
+  });
+  jQuery('#go_to_<%= @item.class.name.underscore %>_<%= @item.id %>_cancel').click(function(e){
+    jQuery('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>').remove();
+  });
+}
+setTimeout(bindGoTo,150);

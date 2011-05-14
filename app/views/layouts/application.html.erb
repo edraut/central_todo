@@ -153,6 +153,7 @@
                         <div class="nav_tools" data-hover_id="project_nav_<%= project.id %>" style="display:none;">
           							  <div class="nav_tool_text"><div class="count small" data-sort_count="true" data-sort_id="project_task_lists" data-sort_count_id="project_<%= project.id %>_task_list" data-hover_id="project_nav_<%= project.id %>" style="display:none;"><%= project.tasks.active.count %></div>&nbsp;</div>
                           <div class="nav_tool_icons">
+                          <% unless @project and @project.id == project.id %>
                           <a class="plus_icon" data-modal_trigger="true" data-modal_id="project_new_task_form_nav" data-modal_insert_value="<%= project.id %>" data-modal_display_name="<%= project.title %>">&oplus;</a>
                   		    <a href="<%= plan_url(project) %>"
                       			data-ajax_behavior="ajax_link"
@@ -160,7 +161,7 @@
                       			data-ajax_success_callback="jQuery('#project_<%= project.id %>nav').remove();jQuery('#project_<%= project.id %>').remove();handleListDisplay();handleCount('folder_<%= project.folder_for(@this_user).id %>_plan_list','folder_<%= project.folder_for(@this_user).id %>_plan_list_nav');"
                       			data-ajax_data="{_method: 'DELETE'}"
                       			data-ajax_confirm="Are you sure you want to delete this project? You'll delete all the tasks inside as well."
-                      			class="delete" data-role="delete">&otimes;</a>&nbsp;
+                      			class="delete" data-role="delete">&otimes;</a><% end %>&nbsp;
                       		</div>
                     		</div>
         							  <div class="expandable_subnav_stretcher" data-drag_handle="true">
@@ -185,6 +186,13 @@
       							<div class="expandable_subnav">
                       <div class="expanded_subnav_indent<% if @subnav_tab == 'archived' %> selected<% end %>">
       								  &nbsp;<%= link_to "Archived Plans", archived_plans_url %>
+      								</div>
+      							</div>
+      							<% end %>
+      						  <% if @this_user.plan_templates.any? %>
+      							<div class="expandable_subnav">
+                      <div class="expanded_subnav_indent<% if @subnav_tab == 'plan_templates' %> selected<% end %>">
+      								  &nbsp;<%= link_to "Plan Templates", plan_templates_url %>
       								</div>
       							</div>
       							<% end %>
@@ -320,20 +328,27 @@
     <div id="folder_new_project_form_wrapper_nav" class="span-15 last section_margin_top">
       <h2>Add a new plan to the folder <span data-modal_display_name="true"></span></h2>
     	<%= form_for Project.new(:folder_id => nil, :state => 'active'), :url => plans_url, :html => {:id => "folder_new_project_form_nav"} do |f| %>
-    		<div class="span-11">
-    			<%= f.text_field :title, :id => "folder_new_project_title_nav", :class => "span-11" %>
-    		</div>
-    		<div class="span-4 last">
-    			<%= f.hidden_field :state, :id => "folder_new_project_state_nav" %>
-    			<%= f.hidden_field :folder_id, :id => "folder_new_project_folder_id", :'data-modal_insert' => true %>
-    			<%= hidden_field_tag :return_to, request.request_uri %>
-        	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
-        	  <div class="button_content">add plan</div>
-        	</div>
-        	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="folder_new_project_form_nav">
-    			or cancel
-          </div>
-    		</div>
+        <div class="span-15 last">
+      		<div class="span-8">
+      			<%= f.text_field :title, :id => "folder_new_project_title_nav", :class => "span-8" %>
+      		</div>
+      		<div class="span-3">
+      		  <% if folder.user.plan_templates.any? %>
+              <%= select_tag 'plan_template_id', options_for_select([['no template',nil]] + folder.user.plan_templates.map{|pt| [pt.title,pt.id]}), :class => 'span-3 line_item_text' %>
+            <% end %>
+      		</div>
+      		<div class="span-4 last">
+      			<%= f.hidden_field :state, :id => "folder_new_project_state_nav" %>
+      			<%= f.hidden_field :folder_id, :id => "folder_new_project_folder_id", :'data-modal_insert' => true %>
+      			<%= hidden_field_tag :return_to, request.request_uri %>
+          	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+          	  <div class="button_content">add plan</div>
+          	</div>
+          	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="folder_new_project_form_nav">
+      			or cancel
+            </div>
+      		</div>
+        </div>
     	<% end %>
     </div>
     <% else %>
@@ -371,6 +386,7 @@
     	<% end %>
     </div>
   </div>
+  <div style="display:none;" id="ajax_loading">working to complete your request...</div>
   <% end %>
 <%= javascript_tag do %>
 	jQuery(document).ready(function(){
@@ -379,7 +395,8 @@
   			jQuery('#flash_notice').fadeOut(1000);
   			setTimeout("jQuery('#flash_notice').remove();",1000);
   		}
-  		jQuery('#main_content').before('<div id="flash_notice" style="display:none;margin-top: -17px;" class="container flash_notice"><%= flash[:notice] %></div>');
+  		jQuery('#main_content').before('<div id="flash_notice" style="display:none;" class="flash_notice"><%= flash[:notice] %></div>');
+  		repositionDialog('#flash_notice', 'center');
   		jQuery('#flash_notice').fadeIn(500);
   		setTimeout(clearFlash,3000);
   		<% flash.discard %>
@@ -392,6 +409,16 @@
         popButtons();
       jQuery('#primary_input').focus();
 		<% end %>
+		<% unless @this_user %>
+  		jQuery("a:not(.button a)").prepend('&middot; ');
+  	<% end %>
+  	<% unless flash[:ajax_dialog].blank? %>
+  	jQuery('body').append('<div id="flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>" style="display:none;" class="flash_dialog"><%= escape_javascript(flash[:ajax_dialog]) %></div>');
+		repositionDialog('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>', 'center');
+		jQuery('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>').fadeIn(500);
+    <%= render :partial => '/projects/go_to_javascript' %>
+    <% flash.discard %>
+  	<% end %>
 	})
 <% end %>
 <%= render :partial => '/layouts/google_analytics' %>

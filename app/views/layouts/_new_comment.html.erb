@@ -1,3 +1,8 @@
 <div class="span-16 last line_item" id="comment_<%= comment.id %>" data-role="list_item">
 <%= yield %>
 </div>
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    popButtons();
+  })
+<% end %>

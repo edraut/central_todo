@@ -60,6 +60,28 @@ div#testone.testone {
   height: 120px;
   width: 100%; }
 
+#ajax_loading {
+  position: absolute;
+  padding: .5em;
+  background-color: #fdfcf8;
+  border: 3px solid #bdbcb8;
+  z-index: 20; }
+
+.flash_notice {
+  border: 3px solid #bdbcb8;
+  background-color: #fcefa1;
+  position: absolute;
+  z-index: 12;
+  padding: 20px;
+  text-align: center; }
+
+.flash_dialog {
+  border: 3px solid #bdbcb8;
+  background-color: #fcefa1;
+  position: absolute;
+  z-index: 12;
+  padding: 20px; }
+
 .meta_nav {
   position: relative;
   float: left;
@@ -80,14 +102,17 @@ div#testone.testone {
     font-size: 1.1em;
     font-weight: bold;
     text-align: center; }
-  .meta_nav div {
-    position: absolute;
-    display: block;
-    top: .5em; }
+  .meta_nav div.button {
+    position: relative;
+    float: left; }
   .meta_nav div.left {
-    left: .6em; }
+    position: absolute;
+    left: .6em;
+    top: .5em; }
   .meta_nav div.right {
-    right: .6em; }
+    position: absolute;
+    right: .6em;
+    top: .5em; }
 
 .main_nav {
   position: relative;
@@ -141,7 +166,7 @@ div#testone.testone {
     width: 100%;
     overflow: hidden;
     display: block;
-    background-color: #5d5c58; }
+    background-color: #6d6c68; }
     .sub_nav .full_nav .border_wrapper {
       padding: .8em; }
       .sub_nav .full_nav .border_wrapper a {
@@ -262,7 +287,7 @@ div.section.borderless {
   padding-top: 1em;
   height: 2em; }
 
-.control {
+.control, .button.control, a.button.control {
   position: absolute;
   top: .5em;
   margin-bottom: 1em;
@@ -271,23 +296,43 @@ div.section.borderless {
   text-align: center;
   line-height: 2.5em; }
 
+.button.control {
+  padding: 0 1em;
+  line-height: 2.5em; }
+
 .control.left {
   left: .6em; }
 
 .control.right {
   right: .6em; }
 
-a.button {
+.glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; }
+
+.button_content {
+  position: relative;
+  float: left;
+  z-index: 10; }
+
+.button, a.button {
   display: block;
   position: relative;
-  font-size: .8em;
   text-align: center;
   line-height: 2em;
   text-align: center;
   cursor: pointer;
-  padding: .4em .5em .4em .6em;
-  /* Links */
   text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.7); }
+
+a.button.round {
+  padding: .4em .5em .4em .6em;
+  /* Links */ }
+
+.meta_nav a.button {
+  padding-top: .05em;
+  padding-bottom: .05em; }
 
 a.button.left {
   float: left; }
@@ -295,8 +340,43 @@ a.button.left {
 a.button.right {
   float: right; }
 
+.button.small {
+  padding-top: 0;
+  padding-bottom: 0; }
+
+a.button.small {
+  font-size: .8em;
+  font-weight: normal;
+  display: inline;
+  padding: .4em .5em .4em .6em;
+  /* Links */ }
+
 .button.round, a.button.round {
-  border-radius: 1.5em; }
+  border-radius: 1.5em;
+  padding-left: .5em;
+  padding-right: .5em; }
+  .button.round .glare, a.button.round .glare {
+    margin: 2% 10px 0 7px;
+    border-radius: 1em; }
+
+.button.round.circle, a.button.round.circle {
+  width: 13px;
+  height: 29px;
+  line-height: 29px;
+  padding: 0 10px 3px 9px; }
+  .button.round.circle .glare, a.button.round.circle .glare {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    margin-left: 7px;
+    background-color: rgba(255, 255, 255, 0.2);
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), color-stop(0.3, rgba(255, 255, 255, 0.3)), to(rgba(255, 255, 255, 0)));
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9AFFFFFF", endColorstr="#00FFFFFF");
+    /* for IE */ }
+
+.button.round.circle.arrow {
+  padding: 0 9px 4px 10px; }
 
 .button.dark, a.button.dark {
   background: #6d6c68;
@@ -310,6 +390,13 @@ a.button.right {
   border-top: 1px solid #5d5c58;
   border-left: 1px solid #5d5c58;
   color: #fdfcf8; }
+  .button.dark .glare, a.button.dark .glare {
+    height: 55%;
+    background-color: rgba(255, 255, 255, 0.1);
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.3)), color-stop(0.3, rgba(255, 255, 255, 0.15)), to(rgba(255, 255, 255, 0)));
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9AFFFFFF", endColorstr="#00FFFFFF");
+    /* for IE */ }
 
 .button.dark:active, a.button.dark:active {
   background: #6d6c68;
@@ -322,6 +409,8 @@ a.button.right {
   border: 1px solid #5d5c58;
   border-top: 1px solid #4d4c48;
   border-left: 1px solid #4d4c48; }
+  .button.dark:active .glare, a.button.dark:active .glare {
+    background: none; }
 
 .button.medium, a.button.medium {
   background: #adaca8;
@@ -336,6 +425,13 @@ a.button.right {
   border-left: 1px solid #9d9c98;
   text-shadow: 0px 1px 1px white;
   color: #fdfcf8; }
+  .button.medium .glare, a.button.medium .glare {
+    height: 55%;
+    background-color: rgba(255, 255, 255, 0.5);
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), color-stop(0.3, rgba(255, 255, 255, 0.4)), to(rgba(255, 255, 255, 0)));
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.07) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF");
+    /* for IE */ }
 
 .button.medium:active, a.button.medium:active {
   background: #adaca8;
@@ -348,6 +444,8 @@ a.button.right {
   border: 1px solid #9d9c98;
   border-top: 1px solid #8e8d89;
   border-left: 1px solid #8e8d89; }
+  .button.medium:active .glare, a.button.medium:active .glare {
+    background: none; }
 
 .button.color2, a.button.color2 {
   background: #cdccc8;
@@ -362,6 +460,15 @@ a.button.right {
   border-left: 1px solid #bdbcb8;
   color: #5d5c58;
   text-shadow: 0px 1px 1px white; }
+  .button.color2 .glare, a.button.color2 .glare {
+    height: 55%;
+    margin: 2% 10px 0 7px;
+    border-radius: 1em;
+    background-color: rgba(255, 255, 255, 0.2);
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), color-stop(0.3, rgba(255, 255, 255, 0.3)), to(rgba(255, 255, 255, 0)));
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9AFFFFFF", endColorstr="#00FFFFFF");
+    /* for IE */ }
 
 .button.color2:active, a.button.color2:active {
   background: #cdccc8;
@@ -374,6 +481,8 @@ a.button.right {
   border: 1px solid #bdbcb8;
   border-top: 1px solid #adaca8;
   border-left: 1px solid #adaca8; }
+  .button.color2:active .glare, a.button.color2:active .glare {
+    background: none; }
 
 .button.light, a.button.light {
   background: #dddcd8;
@@ -387,7 +496,16 @@ a.button.right {
   border-top: 1px solid #cdccc8;
   border-left: 1px solid #cdccc8;
   color: #6d6c68;
-  text-shadow: 0px -1px 1px white; }
+  text-shadow: 0px 1px 1px white; }
+  .button.light .glare, a.button.light .glare {
+    height: 55%;
+    margin: 2% 10px 0 7px;
+    border-radius: 1em;
+    background-color: rgba(255, 255, 255, 0.1);
+    background: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(0.3, rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.1)));
+    background: -moz-linear-gradient(top, white 0%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#DDFFFFFF", endColorstr="#26FFFFFF");
+    /* for IE */ }
 
 .button.light:active, a.button.light:active {
   background: #dddcd8;
@@ -400,13 +518,10 @@ a.button.right {
   border: 1px solid #cdccc8;
   border-top: 1px solid #bdbcb8;
   border-left: 1px solid #bdbcb8; }
+  .button.light:active .glare, a.button.light:active .glare {
+    background: none; }
 
-a.button.small {
-  font-size: .8em;
-  font-weight: normal;
-  display: inline; }
-
-.button.control_font, .button.small_control_font {
+.button.control_font, .button.small_control_font, a.button.control_font, a.button.small_control_font {
   padding-left: .4em;
   padding-right: .4em;
   padding-bottom: .1em;
@@ -439,10 +554,10 @@ button.button {
   padding-top: .5em; }
 
 .padding_top_button {
-  padding-top: .5em; }
+  padding-top: .25em; }
 
 .padding_top_button.small {
-  padding-top: .9em; }
+  padding-top: .5em; }
 
 .padding_left {
   padding-left: .5em; }
@@ -517,7 +632,7 @@ div.checked {
   position: relative; }
 
 .sorting {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(0, 0, 0, 0.2);
   z-index: 100; }
 
 .attach_bottom {
