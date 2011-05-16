@@ -84,7 +84,11 @@ class FoldersController < ApplicationController
   
   def destroy
     @folder.destroy
-    render :nothing => true and return
+    if params[:full_page]
+      redirect_to plans_url and return
+    else
+      render :nothing => true and return
+    end
   end
   
   def show

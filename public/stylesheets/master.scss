@@ -6,6 +6,7 @@ $blue6: #E0F0F0;
 $light-blue: #EAF5F5;
 $pale-blue: #f0f8f8;
 $blue-wash: #fbffff;
+$green1: #B7D99B;
 $carmine5: #BF1A00;
 $dark-carmine: #CF2A00;
 $carmine: #EF3F10;
@@ -32,7 +33,7 @@ $black: #0D0C08;
 $light-yellow: #FFF8D0;
 $yellow: #fcefa1;
 $white: #FCFCFA;
-$Red_Orange: #EF3A00;
+$Red_Orange: #EF3F10;
 $Lemon_Pie: #fcefa1;
 $Grass: #87A96B;
 $Pacific_Blue: #90B0B0;
@@ -51,9 +52,9 @@ $compact-line-height-minus-two: 18px;
 $indent-width: 28px;
 $nav-indent-width: 15px;
 @mixin small-shadow {
-	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
-	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 2px 3px 12px 0px rgba(0, 0, 0, .3);
+	-moz-box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, .3);
+	box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, .3);
 }
 @mixin tiny-shadow {
 	-webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
@@ -184,16 +185,48 @@ $nav-indent-width: 15px;
 	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.07) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF"); /* for IE */
 }
+@mixin blue4-overflow-fade{
+	background-color: rgba(196,216,216, 0);
+	background: -webkit-gradient(linear, left top, right top, from(rgba(196,216,216, 0)), to(rgba(196,216,216, 1)));
+	background: -moz-linear-gradient(left, rgba(196,216,216, 0) 0%, rgba(196,216,216, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00C0D0D0", endColorstr="#00C0D0D0", gradientType=1); /* for IE */
+}
+@mixin blue5-overflow-fade{
+	background-color: rgba(208,224,224, 0);
+	background: -webkit-gradient(linear, left top, right top, from(rgba(208,224,224, 0)), to(rgba(208,224,224, 1)));
+	background: -moz-linear-gradient(left, rgba(208,224,224, 0) 0%, rgba(208,224,224, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00D0E0E0", endColorstr="#00D0E0E0", gradientType=1); /* for IE */
+}
+@mixin blue6-overflow-fade{
+	background-color: rgba(224,240,240, 0);
+	background: -webkit-gradient(linear, left top, right top, from(rgba(224,240,240, 0)), to(rgba(224,240,240, 1)));
+	background: -moz-linear-gradient(left, rgba(224,240,240, 0) 0%, rgba(224,240,240, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00E0F0F0", endColorstr="#00E0F0F0", gradientType=1); /* for IE */
+}
+@mixin gray3-overflow-fade{
+	background-color: rgba(205, 204, 200, 0);
+	background: -webkit-gradient(linear, left top, right top, from(rgba(205, 204, 200, 0)), to(rgba(205, 204, 200, 1)));
+	background: -moz-linear-gradient(left, rgba(205, 204, 200, 0) 0%, rgba(205, 204, 200, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00CDCCC8", endColorstr="#FFCDCCC8", gradientType=1); /* for IE */
+}
+@mixin paper-overflow_fade{
+	background-color: rgba(253, 252, 248, 0);
+	background: -webkit-gradient(linear, left top, right top, from(rgba(253, 252, 248, 0)), to(rgba(253, 252, 248, 1)));
+	background: -moz-linear-gradient(left, rgba(253, 252, 248, 0) 0%, rgba(253, 252, 248, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00FDFCF8", endColorstr="#FFFDFCF8", gradientType=1); /* for IE */
+}
 @mixin text-right {
 	text-align: right;
 }
 body {
-	background-color: $paper;
-	color: $gray9;
+	background-color: $gray1;
+	color: $gray10;
 	font-size: $normal-font-size;
 	line-height: 1.0;
 }
-
+body.public {
+	background-color: $paper;
+}
 a {
 	color: $gray10;
 	text-decoration: none;
@@ -467,8 +500,8 @@ select.with_text_field{
   padding: $line-height 0 $line-height 38px;
   margin: 0 -16px 16px -16px;
   min-height: 500px;
-  background-color: $gray2;
-	@include large-shadow;
+  background-color: $blue5;
+	// @include large-shadow;
 }
 .page_pull_left {
 	margin-left: -$indent-width;
@@ -489,7 +522,7 @@ select.with_text_field{
 .list_section {
 	margin-left: -16px;
 	padding: 16px;
-	background-color: $gray3;
+	background-color: $paper;
 	line-height: $compact-line-height;
 	@include small_shadow;
 	a:hover {
@@ -498,6 +531,9 @@ select.with_text_field{
 	.delete, .plus_icon {
 		line-height: $compact-line-height-minus-two;
 		height: $compact-line-height-minus-two;
+	}
+	.line_fixed_width .overflow_fade {
+		@include paper-overflow_fade
 	}
 }
 .list_section_indent {
@@ -513,7 +549,7 @@ select.with_text_field{
 	width: 100%;
 }
 .section {
-	background-color: $blue6;
+	background-color: $paper;
 	margin-left: -16px;
 	padding: 16px;
 	line-height: $compact-line-height;
@@ -533,6 +569,9 @@ select.with_text_field{
 	.line_item_height select{
 		margin-top: 0;
 	}
+}
+.public .section{
+	background-color: $blue5;
 }
 .section_rule {
 	margin-left: -16px;
@@ -568,11 +607,11 @@ select.with_text_field{
 	text-shadow: 0px -1px 1px rgba(128,128,128,.5);
 }
 .section_heading {
-  background-color: $gray4;
+  background-color: $gray1;
 	@include small-shadow;
-  color: $gray8;
+  color: $gray10;
 	text-shadow: 0px 1px 1px rgba(255,255,255,.5);
-	border-top: 1px solid $gray4;
+	border-top: 1px solid $gray1;
 	border-bottom: 1px solid $gray5;
 	.delete {
 		color: $gray8
@@ -607,13 +646,14 @@ select.with_text_field{
 	@include vert-line-nav-wrapper;
 	position:relative;
 	float: left;
-	width: 95%;
+	width: 93%;
 	margin-bottom: .4em;
 	line-height: 30px;
-	border-top: 1px solid $gray2;
-	border-left: 1px solid $gray2;
+	border: 2px solid $gray2;
+	// border-top: 1px solid $gray2;
+	// border-left: 1px solid $gray2;
 	background-color: $paper;
-	@include small-shadow;
+	// @include small-shadow;
 	a:hover {
 	  color: $gray6;
 	  background-color: inherit;
@@ -622,7 +662,7 @@ select.with_text_field{
 		color: $gray10;
 	}
 	div.selected {
-		background-color: $gray3;
+		background-color: $blue4;
 		font-weight: bold;
 		.plus_icon, .delete, .count {
 			font-weight: normal;
@@ -633,6 +673,9 @@ select.with_text_field{
 		.plus_icon, .delete {
 			font-weight: normal;
 		}
+	}
+	.overflow_fade {
+		@include paper-overflow-fade
 	}
 	.vert_line_subnav_wrapper, .vert_line_subsubnav_wrapper {
 		margin-right: 0;
@@ -661,10 +704,17 @@ select.with_text_field{
 }
 div.vert-line-nav-wrapper-main.selected {
   width: 212px;
-  background-color: $gray2;
-	background: $gray2;
+  background-color: $blue5;
+	background: $blue5;
+	border: 2px solid $blue5;
 	filter: none;
-	@include large-shadow;
+	// @include large-shadow;
+	.overflow_fade {
+		@include blue5-overflow-fade
+	}
+	div.selected .overflow_fade {
+		@include blue4-overflow-fade
+	}
 }
 .vert_line_subnav_wrapper.selected, .vert_line_subsubnav_wrapper.selected {
   font-weight: bold;
@@ -689,7 +739,7 @@ div.vert-line-nav-wrapper-main.selected {
 	font-size: $medium-font-size;
 	position: relative;
 	float:left;
-	width: 207px;
+	width: 202px;
 	overflow: hidden;
 	.delete, .plus_icon {
 		font-size: 1.5em;
@@ -724,7 +774,15 @@ div.vert-line-nav-wrapper-main.selected {
 .expanded_subnav, .expanded_subnav_indent {
 	position: relative;
 	float:left;
-	width: 192px;
+	width: 187px;
+}
+.overflow_fade {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 10%;
+	height: 100%;
+	z-index: 9;
 }
 div.expnaded_subnav_indent.selected {
 	background-color: $gray3;
@@ -833,13 +891,13 @@ div.expnaded_subnav_indent.selected {
   position: absolute;
   left: 138px;
   top: -1px;
-  z-index: 10;
+  z-index: 20;
   width: auto;
   min-width: 212px;
   background-color: $paper;
   padding: 0px 12px 5px 12px;
   border: 1px solid $gray4;
-	-webkit-box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, .3);
+	@include small-shadow
 }
 .hover_nav_pointer {
   position: absolute;
@@ -927,30 +985,6 @@ a.selected {
 }
 .line_fixed_width {
 	overflow:hidden;
-	.overflow_fade{
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 10%;
-		height: 100%;
-		z-index: 9;
-		background-color: rgba(253, 252, 248, 0);
-		background: -webkit-gradient(linear, left top, right top, from(rgba(253, 252, 248, 0)), to(rgba(253, 252, 248, 1)));
-		background: -moz-linear-gradient(left, rgba(253, 252, 248, 0) 0%, rgba(253, 252, 248, 1) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00FDFCF8", endColorstr="#FFFDFCF8", gradientType=1); /* for IE */
-	}
-}
-.selected .line_fixed_width .overflow_fade{
-	background-color: rgba(221, 220, 216, 0);
-	background: -webkit-gradient(linear, left top, right top, from(rgba(221, 220, 216, 0)), to(rgba(221, 220, 216, 1)));
-	background: -moz-linear-gradient(left, rgba(221, 220, 216, 0) 0%, rgba(221, 220, 216, 1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00DDDCD8", endColorstr="#FFDDDCD8", gradientType=1); /* for IE */
-}
-.list_section .line_fixed_width .overflow_fade, .selected .selected.line_fixed_width .overflow_fade{
-	background-color: rgba(205, 204, 200, 0);
-	background: -webkit-gradient(linear, left top, right top, from(rgba(205, 204, 200, 0)), to(rgba(205, 204, 200, 1)));
-	background: -moz-linear-gradient(left, rgba(205, 204, 200, 0) 0%, rgba(205, 204, 200, 1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00CDCCC8", endColorstr="#00CDCCC8", gradientType=1); /* for IE */
 }
 .line_fixed_width.highlight .overflow_fade{
 	background-color: rgba(234, 245, 245, 0);
@@ -1204,7 +1238,7 @@ h2 .button.small {
   margin-right: 0;
 }
 .list_action.selected {
-  background-color: $gray2;
+  background-color: $blue5;
   color: $black;
   font-weight: bold;
 }
@@ -1212,11 +1246,9 @@ h2 .button.small {
   border-top: 1px solid $gray3;
   border-left: 1px solid $gray3;
   border-right: 1px solid $gray3;
-	@include tiny-shadow;
 }
 .attach_above.selected {
 	border-color: $gray2;
-	@include large-shadow;
 }
 .attach_below {
   border-bottom: 1px solid $gray4;

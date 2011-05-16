@@ -32,7 +32,7 @@
   -->
   <link rel="shortcut icon" href="/images/GetGo.ico" />  
 </head>
-<body class="mytime">
+<body class="mytime <% unless @this_user %>public<% end %>">
 	<div id="top_nav">
 	  <div class="glare">&nbsp;</div>
 		<div class="container">
@@ -128,7 +128,8 @@
       						    <div class="expand_arrow_width" data-behavior="expander" data-action="expand" data-state="contracted" data-id="folder_<%= folder.id %>" <% if selected or super_selected %>style="display:none;"<% end %>>&nbsp;&gt;</div>
       						    <div class="expand_arrow_width" data-behavior="expander" data-action="contract" data-state="expanded" data-id="folder_<%= folder.id %>" <% unless selected or super_selected %>style="display:none;"<% end %>>&nbsp;&or;</div>
       						    <div class="expanded_subnav">
-                        <div data-drag_handle="true" class="allcaps">
+      						      <div class="overflow_fade">&nbsp;</div>
+                        <div data-drag_handle="true" class="allcaps expandable_subnav_stretcher">
                           &nbsp;<a href="<%= folder_url(folder) %>" data-resource_attr="folder_title" data-resource_id="<%= folder.id %>"><%= folder.title %></a>
                         </div>
                         <div class="nav_tools" data-hover_id="folder_nav_<%= folder.id %>" style="display:none;">

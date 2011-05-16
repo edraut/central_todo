@@ -7,7 +7,7 @@
 	</div>
 	<% for task in @tasks %>
 	  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
-			<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
+			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
 		</div>
 	<% end %>
 </div>

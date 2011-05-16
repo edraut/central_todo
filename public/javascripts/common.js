@@ -29,10 +29,7 @@ function checkBoxProxy(e){
 	checkbox.change();
 }
 function hiddenFieldProxy(e){
-	target = jQuery(e.target);
-	if(!target.attr('data-click_to_select')){
-		target = target.parents("[data-click_to_select]:first");
-	}
+	target = jQuery(this);
 	hidden_field = jQuery('#' + target.attr('data-hidden_field'));
 	hidden_field.val(target.attr('data-value'));
 }

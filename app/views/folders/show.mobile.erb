@@ -1,5 +1,16 @@
 <% folder = @folder %>
+<div class="row_item seventy">
 <h2><%= folder.title %></h2>
+</div>
+<div class="row_item thirty">
+  <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="folder_<%= @folder.id %>_new_project_form" data-button="true">+</div>
+  <div class="row_item control_font button round color2 circle arrow" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="folder_<%= @folder.id %>_new_project_form" style="display: none;" data-button="true">&uarr;</div>
+  <div class="row_item">&nbsp;&nbsp;</div>
+<%= form_for @folder do |f| %>
+<%= hidden_field_tag 'full_page', 'true' %>
+<div class="row_item control_font button round color2 circle ex" onclick="void(0)"  data-button="true" data-role="delete" data-confirm="All the plans in this folder will also be deleted. Are you sure you want to delete this folder?">x</div>
+<% end %>
+</div>
 <div class="list_container">
   <%= render :partial => '/projects/new', :locals => {:folder => folder} %>
   <% if folder.projects.active.any? %>

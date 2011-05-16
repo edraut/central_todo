@@ -2,7 +2,7 @@
 	<%= form_for @task, :html => { :id => 'edit_task_user_id'
 	} do |f| %>
   	<%= f.select :user_id, @task.project.all_users.map{|u| [u.handle,u.id]}, {}, :class => 'span-5', :rows => 4 %>
-  	<button type="submit" class="row_item button round small light ">save</button>
+  	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light "><div class="button_content">re-assign task</div></div>
   	<div class="row_item last padding_top_button small">&nbsp;or
 		<%= link_to '(cancel)', task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',

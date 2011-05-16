@@ -3,12 +3,12 @@
 <h3>Color</h3>
 </div>
 <div class="row_item last h3_padding list_action">
-	<%= link_to 'edit color', edit_label_url(@label),
+	<%= link_to '(edit color)', edit_label_url(@label),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
 		:'data-ajax_success_element' => 'label_color',
 		:'data-ajax_data' => "{'attribute':'color'}",
-		:class => 'button round light small'
+		:class => 'small'
 	%>
 </div>
 </div>
