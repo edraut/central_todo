@@ -4,5 +4,5 @@ class Comment < ActiveRecord::Base
   
   scope :by_date, order('updated_at')
   scope :recent, order('created_at desc')
-  
+  scope :two, limit(2)
 end

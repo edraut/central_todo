@@ -1,0 +1,21 @@
+<h2>Contacts who share projects with you</h2>
+<div class="list_container">
+  <% for sharing_parent in @sharing_parents %>
+    <div class="row">
+      <div class="padding">
+        <h3><%= link_to sharing_parent.handle, user_url(sharing_parent) %></h3>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="block">&nbsp;</div>
+<h2>Contacts you share projects with</h2>
+<div class="list_container">
+  <% for sharing_child in @sharing_children %>
+    <div class="row border_bottom">
+      <div class="padding">
+        <h3><%= link_to sharing_child.handle, user_url(sharing_child) %></h3>
+      </div>
+    </div>
+  <% end %>
+</div>

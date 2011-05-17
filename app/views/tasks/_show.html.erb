@@ -17,8 +17,6 @@
 	<div class="span-<% if hierarchical %>15<% else %>16<% end %> last">
 	<div class="span-<% if hierarchical %><% if task.shared? %>9<% else %>12<% end %><% else %><% if task.shared? %>10<% else %>13<% end %><% end %>">
 	  <div class="task_line_item_left" data-hover_id="task_line_item_<%= task.id %>" style="display:none;">
-  		<%= f.hidden_field :priority, :id => "priority_#{task.id}", :'data-behavior' => 'auto_submit' %>
-  		<div <% unless task.archived? or (task.project and task.project.archived?) %>data-behavior="check_box_proxy" data-check_box="priority_<%= task.id %>"<% end %> class="check_box_proxy <% if task.priority? %>checked<% end %>">&lowast;</div>
   		<div class="line_item_height">
   		<%= f.check_box :state, {:'data-behavior' => 'auto_submit', :disabled => (task.project and task.project.archived?) ? 'disabled' : false}, task.archived? ? 'archived' : 'complete', 'active' %>
       </div>

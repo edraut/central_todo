@@ -33,7 +33,7 @@ class DashboardController < ApplicationController
   end
   
   def completed
-    @tasks = Task.for_user(@this_user).only_once.complete.recent.five
+    @tasks = Task.for_user(@this_user).only_once.complete.recent.five.all
     @projects = Project.for_user(@this_user).only_once.complete.recent.five.all
   end
   

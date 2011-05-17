@@ -14,7 +14,6 @@
       <%= link_to 'convert to plan', convert_task_url(@task), :'data-confirm' => "are you sure you want to convert this task to a plan?" %>
     </div></div>
     <div class="list_action attributes button round light" onclick="void(0)" data-button="true"><div class="button_content" id="task_delete"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div></div>
-    <div class="list_action attributes button round light" onclick="void(0)" data-behavior="check_box_proxy"  data-check_box="full_view_priority_<%= @task.id %>"><div class="button_content" id="task_priority"><%= render :partial => 'show_priority', :locals => {:task => @task} %></div></div>
   </div>
   <div id="task_description" class="span-16 last section_margin_top">
   	<%= render :partial => (@task.description.blank? ? 'edit_description' : 'show_description') %>

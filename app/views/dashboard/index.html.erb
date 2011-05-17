@@ -3,32 +3,6 @@
 	<div class="span-11 last">
 	  <% if @this_user.show_help_text and @this_user.tasks.count > 0 %>
 	    <p class="explanatory">You can convert a task to a plan, add a description and more by clicking on a task title in any list.</p>
-	  <% elsif @this_user.comments.recent.count > 0 %>
-	    <div class="span-11 last small">
-        <div class="span-3 line_fixed_width">
-          <div class="overflow_fade">&nbsp;</div>
-          <div class="span-24 allcaps small">
-            <% this_comment = @this_user.comments.recent.first %>
-	          <%= this_comment.user.handle %>
-	        </div>
-	      </div>
-	      <div class="span-0_5 allcaps small">re:</div>
-        <div class="span-7_5 last line_fixed_width">
-          <div class="overflow_fade">&nbsp;</div>
-          <div class="span-24 padding_left">
-  	        <%= link_to truncate_clean(this_comment.commentable.title,{:length => 120,:omission => "..."}), (this_comment.commentable_type == 'Project' ? comments_plan_url(this_comment.commentable_id) : comments_task_url(this_comment.commentable_id)) %>
-          </div>
-        </div>
-	    </div>
-	    <div class="span-11 last small line_fixed_width highlight">
-        <div class="overflow_fade">&nbsp;</div>
-        <div class="span-24 padding_left">
-	        <%= truncate_clean(this_comment.body,{:length => 120,:omission => "..."}) %>
-	      </div>
-	    </div>
-	    <div class="span-11 last small text_right">
-	      <%= link_to 'see all recent comments', comments_url(:full_page => true) %>
-	    </div>
 	  <% end %>
   </div>
 </div>
@@ -126,33 +100,99 @@
   </div>
   <% end %>
   <% end %>
-  <% if @priority_tasks.any? %>
-  <div class="span-7 append-2">
+  <% if (@this_user.shared_comments.recent.any?) or (Task.for_user(@this_user).only_once.complete.recent.any?) %>
+    <div class="span-7 append-2">
+      <div class="span-7 last section_margin_top">
+        <h2>Recent Activity</h2>
+      </div>
+      <div class="span-7 last list_section">
+      <% if @this_user.shared_comments.recent.any? %>
+        <% for comment in @this_user.shared_comments.recent.two %>
+        <div class="span-7 last small_margin_top">
+          <div class="span-7 last section_heading">
+            <div class="span-3 small line_fixed_width">
+              <div class="overflow_fade">&nbsp;</div>
+  	          <div class="span-24 padding_left"><%= comment.user.handle %></div>
+  	        </div>
+  	        <div class="span-0_5 allcaps small attribution"><span class="small">re:</span></div>
+  	        <div class="span-3_5 last small line_fixed_width">
+              <div class="overflow_fade">&nbsp;</div>
+              <div class="span-24 padding_left">
+      	        <%= link_to truncate_clean(comment.commentable.title,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
+      	      </div>
+            </div>
+    	    </div>
+    	    <div class="span-7 last line_fixed_width small_margin_top">
+            <div class="overflow_fade">&nbsp;</div>
+            <div class="span-24 padding_left">
+    	        <%= truncate_clean(comment.body,{:length => 120,:omission => "..."}) %>
+    	      </div>
+    	    </div>
+        </div>
+        <% end %>
+  	    <div class="span-7 last small text_right">
+  	      <%= link_to 'see all recent comments', comments_url(:full_page => true) %>
+  	    </div>
+      <% end %>
+      <% if Task.for_user(@this_user).only_once.complete.recent.any? %>
+        <% if @this_user.shared_comments.recent.any? %>
+          <div class="section_rule">&nbsp;</div>
+        <% end %>
+      <% for task in Task.for_user(@this_user).only_once.complete.recent.three %>
+      <div class="span-7 last small_margin_top">
+        <div class="span-7 last section_heading small">
+          <div class="span-3 text_right">
+            Completed by:
+          </div>
+          <div class="span-3 last line_fixed_width">
+            <div class="overflow_fade">&nbsp;</div>
+            <div class="span-24 padding_left">
+              <%= task.user.handle %>
+            </div>
+          </div>
+        </div>
+        <div class="span-7 last line_fixed_width small_margin_top">
+          <div class="overflow_fade">&nbsp;</div>
+          <div class="span-24 padding_left completed">
+            <%= link_to task.title %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+	    <div class="span-7 last small text_right">
+	      <%= link_to 'see all recently completed tasks', dashboard_completed_url %>
+	    </div>
+      <% end %>
+      </div>
+    </div>
+  <% end %>
+  <%# if @priority_tasks.any? %>
+  <!-- <div class="span-7 append-2">
   <div class="span-7 last section_margin_top">
     <h2>Priority Tasks</h2>
   </div>
   <div class="span-7 last list_section">
-	  <div class="span-7 last list_topper">&nbsp;</div>
-		<% @priority_tasks.each_with_index do |task,index| %>
-		  <div class="span-7 last line_item">
-	      <a href="<%= task_url(task) %>"><%= task.title %></a>
-	    </div>
-		<% end %>
-		<% if @total_priority_task_count > 3 %>
-      <div class=" text_right section_margin_top">
-        <%= link_to 'See all', priority_tasks_url %> &rarr;
+    <div class="span-7 last list_topper">&nbsp;</div>
+    <%# @priority_tasks.each_with_index do |task,index| %>
+      <div class="span-7 last line_item">
+        <a href="<%# task_url(task) %>"><%# task.title %></a>
       </div>
-		<% end %>
+    <%# end %>
+    <%# if @total_priority_task_count > 3 %>
+      <div class=" text_right section_margin_top">
+        <%# link_to 'See all', priority_tasks_url %> &rarr;
+      </div>
+    <%# end %>
   </div>
   </div>
-  <% else %>
+  <%# else %>
   <div class="span-7 append-2 section_margin_top">
     <p>
     You don't have any priority tasks.</p>
-    <% if @this_user.show_help_text %><p class="explanatory">You can make any task a priority by clicking on the star to the left of the check box in a plan's task list.</p><% end %>
+    <%# if @this_user.show_help_text %><p class="explanatory">You can make any task a priority by clicking on the star to the left of the check box in a plan's task list.</p><%# end %>
     </p>
-  </div>
-  <% end %>
+  </div> -->
+  <%# end %>
   <% if @due_date_items.any?%>
   <div class="span-7">
   <div class="span-7 last section_margin_top">
@@ -160,7 +200,7 @@
   </div>
   <div class="span-7 last list_section">
     <% for due_date in @due_dates %>
-    <div class="span-7 last section_heading<% if due_date < Date.today %> overdue<% end %>">
+    <div class="span-7 last section_heading<% if due_date < Date.today %> overdue<% end %> small_margin_top">
       &nbsp; <%= due_date.to_formatted_s(:full) %>
     </div>
     <% for item in @due_date_items.select{|t| t.due_date.to_date == due_date} %>

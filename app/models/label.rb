@@ -19,7 +19,6 @@ class Label < ActiveRecord::Base
     "Indigo",
     "Wisteria",
     "Cotton_Candy",
-    "White",
     "Gray",
     "Black"
   ]

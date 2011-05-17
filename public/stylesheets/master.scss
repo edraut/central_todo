@@ -32,7 +32,7 @@ $gray12: #2D2C28;
 $black: #0D0C08;
 $light-yellow: #FFF8D0;
 $yellow: #fcefa1;
-$white: #FCFCFA;
+$white: #FFFEFA;
 $Red_Orange: #EF3F10;
 $Lemon_Pie: #fcefa1;
 $Grass: #87A96B;
@@ -208,6 +208,12 @@ $nav-indent-width: 15px;
 	background: -webkit-gradient(linear, left top, right top, from(rgba(205, 204, 200, 0)), to(rgba(205, 204, 200, 1)));
 	background: -moz-linear-gradient(left, rgba(205, 204, 200, 0) 0%, rgba(205, 204, 200, 1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00CDCCC8", endColorstr="#FFCDCCC8", gradientType=1); /* for IE */
+}
+@mixin gray1-overflow-fade{
+	background-color: rgba(237, 236, 232, 0);
+	background: -webkit-gradient(linear, left top, right top, from(rgba(237, 236, 232, 0)), to(rgba(237, 236, 232, 1)));
+	background: -moz-linear-gradient(left, rgba(237, 236, 232, 0) 0%, rgba(237, 236, 232, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00EDECE8", endColorstr="#FFEDECE8", gradientType=1); /* for IE */
 }
 @mixin paper-overflow_fade{
 	background-color: rgba(253, 252, 248, 0);
@@ -538,6 +544,35 @@ select.with_text_field{
 	.line_fixed_width .overflow_fade {
 		@include paper-overflow_fade
 	}
+	.section_heading {
+	  background-color: $gray1;
+		@include small-shadow;
+	  color: $gray10;
+		text-shadow: 0px 1px 1px rgba(255,255,255,.5);
+		border-top: 1px solid $gray1;
+		border-bottom: 1px solid $gray3;
+		.delete {
+			color: $gray8
+		}
+		.delete:hover {
+			color: $carmine;
+		}
+		.count {
+			top: 1px;
+		}
+		.overflow_fade {
+			@include gray1-overflow-fade
+		}
+	}
+	.section_heading.padded {
+		padding-bottom: .5em;
+		padding-top: .5em;
+	}
+	.section_heading.overdue {
+		background-color: $gray1;
+		color: $carmine;
+		text-shadow: 0px 1px 1px $paper;
+	}
 }
 .list_section_indent {
 	margin-left: $indent-width;
@@ -577,6 +612,9 @@ select.with_text_field{
 	background-color: $blue5;
 }
 .section_rule {
+	position: relative;
+	float: left;
+	clear: both;
 	margin-left: -16px;
 	margin-top: 9px;
 	margin-bottom: 9px;
@@ -584,9 +622,6 @@ select.with_text_field{
 	width: 100%;
 	height: 1px;
 	background-color: $gray2;
-}
-#label_color .section {
-	background-color: $gray3;
 }
 .half_section {
   position: relative;
@@ -608,32 +643,6 @@ select.with_text_field{
 }
 .archived .section_heading .title_text{
 	text-shadow: 0px -1px 1px rgba(128,128,128,.5);
-}
-.section_heading {
-  background-color: $gray1;
-	@include small-shadow;
-  color: $gray10;
-	text-shadow: 0px 1px 1px rgba(255,255,255,.5);
-	border-top: 1px solid $gray1;
-	border-bottom: 1px solid $gray5;
-	.delete {
-		color: $gray8
-	}
-	.delete:hover {
-		color: $carmine;
-	}
-	.count {
-		top: 1px;
-	}
-}
-.section_heading.padded {
-	padding-bottom: .5em;
-	padding-top: .5em;
-}
-.section_heading.overdue {
-	background-color: $gray1;
-	color: $carmine;
-	text-shadow: 0px 1px 1px $paper;
 }
 .left_nav_wrapper {
 	// font-family: CoolveticaRg-Regular;
@@ -783,7 +792,7 @@ div.vert-line-nav-wrapper-main.selected {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 10%;
+	width: 30%;
 	height: 100%;
 	z-index: 9;
 }
@@ -951,7 +960,7 @@ a.selected {
 		position: relative;
 		top: -.25em;
 	}
-  border-bottom: 1px solid $gray5;
+  border-bottom: 1px solid $gray2;
   padding: .4em 0;
   margin-bottom: 0;
 }
@@ -973,7 +982,7 @@ a.selected {
 }
 .list_topper {
 	height: 1px;
-	border-bottom: 1px solid $gray5
+	border-bottom: 1px solid $gray2;
 }
 .task_line_item_left{
 	position: absolute;
@@ -988,12 +997,6 @@ a.selected {
 }
 .line_fixed_width {
 	overflow:hidden;
-}
-.line_fixed_width.highlight .overflow_fade{
-	background-color: rgba(234, 245, 245, 0);
-	background: -webkit-gradient(linear, left top, right top, from(rgba(234, 245, 245, 0)), to(rgba(234, 245, 245, 1)));
-	background: -moz-linear-gradient(left, rgba(234, 245, 245, 0) 0%, rgba(234, 245, 245, 1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00EAF5F5", endColorstr="#FFEAF5F5", gradientType=1); /* for IE */
 }
 #contacts_subnav .line_fixed_width {
 	width: 197px;
@@ -1321,11 +1324,18 @@ h2 .button.small {
 .archived, .archived a {
 	color: $gray1;
 	.hierarchical {
-		color: $paper;
+		color: $gray4;
+	}
+	.section_heading div, .section_heading a {
+		text-shadow: 0px 1px 1px rgba(255,255,255,1);
+		color: $gray6;
 	}
 }
-.archived .hierarchical a {
-	color: $paper;
+.archived{
+	.hierarchical a {
+		color: $gray5;
+		text-shadow: 0px 1px 1px rgba(255,255,255,1);
+	}
 }
 @mixin flash {
   border: 3px solid $gray4;
@@ -1465,6 +1475,9 @@ h2 .button.small {
 .border {
 	border: 1px solid $gray5;
 }
+.attribution{
+	top: -.1em;
+}
 /* labels*/
 .label {
 	position: relative;
@@ -1501,7 +1514,7 @@ h2 .button.small {
 	border: 1px solid $gray8;
 }
 #label_color .label_wrapper {
-	border: 1px solid $gray3;
+	border: 1px solid $paper;
 }
 .mytime .Red_Orange { background-color: $Red_Orange; color: $paper; a{ color: $paper; } a:hover{ color: $gray1 } }
 .mytime .Lemon_Pie { background-color: $Lemon_Pie; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
@@ -1512,7 +1525,6 @@ h2 .button.small {
 .mytime .Cotton_Candy { background-color: $Cotton_Candy; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
 .mytime .Black { background-color: $black; color: $paper; a{ color: $paper; } a:hover{ color: $gray1 } }
 .mytime .Gray { background-color: $gray6; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
-.mytime .White { background-color: $paper; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
 
 /* css for timepicker */
 .ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }

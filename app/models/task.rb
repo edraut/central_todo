@@ -21,6 +21,7 @@ class Task < ActiveRecord::Base
   scope :by_due_date, order('due_date')
   scope :by_create_date, order('created_at desc')
   scope :recent, order('id desc')
+  scope :two, limit(2)
   scope :three, limit(3)
   scope :five, limit(5)
   scope :twenty_five, limit(25)
@@ -30,8 +31,8 @@ class Task < ActiveRecord::Base
   scope :unarchived, where( "tasks.state != 'archived' and tasks.state != 'cooler'" )
   scope :archived, where( {:state => 'archived'} )
   scope :done, where( "(tasks.state = 'complete' or tasks.state = 'archived')" )
-  scope :for_user, lambda { |user| joins("left outer join project_sharers on project_sharers.project_id = tasks.project_id").
-                                    where( "(project_sharers.user_id = #{user.id} or tasks.user_id = #{user.id})" )}
+  scope :for_user, lambda { |user| joins("left outer join project_sharers on project_sharers.project_id = tasks.project_id inner join projects on projects.id = tasks.project_id").
+                                    where( "(project_sharers.user_id = #{user.id} or tasks.user_id = #{user.id} or projects.user_id = #{user.id})" )}
   scope :for_label, lambda { |label|  joins("inner join task_labels on task_labels.task_id = tasks.id").
                                       where("task_labels.label_id = #{label.id}")}
   #special behaviors
