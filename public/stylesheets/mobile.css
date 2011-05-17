@@ -12,13 +12,10 @@ p {
 
 a {
   text-decoration: none;
-  color: #0d0c08; }
+  color: #4d4c48; }
 
 h2 {
   font-size: 1.5em; }
-
-a:hover {
-  color: #bdbcb8; }
 
 textarea {
   width: 97%;
@@ -592,6 +589,9 @@ button.button {
 
 .seventy {
   width: 70%; }
+
+.eighty_eight {
+  width: 88%; }
 
 .check_box {
   margin-right: 0; }

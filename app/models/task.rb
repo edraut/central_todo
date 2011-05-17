@@ -21,6 +21,7 @@ class Task < ActiveRecord::Base
   scope :by_due_date, order('due_date')
   scope :by_create_date, order('created_at desc')
   scope :recent, order('id desc')
+  scope :three, limit(3)
   scope :five, limit(5)
   scope :twenty_five, limit(25)
   scope :only_once, select("distinct tasks.id,tasks.title,tasks.project_id,tasks.user_id,tasks.due_date,tasks.description,tasks.position,tasks.priority,tasks.state")

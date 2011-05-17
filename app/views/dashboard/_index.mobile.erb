@@ -36,14 +36,16 @@
   </div>
   </div></div>
   <div class="list_container">
-	<% for task in @this_user.tasks.active.unorganized.recent.five %>
+	<% for task in @this_user.tasks.active.unorganized.recent.three %>
 		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
 		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized'} %>
 		</div>
 	<% end %>
-	<% if @this_user.tasks.active.unorganized.count > 5 %>
+	<% if @this_user.tasks.active.unorganized.count > 3 %>
     <div class="text_right">
-      <%= link_to 'See all', tasks_url %> &rarr;
+      <div class="padding">
+        <%= link_to 'See all', tasks_url %> &rarr;
+      </div>
     </div>
 	<% end %>
 	</div>
@@ -55,18 +57,31 @@
     <% end %>
   </div>
 <% end %>
-<% if @this_user.tasks.active.priority.any? %>
+<% if @priority_tasks.any? %>
     <div class="block">
-      <h2>Priority Tasks</h2>
+      <h2>
+      <div class="row_item">
+        Priority Tasks
+      </div>
+      <div class="row_item small">
+        <div class="row_item">&nbsp;&nbsp;</div>
+        <div class="row_item small" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="priority_task_list">(show)</div>
+        <div class="row_item small" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="priority_task_list" style="display:none;">(hide)</div>
+      </div>
+      </h2>
     </div>
-    <div class="list_container">
-		<% for task in @this_user.tasks.active.priority.recent.five %>
+    <div class="list_container" data-behavior="expander" data-state="expanded" data-id="priority_task_list" style="display:none;">
+		<% for task in @priority_tasks %>
 			<div id="priority_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
 			<%= render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'priority'} %>
 			</div>
 		<% end %>
-		<% if @this_user.tasks.active.priority.count > 5 %>
+		<% if @total_priority_task_count > 3 %>
+      <div class="text_right">
+        <div class="padding">
         <%= link_to 'See all', due_date_tasks_url %> &rarr;
+        </div>
+      </div>
 		<% end %>
 		</div>
 <% else %>

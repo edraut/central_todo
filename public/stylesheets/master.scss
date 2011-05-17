@@ -17,7 +17,7 @@ $light-carmine: #FF8040;
 // $carmine1: #FB685C;
 $orange: #FF6600;
 $paper: #FDFCF8;
-$gray0-5: #F5F4F0;
+$gray0_5: #FAF9F5;
 $gray1: #EDECE8;
 $gray2: #DDDCD8;
 $gray3: #CDCCC8;
@@ -52,9 +52,9 @@ $compact-line-height-minus-two: 18px;
 $indent-width: 28px;
 $nav-indent-width: 15px;
 @mixin small-shadow {
-	-webkit-box-shadow: 2px 3px 12px 0px rgba(0, 0, 0, .3);
-	-moz-box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, .3);
-	box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, .3);
+	-webkit-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
+	-moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
+	box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
 }
 @mixin tiny-shadow {
 	-webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
@@ -219,7 +219,7 @@ $nav-indent-width: 15px;
 	text-align: right;
 }
 body {
-	background-color: $gray1;
+	background-color: $gray0_5;
 	color: $gray10;
 	font-size: $normal-font-size;
 	line-height: 1.0;
@@ -518,6 +518,9 @@ select.with_text_field{
 }
 .section_margin_top{
   margin-top: 20px;
+}
+.small_margin_top{
+  margin-top: 10px;
 }
 .list_section {
 	margin-left: -16px;

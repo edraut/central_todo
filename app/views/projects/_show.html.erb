@@ -58,7 +58,7 @@
   </div>
 </div>
 <% if hierarchical %>
-<div class="span-16 last" data-behavior="expander" data-state="expanded" data-id="project_<%= project.id %>_task_list" style="display:none;">
+<div class="span-16 last small_margin_top" data-behavior="expander" data-state="expanded" data-id="project_<%= project.id %>_task_list" style="display:none;">
   <%= render :partial => '/tasks/new', :locals => {:project => project, :hierarchical => true} %>
   <div id="project_<%= project.id %>_task_list" class="span-16 last task_list" data-sort_container="true" data-sort_id="user_<%= project.user_id %>_project_task_lists" data-sort_url="<%= sort_tasks_plan_url(project) %>" data-sort_count_id="project_<%= project.id %>_task_list">
     <% for task in project.archived? ? project.tasks.ordered : project.tasks.active.ordered %>

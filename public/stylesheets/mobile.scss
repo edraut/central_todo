@@ -149,13 +149,10 @@ p {
 }
 a{
   text-decoration: none;
-  color: $black;
+  color: $gray10;
 }
 h2{
 	font-size: 1.5em;
-}
-a:hover {
-  color: $gray4;
 }
 textarea {
   width: 97%;
@@ -651,6 +648,9 @@ button.button {
 }
 .seventy {
 	width: 70%;
+}
+.eighty_eight {
+	width: 88%;
 }
 .check_box{
   margin-right: 0;

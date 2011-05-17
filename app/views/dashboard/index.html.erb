@@ -34,28 +34,40 @@
 </div>
 <div class="span-17 last page_content">
   <% if @this_user.is_a? PaidAccount %>
-  <h2>Enter a task</h2>
-	<div class="span-16 last">
-		<%= form_for @task do |f| %>
-			<div class="span-12">
-				<%= f.text_field :title, :id => "primary_input", :class => "span-12" %>
-			</div>
-			<div class="span-4 last">
-				<%= f.hidden_field :user_id %>
-				<%= f.hidden_field :state, :value => 'active' %>
-      	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
-      	  <div class="button_content">add task</div>
-      	</div>
-			</div>
-		<% end %>
-	</div>
+  <div id="new_task_form" data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
+    <h2>Enter a task</h2>
+  	<div class="span-16 last">
+  		<%= form_for @task do |f| %>
+  			<div class="span-12">
+  				<%= f.text_field :title, :id => "primary_input", :class => "span-12" %>
+  			</div>
+  			<div class="span-4 last">
+  				<%= f.hidden_field :user_id %>
+  				<%= f.hidden_field :state, :value => 'active' %>
+        	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+        	  <div class="button_content">add task</div>
+        	</div>
+          <div class="text_with_button">
+            <div onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display:none;">
+              or close
+            </div>
+          </div>
+  			</div>
+  		<% end %>
+  	</div>
+  </div>
   <% if @this_user.tasks.active.unorganized.any? %>
   <div class="span-16 last section_margin_top">
     <div class="span-5">
       <h2>Unorganized Tasks</h2>
     </div>
+    <div class="span-1 line_item_text">
+      <div class="plus_icon" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form">
+        &oplus;
+      </div>
+    </div>
     <% if @this_user.show_help_text %>
-    <div class="span-11 last text_right quiet">
+    <div class="span-10 last text_right quiet">
       Consider adding these tasks to a plan, label, or both for organization.
     </div>
     <% end %>
@@ -73,12 +85,12 @@
   </div>
   <div class="span-16 last list_section" id="unarchived_items_wrapper">
     <div class="span-16 last list_topper">&nbsp;</div>
-		<% @this_user.tasks.active.unorganized.recent.five.each_with_index do |task, index| %>
+		<% @this_user.tasks.active.unorganized.recent.three.each_with_index do |task, index| %>
 			<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item">
 			<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true} %>
 			</div>
 		<% end %>
-		<% if @this_user.tasks.active.unorganized.count > 5 %>
+		<% if @this_user.tasks.active.unorganized.count > 3 %>
       <div class="span-16 last text_right section_margin_top">
         <%= link_to 'See all', tasks_url %> &rarr;
       </div>
@@ -126,7 +138,7 @@
 	      <a href="<%= task_url(task) %>"><%= task.title %></a>
 	    </div>
 		<% end %>
-		<% if @total_priority_task_count > 5 %>
+		<% if @total_priority_task_count > 3 %>
       <div class=" text_right section_margin_top">
         <%= link_to 'See all', priority_tasks_url %> &rarr;
       </div>

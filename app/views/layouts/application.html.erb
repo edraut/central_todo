@@ -212,21 +212,7 @@
               </div>
 					</div>
 				</div>
-				<div id="label_nav" class="left_nav_wrapper last">
-					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'labels' %> selected <% if @subnav_tab %>padding_bottom<% end %><% end %>">
-						<%= link_to 'Labels', labels_url, :class => (@nav_tab == 'labels') ? 'selected loud' : 'loud' %>
-						<% if @nav_tab == 'labels' and @subnav_tab and @label %>
-						<div id="label_subnav" class="left_subnav_wrapper">
-							<div class="vert_line_subnav_wrapper selected">
-                <div class="label <%= @label.color %>">
-                <%= link_to truncate_clean(@label.title,{:length => 100, :max_word_length => 20, :omission => '-'}) + " (#{@label.tasks.only_once.for_user(@this_user).active.count})", label_url(@label), :class => 'selected' %>
-                </div>
-              </div>
-            </div>
-            <% end %>
-					</div>
-				</div>
-				<div id="label_nav" class="left_nav_wrapper last">
+				<div id="contacts_nav" class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'contacts' %> selected <% if @subnav_tab %>padding_bottom<% end %><% end %>"<% unless @nav_tab == 'contacts' %> data-binding="hover_show_more" data-hover_div="#contacts_subnav" data-hover_fade_time="100"<% end %>>
 						<%= link_to 'Contacts', users_url, :class => (@nav_tab == 'contacts') ? 'selected loud' : 'loud' %>
 						<%  @this_user_contacts = User.contacts_for(@this_user)
@@ -245,6 +231,20 @@
                 </div>
               </div>
               <% end %>
+            </div>
+            <% end %>
+					</div>
+				</div>
+				<div id="label_nav" class="left_nav_wrapper last">
+					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'labels' %> selected <% if @subnav_tab %>padding_bottom<% end %><% end %>">
+						<%= link_to 'Labels', labels_url, :class => (@nav_tab == 'labels') ? 'selected loud' : 'loud' %>
+						<% if @nav_tab == 'labels' and @subnav_tab and @label %>
+						<div id="label_subnav" class="left_subnav_wrapper">
+							<div class="vert_line_subnav_wrapper selected">
+                <div class="label <%= @label.color %>">
+                <%= link_to truncate_clean(@label.title,{:length => 100, :max_word_length => 20, :omission => '-'}) + " (#{@label.tasks.only_once.for_user(@this_user).active.count})", label_url(@label), :class => 'selected' %>
+                </div>
+              </div>
             </div>
             <% end %>
 					</div>

@@ -1,8 +1,12 @@
 <%  sortable = false unless defined? sortable
     hierarchical = false unless defined? hierarchical %>
 <div class="row padding">
+  <% if sortable %>
   <div data-drag_handle="true" class="row_item eightteen control_font">&nbsp;&nbsp;&equiv;</div>
 	<div class="row_item seventy">
+	<% else %>
+	<div class="row_item eighty_eight">
+	<% end %>
     <div class="row_item"><h3>
 	  <%= project.title %>
 	  <span class="small">(</span><span id="project_<%= project.id %>_count_display" data-sort_count="true" data-sort_id="project_task_lists" data-sort_count_id="project_<%= project.id %>_task_list" class="small"><%= project.tasks.active.count %></span><span class="small">)</span></h3>

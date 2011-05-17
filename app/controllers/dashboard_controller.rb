@@ -5,8 +5,8 @@ class DashboardController < ApplicationController
   def index
     @page_title = 'Dashboard'
     @task = Task.new(:user_id => @this_user.id)
-    @priority_tasks = Task.only_once.for_user(@this_user).active.priority.recent.five
-    if @priority_tasks.length > 4
+    @priority_tasks = Task.only_once.for_user(@this_user).active.priority.recent.three
+    if @priority_tasks.length == 3
       @total_priority_task_count = Task.only_once.for_user(@this_user).active.priority.count
     else
       @total_priority_task_count = @priority_tasks.length

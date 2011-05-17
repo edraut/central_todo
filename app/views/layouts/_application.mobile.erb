@@ -5,9 +5,9 @@
 			<h1><%= @page_title %></h1>
 			<div class="right"><div onclick="void(0)" data-button="true" href="<%= sign_out_url %>" class="button round dark" %>sign out</div></div>
 		<% else %>
-			<div class="left"><%= link_to 'sign up', sign_up_url, :class => 'button round dark' %></div>
+		  <div class="left"><div onclick="void(0)" data-button="true" href="<%= sign_up_url %>" class="button round dark" %>sign up</div></div>
 			<h1><%= @page_title %></h1>
-			<div class="right"><%= link_to 'sign in', sign_in_url, :class => 'button round dark' %></div>
+		  <div class="left"><div onclick="void(0)" data-button="true" href="<%= sign_in_url %>" class="button round dark" %>sign in</div></div>
 		<% end %>
 	</div>
     <% if @this_user %>
@@ -15,11 +15,11 @@
       <div class="quarter_nav" onclick="void(0)" data-button="true"><div class="border_wrapper button <% if @nav_tab == 'dashboard' %> dark<% else %> medium <% end %>">
   				<%= link_to 'Dashboard', dashboard_url %>
   		</div></div>
-  		<div class="quarter_nav" onclick="void(0)" data-button="true"><div class="border_wrapper button <% if @nav_tab == 'schedule' %> dark<% else %> medium<% end %>">
-  				<%= link_to 'Schedule', schedule_url %>
-  		</div></div>
   		<div class="quarter_nav" onclick="void(0)" data-button="true"><div class="border_wrapper button <% if @nav_tab == 'plans' %> dark<% else %> medium<% end %>">
   				<%= link_to 'Plans', plans_url %>
+  		</div></div>
+  		<div class="quarter_nav" onclick="void(0)" data-button="true"><div class="border_wrapper button <% if @nav_tab == 'contacts' %> dark<% else %> medium<% end %>">
+  				<%= link_to 'Contacts', users_url %>
   		</div></div>
   		<div class="quarter_nav" onclick="void(0)" data-button="true" data-button="true"><div class="border_wrapper button <% if @nav_tab == 'labels' %> dark<% else %> medium<% end %> last">
   				<%= link_to 'Labels', labels_url %>
@@ -28,18 +28,27 @@
 		<% end %>
 </div>
 <div id="subnav" class="sub_nav">
-  <% if ['plans','folders'].include? @nav_tab and (@subnav_tab.class.name == 'Fixnum')
+  <% if (['plans','folders'].include? @nav_tab and (@subnav_tab.class.name == 'Fixnum')) or
+        (['contacts'].include? @nav_tab and !@subnav_tab.nil?)
         if @subnav_tab.class.name == 'Fixnum'
           case controller_name
           when 'tasks'
             this_title = @task.project.title
             this_link = plan_url(@task.project)
           when 'projects'
-            this_title = @project.folder_for(@this_user).title
-            this_link = folder_url(@project.folder_for(@this_user))
+            if @project.folder_for(@this_user)
+              this_title = @project.folder_for(@this_user).title
+              this_link = folder_url(@project.folder_for(@this_user))
+            elsif @project.user_id != @this_user.id
+              this_title = 'Projects from ' + @project.user.handle
+              this_link = user_url(@project.user_id)
+            end
           when 'folders'
             this_title = 'All Folders'
             this_link = plans_url
+          when 'users'
+            this_title = 'All Contacts'
+            this_link = users_url
           end
         end
    %>

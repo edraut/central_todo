@@ -62,7 +62,7 @@ class TasksController < ApplicationController
         flash[:notice] = "Your task was successfully created."
         redirect_to params[:return_to] and return
       else
-        redirect_to dashboard_url
+        redirect_to dashboard_url + '?added_task=true'
       end
     end
   end
