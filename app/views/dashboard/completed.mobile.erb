@@ -1,0 +1,10 @@
+<h2>Recently Completed Tasks</h2>
+<% if @tasks.any? %>
+  <div class="list_container">
+    <% for task in @tasks %>
+      <%= render :partial => '/tasks/show', :locals => {:task => task} %>
+    <% end %>
+  </div>
+<% else %>
+  You don't have any recently completed tasks. Go get some done!
+<% end %>

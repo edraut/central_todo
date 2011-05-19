@@ -34,9 +34,9 @@ $compact-font-size: 12px;
 $compact-line-height: 20px;
 
 @mixin small-shadow {
-	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
-	-moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
+	-moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
+	box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
 }
 @mixin large-shadow {
 	-webkit-box-shadow: 4px 4px 4px rgba(0, 0, 0, .2);
@@ -126,6 +126,12 @@ $compact-line-height: 20px;
 	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 1)), color-stop(.3,rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.1)));
 	background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#DDFFFFFF", endColorstr="#26FFFFFF"); /* for IE */
+}
+@mixin gray1-overflow-fade{
+	background-color: rgba(237, 236, 232, 0);
+	background: -webkit-gradient(linear, left top, right top, from(rgba(237, 236, 232, 0)), to(rgba(237, 236, 232, 1)));
+	background: -moz-linear-gradient(left, rgba(237, 236, 232, 0) 0%, rgba(237, 236, 232, 1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00EDECE8", endColorstr="#FFEDECE8", gradientType=1); /* for IE */
 }
 @mixin full-width {
   position: relative;
@@ -318,7 +324,7 @@ div#testone.testone{
 	width: 100%;
 	background-color: $gray1;
 	margin-bottom: .5em;
-	@include large-shadow;
+	@include small-shadow;
 }
 .section {
   border: none;
@@ -397,9 +403,15 @@ div.section.borderless {
   margin-bottom: .9em;
 }
 .heading {
-  background-color: $gray7;
-	color: $paper;
+  background-color: $gray1;
+	color: $gray10;
 	@include small-shadow;
+	.padding{
+		padding: .3em;
+	}
+	.overflow_fade {
+		@include gray1-overflow-fade
+	}
 }
 .heading.overdue{
  	background-color: $paper;
@@ -600,11 +612,33 @@ button.button {
 .completed {
   text-decoration:line-through;
 }
+.line_fixed_width {
+	overflow:hidden;
+	font-size: .7em;
+}
+.overflow_fade {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 30%;
+	height: 100%;
+	z-index: 9;
+}
+.attribution {
+	top: .2em;
+}
+.allcaps{
+	font-size: .85em;
+	text-transform: uppercase;
+}
 .border_bottom {
   border-bottom: 1px solid $gray4;
 }
 .padding_bottom {
   padding-bottom: .5em;
+}
+.small_padding_top {
+	padding-top: 10px;
 }
 .padding_top {
   padding-top: .5em;
@@ -713,7 +747,7 @@ div.checked {
   color: $paper;
 }
 .small {
-	font-size: .8em;
+	font-size: .7em;
 }
 .section_margin_top {
   margin-top: 1em;

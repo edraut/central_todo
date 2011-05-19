@@ -43,8 +43,8 @@
 	<% end %>
 	<% if @this_user.tasks.active.unorganized.count > 3 %>
     <div class="text_right">
-      <div class="padding">
-        <%= link_to 'See all', tasks_url %> &rarr;
+      <div class="padding small">
+        <%= link_to 'see all', tasks_url %> &rarr;
       </div>
     </div>
 	<% end %>
@@ -57,8 +57,76 @@
     <% end %>
   </div>
 <% end %>
-<% if @priority_tasks.any? %>
-    <div class="block">
+<% if (@this_user.shared_comments.recent.any?) or (Task.for_user(@this_user).only_once.complete.recent.any?) %>
+<div data_role="list" class="block" id="unarchived_items_wrapper">
+  <h2>Recent Activity</h2>
+  <div class="list_container">
+    <% if @this_user.shared_comments.recent.any? %>
+      <% for comment in @this_user.shared_comments.recent.two %>
+      <div class="block">
+        <div class="padding">
+          <div class="section heading small">
+            <div class="padding">
+              <div style="width:40%;" class="row_item line_fixed_width">
+                <div class="overflow_fade">&nbsp;</div>
+                <div style="width:1000px" class="row_item">
+                  <%= comment.user.handle %>
+                </div>
+              </div>
+              <div style="width:10%;" class="allcaps row_item attribution">&nbsp;re:</div>
+              <div style="width:50%;" class="line_fixed_width row_item">
+                <div class="overflow_fade">&nbsp;</div>
+                <div style="width:1000px" class="row_item">
+                  <%= link_to truncate_clean(comment.commentable.title,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row small_padding_top">
+            &nbsp;&nbsp;<%= link_to truncate_clean(comment.body,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <div class="block text_right small">
+        <%= link_to 'see all recent comments', comments_url(:full_page => true) %> &rarr;&nbsp;&nbsp;
+      </div>
+    <% end %>
+    <% if Task.for_user(@this_user).only_once.complete.recent.any? %>
+      <% for task in Task.for_user(@this_user).only_once.complete.recent.three %>
+      <div class="block padding_top">
+        <div class="padding">
+          <div class="section heading small">
+            <div class="padding">
+              <div style="width:35%;" class="row_item text_right">
+                Completed by:
+              </div>
+              <div style="width:65%;" class="row_item line_fixed_width">
+                <div class="overflow_fade">&nbsp;</div>
+                <div style="width: 1000px">
+                  &nbsp;&nbsp;<%= task.user.handle %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row small_padding_top">
+            <div class="row_item">&nbsp;&nbsp;</div>
+            <div class="row_item completed">
+              <%= link_to task.title %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <div class="block text_right small padding_bottom">
+        <%= link_to 'see all recently completed tasks', dashboard_completed_url %> &rarr;&nbsp;&nbsp;
+      </div>
+    <% end %>
+  </div>
+</div>
+<% end %>
+<%# if @priority_tasks.any? %>
+    <!-- <div class="block">
       <h2>
       <div class="row_item">
         Priority Tasks
@@ -71,27 +139,27 @@
       </h2>
     </div>
     <div class="list_container" data-behavior="expander" data-state="expanded" data-id="priority_task_list" style="display:none;">
-		<% for task in @priority_tasks %>
-			<div id="priority_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
-			<%= render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'priority'} %>
-			</div>
-		<% end %>
-		<% if @total_priority_task_count > 3 %>
+    <%# for task in @priority_tasks %>
+      <div id="priority_task_<%# task.id %>" data-role="list_item" data-id="task_<%# task.id %>" class="section">
+      <%# render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'priority'} %>
+      </div>
+    <%# end %>
+    <%# if @total_priority_task_count > 3 %>
       <div class="text_right">
         <div class="padding">
-        <%= link_to 'See all', due_date_tasks_url %> &rarr;
+        <%# link_to 'See all', due_date_tasks_url %> &rarr;
         </div>
       </div>
-		<% end %>
-		</div>
-<% else %>
+    <%# end %>
+    </div>
+<%# else %>
   <div class="block section_margin_top">
     <h2>High Priority</h2>
     <p>
     You don't have any priority tasks.<br/>
-    <% if @this_user.show_help_text %>
+    <%# if @this_user.show_help_text %>
      <span class="quiet">You can make any task a priority by taping on the star to the left of the check box in any task list.</span>
-     <% end %>
+     <%# end %>
     </p>
-  </div>
-<% end %>
+  </div> -->
+<%# end %>

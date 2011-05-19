@@ -114,7 +114,7 @@
               <div class="overflow_fade">&nbsp;</div>
   	          <div class="span-24 padding_left"><%= comment.user.handle %></div>
   	        </div>
-  	        <div class="span-0_5 allcaps small attribution"><span class="small">re:</span></div>
+  	        <div class="span-0_5 allcaps small attribution"><span class="small allcaps">re:</span></div>
   	        <div class="span-3_5 last small line_fixed_width">
               <div class="overflow_fade">&nbsp;</div>
               <div class="span-24 padding_left">
@@ -125,7 +125,7 @@
     	    <div class="span-7 last line_fixed_width small_margin_top">
             <div class="overflow_fade">&nbsp;</div>
             <div class="span-24 padding_left">
-    	        <%= truncate_clean(comment.body,{:length => 120,:omission => "..."}) %>
+    	        <%= link_to truncate_clean(comment.body,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
     	      </div>
     	    </div>
         </div>
@@ -144,7 +144,7 @@
           <div class="span-3 text_right">
             Completed by:
           </div>
-          <div class="span-3 last line_fixed_width">
+          <div class="span-4 last line_fixed_width">
             <div class="overflow_fade">&nbsp;</div>
             <div class="span-24 padding_left">
               <%= task.user.handle %>
