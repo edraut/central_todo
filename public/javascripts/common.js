@@ -147,6 +147,7 @@ function handleArchivementSuccess(move){
 							.find("[data-role='organize_item'],[data-role='sortable_drag_handle']")
 								.each(function(i){jQuery(this).remove();});
 						handleListDisplay();
+						bindHoverShowMore();
 	} else {
 		jQuery('#unarchived_items_wrapper')
 			.find("input[type='checkbox'][name='task[state]']:checked,a.completed")

@@ -50,8 +50,10 @@ class TasksController < ApplicationController
       @item = @task
       case params[:app_context]
       when 'project'
-        flash.now[:ajax_dialog] = render_to_string :partial => '/tasks/move_to_top'
-        @ajax_dialog_javascript = '/tasks/move_to_top_javascript'
+        if @task.project.task_ids.count > 5
+          flash.now[:ajax_dialog] = render_to_string :partial => '/tasks/move_to_top'
+          @ajax_dialog_javascript = '/tasks/move_to_top_javascript'
+        end
         render :partial => 'show', :locals => {:task => @task, :project => @project, :sortable => true}, :layout => 'new_task'
       when 'hierarchical'
         render :partial => 'show', :locals => {:task => @task, :project => @project, :hierarchical => true}, :layout => 'new_task'
@@ -95,9 +97,6 @@ class TasksController < ApplicationController
   def update
     if(params.has_key? :partial and params.has_key? :app_context)
       @app_context = params[:app_context]
-      if (params[:app_context] == 'project' and @state_changed == 'archived')
-        @move = true
-      end
     end
     if params.has_key? :nullify
       @task.update_attributes({params[:attribute]=> nil})
@@ -119,6 +118,9 @@ class TasksController < ApplicationController
     else
       @these_params = params[:task].dup
       @state_changed = @task.handle_attributes(@these_params)
+      if (params[:app_context] == 'project' and @state_changed == 'archived')
+        @move = true
+      end
       @task.update_attributes(@these_params)
       @task.reload
       @project = @task.project

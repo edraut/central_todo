@@ -16,7 +16,7 @@
   <div id="folder_<%= folder.id %>" class="block border_bottom" data-sort_element="true" data-sort_id="folder_list">
     <div class="row padding">
   	  <div class="row_item eightteen control_font" data-drag_handle="true">&nbsp;&nbsp;&equiv;</div>
-      <div class="row_item seventy">
+      <div class="row_item seventy" onclick="void(0)" data-button="true" href="<%= folder_url(folder) %>">
 		    <div class="row_item"><h3><%= folder.title %> <span class="small">(</span><span class="small" data-sort_count="true" data-sort_id="folder_plan_list" data-sort_count_id="folder_<%= folder.id %>_plan_list"><%= folder.projects.active.count %></span><span class="small">)</span> &nbsp;</h3></div>
       </div>
       <div class="row_item twelve">

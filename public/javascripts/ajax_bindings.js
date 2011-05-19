@@ -11,14 +11,14 @@ function bindAjaxEvents(context){
 	jQuery("[data-ajax_behavior='ajax_form']").preventDoubleSubmit();
 };
 function ajaxEvent(e){
-	var our_element = jQuery(e.target);
+	var our_element = jQuery(this);
 	var element_type = e.data.element_type;
-	if( element_type == 'link' && (our_element.attr('nodeName').toUpperCase() != 'A') && (our_element.attr('nodeName').toUpperCase() != 'DIV') ){
-		our_element = our_element.parents('a');
-	};
-	if(element_type == 'form' && (our_element.attr('nodeName').toUpperCase() != 'FORM')){
-		our_element = our_element.parents('form');
-	}
+	// if( element_type == 'link' && (our_element.attr('nodeName').toUpperCase() != 'A') && (our_element.attr('nodeName').toUpperCase() != 'DIV') ){
+	// 	our_element = our_element.parents('a');
+	// };
+	// if(element_type == 'form' && (our_element.attr('nodeName').toUpperCase() != 'FORM')){
+	// 	our_element = our_element.parents('form');
+	// }
 	var our_parameters = {
 		type: our_element.attr('data-ajax_method'),
 		dataType: 'html',
