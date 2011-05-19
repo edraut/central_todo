@@ -15,4 +15,7 @@ test
 public/system/**/*
 public/system
 public/sitemap.xml
-
+public/images/*.acorn
+public/images/GetGo*
+public/.sass-cache
+tmp
