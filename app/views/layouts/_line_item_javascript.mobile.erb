@@ -10,7 +10,8 @@
 			jQuery('#flash_notice').fadeOut(1000);
 			setTimeout("jQuery('#flash_notice').remove();",1000);
 		}
-		jQuery('#task_<%= task.id %>').after('<div id="flash_notice" style="display:none;" class="span-17 last flash_notice"><%= flash[:ajax_notice] %></div>');
+		jQuery('body').append('<div id="flash_notice" style="display:none;" class="flash_notice"><%= flash[:ajax_notice] %></div>');
+		repositionDialog('#flash_notice','top')
 		jQuery('#flash_notice').fadeIn(500);
 		setTimeout(clearFlash,3000);
   	<% end %>

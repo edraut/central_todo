@@ -480,6 +480,7 @@ select.with_text_field{
 	padding: 1em;
 	background-color: $gray1;
 	border: 3px solid $gray4;
+	border-top: none;
 	z-index: 20;
 }
 #modal_mask {
@@ -1347,6 +1348,7 @@ h2 .button.small {
 }
 .flash_notice {
 	@include flash;
+	border-top:none;
 	text-align: center;
 }
 .flash_dialog {

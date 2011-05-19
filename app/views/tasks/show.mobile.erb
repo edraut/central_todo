@@ -1,14 +1,12 @@
 <div id="task_title" class="block padding_bottom">
 	<%= render :partial => 'show_title' %>
 </div>
+<%= render :partial => 'tabs' %>
 <div class="list_container">
   <div class="block">&nbsp;</div>
 <div class="block controls">
-  <div id="task_priority" class="control left button round color2 " onclick="void(0)" data-behavior="check_box_proxy" data-check_box="priority_<%= @task.id %>" data-button="true"><%= render :partial => 'show_priority' %></div>
   <div id="task_delete" class="control right button round color2 " onclick="void(0)" data-button="true" data-button="true"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
-</div>
-<div class="block controls">
-      <div data-button="true" href="<%= convert_task_url(@task) %>" data-confirm="are you sure you want to convert this task to a plan" class="button control right round color2"><div class="button_content">convert to plan</div></div>
+      <div data-button="true" href="<%= convert_task_url(@task) %>" data-confirm="are you sure you want to convert this task to a plan" class="button control left round color2"><div class="button_content">convert to plan</div></div>
 </div>
 <div class="section">&nbsp;</div>
 <div class="section">

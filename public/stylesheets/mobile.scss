@@ -205,6 +205,7 @@ div#testone.testone{
 	padding: .5em;
 	background-color: $paper;
 	border: 3px solid $gray4;
+	border-top: none;
 	z-index: 20;
 }
 @mixin flash {
@@ -217,6 +218,7 @@ div#testone.testone{
 }
 .flash_notice {
 	@include flash;
+	border-top:none;
 	text-align: center;
 }
 .flash_dialog {
@@ -358,7 +360,7 @@ div#testone.testone{
 }
 .half_section.selected, .third_section.selected {
 	background-color: $gray1;
-	@include large-shadow;
+	@include small-shadow;
 }
 div.section.borderless {
   border: none;
@@ -624,6 +626,14 @@ button.button {
 	height: 100%;
 	z-index: 9;
 }
+.shadow_hide {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 7px;
+	background: inherit;
+	z-index:9;
+}
 .attribution {
 	top: .2em;
 }
@@ -682,6 +692,9 @@ button.button {
 }
 .seventy {
 	width: 70%;
+}
+.eighty_two {
+	width: 82%;
 }
 .eighty_eight {
 	width: 88%;

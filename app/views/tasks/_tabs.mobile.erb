@@ -1,0 +1,8 @@
+<div class="borderless section">
+  <div class="third_section<% if ['show','update'].include? action_name %> selected<% end %>"><%= link_to 'info', task_url(@task) %>
+    <div class="shadow_hide">&nbsp;</div>
+  </div>
+  <div class="third_section<% if action_name == 'comments' %> selected<% end %>"><%= link_to 'comments', comments_task_url(@task) %>
+    <div class="shadow_hide">&nbsp;</div>
+  </div>
+</div>

@@ -70,6 +70,7 @@
 				setTimeout("jQuery('#flash_notice').remove();",1000);
 			}
 			jQuery('#main_content').prepend('<div id="flash_notice" style="display:none;" class="flash_notice"><%= flash[:notice] %></div>');
+  		repositionDialog('#flash_notice', 'top');
 			jQuery('#flash_notice').fadeIn(500);
 			setTimeout(clearFlash,3000);
 		<% end %>

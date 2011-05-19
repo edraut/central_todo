@@ -250,6 +250,7 @@ select.with_text_field {
   padding: 1em;
   background-color: #edece8;
   border: 3px solid #bdbcb8;
+  border-top: none;
   z-index: 20; }
 
 #modal_mask {
@@ -1144,6 +1145,7 @@ h2 .button.small {
   position: absolute;
   z-index: 12;
   padding: 20px;
+  border-top: none;
   text-align: center; }
 
 .flash_dialog {
