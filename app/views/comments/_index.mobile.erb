@@ -16,7 +16,7 @@
 	</div>
 	<div id="comments_list" class="block" data-role="list">
 		<% commentable.comments.by_date.each_with_index do |comment,index| %>
-			<div class="row" id="comment_<%= comment.id %>" data-role="list_item">
+			<div class="row" id="comment_<%= comment.id %>" name="comment_<%= comment.id %>" data-role="list_item">
 				<%= render :partial => '/comments/show', :locals => {:comment => comment} %>
 			</div>
 		<% end %>
