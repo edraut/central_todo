@@ -1,7 +1,10 @@
+<div id="recent_comments_page" class="pager" data-page_link="[data-page_target='recent_comments_page']">
+<%= render :partial => '/layouts/subnav' %>
+<div class="page_layout">
 <h2>Recent Comments</h2>
 <% if @this_user.shared_comments.recent.count > 0 %>
   <div class="list_container">
-    <% for comment in @this_user.shared_comments.recent.limit(25) %>
+    <% for comment in @this_user.shared_comments.recent.limit(10) %>
       <div class="row">
         <div class="padding">
           <div class="row line_fixed_width">
@@ -18,3 +21,5 @@
     <% end %>
   </div>
 <% end %>
+</div>
+</div>

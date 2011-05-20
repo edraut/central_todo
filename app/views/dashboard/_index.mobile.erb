@@ -46,8 +46,8 @@
   	<% if @this_user.tasks.active.unorganized.count > 3 %>
       <div class="text_right">
         <div class="padding small">
-          <div onclick="void(0)" data-page_turner="true" data-page_target="tasks_page">
-            see all &rarr;
+          <div onclick="void(0)" data-page_turner="true" data-page_target="tasks_page" style="display:none;">
+            see all unorganized tasks &rarr;
           </div>
         </div>
       </div>
@@ -92,8 +92,10 @@
           </div>
         </div>
         <% end %>
-        <div class="block text_right small">
-          <%= link_to 'see all recent comments', comments_url(:full_page => true) %> &rarr;&nbsp;&nbsp;
+        <div class="block text_right small padding">
+          <div onclick="void(0)" data-page_turner="true" data-page_target="recent_comments_page">
+            go to recent comments &rarr;&nbsp;&nbsp;
+          </div>
         </div>
       <% end %>
       <% if Task.for_user(@this_user).only_once.complete.recent.any? %>
@@ -116,15 +118,15 @@
             <div class="row small_padding_top">
               <div class="row_item">&nbsp;&nbsp;</div>
               <div class="row_item completed">
-                <%= link_to task.title %>
+                <%= link_to task.title, task_url(task) %>
               </div>
             </div>
           </div>
         </div>
         <% end %>
-        <div class="block text_right small padding_bottom">
+        <div class="block text_right small padding">
           <div onclick="void(0)" data-page_turner="true" data-page_target="dashboard_completed_page">
-            see all recently completed tasks &rarr;
+            go to recently completed tasks &rarr;
           </div>
         </div>
       <% end %>
@@ -183,9 +185,10 @@
       success: function(data,textStatus) {
         new_page = jQuery(data);
         new_page.appendTo('#main_content').hide();
+        jQuery(new_page.attr('data-page_link')).show();
       }
     };
-    pages = ['<%= dashboard_unorganized_url %>','<%= dashboard_completed_url %>'];
+    pages = ['<%= dashboard_unorganized_url %>','<%= dashboard_completed_url %>','<%= recent_comments_url %>'];
     for(i = 0;i < pages.length;i++){
       these_params = ajax_params;
       these_params.url = pages[i];

@@ -58,7 +58,11 @@ CentralTodo::Application.routes.draw do
       get 'comments'
     end
   end
-  resources :comments
+  resources :comments do
+    collection do
+      get 'recent'
+    end
+  end
   resources :reminders
   resources :folders do
     collection do

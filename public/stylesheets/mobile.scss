@@ -331,7 +331,7 @@ div#testone.testone{
 	float: left;
 	width: 100%;
 }
-.slide_left{
+.page_slide{
 	-webkit-transition: -webkit-transform 600ms ease-in-out;
   -webkit-transform: translate3d(0,0,0);
 }
@@ -631,7 +631,7 @@ button.button {
 }
 .line_fixed_width {
 	overflow:hidden;
-	font-size: .7em;
+	// font-size: .7em;
 }
 .overflow_fade {
 	position: absolute;

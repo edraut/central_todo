@@ -131,7 +131,7 @@
         </div>
         <% end %>
   	    <div class="span-7 last small text_right">
-  	      <%= link_to 'see all recent comments', comments_url(:full_page => true) %>
+  	      <%= link_to 'see all recent comments', recent_comments_url %>
   	    </div>
       <% end %>
       <% if Task.for_user(@this_user).only_once.complete.recent.any? %>

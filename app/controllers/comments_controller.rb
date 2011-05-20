@@ -6,9 +6,6 @@ class CommentsController < ApplicationController
   respond_to :html, :mobile
   
   def index
-    if params[:full_page]
-      render :action => 'index' and return
-    end
     @commentable_class = params[:commentable_type].constantize
     @commentable = @commentable_class.find(params[:commentable_id])
     respond_with(@commentable) do |format|
@@ -16,6 +13,10 @@ class CommentsController < ApplicationController
       return
     end
     redirect_to root_url and return
+  end
+
+  def recent
+    render @render_type => 'recent' and return
   end
   
   def show
