@@ -319,14 +319,18 @@ function slidePage(direction,control){
 	current_page_selector = '#'+current_page.attr('id');
 	current_page = jQuery(current_page_selector);
 	page_target.show();
-	wrapper = jQuery('<div id="pager_wrapper" class="pager_wrapper page_slide"/>');
-	page_target.add(current_page_selector).wrapAll(wrapper);
+	// wrapper = jQuery('<div id="pager_wrapper" class="pager_wrapper page_slide"/>');
+	// page_target.add(current_page_selector).wrapAll(wrapper);
 	jQuery(window).scrollTop(0);
+	if(!jQuery('#pager_wrapper').hasClass('page_slide')){
+		jQuery('#pager_wrapper').addClass('page_slide');
+	}
 	setTimeout("jQuery('#pager_wrapper').css('-webkit-transform','translate3d(" + transition_amount + ",0,0)');",60);
 	setTimeout(function(){
 			current_page.hide();
 			page_target.css('left',0);
-			page_target.add(current_page_selector).unwrap();
+			// page_target.add(current_page_selector).unwrap();
+			jQuery('#pager_wrapper').removeClass('page_slide').css('-webkit-transform','none');
 			current_page.removeClass('current_page');
 			page_target.addClass('current_page');
 		},2000);

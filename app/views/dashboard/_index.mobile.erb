@@ -1,4 +1,5 @@
-<div id="dashboard_overview" class="pager current_page">
+<div id="pager_wrapper" class="pager_wrapper page_slide">
+  <div id="dashboard_overview" class="pager current_page">
   <div class="page_layout">
   <div data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
     <h2>Add Tasks</h2>
@@ -133,45 +134,8 @@
     </div>
   </div>
   <% end %>
-  <%# if @priority_tasks.any? %>
-      <!-- <div class="block">
-        <h2>
-        <div class="row_item">
-          Priority Tasks
-        </div>
-        <div class="row_item small">
-          <div class="row_item">&nbsp;&nbsp;</div>
-          <div class="row_item small" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="priority_task_list">(show)</div>
-          <div class="row_item small" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="priority_task_list" style="display:none;">(hide)</div>
-        </div>
-        </h2>
-      </div>
-      <div class="list_container" data-behavior="expander" data-state="expanded" data-id="priority_task_list" style="display:none;">
-      <%# for task in @priority_tasks %>
-        <div id="priority_task_<%# task.id %>" data-role="list_item" data-id="task_<%# task.id %>" class="section">
-        <%# render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'priority'} %>
-        </div>
-      <%# end %>
-      <%# if @total_priority_task_count > 3 %>
-        <div class="text_right">
-          <div class="padding">
-          <%# link_to 'See all', due_date_tasks_url %> &rarr;
-          </div>
-        </div>
-      <%# end %>
-      </div>
-  <%# else %>
-    <div class="block section_margin_top">
-      <h2>High Priority</h2>
-      <p>
-      You don't have any priority tasks.<br/>
-      <%# if @this_user.show_help_text %>
-       <span class="quiet">You can make any task a priority by taping on the star to the left of the check box in any task list.</span>
-       <%# end %>
-      </p>
-    </div> -->
-  <%# end %>
   </div>
+</div>
 </div>
   <%= javascript_tag do %>
   jQuery(document).ready(function(){
@@ -184,7 +148,7 @@
       },
       success: function(data,textStatus) {
         new_page = jQuery(data);
-        new_page.appendTo('#main_content').hide();
+        new_page.appendTo('#pager_wrapper').hide();
         jQuery(new_page.attr('data-page_link')).show();
       }
     };

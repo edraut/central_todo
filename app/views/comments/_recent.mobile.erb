@@ -4,18 +4,15 @@
 <h2>Recent Comments</h2>
 <% if @this_user.shared_comments.recent.count > 0 %>
   <div class="list_container">
-    <% for comment in @this_user.shared_comments.recent.limit(10) %>
+    <% for comment in @this_user.shared_comments.recent.limit(5) %>
       <div class="row">
         <div class="padding">
           <div class="row line_fixed_width">
-            <div class="overflow_fade">&nbsp;</div>
-            <div class="row_item" style="width:1000px;">
             <span class="allcaps"><%= comment.commentable.class.display_name %>:</span> <%= link_to truncate_clean(comment.commentable.title,{:length => 100, :omission => '...'}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
-            </div>
           </div>
         </div>
         <div class="row" id="comment_<%= comment.id %>" onclick="void(0)" data-button="true" href="<%= (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) +"#comment_#{comment.id}" %>">
-          <%= render :partial => 'show', :locals => {:comment => comment} %>
+          <%= render :partial => 'show', :locals => {:comment => comment, :editable => false} %>
         </div>
       </div>
     <% end %>

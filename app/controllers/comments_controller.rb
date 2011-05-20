@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
   
   def show
     respond_with(@comment) do |format|
-      format.any {render :partial => 'show', :locals => {:comment => @comment}}
+      format.any {render :partial => 'show', :locals => {:comment => @comment, :editable => true}}
     end
   end
   
@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(params[:comment].merge(:user_id => @this_user.id))
     if @comment.save
       respond_with(@comment) do |format|
-        format.any {render :partial => 'show', :locals => {:comment => @comment}, :layout => 'new_comment'}
+        format.any {render :partial => 'show', :locals => {:comment => @comment, :editable => true}, :layout => 'new_comment'}
       end
     else
       respond_with(@comment) do |format|
@@ -51,7 +51,7 @@ class CommentsController < ApplicationController
     end
     if @comment.update_attributes(params[:comment])
       respond_with(@comment) do |format|
-        format.any {render :partial => 'show', :locals => {:comment => @comment}}
+        format.any {render :partial => 'show', :locals => {:comment => @comment, :editable => true}}
       end
     else
       respond_with(@comment) do |format|
