@@ -329,7 +329,7 @@ function slidePage(direction,control){
 			page_target.add(current_page_selector).unwrap();
 			current_page.removeClass('current_page');
 			page_target.addClass('current_page');
-		},700);
+		},2000);
 }
 function bindPagers(){
 	jQuery("[data-page_turner]").live('click',function(e){
