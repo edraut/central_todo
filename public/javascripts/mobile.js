@@ -269,19 +269,6 @@ jQuery(window).bind('resize',function(){
 	handleHalfSections();
 	handleQuarterSections();
 });
-jQuery(document).ready(function(){
-	bindCheckBoxProxy();
-	bindAutoSubmit();		
-    bindLinkToForm();
-	bindDeleteProxy();
-	bindPreventDoubleClick();
-	jQuery(document).live('touchstart',clearSorts);
-	jQuery("[data-drag_handle]").live('touchstart',handleSortBegin);
-});
-jQuery(window).load(function(){
-	setTimeout(handleHalfSections,100);
-	setTimeout(handleQuarterSections,100);
- });
 function repositionDialog(selector,vertical_position){
 	var scroll_top = jQuery(window).scrollTop();
 	var window_width = jQuery(window).width();
@@ -317,3 +304,48 @@ function popButtons(){
 		}
 	});
 }
+function bindPagers(){
+	jQuery("[data-page_turner]").live('click',function(e){
+		window_width = jQuery(window).width() + 'px';
+		control = jQuery(this);
+		page_target = jQuery('#'+control.attr('data-page_target'));
+		page_target.css('left',window_width);
+		page_target.addClass('off_right');
+		current_page = jQuery('.current_page');
+		current_page_selector = '#'+current_page.attr('id');
+		current_page = jQuery(current_page_selector);
+		page_target.show();
+		wrapper = jQuery('<div id="pager_wrapper" class="pager_wrapper slide_left"/>');
+		page_target.add(current_page_selector).wrapAll(wrapper);
+		jQuery(window).scrollTop(0);
+		setTimeout("jQuery('#pager_wrapper').css('-webkit-transform','translate3d(-100%,0,0)');",30);
+		setTimeout(function(){
+				current_page.hide();
+				page_target.css('left',0);
+				page_target.add(current_page_selector).unwrap();
+			},700);
+	});
+	jQuery("[data-page_back]").live('click',function(e){
+		window_width = '-' + jQuery(window).width() + 'px';
+		control = jQuery(this);
+		page_target = jQuery('#'+control.attr('data-page_target'));
+		page_target.css('left',window_width);
+		page_target.addClass('off_left');
+		page_target.show();
+		slidePageRight();
+	});
+}
+jQuery(document).ready(function(){
+	bindCheckBoxProxy();
+	bindAutoSubmit();		
+    bindLinkToForm();
+	bindDeleteProxy();
+	bindPreventDoubleClick();
+	bindPagers();
+	jQuery(document).live('touchstart',clearSorts);
+	jQuery("[data-drag_handle]").live('touchstart',handleSortBegin);
+});
+jQuery(window).load(function(){
+	setTimeout(handleHalfSections,100);
+	setTimeout(handleQuarterSections,100);
+});

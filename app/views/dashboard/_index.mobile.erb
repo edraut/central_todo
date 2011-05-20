@@ -1,165 +1,195 @@
-<div data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
-  <h2>Add Tasks</h2>
-	<%= form_for @task do |f| %>
-			<%= text_field_tag :title_1, '', :id => "inbox_text_field_1" %>
-			<%= text_field_tag :title_2, '', :id => "inbox_text_field_2" %>
-			<%= text_field_tag :title_3, '', :id => "inbox_text_field_3" %>
-			<%= f.hidden_field :user_id %>
-			<%= f.hidden_field :state, :value => 'active' %>
-    	<button type="submit" class="row_item button round small light ">add tasks</button>
-	<% end %>
-</div>
-<div data_role="list" class="block" id="unarchived_items_wrapper">
-  <div class="row">
-    <div class="row_item">
-      <h2>Unorganized Tasks</h2>
+<div id="dashboard_overview" class="pager current_page">
+  <div class="page_layout">
+  <div data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
+    <h2>Add Tasks</h2>
+  	<%= form_for @task do |f| %>
+  			<%= text_field_tag :title_1, '', :id => "inbox_text_field_1" %>
+  			<%= text_field_tag :title_2, '', :id => "inbox_text_field_2" %>
+  			<%= text_field_tag :title_3, '', :id => "inbox_text_field_3" %>
+  			<%= f.hidden_field :user_id %>
+  			<%= f.hidden_field :state, :value => 'active' %>
+      	<button type="submit" class="row_item button round small light ">add tasks</button>
+  	<% end %>
+  </div>
+  <div data_role="list" class="block" id="unarchived_items_wrapper">
+    <div class="row">
+      <div class="row_item">
+        <h2>Unorganized Tasks</h2>
+      </div>
+      <div class="row_item">&nbsp;&nbsp;</div>
+      <div class="row_item control_font button round circle color2" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
+      <div class="row_item control_font button round circle color2 arrow" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
+    <% if @this_user.tasks.active.unorganized.any? %>
+    <% if @this_user.show_help_text %>
+    <div class="row">
+      <p class="explanatory">
+    Consider adding these tasks to a plan, label, or both for organization. You can tap the title of the task below to view full controls for that task, including plan and label controls.
+      </p>
     </div>
-    <div class="row_item">&nbsp;&nbsp;</div>
-    <div class="row_item control_font button round circle color2" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
-    <div class="row_item control_font button round circle color2 arrow" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
-  <% if @this_user.tasks.active.unorganized.any? %>
-  <% if @this_user.show_help_text %>
-  <div class="row">
-    <p class="explanatory">
-  Consider adding these tasks to a plan, label, or both for organization. You can tap the title of the task below to view full controls for that task, including plan and label controls.
-    </p>
+    <% end %>
+    </div>
+    	<div class="block"><div class="padding">
+    <div id="archive_completed_items" class="list_action" style="display: none;">
+    	<%= link_to 'archive completed tasks', archive_completed_tasks_url,
+    	 	:'data-ajax_behavior' => 'ajax_link',
+    		:'data-ajax_method' => 'GET',
+    		:'data-ajax_success_callback' => "handleArchivementSuccess(false);",
+    		:class => 'button round small color2 ' %>
+    </div>
+    </div></div>
+    <div class="list_container">
+  	<% for task in @this_user.tasks.active.unorganized.recent.three %>
+  		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
+  		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized'} %>
+  		</div>
+  	<% end %>
+  	<% if @this_user.tasks.active.unorganized.count > 3 %>
+      <div class="text_right">
+        <div class="padding small">
+          <div onclick="void(0)" data-page_turner="true" data-page_target="tasks_page">
+            see all &rarr;
+          </div>
+        </div>
+      </div>
+  	<% end %>
+  	</div>
+  	</div>
+  <% else %>
+    <div class="section section_margin_top">
+      <% if @this_user.tasks.count > 0 %>You've organized all your current tasks.<% else %>
+      <p>You don't have any tasks yet<span class="quiet">You can add a task in the box above.</span></p>
+      <% end %>
+    </div>
+  <% end %>
+  <% if (@this_user.shared_comments.recent.any?) or (Task.for_user(@this_user).only_once.complete.recent.any?) %>
+  <div data_role="list" class="block" id="unarchived_items_wrapper">
+    <h2>Recent Activity</h2>
+    <div class="list_container">
+      <% if @this_user.shared_comments.recent.any? %>
+        <% for comment in @this_user.shared_comments.recent.two %>
+        <div class="block">
+          <div class="padding">
+            <div class="section heading small">
+              <div class="padding">
+                <div style="width:40%;" class="row_item line_fixed_width">
+                  <div class="overflow_fade">&nbsp;</div>
+                  <div style="width:1000px" class="row_item">
+                    <%= comment.user.handle %>
+                  </div>
+                </div>
+                <div style="width:10%;" class="allcaps row_item attribution">&nbsp;re:</div>
+                <div style="width:50%;" class="line_fixed_width row_item">
+                  <div class="overflow_fade">&nbsp;</div>
+                  <div style="width:1000px" class="row_item">
+                    <%= link_to truncate_clean(comment.commentable.title,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row small_padding_top">
+              &nbsp;&nbsp;<%= link_to truncate_clean(comment.body,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <div class="block text_right small">
+          <%= link_to 'see all recent comments', comments_url(:full_page => true) %> &rarr;&nbsp;&nbsp;
+        </div>
+      <% end %>
+      <% if Task.for_user(@this_user).only_once.complete.recent.any? %>
+        <% for task in Task.for_user(@this_user).only_once.complete.recent.three %>
+        <div class="block padding_top">
+          <div class="padding">
+            <div class="section heading small">
+              <div class="padding">
+                <div style="width:35%;" class="row_item text_right">
+                  Completed by:
+                </div>
+                <div style="width:65%;" class="row_item line_fixed_width">
+                  <div class="overflow_fade">&nbsp;</div>
+                  <div style="width: 1000px">
+                    &nbsp;&nbsp;<%= task.user.handle %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row small_padding_top">
+              <div class="row_item">&nbsp;&nbsp;</div>
+              <div class="row_item completed">
+                <%= link_to task.title %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <div class="block text_right small padding_bottom">
+          <div onclick="void(0)" data-page_turner="true" data-page_target="dashboard_completed_page">
+            see all recently completed tasks &rarr;
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
   <% end %>
-  </div>
-  	<div class="block"><div class="padding">
-  <div id="archive_completed_items" class="list_action" style="display: none;">
-  	<%= link_to 'archive completed tasks', archive_completed_tasks_url,
-  	 	:'data-ajax_behavior' => 'ajax_link',
-  		:'data-ajax_method' => 'GET',
-  		:'data-ajax_success_callback' => "handleArchivementSuccess(false);",
-  		:class => 'button round small color2 ' %>
-  </div>
-  </div></div>
-  <div class="list_container">
-	<% for task in @this_user.tasks.active.unorganized.recent.three %>
-		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
-		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized'} %>
-		</div>
-	<% end %>
-	<% if @this_user.tasks.active.unorganized.count > 3 %>
-    <div class="text_right">
-      <div class="padding small">
-        <%= link_to 'see all', tasks_url %> &rarr;
+  <%# if @priority_tasks.any? %>
+      <!-- <div class="block">
+        <h2>
+        <div class="row_item">
+          Priority Tasks
+        </div>
+        <div class="row_item small">
+          <div class="row_item">&nbsp;&nbsp;</div>
+          <div class="row_item small" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="priority_task_list">(show)</div>
+          <div class="row_item small" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="priority_task_list" style="display:none;">(hide)</div>
+        </div>
+        </h2>
       </div>
-    </div>
-	<% end %>
-	</div>
-	</div>
-<% else %>
-  <div class="section section_margin_top">
-    <% if @this_user.tasks.count > 0 %>You've organized all your current tasks.<% else %>
-    <p>You don't have any tasks yet<span class="quiet">You can add a task in the box above.</span></p>
-    <% end %>
-  </div>
-<% end %>
-<% if (@this_user.shared_comments.recent.any?) or (Task.for_user(@this_user).only_once.complete.recent.any?) %>
-<div data_role="list" class="block" id="unarchived_items_wrapper">
-  <h2>Recent Activity</h2>
-  <div class="list_container">
-    <% if @this_user.shared_comments.recent.any? %>
-      <% for comment in @this_user.shared_comments.recent.two %>
-      <div class="block">
-        <div class="padding">
-          <div class="section heading small">
-            <div class="padding">
-              <div style="width:40%;" class="row_item line_fixed_width">
-                <div class="overflow_fade">&nbsp;</div>
-                <div style="width:1000px" class="row_item">
-                  <%= comment.user.handle %>
-                </div>
-              </div>
-              <div style="width:10%;" class="allcaps row_item attribution">&nbsp;re:</div>
-              <div style="width:50%;" class="line_fixed_width row_item">
-                <div class="overflow_fade">&nbsp;</div>
-                <div style="width:1000px" class="row_item">
-                  <%= link_to truncate_clean(comment.commentable.title,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row small_padding_top">
-            &nbsp;&nbsp;<%= link_to truncate_clean(comment.body,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
+      <div class="list_container" data-behavior="expander" data-state="expanded" data-id="priority_task_list" style="display:none;">
+      <%# for task in @priority_tasks %>
+        <div id="priority_task_<%# task.id %>" data-role="list_item" data-id="task_<%# task.id %>" class="section">
+        <%# render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'priority'} %>
+        </div>
+      <%# end %>
+      <%# if @total_priority_task_count > 3 %>
+        <div class="text_right">
+          <div class="padding">
+          <%# link_to 'See all', due_date_tasks_url %> &rarr;
           </div>
         </div>
+      <%# end %>
       </div>
-      <% end %>
-      <div class="block text_right small">
-        <%= link_to 'see all recent comments', comments_url(:full_page => true) %> &rarr;&nbsp;&nbsp;
-      </div>
-    <% end %>
-    <% if Task.for_user(@this_user).only_once.complete.recent.any? %>
-      <% for task in Task.for_user(@this_user).only_once.complete.recent.three %>
-      <div class="block padding_top">
-        <div class="padding">
-          <div class="section heading small">
-            <div class="padding">
-              <div style="width:35%;" class="row_item text_right">
-                Completed by:
-              </div>
-              <div style="width:65%;" class="row_item line_fixed_width">
-                <div class="overflow_fade">&nbsp;</div>
-                <div style="width: 1000px">
-                  &nbsp;&nbsp;<%= task.user.handle %>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row small_padding_top">
-            <div class="row_item">&nbsp;&nbsp;</div>
-            <div class="row_item completed">
-              <%= link_to task.title %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <% end %>
-      <div class="block text_right small padding_bottom">
-        <%= link_to 'see all recently completed tasks', dashboard_completed_url %> &rarr;&nbsp;&nbsp;
-      </div>
-    <% end %>
+  <%# else %>
+    <div class="block section_margin_top">
+      <h2>High Priority</h2>
+      <p>
+      You don't have any priority tasks.<br/>
+      <%# if @this_user.show_help_text %>
+       <span class="quiet">You can make any task a priority by taping on the star to the left of the check box in any task list.</span>
+       <%# end %>
+      </p>
+    </div> -->
+  <%# end %>
   </div>
 </div>
-<% end %>
-<%# if @priority_tasks.any? %>
-    <!-- <div class="block">
-      <h2>
-      <div class="row_item">
-        Priority Tasks
-      </div>
-      <div class="row_item small">
-        <div class="row_item">&nbsp;&nbsp;</div>
-        <div class="row_item small" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="priority_task_list">(show)</div>
-        <div class="row_item small" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="priority_task_list" style="display:none;">(hide)</div>
-      </div>
-      </h2>
-    </div>
-    <div class="list_container" data-behavior="expander" data-state="expanded" data-id="priority_task_list" style="display:none;">
-    <%# for task in @priority_tasks %>
-      <div id="priority_task_<%# task.id %>" data-role="list_item" data-id="task_<%# task.id %>" class="section">
-      <%# render :partial => '/tasks/show', :locals => {:task => task, :prefix => 'priority'} %>
-      </div>
-    <%# end %>
-    <%# if @total_priority_task_count > 3 %>
-      <div class="text_right">
-        <div class="padding">
-        <%# link_to 'See all', due_date_tasks_url %> &rarr;
-        </div>
-      </div>
-    <%# end %>
-    </div>
-<%# else %>
-  <div class="block section_margin_top">
-    <h2>High Priority</h2>
-    <p>
-    You don't have any priority tasks.<br/>
-    <%# if @this_user.show_help_text %>
-     <span class="quiet">You can make any task a priority by taping on the star to the left of the check box in any task list.</span>
-     <%# end %>
-    </p>
-  </div> -->
-<%# end %>
+  <%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    ajax_params = {
+      type: 'GET',
+      dataType: 'html',
+      data: {pager:'true'},
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        //handle misfire on loading page
+      },
+      success: function(data,textStatus) {
+        new_page = jQuery(data);
+        new_page.appendTo('#main_content').hide();
+      }
+    };
+    pages = ['<%= dashboard_unorganized_url %>','<%= dashboard_completed_url %>'];
+    for(i = 0;i < pages.length;i++){
+      these_params = ajax_params;
+      these_params.url = pages[i];
+      jQuery.ajax(these_params);
+    }
+  });
+  <% end %>

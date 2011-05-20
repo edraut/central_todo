@@ -53,11 +53,7 @@ class ApplicationController < ActionController::Base
   def handle_layout
     @this_layout = true
     if request.xhr?
-      if is_mobile_device?
-        @this_layout = 'application'
-      else
         @this_layout = false
-      end
     end
   end
   

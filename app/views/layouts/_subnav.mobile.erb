@@ -1,0 +1,36 @@
+<div class="sub_nav">
+  <%    if @subnav_tab.class.name == 'Fixnum'
+          case controller_name
+          when 'tasks'
+            this_title = @task.project.title
+            this_link = plan_url(@task.project)
+          when 'projects'
+            if @project.folder_for(@this_user)
+              this_title = @project.folder_for(@this_user).title
+              this_link = folder_url(@project.folder_for(@this_user))
+            elsif @project.user_id != @this_user.id
+              this_title = 'Projects from ' + @project.user.handle
+              this_link = user_url(@project.user_id)
+            end
+          when 'folders'
+            this_title = 'All Folders'
+            this_link = plans_url
+          when 'users'
+            this_title = 'All Contacts'
+            this_link = users_url
+          end
+        else
+          case @nav_tab
+          when 'dashboard'
+            this_title = 'Dashboard Overview'
+            this_target = 'dashboard_overview'
+            this_link = dashboard_url
+          end
+        end
+   %>
+    <div class="full_nav">
+      <div class="border_wrapper last" onclick="void(0)" data-page_back="true" data-page_target="<%= this_target %>">
+        &lang;&nbsp;&nbsp;&nbsp;&nbsp;<%= this_title %>
+      </div>
+    </div>
+</div>

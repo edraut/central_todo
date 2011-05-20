@@ -35,13 +35,14 @@ class DashboardController < ApplicationController
   def completed
     @tasks = Task.for_user(@this_user).only_once.complete.recent.five.all
     @projects = Project.for_user(@this_user).only_once.complete.recent.five.all
+    render @render_type => 'completed'
   end
   
   def unorganized
     @tasks = @this_user.tasks.unarchived.unorganized.recent.paginate(:page => params[:page],:per_page => 25)
     @projects = Project.unorganized_for(@this_user).active.recent.paginate(:page => params[:plan_page],:per_page => 25)
     respond_with(@tasks) do |format|
-      format.mobile { render @render_type => 'unorganized', :layout => @this_layout}
+      format.mobile { render @render_type => 'unorganized'}
       format.html {render @render_type => 'unorganized'}
     end
   end

@@ -1,0 +1,15 @@
+<div id="dashboard_completed_page" class="pager">
+<%= render :partial => '/layouts/subnav' %>
+<div class="page_layout">
+<h2>Recently Completed Tasks</h2>
+<% if @tasks.any? %>
+  <div class="list_container">
+    <% for task in @tasks %>
+      <%= render :partial => '/tasks/show', :locals => {:task => task} %>
+    <% end %>
+  </div>
+<% else %>
+  You don't have any recently completed tasks. Go get some done!
+<% end %>
+</div>
+</div>
