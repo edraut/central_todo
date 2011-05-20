@@ -200,7 +200,7 @@ class ApplicationController < ActionController::Base
         if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions'
           store_location
         end
-        flash[:notice] = "You must be logged in to access this page" 
+        flash[:notice] = "Please log in to view that page." 
         redirect_to sign_in_url 
         return false 
       end
@@ -225,7 +225,7 @@ class ApplicationController < ActionController::Base
         if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions'
           store_location
         end
-        flash[:notice] = "You must be logged out to access this page" 
+        flash[:notice] = "Please log out to access this page" 
         redirect_to root_url 
         return false 
       end 
