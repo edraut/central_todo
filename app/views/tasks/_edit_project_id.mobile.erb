@@ -12,7 +12,7 @@
 		<%= link_to '(cancel)', task_url(@task),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
-			:'data-ajax_success_element' => 'task_project',
+			:'data-ajax_success_element' => "task_project_#{@task.id}",
 			:'data-ajax_data' => "{attribute: 'project_id'}"%>
 		</div>
 	<% end %>

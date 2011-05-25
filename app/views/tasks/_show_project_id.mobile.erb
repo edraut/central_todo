@@ -5,7 +5,7 @@
 		<%= link_to (@task.project ? 'change plan' : 'add to a plan'), edit_task_url(@task, :attribute => 'project_id'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
-			:'data-ajax_success_element' => 'task_project',
+			:'data-ajax_success_element' => "task_project_#{@task.id}",
   		:class => 'small'
 		%>
 </div>

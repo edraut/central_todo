@@ -1,0 +1,44 @@
+<div id="task_page_<%= @task.id %>" class="pager" data-page_link="[data-page_target='task_page_<%= @task.id %>']" data-children_pages="({'<%= comments_task_url(@task) %>':'comments_task_page_<%= @task.id %>'})">
+<%= render :partial => '/layouts/subnav' %>
+<div class="page_layout">
+  <div id="task_title_<%= @task.id %>" class="block padding_bottom">
+  	<%= render :partial => 'show_title' %>
+  </div>
+  <%= render :partial => 'tabs' %>
+  <div class="list_container">
+    <div class="block">&nbsp;</div>
+  <div class="block controls">
+    <div id="task_delete_<%= @task.id %>" class="control right button round color2 " onclick="void(0)" data-button="true" data-button="true"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
+        <div data-button="true" href="<%= convert_task_url(@task) %>" data-confirm="are you sure you want to convert this task to a plan" class="button control left round color2"><div class="button_content">convert to plan</div></div>
+  </div>
+  <div class="section">&nbsp;</div>
+  <div class="section">
+    <div id="task_description_<%= @task.id %>" class="padding">
+    	<%= render :partial => 'show_description' %>
+    </div>
+  </div>
+  <div class="section">
+    <div id="task_due_date_<%= @task.id %>" class="padding">
+    	<%= render :partial => 'show_due_date' %>
+    </div>
+  </div>
+  <% if @task.project and @task.project.sharers.any? %>
+  <div class="section">
+    <div id="task_user_<%= @task.id %>" class="padding">
+    	<%= render :partial => 'show_user_id' %>
+    </div>
+  </div>
+  <% end %>
+  <div class="section">
+    <div id="task_project_<%= @task.id %>" class="padding">
+  	  <%= render :partial => 'show_project_id' %>
+    </div>
+  </div>
+  <div class="section">
+    <div id="task_label_<%= @task.id %>" class="padding">
+    	<%= render :partial => 'show_labels' %>
+    </div>
+  </div>
+  </div>
+</div>
+</div>

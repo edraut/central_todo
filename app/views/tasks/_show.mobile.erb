@@ -13,18 +13,24 @@
 		<% if (controller_name == 'projects' and action_name == 'show') or @app_context == 'project' %>
   		<%= hidden_field_tag 'app_context', 'project' %>
 		<% end %>
+		<% if sortable == true %><div data-drag_handle="true" class="drag_handle row_item last twelve text_right" onclick="void(0)">&equiv;&nbsp;&nbsp;</div>
+	  <% end %>
 		<div class="check_box row_item eightteen">&nbsp;
   		<%= f.check_box :state, {:'data-behavior' => 'auto_submit', :'data-role' => 'none'}, task.archived? ? 'archived' : 'complete', 'active' %>
     </div>
-  	<div class="line_item_height <% if sortable == true %>line_variable_text<% else %>eighty_two<% end %> row_item">
-  		<%= link_to task.title, task_url(task), :class => task.done? ? 'completed' : nil, :rel => 'external', :'data-role' => 'none' %>
+  	<div class="line_item_height <% if sortable == true %>fifty_eight<% else %>seventy<% end %> row_item">
+      <!-- <div onclick="void(0)" data-page_turner="true" data-page_target="task_page_<%= task.id %>" <% if task.done? %>class="completed"<% end %>> -->
+        <%= task.title %>
+      <!-- </div> -->
+  		<%# link_to task.title, task_url(task), :class => task.done? ? 'completed' : nil, :rel => 'external', :'data-role' => 'none' %>
       <% unless controller_name == 'labels' and ['show','edit'].include? action_name %>
       <div class="block labels_inline">
         <% for label in task.labels.for_user(@this_user) %><div class="label <%= label.color %>"><%= label.title %></div><% end %>
       </div>
       <% end %>
 		</div>
-		<% if sortable == true %><div data-drag_handle="true" class="drag_handle row_item last eightteen text_right" onclick="void(0)">&equiv;&nbsp;&nbsp;</div>
-	  <% end %>
+		<div onclick="void(0)" data-page_turner="true" data-page_target="task_page_<%= task.id %>" class="row_item twelve line_item_height" style="display:none;">
+      &rang;
+    </div>
 		
 <% end %>

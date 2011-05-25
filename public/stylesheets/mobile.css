@@ -639,6 +639,9 @@ button.button {
 .thirty {
   width: 30%; }
 
+.fifty_eight {
+  width: 58%; }
+
 .sixty_four {
   width: 64%; }
 
@@ -658,6 +661,7 @@ button.button {
 
 .row_item.line_variable_text {
   width: 64%;
+  margin-top: .8em;
   margin-bottom: .9em; }
 
 .row_item.header_variable_text {

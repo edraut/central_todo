@@ -9,16 +9,18 @@
 	<div class="row">
   	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light "><div class="button_content">save changes</div></div>
     <div class="row_item padding_top_button small">,
-    <%= link_to '(cancel)', comment_url(comment),
-	    :'data-ajax_behavior' => 'ajax_link',
-	    :'data-ajax_method' => 'GET',
-	    :'data-ajax_success_element' => "comment_#{comment.id}" %>
-		or <a href="<%= comment_url(comment) %>"
+    <span href="<%= comment_url(comment) %>"
+      onclick="void(0)"
+	    data-ajax_behavior="ajax_link"
+	    data-ajax_method="GET"
+	    data-ajax_success_element="comment_<%= comment.id %>">(cancel)</span>
+		or <span href="<%= comment_url(comment) %>"
+		  onclick="void(0)"
 			data-ajax_behavior="ajax_link"
 			data-ajax_method="DELETE"
-			data-ajax_success_callback="jQuery('#comment_<%= comment.id %>').remove();"
+			data-ajax_success_callback="jQuery('#comment_<%= comment.id %>').fadeOut(600,function(){jQuery(this).remove();});"
 			data-ajax_data="{_method: 'DELETE'}"
-			data-ajax_confirm="Are you sure you want to delete this comment?">(delete)</a>
+			data-ajax_confirm="Are you sure you want to delete this comment?">(delete)</span>
     </div>
 	</div>
 <% end %>

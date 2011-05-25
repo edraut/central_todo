@@ -2,16 +2,16 @@
 <%= form_for @task, :html => {
 	:'data-ajax_behavior' => 'ajax_form',
 	:'data-ajax_method' => 'PUT',
-	:'data-ajax_success_element' => 'task_title',
-	:'data-ajax_error_element' => 'task_title'
+	:'data-ajax_success_element' => "task_title_#{@task.id}",
+	:'data-ajax_error_element' => "task_title_#{@task.id}"
 } do |f| %>
 	<%= f.text_field :title, :class => 'title' %>
-	<%= hidden_field_tag 'attribute', 'title', :id => 'attribute_title_field' %>
+	<%= hidden_field_tag 'attribute', 'title', :id => "attribute_title_field_#{@task.id}" %>
 	<div class="row_item last padding_top_button small list_action">&nbsp;or
 	<%= link_to '(cancel)', task_url(@task),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'task_title',
+		:'data-ajax_success_element' => "task_title_#{@task.id}",
 		:'data-ajax_data' => "{attribute: 'title'}"%>
 	</div>
 	<button type="submit" class="row_item button round small light list_action">save title</button>

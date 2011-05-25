@@ -1,0 +1,8 @@
+<div id="comments_task_page_<%= @task.id %>" class="pager" data-page_link="[data-page_target='comments_task_page_<%= @task.id %>']" data-children_pages="({'<%= task_url(@task) %>':'task_page_<%= @task.id %>'})">
+  <%= render :partial => '/layouts/subnav' %>
+  <div class="page_layout">
+    <h2><span class="user_title"<% if @task.complete? %> class="completed"<% end %>> <%= truncate_clean(@task.title, :length => 256, :omission => '...', :max_word_length => 20) %></span></h2>
+    <%= render :partial => 'tabs' %>
+    <%= render :partial => '/comments/index', :locals => {:commentable => @task} %>
+  </div>
+</div>

@@ -304,6 +304,16 @@ function popButtons(){
 		}
 	});
 }
+function showTab(control){
+	tab_target = jQuery('#' + control.attr('data-tab_target'));
+	current_page = jQuery('.current_page');
+	current_page_selector = '#'+current_page.attr('id');
+	current_page = jQuery(current_page_selector);
+	current_page.hide();
+	tab_target.show();
+	current_page.removeClass('current_page');
+	tab_target.addClass('current_page');
+}
 function slidePage(direction,control){
 	window_width = jQuery(window).width() + 'px';
 	transition_amount = '100%';
@@ -319,8 +329,6 @@ function slidePage(direction,control){
 	current_page_selector = '#'+current_page.attr('id');
 	current_page = jQuery(current_page_selector);
 	page_target.show();
-	// wrapper = jQuery('<div id="pager_wrapper" class="pager_wrapper page_slide"/>');
-	// page_target.add(current_page_selector).wrapAll(wrapper);
 	jQuery(window).scrollTop(0);
 	if(!jQuery('#pager_wrapper').hasClass('page_slide')){
 		jQuery('#pager_wrapper').addClass('page_slide');
@@ -333,14 +341,48 @@ function slidePage(direction,control){
 			jQuery('#pager_wrapper').removeClass('page_slide').css('-webkit-transform','none');
 			current_page.removeClass('current_page');
 			page_target.addClass('current_page');
+			if(page_target.attr('data-children_pages')){
+				children_pages = eval(page_target.attr('data-children_pages'));
+				loadPages(children_pages);
+			}
 		},2000);
 }
+function loadPages(pages){
+	ajax_params = {
+    type: 'GET',
+    dataType: 'html',
+    data: {pager:'true'},
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      //handle misfire on loading page
+    },
+		success: function(data, message){
+			new_page = jQuery(data);
+			jQuery('#pager_wrapper').append(new_page);
+			new_page.hide();
+			jQuery("[data-page_turner][data-page_target='" + new_page.attr('id') + "']").show();
+			this_url = jQuery('#pager_wrapper').data('loaded_page_ids')[new_page.attr('id')];
+			jQuery('#pager_wrapper').data('loaded_page_urls')[this_url] = new_page.attr('id');
+		}
+  };
+	for(url in pages){
+		if(!jQuery('#pager_wrapper').data('loaded_page_urls')[url]){
+			jQuery('#pager_wrapper').data('loaded_page_ids')[pages[url]] = url;
+	    ajax_params.url = url;
+	    jQuery.ajax(ajax_params);
+		}
+  }
+}
 function bindPagers(){
+	jQuery('#pager_wrapper').data('loaded_page_urls',{});
+	jQuery('#pager_wrapper').data('loaded_page_ids',{});
 	jQuery("[data-page_turner]").live('click',function(e){
 		slidePage('forward',jQuery(this));
 	});
 	jQuery("[data-page_back]").live('click',function(e){
 		slidePage('back',jQuery(this));
+	});
+	jQuery("[data-tab_loader]").live('click',function(e){
+		showTab(jQuery(this));
 	});
 }
 jQuery(document).ready(function(){

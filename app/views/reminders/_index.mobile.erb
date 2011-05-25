@@ -1,5 +1,5 @@
 <% unless remindable.overdue? %>
-<div id="new_reminder_wrapper" class="block" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_reminder_form">
+<div id="new_reminder_wrapper_<%= remindable.class.name %>_<%= remindable.id %>" class="block" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_reminder_form">
   <%= render :partial => '/reminders/new', :locals => {:reminder => Reminder.new(:remindable_id => remindable.id, :remindable_type => remindable.class.name)} %>
 </div>
 <% end %>

@@ -153,7 +153,8 @@ function handleArchivementSuccess(move){
 			.find("input[type='checkbox'][name='task[state]']:checked,a.completed")
 				.parents("[data-role='list_item']")
 					.each(function(i){
-						jQuery(this).remove();})
+						jQuery(this).fadeOut(600,function(){jQuery(this).remove()});
+					});
 	}
 	if(typeof(roundCornders) != 'undefined'){
 		setTimeout(roundCorners,1500);

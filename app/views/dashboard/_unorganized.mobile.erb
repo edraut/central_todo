@@ -1,4 +1,4 @@
-<div id="tasks_page" class="pager" data-page_link="[data-page_target='tasks_page']">
+<div id="tasks_page" class="pager" data-page_link="[data-page_target='tasks_page']" data-children_pages="({<%= @tasks.map{|t| "'#{task_url(t)}':'task_page_#{t.id}'"}.join(',') %>})">
 <%= render :partial => '/layouts/subnav' %>
 <div class="page_layout">
 <% if @tasks.length > 0 %>

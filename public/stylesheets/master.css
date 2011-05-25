@@ -570,7 +570,7 @@ div.expnaded_subnav_indent.selected {
   z-index: 10; }
 
 .left_nav_wrapper .expandable_subnav .nav_tools a:hover {
-  color: #5d5c58; }
+  color: #4d4c48; }
 
 .left_nav_wrapper .expandable_subnav .nav_tools a.delete:hover {
   color: #ef3f10; }
@@ -586,10 +586,14 @@ div.expnaded_subnav_indent.selected {
   top: -0.1em;
   padding-left: 5px; }
 
-.nav_tool_icons {
+.nav_tools .nav_tool_icons {
   position: relative;
   float: left;
   top: 0; }
+  .nav_tools .nav_tool_icons a {
+    color: #6d6c68; }
+  .nav_tools .nav_tool_icons a:hover {
+    color: #adaca8; }
 
 .count {
   position: relative;

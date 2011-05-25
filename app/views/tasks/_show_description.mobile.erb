@@ -6,7 +6,7 @@
   	<%= link_to (@task.description.blank? ? 'add description' : 'edit description'), edit_task_url(@task),
   	 	:'data-ajax_behavior' => 'ajax_link',
   		:'data-ajax_method' => 'GET',
-  		:'data-ajax_success_element' => 'task_description',
+  		:'data-ajax_success_element' => "task_description_#{@task.id}",
   		:'data-ajax_data' => "{'attribute':'description'}",
   		:class => 'small'
   	%>

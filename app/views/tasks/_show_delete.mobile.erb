@@ -1,5 +1,5 @@
 <%= form_for @task, :html => {
-  :id => 'edit_task_delete'
+  :id => "edit_task_delete_#{@task.id}"
 } do |f| %>
 <div data-role="delete" data-confirm="Are you sure you want to delete this task?" class="otimes_icon row_item">&otimes;</div>
 <div class="row_item">&nbsp;delete task</div>

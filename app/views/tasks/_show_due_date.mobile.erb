@@ -6,7 +6,7 @@
 	<%= link_to (@task.due_date.blank? ? 'add due date' : 'edit due_date'), edit_task_url(@task, :attribute => 'due_date'),
 	 	:'data-ajax_behavior' => 'ajax_link',
 		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'task_due_date',
+		:'data-ajax_success_element' => "task_due_date_#{@task}",
 		:class => 'small'
 	%>
 </div>

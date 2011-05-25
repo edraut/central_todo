@@ -823,7 +823,7 @@ div.expnaded_subnav_indent.selected {
 	z-index: 10;
 }
 .left_nav_wrapper .expandable_subnav .nav_tools a:hover {
-	color: $gray9;
+	color: $gray10;
 }
 .left_nav_wrapper .expandable_subnav .nav_tools a.delete:hover {
 	color: $carmine;
@@ -840,10 +840,12 @@ div.expnaded_subnav_indent.selected {
 	top: -.1em;
 	padding-left: 5px;
 }
-.nav_tool_icons {
+.nav_tools .nav_tool_icons {
 	position: relative;
 	float: left;
 	top: 0;
+	a { color: $gray8; }
+	a:hover { color: $gray5; }
 }
 .count {
 	position: relative;

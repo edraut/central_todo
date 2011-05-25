@@ -22,9 +22,15 @@
         else
           case @nav_tab
           when 'dashboard'
-            this_title = 'Dashboard Overview'
-            this_target = 'dashboard_overview'
-            this_link = dashboard_url
+            case @subnav_tab
+            when 'unorganized'
+              this_title = 'All Unorganized Tasks'
+              this_target = 'tasks_page'
+            else
+              this_title = 'Dashboard Overview'
+              this_target = 'dashboard_overview'
+              this_link = dashboard_url
+            end
           end
         end
    %>

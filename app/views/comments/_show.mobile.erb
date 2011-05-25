@@ -7,11 +7,11 @@
     <div class="block">
       <% if editable and comment.user_id == @this_user.id %>
       <div class="row_item">
-        <%= link_to '(edit)', edit_comment_url(comment),
-          :'data-ajax_behavior' => 'ajax_link',
-          :'data-ajax_method' => 'GET',
-          :'data-ajax_success_element' => "comment_#{comment.id}",
-          :class => 'small' %>
+        <div onclick="void(0)" href="<%= edit_comment_url(comment) %>"
+          data-ajax_behavior="ajax_link"
+          data-ajax_method="GET"
+          data-ajax_success_element="comment_<%= comment.id %>"
+          class="small">(edit)</div>
       </div>
       <% end %>
       <div class="row_item right small">

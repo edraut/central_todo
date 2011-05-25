@@ -71,9 +71,9 @@ class TasksController < ApplicationController
 
   def show
     @date_picker = true
-    if params[:full_view]
+    if params[:pager]
       respond_with(@task) do |format|
-        format.html {render :partial => 'full_view' and return}
+        format.mobile {render :partial => 'show_full' and return}
       end
       return
     end
@@ -82,11 +82,18 @@ class TasksController < ApplicationController
     end
     return if handle_attribute_partials('show')
     @html_page_title = @page_title = 'Task'
-    respond_with(@task)
+    respond_with(@task) do |format|
+      format.mobile { render @render_type => 'show'}
+      format.html {render @render_type => 'show'}
+    end
   end
   
   def comments
     @comments = @task.comments.by_date
+    respond_with(@comments) do |format|
+      format.mobile { render @render_type => 'comments'}
+      format.html {render @render_type => 'comments'}
+    end
   end
   
   def edit
