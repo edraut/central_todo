@@ -52,6 +52,8 @@ CentralTodo::Application.routes.draw do
       get 'due_date'
       get 'archive_completed'
       get 'archived_unorganized'
+      get 'multiple'
+      get 'multiple_comments'
     end
     member do
       get 'convert'

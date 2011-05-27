@@ -1,4 +1,8 @@
-<div id="task_page_<%= @task.id %>" class="pager" data-page_link="[data-page_target='task_page_<%= @task.id %>']" data-children_pages="({'<%= comments_task_url(@task) %>':'comments_task_page_<%= @task.id %>'})">
+<% if @tasks and @tasks.class.name == 'Array' %>
+<div id="multiple_tasks_page_<%= @tasks.map{|t| t.id}.join('_')%>" data-children_pages="({'<%= multiple_comments_tasks_url(:ids => @tasks.map{|t| t.id}.join(',')) %>':'multiple_comments_tasks_page_<%=  @tasks.map{|t| t.id}.join('_') %>'})">
+<% end %>
+<% for @task in @tasks %>
+<div id="task_page_<%= @task.id %>" class="pager" data-children_pages="({'<%= comments_task_url(@task) %>':'comments_task_page_<%= @task.id %>'})">
 <%= render :partial => '/layouts/subnav' %>
 <div class="page_layout">
   <div id="task_title_<%= @task.id %>" class="block padding_bottom">
@@ -42,3 +46,7 @@
   </div>
 </div>
 </div>
+<% end %>
+<% if @tasks and @tasks.class.name == 'Array' %>
+</div>
+<% end %>

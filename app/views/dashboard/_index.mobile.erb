@@ -40,15 +40,16 @@
     </div>
     </div></div>
     <div class="list_container">
-  	<% for task in @this_user.tasks.active.unorganized.recent.three %>
+    <% @tasks = @this_user.tasks.active.unorganized.recent.three %>
+  	<% for task in @tasks %>
   		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
-  		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized'} %>
+  		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized', :pager_target => "multiple_tasks_page_#{@tasks.map{|t| t.id}.join('_')}"} %>
   		</div>
   	<% end %>
   	<% if @this_user.tasks.active.unorganized.count > 3 %>
       <div class="text_right">
         <div class="padding small">
-          <div onclick="void(0)" data-page_turner="true" data-page_target="tasks_page" style="display:none;">
+          <div onclick="void(0)" data-page_turner="true" data-page_target="tasks_page" style="visibility:hidden;">
             see all unorganized tasks &rarr;
           </div>
         </div>
@@ -95,7 +96,7 @@
         </div>
         <% end %>
         <div class="block text_right small padding">
-          <div onclick="void(0)" data-page_turner="true" data-page_target="recent_comments_page">
+          <div onclick="void(0)" data-page_turner="true" data-page_target="recent_comments_page" style="visibility:hidden;">
             go to recent comments &rarr;&nbsp;&nbsp;
           </div>
         </div>
@@ -127,7 +128,7 @@
         </div>
         <% end %>
         <div class="block text_right small padding">
-          <div onclick="void(0)" data-page_turner="true" data-page_target="dashboard_completed_page">
+          <div onclick="void(0)" data-page_turner="true" data-page_target="dashboard_completed_page" style="visibility:hidden;">
             go to recently completed tasks &rarr;
           </div>
         </div>
@@ -144,6 +145,7 @@
     pages['<%= dashboard_unorganized_url %>'] = 'tasks_page';
     pages['<%= dashboard_completed_url %>'] = 'dashboard_completed_page';
     pages['<%= recent_comments_url %>'] = 'recent_comments_page';
+    pages['<%= multiple_tasks_url(:ids => @tasks.map{|t| t.id}.join(',')) %>'] = 'multiple_tasks_page_<%= @tasks.map{|t| t.id}.join('_') %>';
     loadPages(pages);
   }
   jQuery(document).ready(function(){

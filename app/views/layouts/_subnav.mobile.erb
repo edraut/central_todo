@@ -2,8 +2,14 @@
   <%    if @subnav_tab.class.name == 'Fixnum'
           case controller_name
           when 'tasks'
-            this_title = @task.project.title
-            this_link = plan_url(@task.project)
+            if @task.project
+              this_title = @task.project.title
+              this_target = "project_page_#{@task.project_id}"
+              this_link = plan_url(@task.project)
+            else
+              this_title = 'All Unorganized Tasks'
+              this_target = 'tasks_page'
+            end
           when 'projects'
             if @project.folder_for(@this_user)
               this_title = @project.folder_for(@this_user).title
@@ -19,7 +25,7 @@
             this_title = 'All Contacts'
             this_link = users_url
           end
-        else
+        elsif @nav_tab
           case @nav_tab
           when 'dashboard'
             case @subnav_tab
@@ -30,6 +36,17 @@
               this_title = 'Dashboard Overview'
               this_target = 'dashboard_overview'
               this_link = dashboard_url
+            end
+          end
+        else
+          if controller_name == 'tasks' and action_name == 'multiple'
+            if @task.project
+              this_title = @task.project.title
+              this_target = "project_page_#{@task.project_id}"
+              this_link = plan_url(@task.project)
+            else
+              this_title = 'All Unorganized Tasks'
+              this_target = 'tasks_page'
             end
           end
         end

@@ -1,8 +1,8 @@
 <div class="borderless section">
-  <div class="third_section<% if ['show','update'].include? action_name %> selected<% end %>" data-tab_loader="true" data-tab_target="task_page_<%= @task.id %>">info
+  <div class="third_section<% if ['show','update','multiple'].include? action_name %> selected<% end %>" data-tab_switcher="true" data-tab_target="task_page_<%= @task.id %>">info
     <div class="shadow_hide">&nbsp;</div>
   </div>
-  <div class="third_section<% if action_name == 'comments' %> selected<% end %>" data-tab_loader="true" data-tab_target="comments_task_page_<%= @task.id %>">comments
+  <div class="third_section<% if action_name == 'comments' %> selected<% end %>" data-tab_switcher="true" data-tab_target="comments_task_page_<%= @task.id %>" style="visibility:hidden;">comments
     <div class="shadow_hide">&nbsp;</div>
   </div>
 </div>

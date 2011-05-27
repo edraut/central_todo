@@ -9,9 +9,11 @@
   	  <%= f.label :password %><br />
   	  <%= f.password_field :password %><br />
   	  <br />
-	  	<button type="submit" class="button round small light ">Login</button>
+	  	<div onclick="void" data-button="true" data-submit="true" class="row_item button round small light "><div class="button_content">Login</div></div>
   	<% end %>
-  	<br />
-  	<%= link_to 'Forget your password?', forgot_password_user_url('none') %>
+  	<br />&nbsp;<br/>
+  	<div class="row">
+    	<%= link_to 'Forget your password?', forgot_password_user_url('none') %>
+  	</div>
     </div>
   </div>

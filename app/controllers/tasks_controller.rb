@@ -25,6 +25,20 @@ class TasksController < ApplicationController
     end
   end
   
+  def multiple
+    @tasks = Task.recent.find(params[:ids].split(',').map{|id| id.to_i})
+    respond_with(@tasks) do |format|
+      format.mobile {render :partial => 'show_full' and return}
+    end
+  end
+  
+  def multiple_comments
+    @tasks = Task.recent.find(params[:ids].split(',').map{|id| id.to_i})
+    respond_with(@tasks) do |format|
+      format.mobile {render :partial => 'multiple_comments' and return}
+    end
+  end
+  
   def create
     project_id = params[:task][:project_id]
     @project = Project.find(project_id.to_i) if project_id
@@ -71,27 +85,20 @@ class TasksController < ApplicationController
 
   def show
     @date_picker = true
-    if params[:pager]
-      respond_with(@task) do |format|
-        format.mobile {render :partial => 'show_full' and return}
-      end
-      return
-    end
     if params[:attribute]
       @item = @task
     end
     return if handle_attribute_partials('show')
     @html_page_title = @page_title = 'Task'
     respond_with(@task) do |format|
-      format.mobile { render @render_type => 'show'}
+      format.mobile { render @render_type => 'show', :locals => {:task => @task}}
       format.html {render @render_type => 'show'}
     end
   end
   
   def comments
-    @comments = @task.comments.by_date
-    respond_with(@comments) do |format|
-      format.mobile { render @render_type => 'comments'}
+    respond_with(@task) do |format|
+      format.mobile { render @render_type => 'comments', :locals => {:task => @task}}
       format.html {render @render_type => 'comments'}
     end
   end
@@ -173,6 +180,9 @@ class TasksController < ApplicationController
   
   def get_task
     @task = Task.find(params[:id])
+    if @task.class.name == 'Array'
+      @tasks = @task
+    end
     @project = @task.project
     if(@project)
       @folder = @project.folder_for(@this_user)

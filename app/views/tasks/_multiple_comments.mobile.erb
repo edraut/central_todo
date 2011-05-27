@@ -1,0 +1,9 @@
+<% if @tasks and @tasks.class.name == 'Array' %>
+<div id="multiple_comments_tasks_page_<%= @tasks.map{|t| t.id}.join('_')%>"  data-children_pages="({'<%= multiple_tasks_url(:ids => @tasks.map{|t| t.id}.join(',')) %>':'multiple_tasks_page_<%=  @tasks.map{|t| t.id}.join('_') %>'})">
+<% end %>
+<% for task in @tasks %>
+  <%= render :partial => 'comments', :locals => {:task => task} %>
+<% end %>
+<% if @tasks and @tasks.class.name == 'Array' %>
+</div>
+<% end %>

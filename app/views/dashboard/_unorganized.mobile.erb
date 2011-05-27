@@ -1,4 +1,5 @@
-<div id="tasks_page" class="pager" data-page_link="[data-page_target='tasks_page']" data-children_pages="({<%= @tasks.map{|t| "'#{task_url(t)}':'task_page_#{t.id}'"}.join(',') %>})">
+<% @new_tasks = @tasks - @this_user.tasks.active.unorganized.recent.three %>
+<div id="tasks_page" class="pager" data-page_link="[data-page_target='tasks_page']" data-children_pages="({<%= "'#{multiple_tasks_url(:ids => @new_tasks.map{|t| t.id}.join(','))}':'multiple_tasks_page_#{@new_tasks.map{|t| t.id}.join('_')}'" %>})">
 <%= render :partial => '/layouts/subnav' %>
 <div class="page_layout">
 <% if @tasks.length > 0 %>
@@ -12,7 +13,7 @@
   <div id="unarchived_items_wrapper">
   	<% for task in @tasks %>
   		<div id="task_<%= task.id %>" class="row border_bottom">
-  		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true} %>
+  		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :pager_target => "multiple_tasks_page_#{@tasks.map{|t| t.id}.join('_')}"} %>
   		</div>
   	<% end %>
   </div>
