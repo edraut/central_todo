@@ -58,6 +58,7 @@ CentralTodo::Application.routes.draw do
     member do
       get 'convert'
       get 'comments'
+      get 'show_full'
     end
   end
   resources :comments do

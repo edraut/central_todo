@@ -1,5 +1,8 @@
-<div id="pager_wrapper" class="pager_wrapper page_slide">
-  <div id="dashboard_overview" class="pager current_page">
+<%  if @this_user.tasks.active.unorganized.any?
+      @tasks = @this_user.tasks.active.unorganized.recent.three
+    end
+%>
+  <div id="dashboard_overview" class="pager" data-children_pages="({'<%= dashboard_completed_url %>':'dashboard_completed_page','<%= recent_comments_url %>':'recent_comments_page'<% if @this_user.tasks.active.unorganized.any? %>,'<%= dashboard_unorganized_url %>':'tasks_page','<%= multiple_tasks_url(:ids => @tasks.map{|t| t.id}.join(',')) %>':'multiple_tasks_page_<%= @tasks.map{|t| t.id}.join('_') %>'<% end %>})">
   <div class="page_layout">
   <div data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
     <h2>Add Tasks</h2>
@@ -40,7 +43,6 @@
     </div>
     </div></div>
     <div class="list_container">
-    <% @tasks = @this_user.tasks.active.unorganized.recent.three %>
   	<% for task in @tasks %>
   		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
   		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized', :pager_target => "multiple_tasks_page_#{@tasks.map{|t| t.id}.join('_')}"} %>
@@ -138,19 +140,3 @@
   <% end %>
   </div>
 </div>
-</div>
-  <%= javascript_tag do %>
-  function loadDashPages(){
-    pages = {};
-    pages['<%= dashboard_completed_url %>'] = 'dashboard_completed_page';
-    pages['<%= recent_comments_url %>'] = 'recent_comments_page';
-    <% if @this_user.tasks.active.unorganized.any? %>
-      pages['<%= dashboard_unorganized_url %>'] = 'tasks_page';
-      pages['<%= multiple_tasks_url(:ids => @tasks.map{|t| t.id}.join(',')) %>'] = 'multiple_tasks_page_<%= @tasks.map{|t| t.id}.join('_') %>';
-    <% end %>
-    loadPages(pages);
-  }
-  jQuery(document).ready(function(){
-    loadDashPages();
-  });
-  <% end %>

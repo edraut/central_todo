@@ -146,7 +146,10 @@ div#testone.testone {
       border-bottom: none;
       text-align: center;
       padding: .5em 0;
-      line-height: 1.75em; }
+      line-height: 1.75em;
+      color: #fdfcf8;
+      font-weight: bold;
+      text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.7); }
       .main_nav .quarter_nav .border_wrapper.button a {
         color: #fdfcf8;
         font-weight: bold;

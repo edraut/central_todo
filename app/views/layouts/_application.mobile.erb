@@ -12,8 +12,8 @@
 	</div>
     <% if @this_user %>
     <div data-role="navbar" class="main_nav">
-      <div class="quarter_nav" onclick="void(0)" data-button="true"><div class="border_wrapper button <% if @nav_tab == 'dashboard' %> dark<% else %> medium <% end %>">
-  				<%= link_to 'Dashboard', dashboard_url %>
+      <div class="quarter_nav"><div onclick="void(0)" data-button="true" onclick="void(0)" href="<%= dashboard_url %>" class="border_wrapper button <% if @nav_tab == 'dashboard' %> dark<% else %> medium <% end %>">
+  				Dashboard
   		</div></div>
   		<div class="quarter_nav" onclick="void(0)" data-button="true"><div class="border_wrapper button <% if @nav_tab == 'plans' %> dark<% else %> medium<% end %>">
   				<%= link_to 'Plans', plans_url %>

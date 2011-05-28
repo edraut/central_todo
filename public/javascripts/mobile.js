@@ -309,12 +309,15 @@ function showTab(control){
 	current_page = jQuery('.current_page');
 	current_page_selector = '#'+current_page.attr('id');
 	current_page = jQuery(current_page_selector);
+	tab_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").hide();
 	current_page.hide();
 	tab_target.show();
 	current_page.removeClass('current_page');
 	tab_target.addClass('current_page');
+	tab_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").show();
 }
-function slidePage(direction,control){
+function slidePage(direction,page_target_id){
+	alert(page_target_id);
 	window_width = jQuery(window).width() + 'px';
 	transition_amount = '100%';
 	if(direction == 'back'){
@@ -323,7 +326,7 @@ function slidePage(direction,control){
 	if(direction == 'forward'){
 		transition_amount = '-' + transition_amount;
 	}
-	page_target = jQuery('#'+control.attr('data-page_target'));
+	page_target = jQuery('#'+page_target_id);
 	page_target.css('left',window_width);
 	current_page = jQuery('.current_page');
 	current_page_selector = '#'+current_page.attr('id');
@@ -334,11 +337,12 @@ function slidePage(direction,control){
 	if(!jQuery('#pager_wrapper').hasClass('page_slide')){
 		jQuery('#pager_wrapper').addClass('page_slide');
 	}
+	window.history.pushState(page_target_id, null, jQuery('#pager_wrapper').data('loaded_page_ids')[page_target.attr('id')].replace(/http(s)?:\/\/[^\/]+/,''));
+	page_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").hide();
 	setTimeout("jQuery('#pager_wrapper').css('-webkit-transform','translate3d(" + transition_amount + ",0,0)');",60);
 	setTimeout(function(){
 			current_page.hide();
 			page_target.css('left',0);
-			// page_target.add(current_page_selector).unwrap();
 			jQuery('#pager_wrapper').removeClass('page_slide').css('-webkit-transform','none');
 			current_page.removeClass('current_page');
 			page_target.addClass('current_page');
@@ -346,6 +350,7 @@ function slidePage(direction,control){
 				children_pages = eval(page_target.attr('data-children_pages'));
 				loadPages(children_pages);
 			}
+			page_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").show();
 		},2000);
 }
 function loadPages(pages){
@@ -362,6 +367,10 @@ function loadPages(pages){
 			new_page.hide();
 			if(new_page.children().hasClass('pager')){
 				new_page.children().hide();
+				new_page.children().each(function(){
+					jQuery('#pager_wrapper').data('loaded_page_ids')[jQuery(this).attr('id')] = jQuery(this).data('direct_url');
+					jQuery('#pager_wrapper').data('loaded_page_urls')[jQuery(this).data('direct_url')] = jQuery(this).attr('id');
+				})
 			}
 			if(jQuery("[data-page_turner][data-page_loader='" + new_page.attr('id') + "']").length > 0){
 				jQuery("[data-page_turner][data-page_loader='" + new_page.attr('id') + "']").css('visibility','visible');
@@ -385,10 +394,10 @@ function bindPagers(){
 	jQuery('#pager_wrapper').data('loaded_page_urls',{});
 	jQuery('#pager_wrapper').data('loaded_page_ids',{});
 	jQuery("[data-page_turner]").live('click',function(e){
-		slidePage('forward',jQuery(this));
+		slidePage('forward',jQuery(this).data('page_target'));
 	});
 	jQuery("[data-page_back]").live('click',function(e){
-		slidePage('back',jQuery(this));
+		slidePage('back',jQuery(this).data('page_target'));
 	});
 	jQuery("[data-tab_switcher]").live('click',function(e){
 		showTab(jQuery(this));
@@ -403,6 +412,10 @@ jQuery(document).ready(function(){
 	bindPagers();
 	jQuery(document).live('touchstart',clearSorts);
 	jQuery("[data-drag_handle]").live('touchstart',handleSortBegin);
+	window.onpopstate = function(e){
+		alert("location: " + document.location + ", state: " + JSON.stringify(event.data));
+	  // slidePage()
+	}
 });
 jQuery(window).load(function(){
 	setTimeout(handleHalfSections,100);

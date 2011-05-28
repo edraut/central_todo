@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :require_user
-  before_filter :get_task, :only => [:show,:comments,:edit,:update,:destroy,:convert]
+  before_filter :get_task, :only => [:show,:comments,:edit,:update,:destroy,:convert,:show_full]
   before_filter :set_nav_tab
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
   respond_to :html, :mobile
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
   def multiple
     @tasks = Task.recent.find(params[:ids].split(',').map{|id| id.to_i})
     respond_with(@tasks) do |format|
-      format.mobile {render :partial => 'show_full' and return}
+      format.mobile {render :partial => 'show_multiple' and return}
     end
   end
   
@@ -93,6 +93,12 @@ class TasksController < ApplicationController
     respond_with(@task) do |format|
       format.mobile { render @render_type => 'show', :locals => {:task => @task}}
       format.html {render @render_type => 'show'}
+    end
+  end
+  
+  def show_full
+    respond_with(@task) do |format|
+      format.mobile { render @render_type => 'show_full', :locals => {:task => @task}}
     end
   end
   

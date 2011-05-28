@@ -1,1 +1,11 @@
+<% @new_tasks = @tasks %>
+<div id="pager_wrapper" class="pager_wrapper page_slide">
 <%= render :partial => 'unorganized' %>
+</div>
+<%= javascript_tag do %>
+jQuery(document).ready(function(){
+	children_pages = eval(jQuery('#tasks_page').attr('data-children_pages'));
+	loadPages(children_pages);
+	jQuery('#tasks_page').addClass('current_page');
+});
+<% end %>
