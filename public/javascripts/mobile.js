@@ -309,12 +309,12 @@ function showTab(control){
 	current_page = jQuery('.current_page');
 	current_page_selector = '#'+current_page.attr('id');
 	current_page = jQuery(current_page_selector);
-	tab_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").hide();
+	tab_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").css('visibility','hidden');
 	current_page.hide();
 	tab_target.show();
 	current_page.removeClass('current_page');
 	tab_target.addClass('current_page');
-	tab_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").show();
+	tab_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").css('visibility','visible');
 }
 function slidePage(direction,page_target_id){
 	window_width = jQuery(window).width() + 'px';
@@ -337,7 +337,7 @@ function slidePage(direction,page_target_id){
 		jQuery('#pager_wrapper').addClass('page_slide');
 	}
 	window.history.pushState(page_target_id, null, jQuery('#pager_wrapper').data('loaded_page_ids')[page_target.attr('id')].replace(/http(s)?:\/\/[^\/]+/,''));
-	page_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").hide();
+	page_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").css('visibility','hidden');
 	setTimeout("jQuery('#pager_wrapper').css('-webkit-transform','translate3d(" + transition_amount + ",0,0)');",60);
 	setTimeout(function(){
 			current_page.hide();
@@ -349,7 +349,7 @@ function slidePage(direction,page_target_id){
 				children_pages = eval(page_target.attr('data-children_pages'));
 				loadPages(children_pages);
 			}
-			page_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").show();
+			page_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").css('visibility','visible');
 		},2000);
 }
 function loadPages(pages){
