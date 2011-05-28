@@ -317,7 +317,6 @@ function showTab(control){
 	tab_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").show();
 }
 function slidePage(direction,page_target_id){
-	alert(page_target_id);
 	window_width = jQuery(window).width() + 'px';
 	transition_amount = '100%';
 	if(direction == 'back'){
