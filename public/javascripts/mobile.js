@@ -381,7 +381,7 @@ function loadPages(pages){
 		}
   }
 }
-function bindPlageSlides(){
+function bindPageSlides(){
 	jQuery('.page_slide').live(
 		     'webkitTransitionEnd', 
 		     function( event ) { 
