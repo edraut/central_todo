@@ -52,7 +52,7 @@ $compact-line-height-minus-two: 18px;
 $indent-width: 28px;
 $nav-indent-width: 15px;
 @mixin small-shadow {
-	-webkit-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
+	-webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, .2);
 	-moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
 	box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
 }
@@ -384,7 +384,7 @@ select.with_text_field{
 		border-bottom-right-radius: 25px;
 		font-family: CoolveticaRg-Regular;
 		font-size: 44px;
-		text-shadow: 2px 2px 1px rgba(0,0,0,.5);
+		text-shadow: 1px 2px 5px rgba(0,0,0,.4);
 		color: $yellow;
 		@include carmine-gradient;
 		text-align: center;
@@ -414,7 +414,7 @@ select.with_text_field{
 	border-bottom-right-radius: 28px;
 	border: 5px solid $yellow;
 	background-color: $yellow;
-	@include large-shadow;
+	@include small-shadow;
   -moz-transform:    skewX(350deg);
   -o-transform:      skewX(350deg);
   -webkit-transform: skewX(350deg);
