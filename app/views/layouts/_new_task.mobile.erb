@@ -8,3 +8,10 @@
 </div>
 <% end %>
 <%= render :partial => '/layouts/line_item_javascript' %>
+<%= javascript_tag do %>
+jQuery(document).ready(function(){
+	children_pages = {'<%= show_full_task_url(task) %>':'task_page_<%= task.id %>'};
+	loadPages(children_pages);
+	jQuery('#dashboard_overview').addClass('current_page');
+});
+<% end %>

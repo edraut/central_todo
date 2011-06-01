@@ -1,0 +1,8 @@
+<div id="comments_project_page_<%= project.id %>" class="pager" data-children_pages="({'<%= plan_url(project) %>':'project_page_<%= project.id %>','<%= edit_plan_url(project) %>':'info_project_page_<%= project.id %>'})">
+  <%= render :partial => '/layouts/subnav' %>
+  <div class="page_layout">
+    <h2><span class="user_title"<% if project.all_complete? %> class="completed"<% end %>> <%= truncate_clean(project.title, :length => 256, :omission => '...', :max_word_length => 20) %></span></h2>
+    <%= render :partial => 'tabs' %>
+    <%= render :partial => '/comments/index', :locals => {:commentable => project} %>
+  </div>
+</div>

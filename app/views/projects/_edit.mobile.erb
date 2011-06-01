@@ -1,0 +1,43 @@
+<div id="info_project_page_<%= project.id %>" class="pager" data-children_pages="({'<%= plan_url(project) %>':'project_page_<%= project.id %>','<%= comments_plan_url(project) %>':'comments_project_page_<%= project.id %>'})">
+  <%= render :partial => '/layouts/subnav' %>
+  <div class="page_layout">
+    <div id="project_title" class="borderless section padding_bottom">
+    	<%= render :partial => 'show_title' %>
+    </div>
+    <%= render :partial => 'tabs' %>
+    <div class="list_container">
+      <div class="block">&nbsp;</div>
+    <div class="section controls">
+      <div id="project_done" class="control left button round color2 " onclick="void(0)" data-behavior="check_box_proxy" data-check_box="project_state_checkbox" data-button="true">
+        <div class="button_content">
+          <%= render :partial => 'show_templatize', :locals => {:project => @project} %>
+        </div>
+      </div>
+      <div id="project_delete" class="control right button round color2 " onclick="void(0)" data-button="true" data-button="true">
+        <div class="button_content">
+          <%= render :partial => 'show_delete', :locals => {:project => @project} %>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div id="project_description" class="padding">
+      	<%= render :partial => @project.description.blank? ? 'edit_description' : 'show_description' %>
+      </div>
+    </div>
+    <div class="section">
+      <div id="project_due_date" class="padding">
+      	<%= render :partial => @project.due_date.blank? ? 'edit_due_date' : 'show_due_date' %>
+      </div>
+    </div>
+    <div class="section">
+      <div id="project_folder_id" class="padding">
+      	<%= render :partial => @project.folder_for(@this_user) ? 'show_folder_id' : 'edit_folder_id' %>
+      </div>
+    </div>
+    <div class="section">
+      <div id="project_sharing" class="padding">
+      	<%= render :partial => @project.shared? ? 'show_sharing' : 'edit_sharing' %>
+      </div>
+    </div>
+    </div></div>
+</div>

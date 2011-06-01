@@ -80,7 +80,7 @@ class ApplicationController < ActionController::Base
       @subnav_tab = @page.name
     when 'tasks'
       case action_name
-      when 'show','comments','update'
+      when 'show','comments','update','show_full'
         if @task.project
           @nav_tab = 'plans'
           this_folder = @task.project.folder_for(@this_user)

@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
-  before_filter :get_project, :only => [:show,:edit,:comments,:update,:destroy,:archive_completed_tasks,:sort_tasks,:templatize]
+  before_filter :get_project, :only => [:show,:edit,:comments,:update,:destroy,:archive_completed_tasks,:sort_tasks,:templatize,:show_full]
   before_filter :set_nav_tab
   
   respond_to :html, :mobile
@@ -10,7 +10,8 @@ class ProjectsController < ApplicationController
     @folders = @this_user.folders.ordered.includes(:projects)
     @sortable = true
     respond_with(@projects) do |format|
-      format.any {render :action => 'index' and return}
+      format.mobile { render @render_type => 'index'}
+      format.html {render :action => 'index' and return}
     end
   end
   
@@ -21,6 +22,13 @@ class ProjectsController < ApplicationController
   def shared
     @friends_projects = @this_user.shared_projects.active.by_create_date.paginate(:page => params[:friends_page],:per_page => 50)
     @shared_projects = @this_user.projects.shared.active.ordered.paginate(:page => params[:shared_page],:per_page => 50)
+  end
+  
+  def multiple
+    @projects = Project.ordered.find(params[:ids].split(',').map{|id| id.to_i})
+    respond_with(@projects) do |format|
+      format.mobile {render :partial => 'show_multiple' and return}
+    end
   end
   
   def sort
@@ -84,16 +92,39 @@ class ProjectsController < ApplicationController
     @html_page_title = @page_title = 'Plan'
     @sortable = true
     get_archived_tasks
+    respond_with(@project) do |format|
+      format.mobile { render @render_type => 'show'}
+      format.html {render :action => 'show' and return}
+    end
   end
   
+  def show_full
+    if @render_type == :partial
+      respond_with(@project) do |format|
+        format.any {render @render_type => 'show_full' and return}
+      end
+    else
+      respond_with(@project) do |format|
+        format.any {render @render_type => 'show' and return}
+      end
+    end
+  end
+
   def edit
     @item = @project
     @date_picker = true
     return if handle_attribute_partials('edit')
+    respond_with(@project) do |format|
+      format.mobile { render @render_type => 'edit', :locals => {:project => @project}}
+      format.html {render @render_type => 'edit'}
+    end
   end
   
   def comments
-    @comments = @project.comments.by_date
+    respond_with(@project) do |format|
+      format.mobile { render @render_type => 'comments', :locals => {:project => @project}}
+      format.html {render @render_type => 'comments'}
+    end
   end
   
   def update

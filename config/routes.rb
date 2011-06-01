@@ -29,6 +29,7 @@ CentralTodo::Application.routes.draw do
       get 'sort'
       get 'archived'
       get 'shared'
+      get 'multiple'
       get 'archive_completed'
     end
     member do
@@ -36,6 +37,7 @@ CentralTodo::Application.routes.draw do
       get 'sort_tasks'
       get 'comments'
       get 'templatize'
+      get 'show_full'
     end
   end
   resources :project_sharers
@@ -70,9 +72,11 @@ CentralTodo::Application.routes.draw do
   resources :folders do
     collection do
       get 'sort'
+      get 'multiple'
     end
     member do
       get 'sort_plans'
+      get 'show_full'
     end
   end
   resources :plan_templates

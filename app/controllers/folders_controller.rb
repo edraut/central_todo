@@ -1,9 +1,16 @@
 class FoldersController < ApplicationController
   before_filter :require_user
-  before_filter :get_folder, :only => [:show,:edit,:update,:destroy,:sort_plans]
+  before_filter :get_folder, :only => [:show,:edit,:update,:destroy,:sort_plans,:show_full]
   before_filter :set_nav_tab
   
   respond_to :html, :mobile
+  
+  def multiple
+    @folders = Folder.ordered.find(params[:ids].split(',').map{|id| id.to_i})
+    respond_with(@folders) do |format|
+      format.mobile {render :partial => 'show_multiple' and return}
+    end
+  end
   
   def sort
     @folders = Folder.find(params[:folder].map{|p| p.to_i})
@@ -94,6 +101,21 @@ class FoldersController < ApplicationController
   def show
     @item = @folder
     return if handle_attribute_partials('show')
+    respond_with(@folder) do |format|
+      format.any {render @render_type => 'show' and return}
+    end
+  end
+
+  def show_full
+    if @render_type == :partial
+      respond_with(@folder) do |format|
+        format.any {render @render_type => 'show_full' and return}
+      end
+    else
+      respond_with(@folder) do |format|
+        format.any {render @render_type => 'show' and return}
+      end
+    end
   end
   
   def edit

@@ -1,4 +1,4 @@
-<div id="task_page_<%= @task.id %>" class="pager" data-children_pages="({'<%= comments_task_url(@task) %>':'comments_task_page_<%= @task.id %>',<% if @task.project %>'<%= plan_url(@task.project_id) %>':'project_page_<%= @task.project_id %>'<% else %>'<%= dashboard_unorganized_url %>':'tasks_page'<% end %>})" data-direct_url="<%= task_path(@task) %>">
+<div id="task_page_<%= @task.id %>" class="pager" data-children_pages="({'<%= comments_task_url(@task) %>':'comments_task_page_<%= @task.id %>',<% if @task.project %>'<%= show_full_plan_url(@task.project_id) %>':'project_page_<%= @task.project_id %>'<% else %>'<%= dashboard_unorganized_url %>':'tasks_page'<% end %>})" data-direct_url="<%= task_path(@task) %>">
 <%= render :partial => '/layouts/subnav' %>
 <div class="page_layout">
   <div id="task_title_<%= @task.id %>" class="block padding_bottom">
@@ -8,7 +8,7 @@
   <div class="list_container">
     <div class="block">&nbsp;</div>
   <div class="block controls">
-    <div id="task_delete_<%= @task.id %>" class="control right button round color2 " onclick="void(0)" data-button="true" data-button="true"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
+    <div id="task_delete_<%= @task.id %>" class="control right button round color2 " onclick="void(0)" data-button="true" data-confirm="Are you sure you want to delete this task?"><%= render :partial => 'show_delete', :locals => {:task => @task} %></div>
         <div data-button="true" href="<%= convert_task_url(@task) %>" data-confirm="are you sure you want to convert this task to a plan" class="button control left round color2"><div class="button_content">convert to plan</div></div>
   </div>
   <div class="section">&nbsp;</div>

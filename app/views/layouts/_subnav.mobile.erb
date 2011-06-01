@@ -1,5 +1,5 @@
 <div class="sub_nav">
-  <%    if @subnav_tab.class.name == 'Fixnum'
+  <%-    if @subnav_tab.class.name == 'Fixnum'
           case controller_name
           when 'tasks'
             if @task.project
@@ -13,9 +13,11 @@
           when 'projects'
             if @project.folder_for(@this_user)
               this_title = @project.folder_for(@this_user).title
+              this_target = "folder_page_#{@project.folder_for(@this_user).id}"
               this_link = folder_url(@project.folder_for(@this_user))
             elsif @project.user_id != @this_user.id
               this_title = 'Projects from ' + @project.user.handle
+              this_target = "contact_page #{@project.user_id}"
               this_link = user_url(@project.user_id)
             end
           when 'folders'
@@ -37,6 +39,26 @@
               this_target = 'dashboard_overview'
               this_link = dashboard_url
             end
+          when 'plans'
+            case controller_name
+            when 'folders'
+              this_title = 'All Folders'
+              this_target = 'all_folders'
+            when 'projects'
+              if @project.folder_for(@this_user)
+                this_title = @project.folder_for(@this_user).title
+                this_target = "folder_page_#{@project.folder_for(@this_user).id}"
+                this_link = folder_url(@project.folder_for(@this_user))
+              elsif @project.user_id != @this_user.id
+                this_title = 'Projects from ' + @project.user.handle
+                this_target = "contact_page_#{@project.user_id}"
+                this_link = user_url(@project.user_id)
+              end
+            end
+            case action_name
+            when 'show_multiple'
+
+            end
           end
         else
           if controller_name == 'tasks' and action_name == 'multiple'
@@ -50,7 +72,7 @@
             end
           end
         end
-   %>
+   -%>
     <div class="full_nav">
       <div class="border_wrapper last" onclick="void(0)" data-page_back="true" data-page_target="<%= this_target %>">
         &lang;&nbsp;&nbsp;&nbsp;&nbsp;<%= this_title %>

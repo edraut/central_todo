@@ -1,3 +1,9 @@
-<h2>Plan  <span class="user_title"<% if @project.all_complete? %> class="completed"<% end %>> <%= @project.title %></span></h2>
-<%= render :partial => 'tabs' %>
-<%= render :partial => '/comments/index', :locals => {:commentable => @project} %>
+<div id="pager_wrapper" class="pager_wrapper page_slide">
+<%= render :partial => 'comments' %>
+<%= javascript_tag do %>
+jQuery(document).ready(function(){
+	children_pages = eval(jQuery('#comments_project_page_<%= @project.id %>').attr('data-children_pages'));
+	loadPages(children_pages);
+	jQuery('#comments_project_page_<%= @project.id %>').addClass('current_page');
+});
+<% end %>

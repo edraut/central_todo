@@ -91,14 +91,20 @@ class TasksController < ApplicationController
     return if handle_attribute_partials('show')
     @html_page_title = @page_title = 'Task'
     respond_with(@task) do |format|
-      format.mobile { render @render_type => 'show', :locals => {:task => @task}}
+      format.mobile { render @render_type => 'show', :locals => {:task => @task, :sortable => (params.has_key? :sortable)}}
       format.html {render @render_type => 'show'}
     end
   end
   
   def show_full
-    respond_with(@task) do |format|
-      format.mobile { render @render_type => 'show_full', :locals => {:task => @task}}
+    if @render_type == :partial
+      respond_with(@task) do |format|
+        format.any {render @render_type => 'show_full' and return}
+      end
+    else
+      respond_with(@task) do |format|
+        format.any {render @render_type => 'show' and return}
+      end
     end
   end
   

@@ -14,6 +14,7 @@
   		<%= hidden_field_tag 'app_context', 'project' %>
 		<% end %>
 		<% if sortable == true %><div data-drag_handle="true" class="drag_handle row_item last twelve text_right" onclick="void(0)">&equiv;&nbsp;&nbsp;</div>
+		<%= hidden_field_tag 'sortable', true %>
 	  <% end %>
 		<div class="check_box row_item eightteen">&nbsp;
   		<%= f.check_box :state, {:'data-behavior' => 'auto_submit', :'data-role' => 'none'}, task.archived? ? 'archived' : 'complete', 'active' %>
@@ -29,7 +30,7 @@
       </div>
       <% end %>
 		</div>
-		<div onclick="void(0)" data-page_turner="true" data-page_loader="<%= (defined? pager_target) ? pager_target : "task_page_#{task.id}" %>" data-page_target="task_page_<%= task.id %>" class="row_item twelve line_item_height" style="visibility:hidden;">
+		<div onclick="void(0)" data-page_turner="true" data-page_loader="<%= (defined? pager_target) ? pager_target : "task_page_#{task.id}" %>" data-page_target="task_page_<%= task.id %>" class="row_item twelve line_item_height" <% if controller_name == 'tasks' and action_name == 'show' %>style="visibility:hidden;"<% end %>>
       &rang;
     </div>
 		

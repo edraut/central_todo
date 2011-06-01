@@ -13,7 +13,7 @@
 	  </div>
 	</div>
   <div class="row_item twelve">
-    <div onclick="void(0)" class="row_item control_font" data-button="true" href="<%= plan_url(project) %>">&nbsp;&nbsp;&rang;</div>
+    <div onclick="void(0)" class="row_item control_font" data-page_turner="true" data-page_target="project_page_<%= project.id %>" data-page_loader="multiple_projects_page_<%= (@nav_tab == 'contacts') ? project.user.projects.recent.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @this_user.id}) : project.folder.projects.active.ordered.map{|t| t.id}.join('_') %>" style="visibility:hidden;">&nbsp;&nbsp;&rang;</div>
   </div>
 </div>
 

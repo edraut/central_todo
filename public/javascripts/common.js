@@ -166,9 +166,10 @@ jQuery.fn.reDraw = function(){
 	dummy.remove();
 }
 jQuery(document).ready(function(){
+	bindConfirm();
 	bindButtonControl();
 	popButtons();
-	bindConfirm();
+	bindExpanders();
 });
 function printObj(myObj){
 	output = "";

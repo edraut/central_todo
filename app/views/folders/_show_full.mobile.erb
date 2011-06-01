@@ -1,0 +1,42 @@
+<div id="folder_page_<%= @folder.id %>" class="pager" data-children_pages="({<% if @folder.projects.active.any? %>'<%= multiple_plans_url(:ids => @folder.projects.active.ordered.map{|t| t.id}.join(',')) %>':'multiple_projects_page_<%= @folder.projects.active.ordered.map{|t| t.id}.join('_') %>'<% end %>,'<%= plans_url %>':'all_folders'})" data-direct_url="<%= folder_path(@folder) %>">
+<%= render :partial => '/layouts/subnav' %>
+<div class="page_layout">
+<% folder = @folder %>
+<div class="row_item seventy">
+<h2><%= folder.title %></h2>
+</div>
+<div class="row_item thirty">
+  <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="folder_<%= @folder.id %>_new_project_form" data-button="true">+</div>
+  <div class="row_item control_font button round color2 circle arrow" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="folder_<%= @folder.id %>_new_project_form" style="display: none;" data-button="true">&uarr;</div>
+  <div class="row_item">&nbsp;&nbsp;</div>
+  <div class="row_item control_font button round color2 circle ex" onclick="void(0)" data-button="true" data-confirm="All the plans in this folder will also be deleted. Are you sure you want to delete this folder?">
+    <%= form_for @folder, :html => {:method => 'delete', :_method => 'delete'} do |f| %>
+      <%= hidden_field_tag 'full_page', 'true' %>
+      x
+    <% end %>
+  </div>
+</div>
+<div class="list_container">
+  <%= render :partial => '/projects/new', :locals => {:folder => folder} %>
+  <% if folder.projects.active.any? %>
+  <div id="folder_<%= folder.id %>_plan_list" data-sort_container="true" data-sort_url="<%= sort_plans_folder_url(folder) %>" data-sort_id="folder_plan_list">
+		<% for project in folder.projects.active.ordered %>
+    <div id="project_<%= project.id %>" data-role="list_item" class="block border_bottom" data-sort_element="true" data-sort_id="folder_plan_list">
+	    <%= render :partial => '/projects/show', :locals => {:project => project, :sortable => true} %>
+    </div>
+		<% end %>
+	</div>
+	<% else %>
+  <div class="padding">The folder <strong><%= folder.title %></strong> doesn't have any active plans right now.</div>
+  <% if @this_user.show_help_text %>
+  <div class="explanatory">
+    <p>
+      Plans are groups of tasks that work together to accomplish a goal. If I want to sell my old car I could make a plan 'Sell Car'. I could then add tasks 'Fix taillight', 'Research market value', and 'Place ad'. I might need to do those in a certain order. For example, I could research the market value before fixing the taillight, but I can't place the ad until both of the others are done.<br/>&nbsp;<br/>
+      Sometimes the tasks required to complete a plan can all be done in one sitting, other times tasks require that I be in different locations or have different tools available. In order to efficiently use your time when tools are available or when you're in a certain place like the office or the car, check out the Labels tab. There you find an explanation of how to use labels to increase your efficiency in completing multiple tasks for multiple plans.
+    </p>
+  </div>
+  <% end %>
+  <% end %>
+</div>
+</div>
+</div>

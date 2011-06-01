@@ -1,61 +1,9 @@
-<h2><span class="user_title"<% if @project.all_complete? %> class="completed"<% end %>> <%= truncate_clean(@project.title, :length => 256, :omission => '...', :max_word_length => 20) %></span></h2>
-<%= render :partial => 'tabs' %>
-<div class="list_container">
-<% if @project.archived? %>
-<div class="block">
-  <div class="padding">
-  You archived this plan. If you would like to re-activate it, click on the 'edit plan' tab above and uncheck the box next to 'archived'.
-  </div>
-</div>
-<% else %>
-<div data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
-  <div class="padding">
-  <%= render :partial => '/tasks/new', :locals => {:project => @project, :sortable => true} %>
-  </div>
-</div>
-<% end %>
-	<div data-role="list" id="unarchived_items_wrapper">
-    <div class="row">
-  	  <div class="row_item">
-    		<h2 id="active_task_title"><% if @project.tasks.unarchived.any? %>Active Tasks<% else %>No active tasks.<% end %></h2>
-      </div>
-      <% unless @project.archived? %>
-  	  <div class="row_item">&nbsp;&nbsp;</div>
-      <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
-      <div class="row_item control_font button round color2 circle arrow" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
-      <% end %>
-    </div>
-    <div id="project_<%= @project.id %>_task_list" class="block" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-sort_id="plan_<%= @project.id %>_task_list">
-		<% for task in @project.tasks.active.ordered %>
-		  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" data-sort_element="true" data-sort_id="plan_<%= @project.id %>_task_list" class="section">
-				<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
-			</div>
-		<% end %>
-		</div>
-	</div>
-	<div class="block"><div class="padding">
-<div id="archive_completed_items" class="list_action" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>
-	<%= link_to 'archive completed tasks', archive_completed_tasks_plan_url(@project),
-	 	:'data-ajax_behavior' => 'ajax_link',
-		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_callback' => "handleArchivementSuccess(true);",
-		:class => 'button round small color2 ' %>
-</div>
-</div></div>
-<div id="archived_item_list" class="block" <% unless @project.tasks.archived.any? %>style="display:none;"<% end %> data-role="list">
-	<h2>Archived</h2>
-	<div id="archived_items_wrapper" class="block">
-	<% for task in @archived_tasks %>
-		<div id="task_<%= task.id %>" data-role="list_item" class="section archived">
-			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
-		</div>
-	<% end %>
-	</div>
-	<%= will_paginate @archived_tasks %>
-</div>
-</div>
+<div id="pager_wrapper" class="pager_wrapper page_slide">
+<%= render :partial => 'show_full' %>
 <%= javascript_tag do %>
 jQuery(document).ready(function(){
-  bindExpanders();
+	children_pages = eval(jQuery('#project_page_<%= @project.id %>').attr('data-children_pages'));
+	loadPages(children_pages);
+	jQuery('#project_page_<%= @project.id %>').addClass('current_page');
 });
-<% end -%>
+<% end %>

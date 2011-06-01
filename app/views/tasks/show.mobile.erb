@@ -1,5 +1,6 @@
 <div id="pager_wrapper" class="pager_wrapper page_slide">
 <%= render :partial => 'show_full' %>
+</div>
 <%= javascript_tag do %>
 jQuery(document).ready(function(){
 	children_pages = eval(jQuery('#task_page_<%= @task.id %>').attr('data-children_pages'));

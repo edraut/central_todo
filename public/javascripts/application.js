@@ -17,7 +17,6 @@ jQuery(document).ready(function(){
 	bindReturnSubmit();
   bindLinkToForm();
 	bindLineItemControls();
-	bindExpanders();
 	bindTabs();
 	bindSortables();
 	bindFocusTaskInput();
