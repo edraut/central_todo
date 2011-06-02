@@ -13,12 +13,16 @@ CentralTodo::Application.routes.draw do
   match 'sign_out' => 'user_sessions#destroy'
   resource :user_session
   resources :users do
+    collection do
+      get 'multiple'
+    end
     member do
       get 'activate'
       post 'request_password_reset'
       get 'forgot_password'
       get 'settings'
       get 'account'
+      get 'show_full'
     end
   end
   match 'sign_up' => 'users#new'
@@ -42,8 +46,12 @@ CentralTodo::Application.routes.draw do
   end
   resources :project_sharers
   resources :labels do
+    collection do
+      get 'multiple'
+    end
     member do
       get 'archive_completed_tasks'
+      get 'show_full'
     end
   end
   

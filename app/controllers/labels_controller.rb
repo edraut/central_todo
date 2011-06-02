@@ -7,7 +7,17 @@ class LabelsController < ApplicationController
   
   def index
     @label = Label.new(:user_id => @this_user.id)
-    respond_with(@label) and return
+    respond_with(@label) do |format|
+      format.mobile { render @render_type => 'index'}
+      format.html {render :action => 'index' and return}
+    end
+  end
+  
+  def multiple
+    @labels = Label.ordered.find(params[:ids].split(',').map{|id| id.to_i})
+    respond_with(@labels) do |format|
+      format.mobile {render :partial => 'show_multiple' and return}
+    end
   end
   
   def create
@@ -30,6 +40,18 @@ class LabelsController < ApplicationController
       @tasks = Task.only_once.for_user(@this_user).for_label(@label).active.ordered.paginate(:page => params[:page],:per_page => 40)
     end
     respond_with(@label) and return
+  end
+  
+  def show_full
+    if @render_type == :partial
+      respond_with(@label) do |format|
+        format.any {render @render_type => 'show_full' and return}
+      end
+    else
+      respond_with(@label) do |format|
+        format.any {render @render_type => 'show' and return}
+      end
+    end
   end
   
   def edit

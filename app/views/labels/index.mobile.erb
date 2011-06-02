@@ -1,1 +1,12 @@
-<%= render :partial => 'index' %>
+<div id="pager_wrapper" class="pager_wrapper page_slide">
+  <%= render :partial => 'index' %>
+</div>
+<%= javascript_tag do %>
+jQuery(document).ready(function(){
+	children_pages = eval(jQuery('#all_labels').attr('data-children_pages'));
+	loadPages(children_pages);
+	jQuery('#all_labels').addClass('current_page');
+  jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'all_labels'
+  jQuery('#pager_wrapper').data('loaded_page_ids')['all_labels'] = '<%= request.url %>'
+});
+<% end %>

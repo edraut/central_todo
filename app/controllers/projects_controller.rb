@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_filter :require_user
   before_filter :get_project, :only => [:show,:edit,:comments,:update,:destroy,:archive_completed_tasks,:sort_tasks,:templatize,:show_full]
   before_filter :set_nav_tab
-  
+  before_filter :get_app_context, :only => [:show,:edit,:comments,:update,:destroy,:archive_completed_tasks,:sort_tasks,:templatize,:show_full,:multiple]
   respond_to :html, :mobile
   
   def index
@@ -233,6 +233,18 @@ class ProjectsController < ApplicationController
     if (@project.user_id != @this_user.id) and (!@project.sharer_ids.include? @this_user.id)
       flash[:notice] = "You don't have privileges to access that project."
       redirect_to root_url and return
+    end
+  end
+  
+  def get_app_context
+    if params.has_key? :app_context
+      @app_context = params[:app_context]
+    else
+      if @project.folder_for(@this_user).nil? and @this_user.shared_project_ids.include? @project.id
+        @app_context = @project.user_id
+      else
+        @app_context = 'folder'
+      end
     end
   end
   

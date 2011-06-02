@@ -337,6 +337,7 @@ div#testone.testone{
 .page_slide{
 	-webkit-transition: -webkit-transform 600ms linear;
   -webkit-transform: translate3d(0,0,0);
+	-webkit-backface-visibility: hidden;
 }
 .list_container {
 	position:relative;

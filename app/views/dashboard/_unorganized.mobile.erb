@@ -11,8 +11,8 @@
     		:'data-ajax_success_callback' => "handleArchivementSuccess();" %>
   </div>
   <div id="unarchived_items_wrapper">
-  	<% for task in @tasks %>
-  		<div id="task_<%= task.id %>" class="row border_bottom">
+  	<% @tasks.each_with_index do |task,index| %>
+  		<div id="task_<%= task.id %>" class="row border_bottom" data-list_index="<%= index %>">
   		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :pager_target => "multiple_tasks_page_#{@new_tasks.map{|t| t.id}.join('_')}"} %>
   		</div>
   	<% end %>

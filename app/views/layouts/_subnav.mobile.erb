@@ -11,20 +11,22 @@
               this_target = 'tasks_page'
             end
           when 'projects'
-            if @project.folder_for(@this_user)
+            if @app_context == 'folder'
               this_title = @project.folder_for(@this_user).title
               this_target = "folder_page_#{@project.folder_for(@this_user).id}"
               this_link = folder_url(@project.folder_for(@this_user))
-            elsif @project.user_id != @this_user.id
-              this_title = 'Projects from ' + @project.user.handle
-              this_target = "contact_page #{@project.user_id}"
+            else
+              this_title = 'Projects from ' + User.find(@app_context.to_i).handle
+              this_target = "contact_page_#{@app_context}"
               this_link = user_url(@project.user_id)
             end
           when 'folders'
             this_title = 'All Folders'
+            this_target = 'all_folders'
             this_link = plans_url
           when 'users'
             this_title = 'All Contacts'
+            this_target = 'all_contacts'
             this_link = users_url
           end
         elsif @nav_tab
@@ -45,19 +47,15 @@
               this_title = 'All Folders'
               this_target = 'all_folders'
             when 'projects'
-              if @project.folder_for(@this_user)
+              if @app_context == 'folder'
                 this_title = @project.folder_for(@this_user).title
                 this_target = "folder_page_#{@project.folder_for(@this_user).id}"
                 this_link = folder_url(@project.folder_for(@this_user))
-              elsif @project.user_id != @this_user.id
-                this_title = 'Projects from ' + @project.user.handle
-                this_target = "contact_page_#{@project.user_id}"
+              else
+                this_title = 'Projects from ' + User.find(@app_context.to_i).handle
+                this_target = "contact_page_#{@app_context}"
                 this_link = user_url(@project.user_id)
               end
-            end
-            case action_name
-            when 'show_multiple'
-
             end
           end
         else
@@ -70,6 +68,10 @@
               this_title = 'All Unorganized Tasks'
               this_target = 'tasks_page'
             end
+          end
+          if controller_name == 'users' and action_name == 'multiple'
+            this_title = 'All Contacts'
+            this_target = 'all_contacts'
           end
         end
    -%>

@@ -5,5 +5,7 @@ jQuery(document).ready(function(){
 	children_pages = eval(jQuery('#folder_page_<%= @folder.id %>').attr('data-children_pages'));
 	loadPages(children_pages);
 	jQuery('#folder_page_<%= @folder.id %>').addClass('current_page');
+  jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'folder_page_<%= @folder.id %>'
+  jQuery('#pager_wrapper').data('loaded_page_ids')['folder_page_<%= @folder.id %>'] = '<%= request.url %>'
 });
 <% end %>

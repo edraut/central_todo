@@ -12,8 +12,14 @@
 	  <span class="small">(</span><span id="project_<%= project.id %>_count_display" data-sort_count="true" data-sort_id="project_task_lists" data-sort_count_id="project_<%= project.id %>_task_list" class="small"><%= project.tasks.active.count %></span><span class="small">)</span></h3>
 	  </div>
 	</div>
+	<% if @nav_tab == 'contacts' %>
+    <% @projects_shared_to = @this_user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @user.id})
+    @projects_shared_from = @user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @this_user.id})
+    @all_projects = (@projects_shared_from + @projects_shared_to).uniq.sort{|a,b| a.id <=> b.id}
+     %>
+	<% end %>
   <div class="row_item twelve">
-    <div onclick="void(0)" class="row_item control_font" data-page_turner="true" data-page_target="project_page_<%= project.id %>" data-page_loader="multiple_projects_page_<%= (@nav_tab == 'contacts') ? project.user.projects.recent.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @this_user.id}) : project.folder.projects.active.ordered.map{|t| t.id}.join('_') %>" style="visibility:hidden;">&nbsp;&nbsp;&rang;</div>
+    <div onclick="void(0)" class="row_item control_font" data-page_turner="true" data-page_target="project_page_<%= project.id %>" data-page_loader="multiple_projects_page_<%= (@nav_tab == 'contacts') ? @all_projects.map{|t| t.id}.join('_') : project.folder.projects.active.ordered.map{|t| t.id}.join('_') %>" style="visibility:hidden;">&nbsp;&nbsp;&rang;</div>
   </div>
 </div>
 

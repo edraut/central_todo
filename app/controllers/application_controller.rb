@@ -160,7 +160,7 @@ class ApplicationController < ActionController::Base
       when 'account'
         @nav_tab = 'account'
         @subnav_tab = 'info'
-      when 'show'
+      when 'show', 'show_full'
         @nav_tab = 'contacts'
         @subnav_tab = params[:id].to_i
       when 'index'

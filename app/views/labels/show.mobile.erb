@@ -1,13 +1,11 @@
-<h2>Label: <span class="user_title"> <%= truncate_clean(@label.title, :length => 256, :omission => '...', :max_word_length => (session.has_key? :screen_width and (session[:screen_width].to_i < 500)) ? 20 : 256) %></span></h2>
-<%= render :partial => 'tabs' %>
-
-<div data-role="list" id="unarchived_items_wrapper" class="list_container">
-  <div class="section">
-	<h2><% if @tasks.any? %>Active Tasks<% else %>No active tasks.<% end %></h2>
-	</div>
-	<% for task in @tasks %>
-	  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
-			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
-		</div>
-	<% end %>
-</div>
+<div id="pager_wrapper" class="pager_wrapper page_slide">
+<%= render :partial => 'show_full' %>
+<%= javascript_tag do %>
+jQuery(document).ready(function(){
+	children_pages = eval(jQuery('#label_page_<%= @label.id %>').attr('data-children_pages'));
+	loadPages(children_pages);
+	jQuery('#label_page_<%= @label.id %>').addClass('current_page');
+  jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'label_page_<%= @label.id %>'
+  jQuery('#pager_wrapper').data('loaded_page_ids')['label_page_<%= @label.id %>'] = '<%= request.url %>'
+});
+<% end %>

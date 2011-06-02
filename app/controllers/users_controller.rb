@@ -8,6 +8,17 @@ class UsersController < ApplicationController
   def index
     @sharing_parents = User.sharing_parents_for(@this_user)
     @sharing_children = User.sharing_children_for(@this_user)
+    respond_with(@sharing_parents) do |format|
+      format.mobile { render @render_type => 'index'}
+      format.html {render :action => 'index' and return}
+    end
+  end
+
+  def multiple
+    @contacts = User.order('users.id').find(params[:ids].split(',').map{|id| id.to_i})
+    respond_with(@contacs) do |format|
+      format.mobile {render :partial => 'show_multiple' and return}
+    end
   end
   
   def new
@@ -43,9 +54,27 @@ class UsersController < ApplicationController
     return if handle_attribute_partials('show')
     @projects_shared_to = @this_user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @user.id})
     @projects_shared_from = @user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @this_user.id})
-    respond_with(@user)
+    respond_with(@user) do |format|
+      format.mobile { render @render_type => 'show'}
+      format.html {render :action => 'show' and return}
+    end
   end
 
+  def show_full
+    @user = User.find(params[:id])
+    @projects_shared_to = @this_user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @user.id})
+    @projects_shared_from = @user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @this_user.id})
+    if @render_type == :partial
+      respond_with(@user) do |format|
+        format.any {render @render_type => 'show_full' and return}
+      end
+    else
+      respond_with(@user) do |format|
+        format.any {render @render_type => 'show' and return}
+      end
+    end
+  end
+  
   def account
     @user = @this_user
     @item = @user

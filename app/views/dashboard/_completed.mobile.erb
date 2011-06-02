@@ -4,8 +4,10 @@
 <h2>Recently Completed Tasks</h2>
 <% if @tasks.any? %>
   <div class="list_container">
-    <% for task in @tasks %>
-      <%= render :partial => '/tasks/show', :locals => {:task => task} %>
+    <% @tasks.each_with_index do |task,index| %>
+      <div data-list_index="<%= index %>">
+        <%= render :partial => '/tasks/show', :locals => {:task => task} %>
+      </div>
     <% end %>
   </div>
 <% else %>

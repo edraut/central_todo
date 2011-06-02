@@ -5,5 +5,7 @@ jQuery(document).ready(function(){
 	children_pages = eval(jQuery('#info_project_page_<%= @project.id %>').attr('data-children_pages'));
 	loadPages(children_pages);
 	jQuery('#info_project_page_<%= @project.id %>').addClass('current_page');
+  jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'info_project_page_<%= @project.id %>'
+  jQuery('#pager_wrapper').data('loaded_page_ids')['info_project_page_<%= @project.id %>'] = '<%= request.url %>'
 });
 <% end %>

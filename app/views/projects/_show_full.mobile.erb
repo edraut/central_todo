@@ -1,4 +1,4 @@
-<div id="project_page_<%= @project.id %>" class="pager" data-children_pages="({'<%= comments_plan_url(@project) %>':'comments_project_page_<%= @project.id %>','<%= edit_plan_url(@project) %>':'info_plan_url_<%= @project.id %>',<% if @project.tasks.active.any? %>'<%= multiple_tasks_url(:ids => @project.tasks.active.ordered.map{|t| t.id}.join(',')) %>':'multiple_tasks_page_<%= @project.tasks.active.ordered.map{|t| t.id}.join('_') %>',<% end %><% if @nav_tab == 'contacts' %>'<%= user_url(@project.user_id) %>':'contact_page_<%= @project.user_id %>'<% else %>'<%= show_full_folder_url(@project.folder_id) %>':'folder_page_<%= @project.folder_id %>'<% end %>})" data-direct_url="<%= plan_path(@project) %>">
+<div id="project_page_<%= @project.id %>" class="pager" data-children_pages="({'<%= comments_plan_url(@project) %>':'comments_project_page_<%= @project.id %>','<%= edit_plan_url(@project) %>':'info_plan_url_<%= @project.id %>',<% if @project.tasks.active.any? %>'<%= multiple_tasks_url(:ids => @project.tasks.active.ordered.map{|t| t.id}.join(','),:app_context => @app_context) %>':'multiple_tasks_page_<%= @project.tasks.active.ordered.map{|t| t.id}.join('_') %>',<% end %><% if @app_context == 'folder' %>'<%= show_full_folder_url(@project.folder_id) %>':'folder_page_<%= @project.folder_id %>'<% else %>'<%= show_full_user_url(@app_context.to_i) %>':'contact_page_<%= @app_context %>'<% end %>})" data-direct_url="<%= plan_path(@project, :app_context => @app_context) %>">
 <%= render :partial => '/layouts/subnav' %>
 <div class="page_layout">
 <h2><span class="user_title"<% if @project.all_complete? %> class="completed"<% end %>> <%= truncate_clean(@project.title, :length => 256, :omission => '...', :max_word_length => 20) %></span></h2>
@@ -29,8 +29,8 @@
       <% end %>
     </div>
     <div id="project_<%= @project.id %>_task_list" class="block" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-sort_id="plan_<%= @project.id %>_task_list">
-		<% for task in @project.tasks.active.ordered %>
-		  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" data-sort_element="true" data-sort_id="plan_<%= @project.id %>_task_list" class="section">
+		<% @project.tasks.active.ordered.each_with_index do |task,index| %>
+		  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" data-sort_element="true" data-sort_id="plan_<%= @project.id %>_task_list" class="section" data-list_index="<%= index %>">
 				<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
 			</div>
 		<% end %>

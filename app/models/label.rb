@@ -6,7 +6,7 @@ class Label < ActiveRecord::Base
   before_create :default_color
   
   scope :for_user, lambda{ |user| {:conditions => {:user_id => user.id}}}
-
+  scope :ordered, order(:id)
   def default_color
     self.color = Label::COLORS[rand(Label::COLORS.length)]
   end

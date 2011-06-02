@@ -19,12 +19,14 @@ class User < ActiveRecord::Base
   scope :sharing_parents_for, lambda {|user| 
     select("distinct users.id,users.email,users.name").
     joins("inner join projects pr1 on pr1.user_id = users.id inner join project_sharers on project_sharers.project_id = pr1.id").
-    where("project_sharers.user_id = #{user.id}")
+    where("project_sharers.user_id = #{user.id}").
+    order("users.id")
   }
   scope :sharing_children_for, lambda {|user| 
     select("distinct users.id,users.email,users.name").
     joins("inner join project_sharers ps1 on ps1.user_id = users.id inner join projects pr1 on pr1.id = ps1.project_id").
-    where("pr1.user_id = #{user.id}")
+    where("pr1.user_id = #{user.id}").
+    order("users.id")
   }
   scope :recent, order('id desc')
   #special behaviors

@@ -1,0 +1,10 @@
+<div id="multiple_labels_page_<%= @labels.map{|t| t.id}.join('_')%>" data-children_pages="({})">
+<% for @label in @labels %>
+<%  if @label.user_id == @this_user.id
+      @tasks = @label.tasks.active.ordered.paginate(:page => params[:page],:per_page => 40)
+    else
+      @tasks = Task.only_once.for_user(@this_user).for_label(@label).active.ordered.paginate(:page => params[:page],:per_page => 40)
+    end %>
+<%= render :partial => 'show_full' %>
+<% end %>
+</div>

@@ -314,8 +314,19 @@ function showTab(control){
 	tab_target.addClass('current_page');
 	tab_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").css('visibility','visible');
 }
+function hideLowerElements(elem){
+	elem.find("[data-list_index]").each(function(){
+		if(parseInt(jQuery(this).data('list_index')) > 3){
+			jQuery(this).hide();
+		}
+	})
+}
+function showLowerElements(elem){
+	elem.find("[data-list_index]").show();
+}
 function slidePage(direction,page_target_id){
 	window_width = jQuery(window).width() + 'px';
+	window_height = jQuery(window).height() + 'px';
 	transition_amount = '100%';
 	if(direction == 'back'){
 		window_width = '-' + window_width;
@@ -330,8 +341,12 @@ function slidePage(direction,page_target_id){
 	current_page = jQuery(current_page_selector);
 	page_target.parent().show();
 	page_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").css('visibility','hidden');
+	hideLowerElements(page_target);
 	page_target.show(0,function(){
-		jQuery('body').animate({'scrollTop':0},400,'swing',function(){
+		// jQuery('body').animate({'scrollTop':0},0,'swing',function(){
+			jQuery(window).scrollTop(0);
+			hideLowerElements(current_page);
+			// alert('scroll done');
 			if(!jQuery('#pager_wrapper').hasClass('page_slide')){
 				jQuery('#pager_wrapper').addClass('page_slide');
 			}
@@ -341,7 +356,7 @@ function slidePage(direction,page_target_id){
 			jQuery('#pager_wrapper').css('-webkit-transform','translate3d(' + transition_amount + ',0,0)');
 			// setTimeout(function(){
 				// },2000);
-		});
+		// });
 	});
 }
 function loadPages(pages){
@@ -387,11 +402,13 @@ function bindPageSlides(){
 		     function( event ) { 
 						current_page = jQuery(this).data('current_page');
 						page_target = jQuery(this).data('page_target');
+						showLowerElements(current_page);
 						current_page.hide();
 						page_target.css('left',0);
 						jQuery('#pager_wrapper').removeClass('page_slide').css('-webkit-transform','none');
 						current_page.removeClass('current_page');
 						page_target.addClass('current_page');
+						showLowerElements(page_target);
 						if(page_target.attr('data-children_pages')){
 							children_pages = eval(page_target.attr('data-children_pages'));
 							loadPages(children_pages);

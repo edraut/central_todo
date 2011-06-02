@@ -1,0 +1,7 @@
+<div id="multiple_contacts_page_<%= @contacts.map{|user| user.id}.join('_')%>" data-children_pages="({})">
+<% for @user in @contacts %>
+  <%  @projects_shared_to = @this_user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @user.id})
+      @projects_shared_from = @user.projects.active.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @this_user.id}) %>
+  <%= render :partial => 'show_full' %>
+<% end %>
+</div>

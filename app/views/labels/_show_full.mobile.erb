@@ -1,0 +1,18 @@
+<div id="label_page_<%= @label.id %>" class="pager" data-children_pages="({<% if @label.tasks.active.any? %>'<%= multiple_tasks_url(:ids => @label.tasks.active.ordered.map{|t| t.id}.join(','), :app_context => 'label') %>':'multiple_tasks_page_<%= @label.tasks.active.ordered.map{|t| t.id}.join('_') %>'<% end %>,'<%= labels_url %>':'all_labels'})" data-direct_url="<%= label_path(@label) %>">
+<%= render :partial => '/layouts/subnav' %>
+<div class="page_layout">
+  <h2>Label: <span class="user_title"> <%= truncate_clean(@label.title, :length => 256, :omission => '...', :max_word_length => (session.has_key? :screen_width and (session[:screen_width].to_i < 500)) ? 20 : 256) %></span></h2>
+  <%= render :partial => 'tabs' %>
+
+  <div data-role="list" id="unarchived_items_wrapper" class="list_container">
+    <div class="section">
+  	<h2><% if @tasks.any? %>Active Tasks<% else %>No active tasks.<% end %></h2>
+  	</div>
+  	<% for task in @tasks %>
+  	  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
+  			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
+  		</div>
+  	<% end %>
+  </div>
+</div>
+</div>

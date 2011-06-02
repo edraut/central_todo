@@ -14,8 +14,8 @@
   <% end %>
 </div>
 <div class="list_container" data-sort_container="true" data-sort_id="folder_list" data-sort_url="<%= sort_folders_url %>">
-<% for folder in @this_user.folders.ordered %>
-  <div id="folder_<%= folder.id %>" class="block border_bottom" data-sort_element="true" data-sort_id="folder_list">
+<% @this_user.folders.ordered.each_with_index do |folder,index| %>
+  <div id="folder_<%= folder.id %>" class="block border_bottom" data-sort_element="true" data-sort_id="folder_list" data-list_index="<%= index %>">
     <div class="row padding">
   	  <div class="row_item eightteen control_font" data-drag_handle="true">&nbsp;&nbsp;&equiv;</div>
       <div class="row_item seventy" onclick="void(0)" data-button="true" href="<%= folder_url(folder) %>">
