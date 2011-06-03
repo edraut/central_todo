@@ -48,8 +48,8 @@
 <div id="archived_item_list" class="block" <% unless @project.tasks.archived.any? %>style="display:none;"<% end %> data-role="list">
 	<h2>Archived</h2>
 	<div id="archived_items_wrapper" class="block">
-	<% for task in @project.tasks.archived.ordered %>
-		<div id="task_<%= task.id %>" data-role="list_item" class="section archived">
+	<% @project.tasks.archived.ordered.each_with_index do |task,index| %>
+		<div id="task_<%= task.id %>" data-role="list_item" class="section archived" data-list_section="<%= index %>">
 			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
 		</div>
 	<% end %>
