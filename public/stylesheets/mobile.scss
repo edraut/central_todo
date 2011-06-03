@@ -205,7 +205,6 @@ div#testone.testone{
 	padding: .5em;
 	background-color: $paper;
 	border: 3px solid $gray4;
-	border-top: none;
 	z-index: 20;
 }
 @mixin flash {
@@ -218,7 +217,6 @@ div#testone.testone{
 }
 .flash_notice {
 	@include flash;
-	border-top:none;
 	text-align: center;
 }
 .flash_dialog {

@@ -62,7 +62,6 @@ div#testone.testone {
   padding: .5em;
   background-color: #fdfcf8;
   border: 3px solid #bdbcb8;
-  border-top: none;
   z-index: 20; }
 
 .flash_notice {
@@ -71,7 +70,6 @@ div#testone.testone {
   position: absolute;
   z-index: 12;
   padding: 20px;
-  border-top: none;
   text-align: center; }
 
 .flash_dialog {
