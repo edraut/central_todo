@@ -1,4 +1,4 @@
-<div id="task_page_<%= @task.id %>" class="pager" data-children_pages="({'<%= comments_task_url(@task) %>':'comments_task_page_<%= @task.id %>',<% if @task.project %>'<%= show_full_plan_url(@task.project_id,:app_context => @app_context) %>':'project_page_<%= @task.project_id %>'<% else %>'<%= dashboard_unorganized_url %>':'tasks_page'<% end %>})" data-direct_url="<%= task_path(@task,:app_context => @app_context) %>">
+<div id="task_page_<%= @task.id %>" class="pager" data-children_pages="({'<%= comments_task_url(@task) %>':'comments_task_page_<%= @task.id %>',<% if @task.project %><% if @app_context =~ /label/%>'<%= show_full_label_url(@app_context.to_i,:app_context => @app_context) %>':'label_page_<%= @app_context.to_i %>'<% else %>'<%= show_full_plan_url(@task.project_id,:app_context => @app_context) %>':'project_page_<%= @task.project_id %>'<% end %><% else %>'<%= dashboard_unorganized_url %>':'tasks_page'<% end %>})" data-direct_url="<%= task_path(@task,:app_context => @app_context) %>">
 <%= render :partial => '/layouts/subnav' %>
 <div class="page_layout">
   <div id="task_title_<%= @task.id %>" class="block padding_bottom">

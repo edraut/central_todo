@@ -57,10 +57,17 @@
                 this_link = user_url(@project.user_id)
               end
             end
+          when 'labels'
+            this_title = "All Labels"
+            this_target = "all_labels"
           end
         else
           if controller_name == 'tasks' and action_name == 'multiple'
-            if @task.project
+            if @app_context =~ /label/
+              this_label = Label.find(@app_context.to_i)
+              this_title = this_label.title
+              this_target = "label_page_#{this_label.id}"
+            elsif @task.project
               this_title = @task.project.title
               this_target = "project_page_#{@task.project_id}"
               this_link = plan_url(@task.project)
@@ -77,7 +84,7 @@
    -%>
     <div class="full_nav">
       <div class="border_wrapper last" onclick="void(0)" data-page_back="true" data-page_target="<%= this_target %>">
-        &lang;&nbsp;&nbsp;&nbsp;&nbsp;<%= this_title %>
+        &lang;&nbsp;&nbsp;&nbsp;&nbsp;<%= this_title %> <%= @nav_tab %>:<%= @subnav_tab %>:<%= controller_name %>:<%= @app_context %>
       </div>
     </div>
 </div>
