@@ -408,7 +408,7 @@ function bindPageSlides(){
 						jQuery('#pager_wrapper').removeClass('page_slide').css('-webkit-transform','none');
 						current_page.removeClass('current_page');
 						page_target.addClass('current_page');
-						// showLowerElements(page_target);
+						showLowerElements(page_target);
 						if(page_target.attr('data-children_pages')){
 							children_pages = eval(page_target.attr('data-children_pages'));
 							loadPages(children_pages);
