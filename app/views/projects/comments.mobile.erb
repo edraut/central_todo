@@ -1,5 +1,5 @@
 <div id="pager_wrapper" class="pager_wrapper page_slide">
-<%= render :partial => 'comments' %>
+<%= render :partial => 'comments', :locals => {:project => @project} %>
 <%= javascript_tag do %>
 jQuery(document).ready(function(){
 	children_pages = eval(jQuery('#comments_project_page_<%= @project.id %>').attr('data-children_pages'));
