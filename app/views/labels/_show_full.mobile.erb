@@ -6,7 +6,9 @@
 
   <div data-role="list" id="unarchived_items_wrapper" class="list_container">
     <div class="section">
-  	<h2><% if @tasks.any? %>Active Tasks<% else %>No active tasks.<% end %></h2>
+      <div class="padding">
+      	<h2><% if @tasks.any? %>Active Tasks<% else %>No active tasks.<% end %></h2>
+  	  </div>
   	</div>
   	<% @tasks.each_with_index do |task,index| %>
   	  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section" data-list_index="<%= index %>">
