@@ -5,8 +5,8 @@
   <% if @projects_shared_from.any? %>
     <h2>Plans <%= @user.handle %> Shared with You</h2>
     <div class="list_container">
-      <% for project in @projects_shared_from %>
-      <div class="row border_bottom">
+      <% @projects_shared_from.each_with_index do |project,index| %>
+      <div class="row border_bottom" data-list_index="<%= index %>">
   			<%= render :partial => '/projects/show', :locals => {:project => project} %>
       </div>
       <% end %>

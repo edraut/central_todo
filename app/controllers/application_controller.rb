@@ -149,7 +149,7 @@ class ApplicationController < ActionController::Base
     when 'labels'
       @nav_tab = 'labels'
       case action_name
-      when 'show','edit'
+      when 'show','edit','show_full'
         @subnav_tab = @label.id
       end
     when 'users'
