@@ -49,7 +49,7 @@
 	<h2>Archived</h2>
 	<div id="archived_items_wrapper" class="block">
 	<% @project.tasks.archived.ordered.each_with_index do |task,index| %>
-		<div id="task_<%= task.id %>" data-role="list_item" class="section archived" data-list_section="<%= index %>">
+		<div id="task_<%= task.id %>" data-role="list_item" class="section archived" data-list_index="<%= index %>">
 			<%= render :partial => '/tasks/show', :locals => {:task => task} %>
 		</div>
 	<% end %>
