@@ -57,6 +57,10 @@ class LabelsController < ApplicationController
   def edit
     @item = @label
     return if handle_attribute_partials('edit')
+    respond_with(@label) do |format|
+      format.mobile { render @render_type => 'edit', :locals => {:label => @label}}
+      format.html {render @render_type => 'edit'}
+    end
   end
   
   def update
