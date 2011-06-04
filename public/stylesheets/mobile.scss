@@ -1,6 +1,9 @@
 $dark-blue: #557777;
 $blue: #90B0B0;
-$light-blue: #DDF5F5;
+$blue4: #C0D8D8;
+$blue5: #D0E0E0;
+$blue6: #E0F0F0;
+$light-blue: #EAF5F5;
 $pale-blue: #f0f8f8;
 $blue-wash: #fbffff;
 $light-carmine: #E55;
@@ -341,7 +344,7 @@ div#testone.testone{
 	position:relative;
 	float:left;
 	width: 100%;
-	background-color: $gray1;
+	background-color: $blue5;
 	margin-bottom: .5em;
 	@include small-shadow;
 }
@@ -376,7 +379,7 @@ div#testone.testone{
 	text-align: center;
 }
 .half_section.selected, .third_section.selected {
-	background-color: $gray1;
+	background-color: $blue5;
 	@include small-shadow;
 }
 div.section.borderless {

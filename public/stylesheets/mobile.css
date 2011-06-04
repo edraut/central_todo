@@ -201,7 +201,7 @@ div#testone.testone {
   position: relative;
   float: left;
   width: 100%;
-  background-color: #edece8;
+  background-color: #d0e0e0;
   margin-bottom: .5em;
   -webkit-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
@@ -240,7 +240,7 @@ div#testone.testone {
   text-align: center; }
 
 .half_section.selected, .third_section.selected {
-  background-color: #edece8;
+  background-color: #d0e0e0;
   -webkit-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3); }

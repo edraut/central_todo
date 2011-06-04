@@ -369,8 +369,8 @@ function loadPages(pages){
     },
 		success: function(data, message){
 			new_page = jQuery(data);
-			jQuery('#pager_wrapper').append(new_page);
 			new_page.hide();
+			jQuery('#pager_wrapper').append(new_page);
 			if(new_page.children().hasClass('pager')){
 				new_page.children().hide();
 				new_page.children().each(function(){

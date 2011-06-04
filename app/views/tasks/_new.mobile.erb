@@ -5,7 +5,7 @@
   :'data-ajax_method' => 'POST',
   :'data-ajax_success_element' => "project_#{project.id}_task_list",
   :'data-ajax_success_placement' => 'append',
-  :'data-ajax_success_callback' => "jQuery('#project_#{project.id}_new_task_title').val('');jQuery('#project_#{project.id}_new_task_form').rebindSubmit();",
+  :'data-ajax_success_callback' => "jQuery('#project_#{project.id}_new_task_title').val('');jQuery('#project_#{project.id}_new_task_form').rebindSubmit();updateListCount();",
   :id => "project_#{project.id}_new_task_form"} do |f| %>
 		<%= f.text_field :title, :id => "project_#{project.id}_new_task_title" %>
 		<%= f.hidden_field :state, :id => "project_#{project.id}_new_task_state" %>

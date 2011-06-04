@@ -1,11 +1,11 @@
 <div class="borderless section">
-  <div onclick="void(0)" class="third_section<% if ['show','update','multiple','show_full'].include? action_name %> selected<% end %>" data-tab_switcher="true" data-tab_target="project_page_<%= @project.id %>">tasks
+  <div onclick="void(0)" class="third_section<% if ['show','update','multiple','show_full'].include? action_name %> selected<% end %>" data-tab_switcher="true" data-tab_target="project_page_<%= @project.id %>">tasks(<span data-list_count="project_<%= @project.id %>_task_list"><%= @project.tasks.active.count %></span>)
     <div class="shadow_hide">&nbsp;</div>
   </div>
-  <div onclick="void(0)" class="third_section<% if action_name == 'comments' %> selected<% end %>" data-tab_switcher="true" data-tab_target="comments_project_page_<%= @project.id %>">comments(<%= @project.comments.count %>)
+  <div onclick="void(0)" class="third_section<% if action_name == 'comments' %> selected<% end %>" data-tab_switcher="true" data-tab_target="comments_project_page_<%= @project.id %>" style="visibility:hidden;">comments(<span data-list_count="comments_list_project_<%= @project.id %>"><%= @project.comments.count %></span>)
     <div class="shadow_hide">&nbsp;</div>
   </div>
-  <div onclick="void(0)" class="third_section<% if action_name == 'edit' %> selected<% end %>" data-tab_switcher="true" data-tab_target="info_project_page_<%= @project.id %>">info
+  <div onclick="void(0)" class="third_section<% if action_name == 'edit' %> selected<% end %>" data-tab_switcher="true" data-tab_target="info_project_page_<%= @project.id %>" style="visibility:hidden;">info
     <div class="shadow_hide">&nbsp;</div>
   </div>
 </div>

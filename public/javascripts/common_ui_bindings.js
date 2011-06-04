@@ -219,3 +219,9 @@ function bindConfirm(){
 		};
 	})
 }
+
+function updateListCount(){
+	jQuery("[data-list_count]").each(function(){
+		jQuery(this).html(jQuery('#' + jQuery(this).data('list_count')).children().length);
+	})
+}

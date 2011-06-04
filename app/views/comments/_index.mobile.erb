@@ -14,7 +14,7 @@
       <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_comment_form" style="display: none;" data-button="true">&uarr;</div>
     </div>
 	</div>
-	<div id="comments_list" class="block" data-role="list">
+	<div id="comments_list_<%= commentable.class.name.underscore %>_<%= commentable.id %>" class="block" data-role="list">
 		<% commentable.comments.by_date.each_with_index do |comment,index| %>
 			<div class="row" id="comment_<%= comment.id %>" name="comment_<%= comment.id %>" data-role="list_item">
 				<%= render :partial => '/comments/show', :locals => {:comment => comment, :editable => true} %>
