@@ -201,7 +201,7 @@ div#testone.testone {
   position: relative;
   float: left;
   width: 100%;
-  background-color: #d0e0e0;
+  background-color: #fdfcf8;
   margin-bottom: .5em;
   -webkit-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
@@ -240,7 +240,7 @@ div#testone.testone {
   text-align: center; }
 
 .half_section.selected, .third_section.selected {
-  background-color: #d0e0e0;
+  background-color: #fdfcf8;
   -webkit-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3); }
@@ -874,11 +874,11 @@ html {
 
 body {
   font-size: 1em;
-  color: #5d5c58;
+  color: #4d4c48;
   margin: 0;
   padding: 0;
   border: 0;
-  background: #fdfcf8;
+  background: #e0f0f0;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   position: relative;
   float: left;

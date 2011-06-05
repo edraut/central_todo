@@ -344,7 +344,7 @@ div#testone.testone{
 	position:relative;
 	float:left;
 	width: 100%;
-	background-color: $blue5;
+	background-color: $paper;
 	margin-bottom: .5em;
 	@include small-shadow;
 }
@@ -379,7 +379,7 @@ div#testone.testone{
 	text-align: center;
 }
 .half_section.selected, .third_section.selected {
-	background-color: $blue5;
+	background-color: $paper;
 	@include small-shadow;
 }
 div.section.borderless {
@@ -874,11 +874,11 @@ a img { border: none; }
 html { font-size:100.01%; }
 body {
 	font-size: 1em;
-  color: $gray9;
+  color: $gray10;
   margin: 0;
   padding: 0;
   border: 0;
-  background: $paper;
+  background: $blue6;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 	position: relative;
 	float: left;

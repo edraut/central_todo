@@ -339,7 +339,7 @@ function slidePage(direction,page_target_id){
 	current_page = jQuery('.current_page');
 	current_page_selector = '#'+current_page.attr('id');
 	current_page = jQuery(current_page_selector);
-	page_target.parent().show();
+	// page_target.parent().show();
 	page_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").css('visibility','hidden');
 	hideLowerElements(page_target);
 	page_target.show(0,function(){
@@ -372,8 +372,10 @@ function loadPages(pages){
 			new_page.hide();
 			jQuery('#pager_wrapper').append(new_page);
 			if(new_page.children().hasClass('pager')){
-				new_page.children().hide();
-				new_page.children().each(function(){
+				new_pages = new_page.children();
+				new_page.after(new_page.children());
+				new_pages.hide();
+				new_pages.each(function(){
 					jQuery('#pager_wrapper').data('loaded_page_ids')[jQuery(this).attr('id')] = jQuery(this).data('direct_url');
 					jQuery('#pager_wrapper').data('loaded_page_urls')[jQuery(this).data('direct_url')] = jQuery(this).attr('id');
 				})
