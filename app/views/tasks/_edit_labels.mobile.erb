@@ -19,9 +19,9 @@
   	<%= hidden_field_tag 'attribute', 'labels', :id => 'attribute_labels' %>
   	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light " id="task_labels_submit_<%= @task.id %>" data-hidden_proxy_save="true" style="display:none;"><div class="button_content">save labels</div></div>
   	<div class="row_item last padding_top_button small"><span data-hidden_proxy_save="true" style="display:none;">&nbsp;or</span>
-    	<span onclick="void(0)" href="<%= edit_task_url(@task, :attribute => 'labels') %>"
+    	<span onclick="void(0)" href="<%= task_url(@task, :attribute => 'labels') %>"
     	 	data-ajax_behavior="ajax_link"
-    		data-ajax_method="PUT"
+    		data-ajax_method="GET"
     		data-ajax_success_element="task_label_<%= @task.id %>"
     		class="small"> (cancel) </span>
 		</div>

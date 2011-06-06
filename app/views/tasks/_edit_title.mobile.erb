@@ -8,9 +8,9 @@
 	<%= f.text_field :title, :class => 'title' %>
 	<%= hidden_field_tag 'attribute', 'title', :id => "attribute_title_field_#{@task.id}" %>
 	<div class="row_item last padding_top_button small list_action">&nbsp;or
-  	<span onclick="void(0)" href="<%= edit_task_url(@task, :attribute => 'title') %>"
+  	<span onclick="void(0)" href="<%= task_url(@task, :attribute => 'title') %>"
   	 	data-ajax_behavior="ajax_link"
-  		data-ajax_method="PUT"
+  		data-ajax_method="GET"
   		data-ajax_success_element="task_title_<%= @task.id %>"
   		class="small"> (cancel) </span>
 	</div>

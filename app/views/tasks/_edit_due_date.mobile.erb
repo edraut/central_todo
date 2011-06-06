@@ -20,9 +20,9 @@
     <% else %>
     &nbsp;
 		<% end %>or
-  	<span onclick="void(0)" href="<%= edit_task_url(@task, :attribute => 'due_date') %>"
+  	<span onclick="void(0)" href="<%= task_url(@task, :attribute => 'due_date') %>"
   	 	data-ajax_behavior="ajax_link"
-  		data-ajax_method="PUT"
+  		data-ajax_method="GET"
   		data-ajax_success_element="task_due_date_<%= @task.id %>"
   		class="small"> (cancel) </span>
 	</div>

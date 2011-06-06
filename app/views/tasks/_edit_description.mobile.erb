@@ -11,9 +11,9 @@
   <div class="row">
 	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light "><div class="button_content">save description</div></div>
 	<div class="row_item last padding_top_button small">&nbsp;or
-  	<span onclick="void(0)" href="<%= edit_task_url(@task, :attribute => 'description') %>"
+  	<span onclick="void(0)" href="<%= task_url(@task, :attribute => 'description') %>"
   	 	data-ajax_behavior="ajax_link"
-  		data-ajax_method="PUT"
+  		data-ajax_method="GET"
   		data-ajax_success_element="task_description_<%= @task.id %>"
   		class="small"> (cancel) </span>
 	</div>
