@@ -32,16 +32,6 @@
     </div>
     <% end %>
     </div>
-    	<div class="block"><div class="padding">
-    <div id="archive_completed_items" class="list_action" style="display: none;">
-    	<span href="<%= archive_completed_tasks_url %>"
-    	  onclick="void(0)"
-    	 	data-ajax_behavior="ajax_link"
-    		data-ajax_method="GET"
-    		data-ajax_success_callback="handleArchivementSuccess(false);"
-    		class="button round small color2">archive completed tasks</span>
-    </div>
-    </div></div>
     <div class="list_container">
   	<% for task in @tasks %>
   		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
@@ -57,6 +47,16 @@
         </div>
       </div>
   	<% end %>
+    	<div class="block"><div class="padding">
+    <div id="archive_completed_items" class="list_action" style="display: none;">
+    	<span href="<%= archive_completed_tasks_url %>"
+    	  onclick="void(0)"
+    	 	data-ajax_behavior="ajax_link"
+    		data-ajax_method="GET"
+    		data-ajax_success_callback="handleArchivementSuccess(false);"
+    		class="button round color2">archive completed tasks</span>
+    </div>
+    </div></div>
   	</div>
   	</div>
   <% else %>

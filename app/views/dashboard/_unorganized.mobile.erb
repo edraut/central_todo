@@ -4,12 +4,6 @@
 <div class="page_layout">
 <% if @tasks.length > 0 %>
   <h2>Unorganized Tasks</h2>
-  <div id="archive_completed_items" class="list_action button round color2" <% unless @this_user.tasks.complete.unorganized.any? %>style="display: none;"<% end %>>
-    	<%= link_to 'archive completed tasks', archive_completed_tasks_url,
-    	 	:'data-ajax_behavior' => 'ajax_link',
-    		:'data-ajax_method' => 'GET',
-    		:'data-ajax_success_callback' => "handleArchivementSuccess();" %>
-  </div>
   <div id="unarchived_items_wrapper" class="list_container">
   	<% @tasks.each_with_index do |task,index| %>
   		<div id="task_<%= task.id %>" class="row border_bottom" data-list_index="<%= index %>">
@@ -18,6 +12,12 @@
   	<% end %>
   </div>
   <%= will_paginate @tasks %>
+  <div id="archive_completed_items" class="list_action button round color2" <% unless @this_user.tasks.complete.unorganized.any? %>style="display: none;"<% end %>>
+    	<span onclick="void(0)" href="<%= archive_completed_tasks_url %>"
+    	 	data-ajax_behavior="ajax_link"
+    		data-ajax_method="GET"
+    		data-ajax_success_callback="handleArchivementSuccess();" >archive completed tasks</span>
+  </div>
 <% else %>
   <h2>You don't have any unorganized tasks right now.</h2>
   <% if @this_user.show_help_text %>
