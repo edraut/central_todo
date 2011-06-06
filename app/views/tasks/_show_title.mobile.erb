@@ -3,10 +3,9 @@
 <div class="row_item header_variable_text"><h2><span class="user_title"><%= truncate_clean(@task.title, :length => 256, :omission => '...', :max_word_length => (session.has_key? :screen_width and (session[:screen_width].to_i < 500)) ? 20 : 256) %></span></h2></div>
 </div>
 <div class="row_item last list_action">
-	<%= link_to '(edit title)', edit_task_url(@task, :attribute => 'title'),
-	 	:'data-ajax_behavior' => 'ajax_link',
-		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => "task_title_#{@task.id}",
-		:class => 'small'
-	%><br/>&nbsp;
+	<span onclick="void(0)" href="<%= edit_task_url(@task, :attribute => 'title') %>"
+	 	data-ajax_behavior="ajax_link"
+		data-ajax_method="GET"
+		data-ajax_success_element="task_title_<%= @task.id %>"
+		class="small"> (edit title) </span><br/>&nbsp;
 	</div>
