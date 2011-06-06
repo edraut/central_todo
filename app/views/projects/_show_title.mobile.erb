@@ -1,10 +1,10 @@
 <div class="block"><h2>Plan: <span class="user_title"><%= truncate_clean(@project.title, :length => 256, :omission => '...', :max_word_length => (session.has_key? :screen_width and (session[:screen_width].to_i < 500)) ? 20 : 256) %></span>
 </h2></div>
 <div class="row_item last list_action padding_bottom">
-	<%= link_to '(edit title)', edit_plan_url(@project, :attribute => 'title'),
-	 	:'data-ajax_behavior' => 'ajax_link',
-		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'project_title',
-		:class => 'small'
-	%>
+	<span onclick="void(0)" href="<%= edit_plan_url(@project, :attribute => 'title') %>"
+	 	data-ajax_behavior="ajax_link"
+		data-ajax_method="GET"
+		data-ajax_success_element="project_title"
+		class="small">
+		 (edit title) </span>
 </div>

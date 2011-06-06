@@ -3,12 +3,12 @@
 	<h3>Due Date</h3>
 </div>
 <div class="row_item last h3_padding list_action">
-	<%= link_to (@project.due_date.blank? ? 'add due date' : 'edit due_date'), edit_plan_url(@project, :attribute => 'due_date'),
-	 	:'data-ajax_behavior' => 'ajax_link',
-		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'project_due_date',
-		:class => 'small'
-	%>
+	<span onclick="void(0" href="<%= edit_plan_url(@project, :attribute => 'due_date') %>"
+	 	data-ajax_behavior=ajax_link
+		data-ajax_method="GET"
+		data-ajax_success_element="project_due_date"
+		class="small"
+	> <%= (@project.due_date.blank? ? 'add due date' : 'edit due_date') %></span>
 </div>
 </div>
 <% unless @project.due_date.blank? %>

@@ -9,11 +9,13 @@
   <% end %>
   	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light "><div class="button_content">move to folder</div></div>
   	<div class="row_item last padding_top_button small">&nbsp;or
-  	<%= link_to (@project.folder_for(@this_user) ? 'cancel' : 'leave blank'), plan_url(@project),
-  	 	:'data-ajax_behavior' => 'ajax_link',
-  		:'data-ajax_method' => 'GET',
-  		:'data-ajax_success_element' => 'project_folder_id',
-  		:'data-ajax_data' => "{attribute: 'folder_id'}"%></div>
+  	<span onclick="void(0)" href="<%= plan_url(@project) %>"
+  	 	data-ajax_behavior="ajax_link"
+  		data-ajax_method="GET"
+  		data-ajax_success_element="project_folder_id"
+  		data-ajax_data="{attribute: 'folder_id'}">
+		  <%= (@project.folder_for(@this_user) ? 'cancel' : 'leave blank') %></span>
+  		</div>
   <% end %>
 <% else %>
   <p>You currently have a free account. Upgrade to a paid account now and create your own plans and folders, share them with friends and colleagues, and more!<br/>&nbsp;

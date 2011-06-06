@@ -3,13 +3,13 @@
 <h3>Description</h3>
 </div>
 <div class="row_item last h3_padding list_action">
-	<%= link_to (@project.description.blank? ? 'add description' : 'edit description'), edit_plan_url(@project),
-	 	:'data-ajax_behavior' => 'ajax_link',
-		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'project_description',
-		:'data-ajax_data' => "{'attribute':'description'}",
-		:class => 'small'
-	%>
+	<span onclick="void(0)" href="<%= edit_plan_url(@project) %>"
+	 	data-ajax_behavior="ajax_link"
+		data-ajax_method="GET"
+		data-ajax_success_element="project_description"
+		data-ajax_data="{'attribute':'description'}"
+		class="small"
+	><%= (@project.description.blank? ? 'add description' : 'edit description') %></span>
 </div>
 </div>
 <% unless @project.description.blank? %>

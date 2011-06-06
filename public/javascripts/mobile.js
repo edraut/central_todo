@@ -387,7 +387,7 @@ function loadPages(pages){
 			}
 			jQuery("[data-tab_switcher][data-tab_target='" + new_page.attr('id') + "']").css('visibility','visible');
 			this_url = jQuery('#pager_wrapper').data('loaded_page_ids')[new_page.attr('id')];
-			jQuery('#pager_wrapper').data('loaded_page_urls')[this_url] = new_page.attr('id');				
+			jQuery('#pager_wrapper').data('loaded_page_urls')[this_url] = new_page.attr('id');	
 		}
   };
 	for(url in pages){
@@ -397,6 +397,7 @@ function loadPages(pages){
 	    jQuery.ajax(ajax_params);
 		}
   }
+	popButtons();
 }
 function bindPageSlides(){
 	jQuery('.page_slide').live(

@@ -349,7 +349,8 @@ div.section.borderless {
   line-height: 2em;
   text-align: center;
   cursor: pointer;
-  text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.7); }
+  text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.7);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 a.button.round {
   padding: .4em .5em .4em .6em;

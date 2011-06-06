@@ -8,11 +8,11 @@
 	<%= f.text_field :title %>
 	<%= hidden_field_tag 'attribute', 'title' %>
 	<div class="row_item last padding_top_button small list_action">&nbsp;or
-	<%= link_to '(cancel)', plan_url(@project),
-	 	:'data-ajax_behavior' => 'ajax_link',
-		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'project_title',
-		:'data-ajax_data' => "{attribute: 'title'}"%>
+	<span onclick="void(0)" href="<%= plan_url(@project) %>"
+	 	data-ajax_behavior="ajax_link"
+		data-ajax_method="GET"
+		data-ajax_success_element="project_title"
+		data-ajax_data="{attribute: 'title'}">(cancel)</span>
 	</div>
 	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light list_action"><div class="button_content">save title</div></div>
 <% end %>

@@ -4,12 +4,12 @@
 </div>
 <% if @project.user_id == @this_user.id %>
 <div class="row_item last h3_padding list_action">
-	<%= link_to (@project.shared? ? 'edit sharing' : 'add sharers'), edit_plan_url(@project, :attribute => 'sharing'),
-	 	:'data-ajax_behavior' => 'ajax_link',
-		:'data-ajax_method' => 'GET',
-		:'data-ajax_success_element' => 'project_sharing',
-		:class => 'small'
-	%>
+	<span onclick="void(0)" href="<%= edit_plan_url(@project, :attribute => 'sharing') %>"
+	 	data-ajax_behavior="ajax_link"
+		data-ajax_method="GET"
+		data-ajax_success_element="project_sharing"
+		class="small"
+	> <%= (@project.shared? ? 'edit sharing' : 'add sharers') %> </span>
 </div>
 <% end %>
 </div>
