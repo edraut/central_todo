@@ -20,10 +20,9 @@
   		<%= f.check_box :state, {:'data-behavior' => 'auto_submit', :'data-role' => 'none'}, task.archived? ? 'archived' : 'complete', 'active' %>
     </div>
   	<div class="line_item_height <% if sortable == true %>fifty_eight<% else %>seventy<% end %> row_item">
-      <!-- <div onclick="void(0)" data-page_turner="true" data-page_target="task_page_<%= task.id %>" <% if task.done? %>class="completed"<% end %>> -->
+      <span <% if task.done? %>class="completed"<% end %>>
         <%= truncate_clean(task.title, :length => 256, :omission => '...', :max_word_length => (session.has_key? :screen_width and (session[:screen_width].to_i < 500)) ? 20 : 256) %>
-      <!-- </div> -->
-  		<%# link_to task.title, task_url(task), :class => task.done? ? 'completed' : nil, :rel => 'external', :'data-role' => 'none' %>
+      </span>
       <% unless controller_name == 'labels' and ['show','edit'].include? action_name %>
       <div class="block labels_inline">
         <% for label in task.labels.for_user(@this_user) %><div class="label <%= label.color %>"><%= label.title %></div><% end %>
