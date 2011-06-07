@@ -5,7 +5,7 @@
   :'data-ajax_method' => 'POST',
   :'data-ajax_success_element' => "project_#{project.id}_task_list",
   :'data-ajax_success_placement' => 'append',
-  :'data-ajax_success_callback' => "jQuery('#project_#{project.id}_new_task_title').val('');jQuery('#project_#{project.id}_new_task_form').rebindSubmit();updateListCount();",
+  :'data-ajax_success_callback' => "jQuery('#project_#{project.id}_new_task_title').val('');jQuery('#project_#{project.id}_new_task_form').rebindSubmit();handleCount();",
   :id => "project_#{project.id}_new_task_form"} do |f| %>
 		<%= f.text_field :title, :id => "project_#{project.id}_new_task_title" %>
 		<%= f.hidden_field :state, :id => "project_#{project.id}_new_task_state" %>
@@ -18,4 +18,5 @@
   	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
   	  <div class="button_content">add task</div>
   	</div>
+    <div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&nbsp;or (close)</div>
 <% end %>

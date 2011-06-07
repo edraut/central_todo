@@ -1,6 +1,6 @@
 class LabelsController < ApplicationController
   before_filter :require_user
-  before_filter :get_label, :only => [:show,:edit,:update,:destroy,:archive_completed_tasks,:sort_tasks]
+  before_filter :get_label, :only => [:show,:edit,:update,:destroy,:archive_completed_tasks,:sort_tasks,:show_full]
   before_filter :set_nav_tab
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
   respond_to :html, :mobile
@@ -32,17 +32,12 @@ class LabelsController < ApplicationController
   def show
     @item = @label
     return if handle_attribute_partials('show')
-    @html_page_title = @page_title = 'Label'
-    @sortable = true
-    if @label.user_id == @this_user.id
-      @tasks = @label.tasks.active.ordered.paginate(:page => params[:page],:per_page => 40)
-    else
-      @tasks = Task.only_once.for_user(@this_user).for_label(@label).active.ordered.paginate(:page => params[:page],:per_page => 40)
-    end
+    prepare_label
     respond_with(@label) and return
   end
   
   def show_full
+    prepare_label
     if @render_type == :partial
       respond_with(@label) do |format|
         format.any {render @render_type => 'show_full' and return}
@@ -96,6 +91,16 @@ class LabelsController < ApplicationController
     unless @label.user_id == @this_user.id or @this_user.sharing_parents.map{|sp| sp.id}.include? @label.user_id
       flash[:notice] = "You don't have privileges to access that label."
       redirect_to root_url and return
+    end
+  end
+  
+  def prepare_label
+    @html_page_title = @page_title = 'Label'
+    @sortable = true
+    if @label.user_id == @this_user.id
+      @tasks = @label.tasks.active.ordered.paginate(:page => params[:page],:per_page => 40)
+    else
+      @tasks = Task.only_once.for_user(@this_user).for_label(@label).active.ordered.paginate(:page => params[:page],:per_page => 40)
     end
   end
 end

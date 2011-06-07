@@ -25,7 +25,6 @@
       <% unless @project.archived? %>
   	  <div class="row_item">&nbsp;&nbsp;</div>
       <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
-      <div class="row_item control_font button round color2 circle arrow" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&uarr;</div>
       <% end %>
     </div>
     <div id="project_<%= @project.id %>_task_list" class="block" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-sort_id="plan_<%= @project.id %>_task_list">

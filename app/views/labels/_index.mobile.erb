@@ -5,7 +5,8 @@
 	<% form_for @label, :url => labels_url do |f| %>
 			<%= f.text_field :title, :class => "span-9" %>
 			<%= f.hidden_field :user_id %>
-    	<button type="submit" class="row_item button round small light ">save</button>
+    	<div onclick="void(0)" class="row_item button round small light" data-button="true" data-submit="true">save</div>
+      <div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_label_form" style="display: none;" data-button="true">&nbsp;or (close)</div>
 	<% end %>
 </div>
 <% if @this_user.labels.count > 0 %>
@@ -15,7 +16,6 @@
   </div>
   <div class="row_item">&nbsp;&nbsp;</div>
   <div class="row_item control_font button round circle color2 " onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_label_form" data-button="true">+</div>
-  <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_label_form" style="display: none;" data-button="true">&uarr;</div>
 </div>
 <div class="list_container">
 	<% for label in @this_user.labels.ordered %>

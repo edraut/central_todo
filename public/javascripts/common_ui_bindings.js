@@ -127,6 +127,9 @@ function handleListDisplay(){
 }
 function handleCount(list_id,source_list_id){
 	jQuery("[data-sort_count='true'][data-sort_count_id='" + list_id + "']").html(jQuery('#' + source_list_id).children().length);
+	jQuery("[data-list_count]").each(function(){
+		jQuery(this).html(jQuery('#' + jQuery(this).data('list_count')).children().length);
+	})
 }
 // Refactor Expanders into a jQuery function that applies full functionality to the selected elements.
 function bindExpanders(){
@@ -153,12 +156,24 @@ function bindExpanders(){
 };
 function expandExpander(data_id) {
 	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").show();
-	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").hide();
+	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").each(function(){
+		if(jQuery(this).data('action') == 'expand'){
+			jQuery(this).css('visibility','hidden');
+		} else {
+			jQuery(this).hide();
+		}
+	});
 	popButtons();
 }
 function contractExpander(data_id) {
 	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").hide();
-	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").show();
+	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").each(function(){
+		if(jQuery(this).data('action') == 'expand'){
+			jQuery(this).css('visibility','visible');
+		} else {
+			jQuery(this).hide();
+		}
+	});
 }
 function bindTabs(){
 	jQuery("[data-tab='tab']").click(function(e){
@@ -217,11 +232,5 @@ function bindConfirm(){
 			e.preventDefault();
 			return false;
 		};
-	})
-}
-
-function updateListCount(){
-	jQuery("[data-list_count]").each(function(){
-		jQuery(this).html(jQuery('#' + jQuery(this).data('list_count')).children().length);
 	})
 }

@@ -364,21 +364,29 @@ div#testone.testone{
 	border-left: 1px solid $gray4;
 	border-right: 1px solid $gray4;
 }
-.half_section {
+@mixin tab_section {
 	position: relative;
 	float: left;
-	width: 50%;
 	padding: .7em 0;
 	text-align: center;
+}
+.half_section {
+	@include tab_section;
+	width: 50%;
 }
 .third_section {
-	position: relative;
-	float: left;
+	@include tab_section;
 	width: 33%;
-	padding: .7em 0;
-	text-align: center;
 }
-.half_section.selected, .third_section.selected {
+.thirty_section {
+	@include tab_section;
+	width: 30%;
+}
+.forty_section {
+	@include tab_section;
+	width: 40%;
+}
+.half_section.selected, .third_section.selected, .thirty_section.selected, .forty_section.selected {
 	background-color: $paper;
 	@include small-shadow;
 }
@@ -762,6 +770,7 @@ div.checked {
 .control_font {
   margin-top: .65em;
   font-size: 1.5em;
+	text-shadow:  0px 1px 1px rgba(255,255,255,1);
 }
 .small_control_font {
   margin-top: 1em;

@@ -2,7 +2,10 @@
   <%-    if @subnav_tab.class.name == 'Fixnum'
           case controller_name
           when 'tasks'
-            if @task.project
+            if @app_context =~ /label/
+              this_title = Label.find(@app_context.to_i).title
+              this_target = "label_page_#{@app_context.to_i}"
+            elsif @task.project
               this_title = @task.project.title
               this_target = "project_page_#{@task.project_id}"
               this_link = plan_url(@task.project)

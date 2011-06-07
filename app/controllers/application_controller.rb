@@ -81,7 +81,10 @@ class ApplicationController < ActionController::Base
     when 'tasks'
       case action_name
       when 'show','comments','update','show_full'
-        if @task.project
+        if params.has_key? :app_context and params[:app_context] =~ /label/
+          @nav_tab = 'labels'
+          @subnav_tab = params[:app_context].to_i
+        elsif @task.project
           @nav_tab = 'plans'
           this_folder = @task.project.folder_for(@this_user)
           if(this_folder)

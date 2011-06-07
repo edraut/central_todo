@@ -4,7 +4,7 @@
 	:'data-ajax_success_element' => "comments_list",
 	:'data-ajax_success_placement' => 'append',
 	:'data-ajax_success_callback' => 
-	  "jQuery('#primary_input').val(''); contractExpander('new_comment_form'); jQuery('#new_comment_form').rebindSubmit();",
+	  "jQuery('#primary_input').val(''); contractExpander('new_comment_form'); jQuery('#new_comment_form').rebindSubmit();handleCount();",
 	:'data-ajax_error_element' => 'new_comment_wrapper',
 	:id => 'new_comment_form'} do |f| %>
 	<div class="span-12">

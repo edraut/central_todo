@@ -4,7 +4,7 @@
 	:'data-ajax_success_element' => "comments_list_#{comment.commentable_type.underscore}_#{comment.commentable_id}",
 	:'data-ajax_success_placement' => 'append',
 	:'data-ajax_success_callback' => 
-	  "jQuery('#primary_input').val('');contractExpander('new_comment_form'); jQuery('#new_comment_form').rebindSubmit();",
+	  "jQuery('#primary_input').val('');contractExpander('new_comment_form'); jQuery('#new_comment_form').rebindSubmit();handleCount();",
 	:'data-ajax_error_element' => 'new_comment_wrapper',
 	:id => 'new_comment_form'} do |f| %>
 	<%= f.text_area :body, :id => "primary_input", :rows => 5 %>

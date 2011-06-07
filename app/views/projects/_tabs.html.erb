@@ -1,5 +1,5 @@
 <div class="span-16 last">
   <div class="list_action attach_above last<% if action_name == 'edit' %> selected<% end %>"><%= link_to 'info', edit_plan_url(@project) %></div>
   <div class="list_action attach_above<% if action_name == 'comments' %> selected<% end %>"><%= link_to "comments(<span data-list_count=\"comments_wrapper\">#{@project.comments.count}</span>)".html_safe, comments_plan_url(@project) %></div>
-  <div class="list_action attach_above<% if ['show','sort_tasks'].include? action_name %> selected<% end %>"><%= link_to "tasks(<span data-list_count=\"project_#{@project.id}_task_list\">#{@project.tasks.unarchived.count}</span>)".html_safe, plan_url(@project) %></div>
+  <div class="list_action attach_above<% if ['show','sort_tasks'].include? action_name %> selected<% end %>"><%= link_to "tasks(<span data-list_count=\"project_#{@project.id}_task_list\">#{@project.tasks.active.count}</span>)".html_safe, plan_url(@project) %></div>
 </div>
