@@ -20,15 +20,15 @@ function ajaxEvent(e){
 	// 	our_element = our_element.parents('form');
 	// }
 	var our_parameters = {
-		type: our_element.attr('data-ajax_method'),
+		type: our_element.data('ajax_method'),
 		dataType: 'html',
 		data: {},
 		beforeSend: function(XMLHttpRequest) {
-			if(our_element.attr('data-ajax_before_callback')){
-				eval(our_element.attr('data-ajax_before_callback'));
+			if(our_element.data('ajax_before_callback')){
+				eval(our_element.data('ajax_before_callback'));
 			};
-			if(our_element.attr('data-ajax_confirm')) {
-				confirmed = confirm(our_element.attr('data-ajax_confirm'));
+			if(our_element.data('ajax_confirm')) {
+				confirmed = confirm(our_element.data('ajax_confirm'));
 				if(confirmed){
 					repositionDialog('#ajax_loading', 'top');
 					jQuery('#ajax_loading').fadeIn(200);
@@ -39,14 +39,17 @@ function ajaxEvent(e){
 			} else {
 				repositionDialog('#ajax_loading', 'top');
 				jQuery('#ajax_loading').fadeIn(200);
+				if(our_element.data('ajax_behavior') == 'ajax_form'){
+					our_element.find('input,select').blur();
+				}
 				return true;
 			};
 			
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
 			jQuery('#ajax_loading').hide();
-			if(jquery_error_element = our_element.attr('data-ajax_error_element')){
-				switch( our_element.attr('data-ajax_error_placement') ) {
+			if(jquery_error_element = our_element.data('ajax_error_element')){
+				switch( our_element.data('ajax_error_placement') ) {
 					case 'after':
 						jQuery('#' + jquery_error_element).after(XMLHttpRequest.responseText);
 						break;
@@ -72,13 +75,13 @@ function ajaxEvent(e){
 		},
 		success: function(data,textStatus) {
 			jQuery('#ajax_loading').hide();
-			if(jquery_success_element = our_element.attr('data-ajax_dynamic_success_element')) {
+			if(jquery_success_element = our_element.data('ajax_dynamic_success_element')) {
 				jquery_success_element = eval(jquery_success_element);
 			} else {
-				jquery_success_element = our_element.attr('data-ajax_success_element');
+				jquery_success_element = our_element.data('ajax_success_element');
 			}
 			if(jquery_success_element) {
-				switch( our_element.attr('data-ajax_success_placement') ) {
+				switch( our_element.data('ajax_success_placement') ) {
 					case 'after':
 						jQuery('#' + jquery_success_element).after(data);
 						jQuery('#' + jquery_success_element).reDraw();
@@ -105,22 +108,22 @@ function ajaxEvent(e){
 						break;
 				}
 			}; 
-			if(our_element.attr('data-ajax_success_callback')){
-				eval(our_element.attr('data-ajax_success_callback'));
+			if(our_element.data('ajax_success_callback')){
+				eval(our_element.data('ajax_success_callback'));
 			};
 		}
 	};
 	switch(element_type){
 		case 'form':
 			our_parameters.data = our_element.serializeArray();
-			our_parameters.data._method = our_element.attr('data-ajax_method');
+			our_parameters.data._method = our_element.data('ajax_method');
 			our_parameters.url = our_element.attr('action');
 			break;
 		case 'link':
-			if (our_element.attr('data-ajax_data')){
+			if (our_element.data('ajax_data')){
 				eval('our_parameters.data = ' + our_element.attr("data-ajax_data"));
 			}
-			our_parameters.data._method = our_element.attr('data-ajax_method');
+			our_parameters.data._method = our_element.data('ajax_method');
 			our_parameters.url = our_element.attr('href');
 			break;
 	}

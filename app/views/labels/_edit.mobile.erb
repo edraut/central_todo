@@ -7,7 +7,7 @@
 <%= render :partial => 'tabs' %>
 <div class="list_container">
   <div class="section controls">
-    <div id="label_delete" class="control right button round color2 " onclick="void(0)" data-button="true" data-button="true"><%= render :partial => 'show_delete', :locals => {:label => @label} %></div>
+    <div id="label_delete" class="control right button round color2" onclick="void(0)" data-button="true" data-confirm="Are you sure you want to delete this label?"><%= render :partial => 'show_delete', :locals => {:label => @label} %></div>
   </div>
   <div class="section">
     <div id="label_color" class="padding">

@@ -7,6 +7,8 @@ $light-blue: #EAF5F5;
 $pale-blue: #f0f8f8;
 $blue-wash: #fbffff;
 $green1: #B7D99B;
+$green5: #77995B;
+$green7: #57793B;
 $carmine5: #BF1A00;
 $dark-carmine: #CF2A00;
 $carmine: #EF3F10;
@@ -234,11 +236,17 @@ body.public {
 	background-color: $paper;
 }
 a {
-	color: $gray10;
+	color: $green7;
 	text-decoration: none;
 	padding: 1px 0 1px 0;
 }
+a.coolvetica {
+	color: $gray10;
+}
 a:hover {
+	color: $green7;
+}
+a.coolvetica:hover {
 	color: $gray8;
 }
 .line_item a:hover, a:hover div {

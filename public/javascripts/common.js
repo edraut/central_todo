@@ -69,6 +69,12 @@ function buttonControl(e){
 	if(!target.attr('data-button')){
 		target = target.parents("[data-button]");
 	}
+	if(target.data('confirm')){
+		if(!confirm(target.data('confirm'))){
+			e.preventDefault();
+			return false;
+		};
+	}
 	if(target.attr('data-submit')){
 		target.parents('form').submit();
 		e.preventDefault();
@@ -166,7 +172,7 @@ jQuery.fn.reDraw = function(){
 	dummy.remove();
 }
 jQuery(document).ready(function(){
-	bindConfirm();
+	// bindConfirm();
 	bindButtonControl();
 	popButtons();
 	bindExpanders();

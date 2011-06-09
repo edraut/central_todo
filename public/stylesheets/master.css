@@ -8,11 +8,17 @@ body.public {
   background-color: #fdfcf8; }
 
 a {
-  color: #4d4c48;
+  color: #57793b;
   text-decoration: none;
   padding: 1px 0 1px 0; }
 
+a.coolvetica {
+  color: #4d4c48; }
+
 a:hover {
+  color: #57793b; }
+
+a.coolvetica:hover {
   color: #6d6c68; }
 
 .line_item a:hover, a:hover div {

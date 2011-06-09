@@ -223,14 +223,3 @@ jQuery.fn.moveToParent = function(parent){
 	   $placeholder.remove();
 	});
 }
-function bindConfirm(){
-	jQuery("[data-confirm]").click(function(e){
-		target = jQuery(this);
-		if(confirm(target.attr('data-confirm'))){
-			return true;
-		} else {
-			e.preventDefault();
-			return false;
-		};
-	})
-}

@@ -35,30 +35,43 @@
       </div>
     </div>
     <div class="span-12 last">
-      <div class="section_rule">&nbsp;</div>
-      <%= label 'card[name]', "Name on Card" %><br/>
-      <%= text_field_tag 'card[name]', nil %><br/>
-      <br/>
-      <%= label 'card[number]', "Credit Card Number" %><br/>
-      <%= text_field_tag 'card[number]', nil %><br/>
-      <br/>
-      <%= label 'card[cvv]', "Security Code" %><br/>
-      <%= text_field_tag 'card[cvv]', nil %><br/>
-      <br/>
-      <%= label nil, "Expiration Date" %><br/>
-      <div class="span-12 last">
-        <div class="span-7">
-          <%= select_tag 'card[month]', options_for_select( Array.new(12){|i| i+1}.map{|m| [m,m]},1) %> /
-          <%= select_tag 'card[year]', options_for_select( Array.new(10){|i| i + Date.today.year}.map{|year| [year,year]},Date.today.year) %>
-        </div>
-        <div id="create_account_button">
-          <div id="create_account_stretcher">
-          	<div class="row_item button round light" data-button="true" data-submit="true" onclick="void(0)">
-          	  <div class="button_content">Create My Account</div>
-          	</div>
+        <div class="section_rule">&nbsp;</div>
+        <%= label 'card[name]', "Name on Card" %><br/>
+        <%= text_field_tag 'card[name]', nil %><br/>
+        <br/>
+        <%= label 'card[number]', "Credit Card Number" %><br/>
+        <%= text_field_tag 'card[number]', nil %><br/>
+        <br/>
+        <div class="span-12">
+          <div class="span-5">
+          <%= label 'card[cvv]', "Security Code" %><br/>
+          <%= text_field_tag 'card[cvv]', nil %><br/>
           </div>
-      	</div>
+          <div class="span-7 last">
+            <div class="span-6">
+            I have read and I agree to the<br/> <%= link_to 'Terms of Service', terms_url %>.
+            </div>
+            <div class="span-1 last">
+              <%= f.check_box :tos_agreed %>
+            </div>
+          </div>
+        </div>
+        &nbsp;
+        <br/>
+        <%= label nil, "Expiration Date" %><br/>
+    </div>
+    <div class="span-12 last">
+      <div class="span-7">
+        <%= select_tag 'card[month]', options_for_select( Array.new(12){|i| i+1}.map{|m| [m,m]},1) %> /
+        <%= select_tag 'card[year]', options_for_select( Array.new(10){|i| i + Date.today.year}.map{|year| [year,year]},Date.today.year) %>
       </div>
+      <div id="create_account_button">
+        <div id="create_account_stretcher">
+        	<div class="row_item button round light" data-button="true" data-submit="true" onclick="void(0)">
+        	  <div class="button_content">Create My Account</div>
+        	</div>
+        </div>
+    	</div>
     </div>
 	<% end %>
 </div>
