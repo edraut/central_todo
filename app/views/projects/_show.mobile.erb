@@ -9,7 +9,7 @@
 	<% end %>
     <div class="row_item<% if project.all_complete? %> completed<% end %>"><h3>
 	  <%= truncate_clean(project.title, :length => 256, :omission => '...', :max_word_length => (session.has_key? :screen_width and (session[:screen_width].to_i < 500)) ? 20 : 256) %>
-	  <span class="small">(</span><span id="project_<%= project.id %>_count_display" data-sort_count="true" data-sort_id="project_task_lists" data-sort_count_id="project_<%= project.id %>_task_list" class="small"><%= project.tasks.active.count %></span><span class="small">)</span></h3>
+	  <span class="small">(</span><span id="project_<%= project.id %>_count_display"  data-list_count="project_<%= project.id %>_task_list" class="small"><%= project.tasks.active.count %></span><span class="small">)</span></h3>
 	  </div>
 	</div>
 	<% if @nav_tab == 'contacts' %>

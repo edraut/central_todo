@@ -6,6 +6,9 @@ $blue6: #E0F0F0;
 $light-blue: #EAF5F5;
 $pale-blue: #f0f8f8;
 $blue-wash: #fbffff;
+$green1: #B7D99B;
+$green5: #77995B;
+$green7: #57793B;
 $light-carmine: #E55;
 $carmine: #EE3434;
 $paper: #FDFCF8;
@@ -224,6 +227,15 @@ div#testone.testone{
 }
 .flash_dialog {
 	@include flash;
+}
+.dialog {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 3px solid $green5;
+	background-color: $paper;
+	z-index: 20;
+	padding: 10px;
 }
 .meta_nav {
 	position:relative;

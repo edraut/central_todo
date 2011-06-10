@@ -155,9 +155,15 @@ function bindExpanders(){
 	});
 };
 function expandExpander(data_id) {
-	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").show();
+	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").each(function(){
+		if(jQuery(this).data('style') == 'visibility'){
+			jQuery(this).css('visibility','visible');
+		} else {
+			jQuery(this).show();
+		}
+	});
 	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").each(function(){
-		if(jQuery(this).data('action') == 'expand'){
+		if(jQuery(this).data('style') == 'visibility'){
 			jQuery(this).css('visibility','hidden');
 		} else {
 			jQuery(this).hide();
@@ -166,12 +172,18 @@ function expandExpander(data_id) {
 	popButtons();
 }
 function contractExpander(data_id) {
-	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").hide();
-	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").each(function(){
-		if(jQuery(this).data('action') == 'expand'){
-			jQuery(this).css('visibility','visible');
+	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").each(function(){
+		if(jQuery(this).data('style') == 'visibility'){
+			jQuery(this).css('visibility','hidden');
 		} else {
 			jQuery(this).hide();
+		}
+	});
+	jQuery("[data-behavior='expander'][data-state='contracted'][data-id='" + data_id + "']").each(function(){
+		if(jQuery(this).data('style') == 'visibility'){
+			jQuery(this).css('visibility','visible');
+		} else {
+			jQuery(this).show();
 		}
 	});
 }

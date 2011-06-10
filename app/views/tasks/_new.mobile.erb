@@ -3,6 +3,7 @@
 <%= form_for Task.new(:project_id => project.id, :state => 'active'), :html => {
   :'data-ajax_behavior' => 'ajax_form',
   :'data-ajax_method' => 'POST',
+  :'data-ajax_before_callback' => "jQuery('#project_#{project.id}_new_task_form').find(\"[data-action='contract']\").click();",
   :'data-ajax_success_element' => "project_#{project.id}_task_list",
   :'data-ajax_success_placement' => 'append',
   :'data-ajax_success_callback' => "jQuery('#project_#{project.id}_new_task_title').val('');jQuery('#project_#{project.id}_new_task_form').rebindSubmit();handleCount();",
