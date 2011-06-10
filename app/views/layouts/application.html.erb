@@ -213,28 +213,53 @@
 					</div>
 				</div>
 				<div id="contacts_nav" class="left_nav_wrapper last">
-					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'contacts' %> selected <% if @subnav_tab %>padding_bottom<% end %><% end %>"<% unless @nav_tab == 'contacts' %> data-binding="hover_show_more" data-hover_div="#contacts_subnav" data-hover_fade_time="100"<% end %>>
-						<%= link_to 'Contacts', users_url, :class => (@nav_tab == 'contacts') ? 'selected loud' : 'loud' %>
-						<%  @this_user_contacts = User.contacts_for(@this_user)
-						    if @this_user_contacts.length > 0 and !(@nav_tab == 'contacts' and !@subnav_tab) %>
-						<div id="contacts_subnav"<% unless @nav_tab == 'contacts' %>style="display:none;"<% end %> class="left_subnav_wrapper<% unless @nav_tab == 'contacts' %> hover_nav<% end %>">
-              <% unless @nav_tab == 'contacts' %>
-						  <div class="hover_nav_pointer">&rarr;</div>
-						  <% end %>
-						  <% for contact in @this_user_contacts %>
-							<div class="vert_line_subnav_wrapper<% if @nav_tab == 'contacts' and @subnav_tab == contact.id %> selected<% end %>">
-							  <div class="line_fixed_width<% if @nav_tab == 'contacts' and @subnav_tab == contact.id %> selected<% end %>">
-                  <div class="overflow_fade">&nbsp;</div>
-                  <div class="span-24 allcaps">
-                    <%= link_to contact.handle, user_url(contact) %>
+					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'contacts' %> selected <% if @subnav_tab %>padding_bottom<% end %><% end %>">
+            <div onclick="void(0)" class="loud" <% unless @nav_tab == 'contacts' %> data-behavior="expander" data-action="expand" data-state="contracted" data-id="contact_list" data-switch="hide"<% end %>>Contacts</div>
+            <div onclick="void(0)" class="loud" <% unless @nav_tab == 'contacts' %> data-behavior="expander" data-action="contract" data-state="expanded" data-id="contact_list" data-switch="hide"<% end %> style="display: none;">Contacts</div>
+						<div class="expandable_subnav" id="contact_subnav" <% unless @nav_tab == 'contacts' %> style="display:none;" data-behavior="expander" data-state="expanded" data-id="contact_list"<% end %>>
+						  <% for contact in User.contacts_for(@this_user) %>
+					      <%  selected = (@nav_tab == 'contacts' and @user and !@project and @user.id == @subnav_tab and @user.id == contact.id)
+					          super_selected = (@nav_tab == 'contacts' and @project and @project.user_id == contact.id) %>
+                <div id="contact_<%= contact.id %>_nav" class="expandable_subnav" data-sort_element="true" data-sort_id="contact_list">
+                  <div class="expandable_subnav <% if selected %> selected<% end %>" data-binding="hover_show_more" data-hover_div="[data-hover_id='contact_nav_<%= contact.id %>']" data-hover_fade_time="50" data-hover_fadein_time="50">
+    						    <div class="expand_arrow_width" data-behavior="expander" data-action="expand" data-state="contracted" data-id="contact_<%= contact.id %>" <% if selected or super_selected %>style="display:none;"<% end %>>&nbsp;&gt;</div>
+    						    <div class="expand_arrow_width" data-behavior="expander" data-action="contract" data-state="expanded" data-id="contact_<%= contact.id %>" <% unless selected or super_selected %>style="display:none;"<% end %>>&nbsp;&or;</div>
+    						    <div class="expanded_subnav">
+    						      <div class="overflow_fade">&nbsp;</div>
+                      <div data-drag_handle="true" class="allcaps expandable_subnav_stretcher">
+                        &nbsp;<a href="<%= user_url(contact) %>" data-resource_attr="contact_title" data-resource_id="<%= contact.id %>"><%= contact.handle %></a>
+                      </div>
+                		</div>
+                	</div>
+      						<div class="expandable_subnav" id="contact_<%= contact.id %>_plan_list_nav" <% unless selected or super_selected %>style="display:none;"<% end %> data-behavior="expander"  data-state="expanded" data-id="contact_<%= contact.id %>">
+      						  <% for project in @this_user.shared_projects.active.where("projects.user_id = :user_id",{:user_id => contact.id}) %>
+      							<div id="project_<%= project.id %>nav" class="expanded_subnav_indent <% if @project and @subsubnav_tab == @project.id and project.id == @project.id %>selected<% end %> line_fixed_width" data-sort_element="true" data-sort_id="contact_plan_list" data-binding="hover_show_more" data-hover_div="[data-hover_id='project_nav_<%= project.id %>']" data-hover_fade_time="50" data-hover_fadein_time="50">
+      							  <div class="overflow_fade">&nbsp;</div>
+                      <div class="nav_tools" data-hover_id="project_nav_<%= project.id %>" style="display:none;">
+        							  <div class="nav_tool_text"><div class="count small" data-sort_count="true" data-sort_id="project_task_lists" data-list_count="project_<%= project.id %>_task_list" data-hover_id="project_nav_<%= project.id %>" style="display:none;"><%= project.tasks.active.count %></div>&nbsp;</div>
+                        <div class="nav_tool_icons">
+                        <% unless @project and @project.id == project.id %>
+                        <a class="plus_icon" data-modal_trigger="true" data-modal_id="project_new_task_form_nav" data-modal_insert_value="<%= project.id %>" data-modal_display_name="<%= project.title %>">&oplus;</a>
+                		    <a href="<%= plan_url(project) %>"
+                    			data-ajax_behavior="ajax_link"
+                    			data-ajax_method="DELETE"
+                    			data-ajax_success_callback="jQuery('#project_<%= project.id %>nav').remove();jQuery('#project_<%= project.id %>').remove();handleListDisplay();handleCount();"
+                    			data-ajax_data="{_method: 'DELETE'}"
+                    			data-ajax_confirm="Are you sure you want to delete this project?"
+                    			class="delete" data-role="delete">&otimes;</a><% end %>&nbsp;
+                    		</div>
+                  		</div>
+      							  <div class="expandable_subnav_stretcher" data-drag_handle="true">
+                        &nbsp; <a href="<%= plan_url(project) %>" data-resource_attr="project_title" data-resource_id="<%= project.id %>"><%= project.title %></a>
+                      </div>
+                    </div>
+                    <% end %>
                   </div>
                 </div>
-              </div>
               <% end %>
             </div>
-            <% end %>
-					</div>
-				</div>
+          </div>
+        </div>
 				<div id="label_nav" class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'labels' %> selected <% if @subnav_tab %>padding_bottom<% end %><% end %>">
 						<%= link_to 'Labels', labels_url, :class => (@nav_tab == 'labels') ? 'selected loud' : 'loud' %>

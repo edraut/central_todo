@@ -441,7 +441,7 @@ jQuery(document).ready(function(){
 	bindPreventDoubleClick();
 	bindPagers();
 	bindPageSlides();
-	jQuery(document).live('touchstart',clearSorts);
+	// jQuery(document).live('touchstart',clearSorts);
 	jQuery("[data-drag_handle]").live('touchstart',handleSortBegin);
 	window.onpopstate = function(e){
 		alert("location: " + document.location + ", state: " + JSON.stringify(event.data));

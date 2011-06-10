@@ -15,8 +15,10 @@
     <% elsif sortable %>
 		  <%= hidden_field_tag :app_context, 'project', :id => "project_#{project.id}_new_task_app_context" %>
 		<% end %>
+		<div class="row">
   	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
   	  <div class="button_content">add task</div>
   	</div>
     <div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&nbsp;or (close)</div>
+    </div>
 <% end %>
