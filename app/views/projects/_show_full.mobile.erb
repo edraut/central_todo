@@ -17,7 +17,7 @@
   </div>
 </div>
 <% end %>
-	<div data-role="list" id="unarchived_items_wrapper" class="block">
+	<div data-role="list" id="unarchived_items_wrapper" class="block" data-behavior="expander" data-state="contracted" data-id="new_task_form">
     <div class="row">
   	  <div class="row_item padding_left">
     		<h2 id="active_task_title"><% if @project.tasks.unarchived.any? %>Active Tasks<% else %>No active tasks.<% end %></h2>
