@@ -244,7 +244,7 @@ a.coolvetica {
 	color: $gray10;
 }
 a:hover {
-	color: $green7;
+	color: $gray10;
 }
 a.coolvetica:hover {
 	color: $gray8;
@@ -544,7 +544,8 @@ select.with_text_field{
 	line-height: $compact-line-height;
 	@include small_shadow;
 	a:hover {
-		color: $gray8;
+		color: $gray10;
+		background-color: $gray1;
 	}
 	.delete, .plus_icon {
 		line-height: $compact-line-height-minus-two;
@@ -1358,7 +1359,6 @@ h2 .button.small {
 }
 .flash_notice {
 	@include flash;
-	border-top:none;
 	text-align: center;
 }
 .flash_dialog {
