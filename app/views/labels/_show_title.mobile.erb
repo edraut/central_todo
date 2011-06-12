@@ -1,5 +1,10 @@
-<div class="block"><h2>Label: <span class="user_title"><%= truncate_clean(@label.title, :length => 256, :omission => '...', :max_word_length => (session.has_key? :screen_width and (session[:screen_width].to_i < 500)) ? 20 : 256) %></span>
-</h2></div>
+<div class="block">
+  <h2><div class="row_item">Label:&nbsp;&nbsp;</div>
+      <div class="label <%= @label.color %> row_item">
+        <%= truncate_clean(@label.title, :length => 256, :omission => '...', :max_word_length => (session.has_key? :screen_width and (session[:screen_width].to_i < 500)) ? 20 : 256) %>
+      </div>
+  </h2>
+</div>
 <div class="row_item last list_action">
 	<span onclick="void(0)" href="<%= edit_label_url(@label, :attribute => 'title') %>"
 	 	data-ajax_behavior="ajax_link"

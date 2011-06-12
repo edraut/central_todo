@@ -1,15 +1,5 @@
 <div id="all_labels" class="pager" data-children_pages="({<% if @this_user.labels.any? %>'<%= multiple_labels_url(:ids => @this_user.labels.ordered.map{|t| t.id}.join(',')) %>':'multiple_labels_page_<%= @this_user.labels.ordered.map{|t| t.id}.join('_') %>'<% end %>})">
 <div class="page_layout">
-<div data-behavior="expander" data-state="expanded" data-id="new_label_form" style="display:none;">
-  <h2>Add a Label</h2>
-	<% form_for @label, :url => labels_url do |f| %>
-			<%= f.text_field :title, :class => "span-9" %>
-			<%= f.hidden_field :user_id %>
-    	<div onclick="void(0)" class="row_item button round small light" data-button="true" data-submit="true">save</div>
-      <div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_label_form" style="display: none;" data-button="true">&nbsp;or (close)</div>
-	<% end %>
-</div>
-<% if @this_user.labels.count > 0 %>
 <div class="row">
   <div class="row_item">
     <h2>Labels</h2>
@@ -17,7 +7,20 @@
   <div class="row_item">&nbsp;&nbsp;</div>
   <div class="row_item control_font button round circle color2 " onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_label_form" data-button="true">+</div>
 </div>
-<div class="list_container">
+<div class="block">
+  <div class="dialog" data-behavior="expander" data-state="expanded" data-id="new_label_form" data-style="visibility" style="visibility:hidden;">
+    <h2>Add a Label</h2>
+  	<% form_for @label, :url => labels_url do |f| %>
+  			<%= f.text_field :title, :class => "span-9" %>
+  			<%= f.hidden_field :user_id %>
+        <div class="row">
+        	<div onclick="void(0)" class="row_item button round small light" data-button="true" data-submit="true">save</div>
+          <div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_label_form" style="display: none;" data-button="true">&nbsp;or (close)</div>
+        </div>
+  	<% end %>
+  </div>
+  <% if @this_user.labels.count > 0 %>
+  <div class="list_container">
 	<% for label in @this_user.labels.ordered %>
 		<div id="label_<%= label.id %>" class="row border_bottom">
 	    <div class="padding">
@@ -50,5 +53,6 @@
   </div>
   <% end %>
 <% end %>
+</div>
 </div>
 </div>

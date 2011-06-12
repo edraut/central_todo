@@ -385,14 +385,14 @@ function loadPages(pages){
 					jQuery('#pager_wrapper').data('loaded_page_urls')[jQuery(this).data('direct_url')] = jQuery(this).attr('id');
 				})
 			}
+			this_url = jQuery('#pager_wrapper').data('loaded_page_ids')[new_page.attr('id')];
+			jQuery('#pager_wrapper').data('loaded_page_urls')[this_url] = new_page.attr('id');	
 			if(jQuery("[data-page_turner][data-page_loader='" + new_page.attr('id') + "']").length > 0){
 				jQuery("[data-page_turner][data-page_loader='" + new_page.attr('id') + "']").css('visibility','visible');
 			} else {
 				jQuery("[data-page_turner][data-page_target='" + new_page.attr('id') + "']").css('visibility','visible');
 			}
 			jQuery("[data-tab_switcher][data-tab_target='" + new_page.attr('id') + "']").css('visibility','visible');
-			this_url = jQuery('#pager_wrapper').data('loaded_page_ids')[new_page.attr('id')];
-			jQuery('#pager_wrapper').data('loaded_page_urls')[this_url] = new_page.attr('id');	
 		}
   };
 	for(url in pages){
