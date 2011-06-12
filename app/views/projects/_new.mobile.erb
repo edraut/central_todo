@@ -1,10 +1,12 @@
-<div class="padding" data-behavior="expander" data-state="expanded" data-id="folder_<%= folder.id %>_new_project_form" style="display:none;">
+<div class="dialog" data-behavior="expander" data-state="expanded" data-style="visibility" data-id="folder_<%= folder.id %>_new_project_form" style="visibility:hidden;">
   <b>Add a Plan</b>
 	<% form_for Project.new(:folder_id => folder.id, :state => 'active'), :url => plans_url, :html => {:id => "folder_#{folder.id}_new_project_form"} do |f| %>
 			<%= f.text_field :title, :class => "span-9" %>
 			<%= f.hidden_field :state, :id => "folder_#{folder.id}_new_project_state" %>
 			<%= f.hidden_field :folder_id, :id => "folder_#{folder.id}_new_project_folder_id" %>
-    	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light"><div class="button_content">save title</div></div>
-      <div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="folder_<%= @folder.id %>_new_project_form" style="display: none;" data-button="true">&nbsp;or (close)</div>      
+      <div class="row">
+      	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light"><div class="button_content">save title</div></div>
+        <div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="folder_<%= @folder.id %>_new_project_form" style="display: none;" data-button="true">&nbsp;or (close)</div>      
+      </div>
 	<% end %>
 </div>

@@ -1,0 +1,17 @@
+<% if defined? sortable %>
+  <% for task in tasks %>
+      <%= render :partial => 'show', :locals => {:task => task, :project => @project, :sortable => true}, :layout => '/layouts/new_task' %>
+  <% end %>
+<% else %>
+  <% for task in tasks %>
+      <%= render :partial => 'show', :locals => {:task => task, :project => @project}, :layout => 'new_task' %>
+  <% end %>
+<% end %>
+<%= render :partial => '/layouts/line_item_javascript' %>
+<%= javascript_tag do %>
+jQuery(document).ready(function(){
+	children_pages = {'<%= show_full_task_url(task) %>':'task_page_<%= task.id %>'};
+	loadPages(children_pages);
+	jQuery('#dashboard_overview').addClass('current_page');
+});
+<% end %>

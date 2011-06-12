@@ -284,8 +284,11 @@ function repositionDialog(selector,vertical_position){
 	jQuery(selector).css('top',dialog_top);
 	jQuery(selector).css('left', dialog_left);
 };
-function popButtons(){
-	jQuery('.button').each(function(i){
+function popButtons(container){
+	if(typeof(container) == 'undefined'){
+		container = jQuery('body');
+	}
+	container.find('.button').each(function(i){
 		if(jQuery(this).find('.glare').length == 0){
 			glare = jQuery('<div class="glare">&nbsp;</div>');
 			jQuery(this).prepend(glare);
@@ -313,6 +316,7 @@ function showTab(control){
 	current_page.removeClass('current_page');
 	tab_target.addClass('current_page');
 	tab_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").css('visibility','visible');
+	popButtons(tab_target);
 }
 function hideLowerElements(elem){
 	elem.find("[data-list_index]").each(function(){
@@ -358,6 +362,7 @@ function slidePage(direction,page_target_id){
 				// },2000);
 		// });
 	});
+	popButtons(page_target);
 }
 function loadPages(pages){
 	ajax_params = {
@@ -368,8 +373,8 @@ function loadPages(pages){
       //handle misfire on loading page
     },
 		success: function(data, message){
-			new_page = jQuery(data);
-			new_page.hide();
+			new_page = jQuery(data).hide();
+			// new_page.hide();
 			jQuery('#pager_wrapper').append(new_page);
 			if(new_page.children().hasClass('pager')){
 				new_pages = new_page.children();
@@ -397,7 +402,6 @@ function loadPages(pages){
 	    jQuery.ajax(ajax_params);
 		}
   }
-	popButtons();
 }
 function bindPageSlides(){
 	jQuery('.page_slide').live(
@@ -447,6 +451,7 @@ jQuery(document).ready(function(){
 		alert("location: " + document.location + ", state: " + JSON.stringify(event.data));
 	  // slidePage()
 	}
+	jQuery('.button').live('focus',function(e){e.preventDefault();return false});
 });
 jQuery(window).load(function(){
 	setTimeout(handleHalfSections,100);

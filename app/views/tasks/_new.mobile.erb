@@ -1,3 +1,4 @@
+<b>Add Tasks</b>
 <% hierarchical = false unless defined? hierarchical
   sortable = false unless defined? sortable %>
 <%= form_for Task.new(:project_id => project.id, :state => 'active'), :html => {
@@ -8,7 +9,9 @@
   :'data-ajax_success_placement' => 'append',
   :'data-ajax_success_callback' => "jQuery('#project_#{project.id}_new_task_title').val('');jQuery('#project_#{project.id}_new_task_form').rebindSubmit();handleCount();",
   :id => "project_#{project.id}_new_task_form"} do |f| %>
-		<%= f.text_field :title, :id => "project_#{project.id}_new_task_title" %>
+	<%= text_field_tag :title_1, '', :id => "inbox_text_field_1" %>
+	<%= text_field_tag :title_2, '', :id => "inbox_text_field_2" %>
+	<%= text_field_tag :title_3, '', :id => "inbox_text_field_3" %>
 		<%= f.hidden_field :state, :id => "project_#{project.id}_new_task_state" %>
 		<%= f.hidden_field :project_id, :id => "project_#{project.id}_new_task_project_id" %>
     <% if hierarchical %>
@@ -18,7 +21,7 @@
 		<% end %>
 		<div class="row">
   	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
-  	  <div class="button_content">add task</div>
+  	  <div class="button_content">add tasks</div>
   	</div>
     <div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&nbsp;or (close)</div>
     </div>

@@ -13,7 +13,7 @@
 		<% if (controller_name == 'projects' and action_name == 'show') or @app_context == 'project' %>
   		<%= hidden_field_tag 'app_context', 'project' %>
 		<% end %>
-		<% if sortable == true %><div data-drag_handle="true" class="drag_handle row_item last twelve text_right" onclick="void(0)">&equiv;&nbsp;&nbsp;</div>
+		<% if sortable == true %><div data-drag_handle="true" class="drag_handle row_item last twelve text_right">&equiv;&nbsp;&nbsp;</div>
 		<%= hidden_field_tag 'sortable', true %>
 	  <% end %>
 		<div class="check_box row_item eightteen">&nbsp;

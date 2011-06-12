@@ -1,5 +1,11 @@
 <div class="row">
-  You just added <%= @item.class.name.underscore %> "<%= @item.title %>".<br/>&nbsp;<br/>
+  <%  if @tasks and @tasks.length > 1 
+      tmp_string = @tasks.map{|t| '"' + t.title + '"'}.join(', ') %>
+  You just added <%= @item.class.name.underscore %>s <%= tmp_string.insert(-(tmp_string.reverse.index(',')),'and ') %>.
+  <% else %>
+  You just added <%= @item.class.name.underscore %> "<%= @item.title %>".
+  <% end %>
+  <br/>&nbsp;<br/>
 </div>
 <div class="row">
   <div id="move_to_top_<%= @item.class.name.underscore %>_<%= @item.id %>" onclick="void(0)" class="row_item button round light">

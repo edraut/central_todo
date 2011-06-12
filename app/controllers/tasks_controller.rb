@@ -52,6 +52,7 @@ class TasksController < ApplicationController
         end
       end
       @task = @tasks.detect{|t| !t.title.blank?}
+      @project = @task.project
     else
       @task = Task.new(params[:task].merge!(:user_id => @this_user.id))
       if @task.user_id != @this_user.id
@@ -69,9 +70,13 @@ class TasksController < ApplicationController
           flash.now[:ajax_dialog] = render_to_string :partial => '/tasks/move_to_top'
           @ajax_dialog_javascript = '/tasks/move_to_top_javascript'
         end
-        render :partial => 'show', :locals => {:task => @task, :project => @project, :sortable => true}, :layout => 'new_task'
+        if @tasks and @tasks.count > 1
+          render :partial => 'show_multiple_line_items', :locals => {:tasks => @tasks, :project => @project, :sortable => true} and return
+        else
+          render :partial => 'show', :locals => {:task => @task, :project => @project, :sortable => true}, :layout => 'new_task' and return
+        end
       when 'hierarchical'
-        render :partial => 'show', :locals => {:task => @task, :project => @project, :hierarchical => true}, :layout => 'new_task'
+        render :partial => 'show', :locals => {:task => @task, :project => @project, :hierarchical => true}, :layout => 'new_task' and return
       end
     else
       @app_context = nil

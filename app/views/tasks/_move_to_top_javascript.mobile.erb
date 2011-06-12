@@ -1,7 +1,13 @@
 function bindMoveToTop(){
   jQuery('#move_to_top_<%= @item.class.name.underscore %>_<%= @item.id %>').click(function(e){
-    item = jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>');
-    item.parent().prepend(item);
+    <% if @tasks and @tasks.length > 1 %>
+      items = jQuery('<%= @tasks.map{|t| '#task_' + t.id.to_s}.join(', ') %>');
+      item = jQuery(items[0]);
+      item.parent().prepend(items);
+    <% else %>
+      item = jQuery('#<%= @item.class.name.underscore %>_<%= @item.id %>');
+      item.parent().prepend(item);
+    <% end %>
     jQuery('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>').remove();
     sendSortData(item.parent(),item);
   });

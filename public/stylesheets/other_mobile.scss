@@ -4,6 +4,10 @@
 .row_item.delete{
 	top: .2em;
 }
+.row_item.drag_handle{
+	font-size: 1.1em;
+	top: .4em;
+}
 .row_item.check_box_proxy, .row_item .check_box_proxy{
   margin-top: -.15em;
   line-height: 1.4em;
