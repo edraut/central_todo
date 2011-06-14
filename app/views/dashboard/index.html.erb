@@ -30,7 +30,6 @@
   		<% end %>
   	</div>
   </div>
-  <% if @this_user.tasks.active.unorganized.any? %>
   <div class="span-16 last section_margin_top">
     <div class="span-5">
       <h2>Unorganized Tasks</h2>
@@ -46,6 +45,7 @@
     </div>
     <% end %>
   </div>
+  <% if @this_user.tasks.active.unorganized.any? %>
   <div class="span-16 last padding_bottom">
     <div id="archive_completed_items" class="list_action button round light" style="display: none;" onclick="void(0)" data-button="true">
       <div class="button_content">

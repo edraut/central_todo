@@ -7,5 +7,8 @@ jQuery(document).ready(function(){
 	children_pages = eval(jQuery('#tasks_page').attr('data-children_pages'));
 	loadPages(children_pages);
 	jQuery('#tasks_page').addClass('current_page');
+  jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'tasks_page';
+  jQuery('#pager_wrapper').data('loaded_page_ids')['tasks_page'] = '<%= request.url %>';
+  jQuery('#pager_wrapper').data('back_id','tasks_page');
 });
 <% end %>

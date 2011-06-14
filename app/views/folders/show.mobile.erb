@@ -7,5 +7,6 @@ jQuery(document).ready(function(){
 	jQuery('#folder_page_<%= @folder.id %>').addClass('current_page');
   jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'folder_page_<%= @folder.id %>'
   jQuery('#pager_wrapper').data('loaded_page_ids')['folder_page_<%= @folder.id %>'] = '<%= request.url %>'
+  jQuery('#pager_wrapper').data('back_id','folder_page_<%= @folder.id %>');
 });
 <% end %>

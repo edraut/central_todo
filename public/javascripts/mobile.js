@@ -347,20 +347,16 @@ function slidePage(direction,page_target_id){
 	page_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").css('visibility','hidden');
 	hideLowerElements(page_target);
 	page_target.show(0,function(){
-		// jQuery('body').animate({'scrollTop':0},0,'swing',function(){
 			jQuery(window).scrollTop(0);
 			hideLowerElements(current_page);
-			// alert('scroll done');
 			if(!jQuery('#pager_wrapper').hasClass('page_slide')){
 				jQuery('#pager_wrapper').addClass('page_slide');
 			}
 			window.history.pushState(page_target_id, null, jQuery('#pager_wrapper').data('loaded_page_ids')[page_target.attr('id')].replace(/http(s)?:\/\/[^\/]+/,''));
+			jQuery('#pager_wrapper').data('back_id',current_page.attr('id'));
 			jQuery('#pager_wrapper').data('current_page',current_page);
 			jQuery('#pager_wrapper').data('page_target',page_target);
 			jQuery('#pager_wrapper').css('-webkit-transform','translate3d(' + transition_amount + ',0,0)');
-			// setTimeout(function(){
-				// },2000);
-		// });
 	});
 	popButtons(page_target);
 }
@@ -448,8 +444,8 @@ jQuery(document).ready(function(){
 	// jQuery(document).live('touchstart',clearSorts);
 	jQuery("[data-drag_handle]").live('touchstart',handleSortBegin);
 	window.onpopstate = function(e){
-		alert("location: " + document.location + ", state: " + JSON.stringify(event.data));
-	  // slidePage()
+		// alert("location: " + document.location + ", state: " + JSON.stringify(event.data));
+	  slidePage('back',jQuery('#pager_wrapper').data('back_id'));
 	}
 	jQuery('.button').live('focus',function(e){e.preventDefault();return false});
 });

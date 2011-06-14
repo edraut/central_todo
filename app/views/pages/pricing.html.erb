@@ -10,8 +10,14 @@
       Unlimited Sharing<br/>
       15 Active Plans<br/>
       &nbsp;<br/>
-      <div class="row_item button round medium plan_button" data-button="true" onclick="void(0)">
-    	  <div class="button_content"><%= link_to 'Choose this one', new_user_url(:plan_level => 'BasicRate')%></div>
+      <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
+    	  <div class="button_content"><%= link_to 'Choose monthly', new_user_url(:rate_class => 'BasicRate',:frequency => 'month')%></div>
+    	</div>
+    	<div class="block section_margin_top">
+      	or for $79.99/yr:<br/>&nbsp;
+      </div>
+      <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
+    	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'BasicRate',:frequency => 'year')%></div>
     	</div>
     	
     </p>
@@ -25,8 +31,14 @@
       Unlimited Sharing<br/>
       50 Active Plans<br/>
       &nbsp;<br/>
-      <div class="row_item button round light plan_button" data-button="true" onclick="void(0)">
-    	  <div class="button_content"><%= link_to 'Choose this one', new_user_url(:plan_level => 'SuperRate')%></div>
+      <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
+    	  <div class="button_content"><%= link_to 'Choose monthly', new_user_url(:rate_class => 'SuperRate', :frequency => 'month')%></div>
+    	</div>
+    	<div class="block section_margin_top">
+      	or for $149.99/yr:<br/>&nbsp;
+      </div>
+      <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
+    	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'SuperRate', :frequency => 'year')%></div>
     	</div>
     </p>
   </div>
@@ -39,8 +51,14 @@
       Unlimited Sharing<br/>
       Unlimited Active Plans<br/>
       &nbsp;<br/>
-      <div class="row_item button round light plan_button" data-button="true" onclick="void(0)">
-    	  <div class="button_content"><%= link_to 'Choose this one', new_user_url(:plan_level => 'UnlimitedRate')%></div>
+      <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
+    	  <div class="button_content"><%= link_to 'Choose monthly', new_user_url(:rate_class => 'UnlimitedRate',:frequency => 'month')%></div>
+    	</div>
+    	<div class="block section_margin_top">
+      	or for $299.99/yr:<br/>&nbsp;
+      </div>
+      <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
+    	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'UnlimitedRate',:frequency => 'year')%></div>
     	</div>
     </p>
   </div>

@@ -7,5 +7,6 @@ jQuery(document).ready(function(){
 	jQuery('#label_page_<%= @label.id %>').addClass('current_page');
   jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'label_page_<%= @label.id %>'
   jQuery('#pager_wrapper').data('loaded_page_ids')['label_page_<%= @label.id %>'] = '<%= request.url %>'
+  jQuery('#pager_wrapper').data('back_id','label_page_<%= @label.id %>');
 });
 <% end %>

@@ -3,7 +3,7 @@
 </div>
 <div class="span-12 last section">
 	<% form_for @user do |f| %>
-	  <div class="span-7">
+	  <div class="span-12 last">
   		<% if @user.errors[:email].any? %><div class="error"><%= f.label :email %>
   		<%= @user.errors[:email].join('<br/>') %></div><br/>
   		<% else %>
@@ -17,22 +17,8 @@
   		<%= f.label :password_confirmation %><br />
   		<%= f.password_field :password_confirmation, :'data-return_submit' => true %><br />
       <br/>
-    </div>
-    <div class="span-5 last">
-      <%= hidden_field_tag :rate_class, 'BasicRate', :id => "rate_class_field" %>
-      <%= hidden_field_tag :frequency, 'month', :id => "frequency_field" %>
-      <div onclick="void(0)" class="selectable_group" id="rate_class_select">
-      <% for rate_class in [BasicRate,SuperRate,UnlimitedRate] %>
-        <div onclick="void(0)" class="selectable <% if rate_class.name == 'BasicRate' %>selected<% end %>" data-click_to_select="true" data-click_id="rate_class_field" data-behavior="hidden_field_proxy" data-hidden_field="rate_class_field" data-value="<%= rate_class.name %>"><%= rate_class.display_name %></div>
-      <% end %>
-      </div>
-      <div onclick="void(0)" class="selectable_group section_margin_top" id="frequency_select">
-        <% for frequency in Rate.frequencies %>
-          <div class="selectable<% if frequency[:name] == 'month' %> selected<% end %>" data-click_to_select="true" data-click_id="frequency_field" data-behavior="hidden_field_proxy" data-hidden_field="frequency_field" data-value="<%= frequency[:name] %>" onclick="void(0)">
-            <%= frequency[:display] %>
-          </div>
-        <% end %>
-      </div>
+      <%= hidden_field_tag :rate_class, params[:rate_class], :id => "rate_class_field" %>
+      <%= hidden_field_tag :frequency, params[:frequency], :id => "frequency_field" %>
     </div>
     <div class="span-12 last">
         <div class="section_rule">&nbsp;</div>
@@ -49,7 +35,7 @@
           </div>
           <div class="span-7 last">
             <div class="span-6">
-            I have read and I agree to the<br/> <%= link_to 'Terms of Service', terms_url %>.
+            I have read and I agree to the<br/> <%= link_to 'Terms of Service', terms_url %> and the<br/> <%= link_to 'Privacy Policy', privacy_url %>.
             </div>
             <div class="span-1 last">
               <%= f.check_box :tos_agreed %>
@@ -76,12 +62,21 @@
 	<% end %>
 </div>
 <%= javascript_tag do %>
+rates = {'BasicRate':{},'SuperRate':{},'UnlimitedRate':{}};
+<% Rate.all.each do |rate| %>
+  rates['<%= rate.class.name %>']['<%= rate.frequency %>'] = {'amount':'<%= rate.amount.format %>','frequency':'<%= rate.frequency_display %>'};
+<% end %>
 function selectOption(e){
   e.stopPropagation();
   jQuery(this).add(jQuery(this).siblings()).css('top', (-26 * jQuery(this).parent().children().index(jQuery(this))) + 'px');
   jQuery(this).parent().height(26);
   jQuery(this).parent().children('.selectable').unbind('click',selectOption);
   hiddenFieldProxy(e);
+  setPriceDisplay();
+}
+function setPriceDisplay(){
+  jQuery('#option_amount').html(rates[jQuery('#rate_class_field').val()][jQuery('#frequency_field').val()].amount);
+  jQuery('#option_frequency').html(rates[jQuery('#rate_class_field').val()][jQuery('#frequency_field').val()].frequency);
 }
 jQuery(document).ready(function(){
   jQuery('.selectable_group').click(function(e){
@@ -91,5 +86,6 @@ jQuery(document).ready(function(){
   })
   bindClickToSelect();
   bindHiddenFieldProxy();
+  setPriceDisplay();
 })
 <% end %>

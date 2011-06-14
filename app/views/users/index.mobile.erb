@@ -8,5 +8,6 @@ jQuery(document).ready(function(){
 	jQuery('#all_contacts').addClass('current_page');
   jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'all_contacts'
   jQuery('#pager_wrapper').data('loaded_page_ids')['all_contacts'] = '<%= request.url %>'
+  jQuery('#pager_wrapper').data('back_id','all_contacts');
 });
 <% end %>

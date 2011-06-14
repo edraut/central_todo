@@ -94,6 +94,7 @@ CentralTodo::Application.routes.draw do
   match 'dashboard/unorganized' => 'dashboard#unorganized'
   match 'schedule' => 'schedule#index'
   match 'terms' => 'pages#show', :name => 'Terms of Service', :as => :terms
+  match 'privacy' => 'pages#show', :name => 'Privacy Policy', :as => :privacy
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

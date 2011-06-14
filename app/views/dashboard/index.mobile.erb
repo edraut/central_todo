@@ -6,7 +6,8 @@ jQuery(document).ready(function(){
 	children_pages = eval(jQuery('#dashboard_overview').attr('data-children_pages'));
 	loadPages(children_pages);
 	jQuery('#dashboard_overview').addClass('current_page');
-  jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'dashboard_overview'
-  jQuery('#pager_wrapper').data('loaded_page_ids')['dashboard_overview'] = '<%= request.url %>'
+  jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'dashboard_overview';
+  jQuery('#pager_wrapper').data('loaded_page_ids')['dashboard_overview'] = '<%= request.url %>';
+  jQuery('#pager_wrapper').data('back_id','dashboard_overview');
 });
 <% end %>

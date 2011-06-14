@@ -7,5 +7,6 @@ jQuery(document).ready(function(){
 	jQuery('#contact_page_<%= @user.id %>').addClass('current_page');
   jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'contact_page_<%= @user.id %>'
   jQuery('#pager_wrapper').data('loaded_page_ids')['contact_page_<%= @user.id %>'] = '<%= request.url %>'
+  jQuery('#pager_wrapper').data('back_id','contact_page_<%= @user.id %>');
 });
 <% end %>

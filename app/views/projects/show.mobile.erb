@@ -7,5 +7,6 @@ jQuery(document).ready(function(){
 	jQuery('#project_page_<%= @project.id %>').addClass('current_page');
   jQuery('#pager_wrapper').data('loaded_page_urls')['<%= request.url %>'] = 'project_page_<%= @project.id %>'
   jQuery('#pager_wrapper').data('loaded_page_ids')['project_page_<%= @project.id %>'] = '<%= request.url %>'
+  jQuery('#pager_wrapper').data('back_id','project_page_<%= @project.id %>');
 });
 <% end %>

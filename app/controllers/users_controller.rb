@@ -30,7 +30,11 @@ class UsersController < ApplicationController
   end
   
   def create
-    rate_class = params[:rate_class].constantize
+    if(['BasicRate','SuperRate','UnlimitedRate'].include? params[:rate_class])
+      rate_class = params[:rate_class].constantize
+    else
+      rate_class = BasicRate
+    end
     rate = rate_class.where(:frequency => params[:frequency])
     @user = User.new(params[:user].merge(:time_zone => Time.zone.name, :rate_id => rate.id))
     if @user.save
@@ -174,8 +178,14 @@ class UsersController < ApplicationController
   end
   
   def handle_title
-    @page_title = 'Account'
-    @html_page_title = 'Account'
+    case action_name
+    when 'account','settings'
+      @page_title = 'Account'
+      @html_page_title = 'Account'
+    else
+      @page_title = 'Contacts'
+      @html_page_title = 'Contacts'
+    end
   end
   
   private

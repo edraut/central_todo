@@ -7,6 +7,9 @@ $light-blue: #EAF5F5;
 $pale-blue: #f0f8f8;
 $blue-wash: #fbffff;
 $green1: #B7D99B;
+$green2: #A7C98B;
+$green3: #97B97B;
+$green4: #87A96B;
 $green5: #77995B;
 $green7: #57793B;
 $carmine5: #BF1A00;
@@ -120,6 +123,18 @@ $nav-indent-width: 15px;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray4}", endColorstr="#{$gray5}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray4), to($gray5)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray4,  $gray5); /* for firefox 3.6+ */
+}
+@mixin green-gradient {
+	background: $green3;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$green1}", endColorstr="#{$green5}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($green1), to($green5)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $green1,  $green5); /* for firefox 3.6+ */
+}
+@mixin green-gradient-down {
+	background: $green3;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$green2}", endColorstr="#{$green4}"); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($green2), to($green4)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $green2,  $green4); /* for firefox 3.6+ */
 }
 @mixin gradient2 {
 	background: $gray3;
@@ -303,6 +318,7 @@ input {
 input[type="text"],input[type="password"]{
   padding: .3em;
   height: auto;
+	border-color: $green3;
 }
 textarea {
   position:relative;
@@ -682,6 +698,12 @@ select.with_text_field{
 	}
 	a {
 		color: $gray10;
+	}
+	a.archived {
+		color: $gray4;
+	}
+	a.archived:hover {
+		color: $gray5;
 	}
 	div.selected {
 		background-color: $blue4;
@@ -1186,13 +1208,13 @@ h2 .button.small {
   border:1px solid $gray7;
   border-top:1px solid $gray6;
   border-left:1px solid $gray6;
-  color:$gray12;
+  color:$black;
 	text-shadow: 0px 1px 1px rgba(255,255,255,.6);
 	.glare {
 		@include glare-medium;
 	}
 	a {
-		color: $gray12;
+		color: $black;
 	}
 	a:hover {
 		color: $gray10;
@@ -1200,6 +1222,29 @@ h2 .button.small {
 }
 .button.medium:active, .button.medium.pseudo_active {
 	@include medium-gradient-down;
+	.glare {
+		@include glare-medium-down;
+	}
+}
+.button.green, a.button.green {
+	@include green-gradient;
+  border:1px solid $gray7;
+  border-top:1px solid $gray6;
+  border-left:1px solid $gray6;
+  color:$black;
+	text-shadow: 0px -1px 1px rgba(0,0,0,.7);
+	.glare {
+		@include glare-medium;
+	}
+	a {
+		color: $paper;
+	}
+	a:hover {
+		color: $gray1;
+	}
+}
+.button.green:active, .button.green.pseudo_active {
+	@include green-gradient-down;
 	.glare {
 		@include glare-medium-down;
 	}
@@ -1459,6 +1504,9 @@ h2 .button.small {
 .vertical-padding {
 	padding-top: 14px;
 	padding-bottom: 14px;
+}
+.padding {
+	padding: 10px;
 }
 .padding_bottom {
   padding-bottom: 14px;
