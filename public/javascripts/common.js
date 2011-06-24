@@ -31,7 +31,7 @@ function checkBoxProxy(e){
 function hiddenFieldProxy(e){
 	target = jQuery(e.target);
 	if(!(target.attr("data-behavior") == 'hidden_field_proxy')){
-		target = target.parents("[data-behavior='hiddend_field_proxy']");
+		target = target.parents("[data-behavior='hidden_field_proxy']");
 	}
 	hidden_field = jQuery('#' + target.attr('data-hidden_field'));
 	hidden_field.val(target.attr('data-value'));

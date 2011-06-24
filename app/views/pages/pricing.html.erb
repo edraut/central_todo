@@ -11,13 +11,13 @@
       15 Active Plans<br/>
       &nbsp;<br/>
       <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
-    	  <div class="button_content"><%= link_to 'Choose monthly', new_user_url(:rate_class => 'BasicRate',:frequency => 'month')%></div>
+    	  <div class="button_content"><%= link_to 'Choose monthly', new_user_url(:rate_class => 'BasicRate',:frequency => 'month', :protocol => (request.domain == 'getgolist.com') ? 'https://' : 'http://')%></div>
     	</div>
     	<div class="block section_margin_top">
       	or for $79.99/yr:<br/>&nbsp;
       </div>
       <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
-    	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'BasicRate',:frequency => 'year')%></div>
+    	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'BasicRate',:frequency => 'year', :protocol => (request.domain == 'getgolist.com') ? 'https://' : 'http://')%></div>
     	</div>
     	
     </p>
@@ -32,13 +32,13 @@
       50 Active Plans<br/>
       &nbsp;<br/>
       <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
-    	  <div class="button_content"><%= link_to 'Choose monthly', new_user_url(:rate_class => 'SuperRate', :frequency => 'month')%></div>
+    	  <div class="button_content"><%= link_to 'Choose monthly', new_user_url(:rate_class => 'SuperRate', :frequency => 'month', :protocol => (request.domain == 'getgolist.com') ? 'https://' : 'http://')%></div>
     	</div>
     	<div class="block section_margin_top">
       	or for $149.99/yr:<br/>&nbsp;
       </div>
       <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
-    	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'SuperRate', :frequency => 'year')%></div>
+    	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'SuperRate', :frequency => 'year', :protocol => (request.domain == 'getgolist.com') ? 'https://' : 'http://')%></div>
     	</div>
     </p>
   </div>
@@ -52,13 +52,13 @@
       Unlimited Active Plans<br/>
       &nbsp;<br/>
       <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
-    	  <div class="button_content"><%= link_to 'Choose monthly', new_user_url(:rate_class => 'UnlimitedRate',:frequency => 'month')%></div>
+    	  <div class="button_content"><%= link_to 'Choose monthly', new_user_url(:rate_class => 'UnlimitedRate',:frequency => 'month', :protocol => (request.domain == 'getgolist.com') ? 'https://' : 'http://')%></div>
     	</div>
     	<div class="block section_margin_top">
       	or for $299.99/yr:<br/>&nbsp;
       </div>
       <div class="row_item button round green plan_button" data-button="true" onclick="void(0)">
-    	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'UnlimitedRate',:frequency => 'year')%></div>
+    	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'UnlimitedRate',:frequency => 'year', :protocol => (request.domain == 'getgolist.com') ? 'https://' : 'http://')%></div>
     	</div>
     </p>
   </div>

@@ -153,9 +153,9 @@ select.with_text_field {
   border-bottom-right-radius: 28px;
   border: 5px solid #fcefa1;
   background-color: #fcefa1;
-  -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
-  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35);
   -moz-transform: skewX(350deg);
   -o-transform: skewX(350deg);
   -webkit-transform: skewX(350deg);
@@ -305,9 +305,9 @@ select.with_text_field {
   padding: 16px;
   background-color: #fdfcf8;
   line-height: 20px;
-  -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
-  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3); }
+  -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35); }
   .list_section a:hover {
     color: #4d4c48;
     background-color: #edece8; }
@@ -322,9 +322,9 @@ select.with_text_field {
     /* for IE */ }
   .list_section .section_heading {
     background-color: #edece8;
-    -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
-    box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35);
+    box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35);
     color: #4d4c48;
     text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.5);
     border-top: 1px solid #edece8;
@@ -366,9 +366,9 @@ select.with_text_field {
   margin-left: -16px;
   padding: 16px;
   line-height: 20px;
-  -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
-  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3); }
+  -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35); }
   .section a:hover {
     background-color: #fbffff; }
   .section a:active {
@@ -670,9 +670,9 @@ div.expnaded_subnav_indent.selected {
   background-color: #fdfcf8;
   padding: 0px 12px 5px 12px;
   border: 1px solid #bdbcb8;
-  -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
-  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3); }
+  -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35); }
   .hover_nav .vert_line_subnav_wrapper {
     margin-top: 8px;
     padding-bottom: 2px; }
@@ -1124,9 +1124,9 @@ h2 .button.small {
   border-right: 1px solid #bdbcb8;
   background-color: #dddcd8;
   z-index: 10;
-  -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
-  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3); }
+  -webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.35); }
 
 .attach_to_bottom_border {
   border-top: 1px solid #bdbcb8;

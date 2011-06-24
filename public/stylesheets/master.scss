@@ -57,9 +57,9 @@ $compact-line-height-minus-two: 18px;
 $indent-width: 28px;
 $nav-indent-width: 15px;
 @mixin small-shadow {
-	-webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, .2);
-	-moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
-	box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .3);
+	-webkit-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, .35);
+	-moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .35);
+	box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, .35);
 }
 @mixin tiny-shadow {
 	-webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);

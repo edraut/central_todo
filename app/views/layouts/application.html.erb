@@ -64,6 +64,9 @@
             <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Support') ? 'selected' : '' %>">
               <%= link_to 'Support', '/page/Support' %>
             </div>
+            <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Contact') ? 'selected' : '' %>">
+              <%= link_to 'Contact', '/page/Contact' %>
+            </div>
           </div>
   				<div class="span-<% if @this_user %>15<% else %>10<% end %> last text_right" data-role="top_nav_element">
   					<% if current_user %>
