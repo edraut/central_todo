@@ -54,17 +54,17 @@
           <div class="span-13">
         <% end %>
             <% unless current_user %>
-              <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Features') ? 'selected' : '' %>">
+              <div class="row_item top_nav_text_shadow <%= (@nav_tab == 'pages' and @subnav_tab == 'Features') ? 'selected' : '' %>">
                 <%= link_to 'Features', '/page/Features' %>
               </div>
-              <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Pricing') ? 'selected' : '' %>">
+              <div class="row_item top_nav_text_shadow <%= (@nav_tab == 'pages' and @subnav_tab == 'Pricing') ? 'selected' : '' %>">
                 <%= link_to 'Plans/Pricing', '/page/Pricing' %>
               </div>
             <% end %>
-            <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Support') ? 'selected' : '' %>"><%= link_to 'Support', '/page/Support' %></div>
-            <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Contact') ? 'selected' : '' %>"><%= link_to 'Contact', '/page/Contact' %></div>
+            <div class="row_item top_nav_text_shadow <%= (@nav_tab == 'pages' and @subnav_tab == 'Support') ? 'selected' : '' %>"><%= link_to 'Support', '/page/Support' %></div>
+            <div class="row_item top_nav_text_shadow <%= (@nav_tab == 'pages' and @subnav_tab == 'Contact') ? 'selected' : '' %>"><%= link_to 'Contact', '/page/Contact' %></div>
           </div>
-  				<div class="span-<% if @this_user %>13<% else %>10<% end %> last text_right" data-role="top_nav_element">
+  				<div class="span-<% if @this_user %>13<% else %>10<% end %> last text_right top_nav_text_shadow" data-role="top_nav_element">
   					<% if current_user %>
   						hello <%= @this_user.handle %>
   						<%= link_to '(sign out)', sign_out_url, :class => 'quiet' %>

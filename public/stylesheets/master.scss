@@ -468,8 +468,9 @@ select.with_text_field{
 		@include glare-medium;
 	}
 }
-[data-role="top_nav_element"] {
-	filter: progid:DXImageTransform.Microsoft.dropShadow(color="#66111111",offX=0,offY=-1, positive=true);
+// [data-role="top_nav_element"] {
+.top_nav_text_shadow {
+	filter: progid:DXImageTransform.Microsoft.dropShadow(color="#443D3C38",offX=-1,offY=-1, positive=true);
 }
 #main_modal_view {
   border: 1px solid $gray8;

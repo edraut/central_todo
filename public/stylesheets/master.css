@@ -221,8 +221,8 @@ select.with_text_field {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF");
     /* for IE */ }
 
-[data-role="top_nav_element"] {
-  filter: progid:DXImageTransform.Microsoft.dropShadow(color="#66111111",offX=0,offY=-1, positive=true); }
+.top_nav_text_shadow {
+  filter: progid:DXImageTransform.Microsoft.dropShadow(color="#443D3C38",offX=-1,offY=-1, positive=true); }
 
 #main_modal_view {
   border: 1px solid #6d6c68;
