@@ -22,7 +22,7 @@ table, th, td {vertical-align:middle;}
 blockquote:before, blockquote:after, q:before, q:after {content:'';}
 blockquote, q {quotes:"" "";}
 a img {border:none;}
-:focus {outline:0;}
+/*:focus {outline:0;}*/
 
 /* typography.css */
 html {font-size:100.01%;}
@@ -92,7 +92,7 @@ textarea {padding:5px;}
 form.inline {line-height:3;}
 form.inline p {margin-bottom:0;}
 .error, .alert, .notice, .success, .info {padding:0.8em;margin-bottom:1em;border:2px solid #ddd;}
-.error, .alert {background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4;}
+.error, .alert {background:#FFA080;color:#4D4C48;border-color:#fcefa1;}
 .notice {background:#fff6bf;color:#514721;border-color:#ffd324;}
 .success {background:#e6efc2;color:#264409;border-color:#c6d880;}
 .info {background:#d5edf8;color:#205791;border-color:#92cae4;}

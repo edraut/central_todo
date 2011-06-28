@@ -14,10 +14,11 @@ $green5: #77995B;
 $green7: #57793B;
 $carmine5: #BF1A00;
 $dark-carmine: #CF2A00;
-$carmine: #EF3F10;
+$carmine: #DF6020;
 // $carmine: #DB3C2B;
-$carmine4: #F86028;
+$carmine4: #F87838;
 $light-carmine: #FF8040;
+$pale-carmine: #FFA080;
 // $light-carmine: #EB5040;
 // $carmine1: #FB685C;
 $orange: #FF6600;
@@ -150,7 +151,7 @@ $nav-indent-width: 15px;
 }
 @mixin carmine-gradient {
 	background-color: $carmine;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$light-carmine}", endColorstr="#{$carmine}"); /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$pale-carmine}", endColorstr="#{$carmine}"); /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($light-carmine), color-stop(.74,$carmine4), to($carmine)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $light-carmine, $carmine); /* for firefox 3.6+ */
 }
@@ -408,7 +409,7 @@ select.with_text_field{
 		border-bottom-right-radius: 25px;
 		font-family: CoolveticaRg-Regular;
 		font-size: 44px;
-		text-shadow: 1px 2px 5px rgba(0,0,0,.4);
+		text-shadow: 1px 2px 5px rgba(0,0,0,.5);
 		color: $yellow;
 		@include carmine-gradient;
 		text-align: center;
@@ -468,7 +469,7 @@ select.with_text_field{
 	}
 }
 [data-role="top_nav_element"] {
-	filter: progid:DXImageTransform.Microsoft.dropShadow(color="#66111111",offX=-1,offY=-1, positive=true);
+	filter: progid:DXImageTransform.Microsoft.dropShadow(color="#66111111",offX=0,offY=-1, positive=true);
 }
 #main_modal_view {
   border: 1px solid $gray8;
@@ -618,14 +619,11 @@ select.with_text_field{
 	padding: 16px;
 	line-height: $compact-line-height;
 	@include small_shadow;
-	a:hover {
+	a:hover, a:active {
 	  background-color: $blue-wash;
 	}
-	a:active {
-		background-color: $gray1;
-	}
 	.button a:active, .button a:hover {
-		background-color: rgba(255,255,255,0);
+		background-color: none;
 	}
 	select {
 		margin-top: .45em;
@@ -647,7 +645,7 @@ select.with_text_field{
 	padding: 0 16px;
 	width: 100%;
 	height: 1px;
-	background-color: $gray2;
+	background-color: $gray3;
 }
 .half_section {
   position: relative;
@@ -685,7 +683,7 @@ select.with_text_field{
 	position:relative;
 	float: left;
 	width: 93%;
-	margin-bottom: .4em;
+	margin-bottom: .55em;
 	line-height: 30px;
 	border: 2px solid $gray2;
 	// border-top: 1px solid $gray2;
@@ -1109,7 +1107,6 @@ a.selected {
 		top: 4%;
 		left: 0;
 		height: 55%;
-		margin: 0 8px;
 		border-radius: 1em;
 		-moz-border-radius: 1em;
 	}
@@ -1238,9 +1235,11 @@ h2 .button.small {
 	}
 	a {
 		color: $paper;
+		background: none;
 	}
-	a:hover {
-		color: $gray1;
+	a:hover, a:active {
+		color: $gray2;
+		background: none;
 	}
 }
 .button.green:active, .button.green.pseudo_active {

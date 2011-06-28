@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
     
   #validations
-
+  validates :tos_agreed, :acceptance => { :accept => true }
   #callbacks
   before_save :handle_sms
   

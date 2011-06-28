@@ -49,7 +49,7 @@
           <div class="span-24 last" data-role="top_nav_element">
         <% end %>
         <% if @this_user %>
-          <div class="span-2" style="margin-left: -16px;">
+          <div class="span-5" style="margin-left: -16px;">
         <% else %>
           <div class="span-13">
         <% end %>
@@ -61,14 +61,10 @@
                 <%= link_to 'Plans/Pricing', '/page/Pricing' %>
               </div>
             <% end %>
-            <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Support') ? 'selected' : '' %>">
-              <%= link_to 'Support', '/page/Support' %>
-            </div>
-            <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Contact') ? 'selected' : '' %>">
-              <%= link_to 'Contact', '/page/Contact' %>
-            </div>
+            <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Support') ? 'selected' : '' %>"><%= link_to 'Support', '/page/Support' %></div>
+            <div class="row_item <%= (@nav_tab == 'pages' and @subnav_tab == 'Contact') ? 'selected' : '' %>"><%= link_to 'Contact', '/page/Contact' %></div>
           </div>
-  				<div class="span-<% if @this_user %>15<% else %>10<% end %> last text_right" data-role="top_nav_element">
+  				<div class="span-<% if @this_user %>13<% else %>10<% end %> last text_right" data-role="top_nav_element">
   					<% if current_user %>
   						hello <%= @this_user.handle %>
   						<%= link_to '(sign out)', sign_out_url, :class => 'quiet' %>
@@ -443,7 +439,7 @@
       jQuery('#primary_input').focus();
 		<% end %>
 		<% unless @this_user %>
-  		jQuery("a:not(.button a)").prepend('&middot; ');
+  		jQuery("a:not(.button a,#top_nav_wrapper a)").css('text-decoration','underline');
   	<% end %>
   	<% unless flash[:ajax_dialog].blank? %>
   	jQuery('body').append('<div id="flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>" style="display:none;" class="flash_dialog"><%= escape_javascript(flash[:ajax_dialog]) %></div>');

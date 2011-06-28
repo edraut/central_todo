@@ -38,12 +38,12 @@ jQuery(document).ready(function(){
 		if(selected_nav.length > 0){
 			selected_nav.addIEShadow('large');
 		}
-		other_nav = jQuery('div.vert-line-nav-wrapper-main:not(.selected)');
-		if(other_nav.length > 0){
-			other_nav.each(function(){
-				jQuery(this).addIEShadow('small');
-			});
-		}
+		// other_nav = jQuery('div.vert-line-nav-wrapper-main:not(.selected)');
+		// if(other_nav.length > 0){
+		// 	other_nav.each(function(){
+		// 		jQuery(this).addIEShadow('small');
+		// 	});
+		// }
 		content_tab = jQuery('.attach_above.selected');
 		if(content_tab.length > 0){
 			content_tab.addIEShadow('large');
@@ -51,13 +51,16 @@ jQuery(document).ready(function(){
 	}
 	setTimeout(addDatePicker,750);
 });
-jQuery.fn.addIEShadow = function(size) {
-	shadow_div = jQuery('<div class="ie_shadow_' + size + '">&nbsp;</div>');
-	jQuery('body').append(shadow_div);
+jQuery.fn.addIEShadow = function(size,corner_radius) {
+	shadow_div = jQuery('<div class="ie_shadow_' + size + '" data-shadowed="' + jQuery(this).attr('id') + '">&nbsp;</div>');
+	jQuery(this).append(shadow_div);
 	element_offset = jQuery(this).offset();
-	shadow_div.offset({top: element_offset.top, left: element_offset.left})
+	shadow_div.offset({top: element_offset.top -3, left: element_offset.left -5})
 	shadow_div.height(jQuery(this).outerHeight());
 	shadow_div.width(jQuery(this).outerWidth());
+	if(typeof(corner_radius) != 'undefined'){
+		shadow_div.corner(corner_radius);
+	}
 }
 function bindModalTriggers(){
 	jQuery("[data-modal_trigger]").live('click',function(e){

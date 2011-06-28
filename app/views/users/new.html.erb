@@ -3,12 +3,10 @@
 </div>
 <div class="span-12 last section">
 	<% form_for @user do |f| %>
+    <% if @user.errors.any? %> <div class="error"><ul><%= @user.errors.full_messages.map{|em| '<li>' + em + '</li>'}.join.html_safe %></ul></div><br /> <% end %>
 	  <div class="span-12 last">
-  		<% if @user.errors[:email].any? %><div class="error"><%= f.label :email %>
-  		<%= @user.errors[:email].join('<br/>') %></div><br/>
-  		<% else %>
+	    <h2> Account Information </h2>
       <%= f.label :email %><br/>
-  		<% end %>
   		<%= f.text_field :email %><br />
   		<br />
   		<%= f.label :password %><br />
@@ -22,6 +20,7 @@
     </div>
     <div class="span-12 last">
         <div class="section_rule">&nbsp;</div>
+        <h2> Payment Information </h2>
         <%= label 'card[name]', "Name on Card" %><br/>
         <%= text_field_tag 'card[name]', nil %><br/>
         <br/>
@@ -63,7 +62,7 @@
 </div>
 <%= javascript_tag do %>
 rates = {'BasicRate':{},'SuperRate':{},'UnlimitedRate':{}};
-<% Rate.all.each do |rate| %>
+<% (BasicRate.all + SuperRate.all + UnlimitedRate.all).each do |rate| %>
   rates['<%= rate.class.name %>']['<%= rate.frequency %>'] = {'amount':'<%= rate.amount.format %>','frequency':'<%= rate.frequency_display %>'};
 <% end %>
 function selectOption(e){

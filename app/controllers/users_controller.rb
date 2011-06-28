@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     else
       rate_class = BasicRate
     end
-    rate = rate_class.where(:frequency => params[:frequency])
+    rate = rate_class.where(:frequency => params[:frequency]).first
     @user = User.new(params[:user].merge(:time_zone => Time.zone.name, :rate_id => rate.id))
     if @user.save
       for project_email in ProjectEmail.find(:all, :conditions => ["lower(email) = :email",{:email => @user.email.downcase}])
@@ -179,7 +179,7 @@ class UsersController < ApplicationController
   
   def handle_title
     case action_name
-    when 'account','settings'
+    when 'account','settings','new','create'
       @page_title = 'Account'
       @html_page_title = 'Account'
     else
