@@ -1,29 +1,33 @@
 <h3>Label</h3>
-	<%= form_for @task, :html => {
-		:'data-ajax_behavior' => 'ajax_form',
-		:'data-ajax_method' => 'PUT',
-		:'data-ajax_success_element' => "task_label_#{@task.id}",
-		:'data-ajax_error_element' => "task_label_#{@task.id}",
-		:id => 'edit_task_labels'
-	} do |f| %>
-  	<div class="block padding_bottom">
-    <% for label in @this_user.labels %>
-      <div class="label_wrapper <%= (@task.labels.for_user(@this_user).include? label) ? 'selected' : '' %> margin_bottom" data-click_multi_select="true" data-click_id="task_labels">
-        <div class="label <%= label.color %>" data-behavior="hidden_multi_proxy" data-hidden_field="labels" data-value="<%= label.id %>" data-id="task_<%= @task.id %>_label_<%= label.id %>"><%= label.title %></div>
-      </div>
-      <% if @task.labels.for_user(@this_user).include? label %>
-        <input type="hidden" name="labels[]" value="<%= label.id %>" data-id="task_<%= @task.id %>_label_<%= label.id %>">
+  <% if @this_user.labels.any? %>
+  	<%= form_for @task, :html => {
+  		:'data-ajax_behavior' => 'ajax_form',
+  		:'data-ajax_method' => 'PUT',
+  		:'data-ajax_success_element' => "task_label_#{@task.id}",
+  		:'data-ajax_error_element' => "task_label_#{@task.id}",
+  		:id => 'edit_task_labels'
+  	} do |f| %>
+    	<div class="block padding_bottom">
+      <% for label in @this_user.labels %>
+        <div class="label_wrapper <%= (@task.labels.for_user(@this_user).include? label) ? 'selected' : '' %> margin_bottom" data-click_multi_select="true" data-click_id="task_labels">
+          <div class="label <%= label.color %>" data-behavior="hidden_multi_proxy" data-hidden_field="labels" data-value="<%= label.id %>" data-id="task_<%= @task.id %>_label_<%= label.id %>"><%= label.title %></div>
+        </div>
+        <% if @task.labels.for_user(@this_user).include? label %>
+          <input type="hidden" name="labels[]" value="<%= label.id %>" data-id="task_<%= @task.id %>_label_<%= label.id %>">
+        <% end %>
       <% end %>
-    <% end %>
-    </div>
-  	<%= hidden_field_tag 'attribute', 'labels', :id => 'attribute_labels' %>
-  	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light " id="task_labels_submit_<%= @task.id %>" data-hidden_proxy_save="true" style="display:none;"><div class="button_content">save labels</div></div>
-  	<div class="row_item last padding_top_button small"><span data-hidden_proxy_save="true" style="display:none;">&nbsp;or</span>
-    	<span onclick="void(0)" href="<%= task_url(@task, :attribute => 'labels') %>"
-    	 	data-ajax_behavior="ajax_link"
-    		data-ajax_method="GET"
-    		data-ajax_success_element="task_label_<%= @task.id %>"
-    		class="small"> (cancel) </span>
-		</div>
-	<% end %>
+      </div>
+    	<%= hidden_field_tag 'attribute', 'labels', :id => 'attribute_labels' %>
+    	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light " id="task_labels_submit_<%= @task.id %>" data-hidden_proxy_save="true" style="display:none;"><div class="button_content">save labels</div></div>
+    	<div class="row_item last padding_top_button small"><span data-hidden_proxy_save="true" style="display:none;">&nbsp;or</span>
+      	<span onclick="void(0)" href="<%= task_url(@task, :attribute => 'labels') %>"
+      	 	data-ajax_behavior="ajax_link"
+      		data-ajax_method="GET"
+      		data-ajax_success_element="task_label_<%= @task.id %>"
+      		class="small"> (cancel) </span>
+  		</div>
+  	<% end %>
+  <% else %>
+    You haven't created any labels yet. You can create labels by clicking on the Labels tab above.
+  <% end %>
 <%= javascript_tag "bindClickMultiSelect();bindHiddenMultiProxy();" %>

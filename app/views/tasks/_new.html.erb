@@ -8,6 +8,9 @@
     :'data-ajax_success_placement' => 'append',
     :'data-ajax_success_callback' => "jQuery('#project_#{project.id}_new_task_title').val('');jQuery('#project_#{project.id}_new_task_form').rebindSubmit();handleCount('project_#{project.id}_task_list','project_#{project.id}_task_list')",
 	  :id => "project_#{project.id}_new_task_form"} do |f| %>
+		<div class="span-<% if hierarchical %>14<% else %>16<% end %> last">
+		  <%= f.label :title, 'New Task Title' %>
+	  </div>
 		<div class="span-<% if hierarchical %>10<% else %>12<% end %>">
 			<%= f.text_field :title, :id => "project_#{project.id}_new_task_title", :class => ("span-" + ((hierarchical) ? "10" : "12")) %>
 		</div>

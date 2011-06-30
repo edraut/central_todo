@@ -1,5 +1,8 @@
 <div id="folder_<%= folder.id %>_new_project_form" style="display: none;" class="span-15 last list_section_indent section_margin_top" data-behavior="expander" data-state="expanded" data-id="folder_<%= folder.id %>_new_project_form">
 	<%= form_for Project.new(:folder_id => folder.id, :state => 'active'), :url => plans_url, :html => {:id => "folder_#{folder.id}_new_project_form"} do |f| %>
+    <div class="span-15 last">
+      <%= f.label :title, "New Plan Title" %>
+    </div>
 		<div class="span-8">
 			<%= f.text_field :title, :id => "folder_#{folder.id}_new_project_title", :class => "span-8" %>
 		</div>

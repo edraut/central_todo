@@ -36,7 +36,7 @@ class UsersController < ApplicationController
       rate_class = BasicRate
     end
     rate = rate_class.where(:frequency => params[:frequency]).first
-    @user = User.new(params[:user].merge(:time_zone => Time.zone.name, :rate_id => rate.id))
+    @user = PaidAccount.new(params[:user].merge(:time_zone => Time.zone.name, :rate_id => rate.id))
     if @user.save
       for project_email in ProjectEmail.find(:all, :conditions => ["lower(email) = :email",{:email => @user.email.downcase}])
         project_email.convert_to_sharer

@@ -3,20 +3,29 @@
 </div>
 <div class="span-17 last page_content">
   <h2>Your Labels</h2>
-  <div class="small">Only you can see these labels.</div>
+  <% if @this_user.labels.any? %>
+    <div class="small">Only you can see these labels.</div>
+  <% end %>
 	<div class="span-16 last section_margin_top">
-	  <b>Create a new label.</b>
-		<% form_for @label, :url => labels_url do |f| %>
-			<div class="span-12">
-				<%= f.text_field :title, :id => 'primary_input', :class => "span-12" %>
-			</div>
-			<div class="span-4 last">
-				<%= f.hidden_field :user_id %>
-      	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
-      	  <div class="button_content">add label</div>
-      	</div>
-			</div>
-		<% end %>
+    <div class="span-16 last" data-behavior="expander" data-state="contracted" data-id="new_label_form">
+      <div class="span-10">
+      	<b>You haven't created any labels yet</b>
+      </div>
+      <div class="list_action button round light" onclick="void(0)" data-behavior="expander" data-action="expand" data-id="new_label_form"><div class="button_content">add a label</div></div>
+    </div>
+    <div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_label_form">
+  		<% form_for @label, :url => labels_url do |f| %>
+  			<div class="span-12">
+  				<%= f.text_field :title, :id => 'primary_input', :class => "span-12" %>
+  			</div>
+  			<div class="span-4 last">
+  				<%= f.hidden_field :user_id %>
+        	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+        	  <div class="button_content">create label</div>
+        	</div>
+  			</div>
+  		<% end %>
+    </div>
 	</div>
 	<% if @this_user.labels.count > 0 %>
 	<div class="span-16 last list_section section_margin_top">
@@ -34,18 +43,15 @@
 		<% end %>
 	</div>
 	<% else %>
-	<div class="span-16 last section_margin_top">
-  	<p>You haven't created any labels yet</p>
-  </div>
-  <% if @this_user.show_help_text %>
-	<div class="span-16 last">
-    <p class="explanatory">
-      Labels help categorize tasks according to the methods, tools, places, or people that you need to help get the task done. For example, if you have a small business and do many kinds of jobs, you may want to label all your tasks that require the phone with a label named 'phone'. This way, regardless of what plan or folder the task is in, when you have time to make phone calls you can view the 'phone' label in the labels tab and see all the tasks that you can get done while you're on the phone.
-      <br/>
-      Another example might be a vendor you use often, like an office supply store. You may have several plans that require items from your office supply store. When you get to the store, with your phone you can just pull up the label you created, e.g. 'office supply', and make sure you get all those items from the <span class="coolvetica">Get Go</span>, rather than making multiple trips.
-    </p>
-  </div>
-  <% end %>
+  	<div class="span-16 last">
+      <p class="explanatory">
+        <b>What's a Label?</b>
+        <br/>&nbsp;<br/>
+        Labels help categorize tasks according to the methods, tools, places, or people that you need to help get the task done. For example, if you have a small business and do many kinds of jobs, you may want to label all your tasks that require the phone with a label named 'phone'. This way, regardless of what plan or folder the task is in, when you have time to make phone calls you can view the 'phone' label in the labels tab and see all the tasks that you can get done while you're on the phone.
+        <br/>&nbsp;<br/>
+        Another example might be a vendor you use often, like an office supply store. You may have several plans that require items from your office supply store. When you get to the store, with your phone you can just pull up the label you created, e.g. 'office supply', and make sure you get all those items from the <span class="coolvetica">Get Go</span>, rather than making multiple trips.
+      </p>
+    </div>
 	<% end %>
 </div>
 <%= javascript_tag do %>

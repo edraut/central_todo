@@ -41,3 +41,6 @@
 .button.round .glare {
 	margin: 0 8px;
 }
+.button.small.round .glare {
+	margin: 0 4px;
+}

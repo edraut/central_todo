@@ -57,11 +57,13 @@
           </div><br/>
         <div class="line_item_expand_control_clickable" data-behavior="expander" data-action="contract" data-id="task_project_id_expander_<%= task.id %>" data-hover_rebind="true">close</div>
     		</div>
-		    <% else %>
+		    <% elsif @this_user.projects.any? %>
 		    <div id="task_<%= task.id %>_add_plan" class="span-2 line_item_control_expander line_item_control_expander_plan text_center small" data-behavior="expander" data-action="expand" data-id="task_project_id_expander_<%= task.id %>" data-hover_id="task_line_item_<%= task.id %>" data-hover_stop="true" style="display:none;">add plan</div>
         <div class="line_item_expand_control line_item_expand_control_plan" data-behavior="expander" data-state="expanded" style="display:none;" data-id="task_project_id_expander_<%= task.id %>">
-      		<%= f.grouped_collection_select :project_id, @this_user.folders, :projects, :title, :id, :title, {:include_blank => true}, :id => "task_project_id_select", :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :class => "span-3" %> <div class="line_item_expand_control_clickable" data-behavior="expander" data-action="contract" data-id="task_project_id_expander_<%= task.id %>" data-hover_rebind="true">close</div>
+      		<%= f.grouped_collection_select :project_id, @this_user.folders, :projects, :title, :id, :title, {:prompt => 'none'}, :id => "task_project_id_select", :'data-role' => 'organize_item', :'data-behavior' => 'auto_submit', :'data-id' => task.id, :class => "span-3" %> <div class="line_item_expand_control_clickable" data-behavior="expander" data-action="contract" data-id="task_project_id_expander_<%= task.id %>" data-hover_rebind="true">close</div>
     		</div>
+    		<% else %>
+    		&nbsp;
     		<% end %>
     	</div>
 		<% end %>
@@ -96,7 +98,7 @@
     <% for label in task.labels.for_user(@this_user) %><div class="label <%= label.color %>"><%= label.title %></div><% end %>
     </div>
     <div class="span-2">
-      <% unless task.archived? or (task.project and task.project.archived?) %>
+      <% unless task.archived? or (task.project and task.project.archived?) or @this_user.labels.empty? %>
 	    <div id="task_<%= task.id %>_edit_labels" class="span-2 line_item_control_expander text_center small" data-behavior="expander" data-action="expand" data-id="task_labels_expander_<%= task.id %>" data-hover_id="task_line_item_<%= task.id %>" data-hover_stop="true" style="display:none;">edit labels</div>
       <div name="task_labels_expander_<%= task.id %>" class="line_item_expand_control line_item_expand_control_labels" data-behavior="expander" data-state="expanded" style="display:none;" data-id="task_labels_expander_<%= task.id %>">
         <% for label in @this_user.labels %>

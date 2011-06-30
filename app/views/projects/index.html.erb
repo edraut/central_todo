@@ -11,7 +11,6 @@
   <div class="span-15 section_margin_top">
   <%= form_for @folder do |f| %>
     <div class="span-12">
-      <%= f.label :title, 'Folder Title' %>
 			<%= f.text_field :title, :class => "span-12" %>
 		</div>
 		<div class="span-4 last">
@@ -33,13 +32,16 @@
   </div>
   <div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_folder_form">
     <%= form_for Folder.new(:user_id => @this_user.id) do |f| %>
-      <div class="span-12">
-				<%= f.text_field :title, :class => "span-12" %>
+      <div class="span-16 last">
+        <%= f.label :title, 'New Folder Title' %>
+      </div>
+      <div class="span-11">
+				<%= f.text_field :title, :class => "span-11" %>
 			</div>
-			<div class="span-4 last">
+			<div class="span-5 last">
 				<%= f.hidden_field :user_id %>
       	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
-      	  <div class="button_content">save</div>
+      	  <div class="button_content">create folder</div>
       	</div>
       	<div class="text_with_button small">
 				or <a href="#" data-behavior="expander" data-action="contract" data-id="new_folder_form">cancel</a>
