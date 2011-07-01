@@ -67,7 +67,12 @@
       <div class="span-15 last explanatory section_margin_top">
         <h2><a data-modal_trigger="true" data-modal_id="folder_new_project_form_nav" data-modal_insert_value="<%= folder.id %>" data-modal_display_name="<%= folder.title %>">Add your first plan &nbsp;<span class="control_font plus_icon">&oplus;</span></a></h2>
         Hi there. You've created a folder, but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by <a data-modal_trigger="true" data-modal_id="folder_new_project_form_nav" data-modal_insert_value="<%= folder.id %>" data-modal_display_name="<%= folder.title %>">clicking here to add your first plan to your "<%= folder.title %>" folder.</a>
-        
+        <h3>Adding tasks to a plan</h3>
+        There are two ways to add a task to a plan:
+        <ul>
+          <li>In the unorganized task list above, hover over the task to reveal the 'add plan' control. Click on 'add plan'.</li>
+          <li>Go to the full view for the plan and click the 'add a task' button on the right side of the page.
+        </ul>
       </div>
       <% end %>
     <% elsif @this_user.tasks.count > 0 %> <%# any unorganized tasks? %>
@@ -76,8 +81,24 @@
       </div>
     <% else %> <%# any unorganized tasks? %>
       <div class="span-15 last section_margin_top explanatory">
-        <h3>Welcome!</h3>
-        You can enter your first task by clicking on the circled plus-sign above. This is your dashboard, so you can quickly add tasks here when you're busy. When you have time to organize you can come back to this page and organize your tasks into plans and folders, and add labels. Many people find it works to organize all your new tasks at the end of each day.
+        <% if @this_user.folders.empty? %>
+          <h3>Welcome!</h3>
+          You can enter your first task by clicking on the 'add a task' button above this box on the right side. This is your dashboard, so you can quickly add tasks here when you're busy. When you have time to organize you can come back to this page and organize your tasks into plans and folders, and add labels. Many people find it works to organize all your new tasks at the end of each day.
+          <br/>&nbsp;<br/>
+          <h3>Plans and Folders</h3>
+          Organize your tasks by creating folders and plans. A folder organizes plans, and plans are lists of tasks that accomplish a single goal. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by <a data-modal_trigger="true" data-modal_id="new_folder_form_nav">clicking here to add your first folder</a>
+        <% elsif @this_user.projects.empty? %>
+          <% folder = @this_user.folders.first %>
+          <h3><a data-modal_trigger="true" data-modal_id="folder_new_project_form_nav" data-modal_insert_value="<%= folder.id %>" data-modal_display_name="<%= folder.title %>">Add your first plan &nbsp;<span class="control_font plus_icon">&oplus;</span></a></h3>
+          Hi there. You've created a folder, but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by <a data-modal_trigger="true" data-modal_id="folder_new_project_form_nav" data-modal_insert_value="<%= folder.id %>" data-modal_display_name="<%= folder.title %>">clicking here to add your first plan to your "<%= folder.title %>" folder.</a>
+        <% else %>
+          <h3>Adding tasks to a plan</h3>
+          There are two ways to add a task to a plan:
+          <ul>
+            <li>Create a task by clicking the 'add a task' button above this box. When the task appears in the unorganized task list on this page, hover over the task to reveal the 'add plan' control. Click on 'add plan'.</li>
+            <li>Go to the full view for the plan you want to add tasks to and click the 'add a task' button on the right side of the page.
+          </ul>
+        <% end %>
       </div>
     <% end %> <%# any unorganized tasks? %>
     <% if Project.unorganized_for(@this_user).active.count > 0 %>

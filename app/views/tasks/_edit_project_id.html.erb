@@ -13,6 +13,7 @@
       <% these_projects = @this_user.shared_projects.active.where(:user_id => @task.project.user_id) %>
   		<%= f.select :project_id, these_projects.map{|p| [p.title,p.id]}, {}, :class => 'span-11', :rows => 4 %>
     <% end %>
+	  <% if (!@task.project or (@task.project and @task.project.user_id == @this_user.id)) and @this_user.projects.active.any? %>
     <div class="span-5 last">
     	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
     	  <div class="button_content">save</div>
@@ -25,5 +26,6 @@
     			:'data-ajax_data' => "{attribute: 'project_id'}"%>
       </div>
 		</div>
+		<% end %>
 	<% end %>
 </div>

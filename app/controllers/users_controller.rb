@@ -43,6 +43,7 @@ class UsersController < ApplicationController
       end
       @user_session = UserSession.new(:email => @user.email, :password => params[:user][:password])
       @user_session.save
+      session[:signed_up] = true
       redirect_back_or_default dashboard_url
     else
       respond_with(@user) do |format|
