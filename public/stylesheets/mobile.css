@@ -646,8 +646,10 @@ a.button.small {
   border: 1px solid #bdbcb8;
   border-top: 1px solid #cdccc8;
   border-left: 1px solid #cdccc8;
-  color: #6d6c68;
-  text-shadow: 0px 1px 1px white; }
+  color: #fdfcf8;
+  text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.7); }
+  .button.green a, .button.green a:active, a.button.green a, a.button.green a:active {
+    color: #fdfcf8; }
   .button.green .glare, a.button.green .glare {
     height: 55%;
     margin: 2% 10px 0 7px;

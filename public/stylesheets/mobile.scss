@@ -749,8 +749,11 @@ a.button.small {
   border:1px solid $gray4;
   border-top:1px solid $gray3;
   border-left:1px solid $gray3;
-  color:$gray8;
-	text-shadow: 0px 1px 1px rgba(255,255,255,1);
+  color:$paper;
+	text-shadow: 0px -1px 1px rgba(0,0,0,.7);
+	a, a:active {
+		color: $paper;
+	}
 	.glare {
 		height: 55%;
 		margin: 2% 10px 0 7px;

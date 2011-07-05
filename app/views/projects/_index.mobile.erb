@@ -36,6 +36,12 @@
           </div>
         <% end %>
       </div>
+      <% if @this_user.projects.empty? %>
+        <div class="explanatory">
+          <h3>Add your first plan</h3>
+          Hi there. You've created a folder, but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by tapping on "<%= folder.title %>" above. This will bring you to the folder view for "<%= folder.title %>", where you can tap the button with the plus-sign to add your first plan to your "<%= folder.title %>" folder.</a>
+        </div>
+      <% end %>
     <% else %>
       <div class="explanatory">
         <h2>Add your first folder</h2>

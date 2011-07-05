@@ -16,6 +16,9 @@
 <%= javascript_tag do %>
   jQuery(document).ready(function(){
     bindExpanders();
+		<% unless @this_user %>
+  		jQuery("a:not(.button a,#top_nav_wrapper a)").css('text-decoration','underline');
+  	<% end %>
   })
   jQuery(window).load(function(){
     jQuery('body').css('min-height',screen.height);
