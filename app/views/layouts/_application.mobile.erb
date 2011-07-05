@@ -27,8 +27,18 @@
 		</div>
 		<% end %>
 </div>
+<% unless @this_user %>
+  <div id="main_logo" onclick="document.location.href = '<%= root_url %>'">
+    <div id="main_logo_inner">
+      <div id="main_logo_glare">&nbsp;</div>
+      <div id="main_logo_content">
+        Get Go <div class="rarr_logo">&rarr;</div>
+      </div>
+    </div>
+  </div>
+<% end %>
 <div id="main_content" class="container">
-<%= yield %>
+  <%= yield %>
 </div>
 <% unless flash[:notice].blank? %>
 <%= javascript_tag do %>

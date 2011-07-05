@@ -199,6 +199,84 @@ div#testone.testone {
       font-weight: bold;
       text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.7); }
 
+#main_logo {
+  cursor: pointer;
+  margin: 3.5em auto 0px;
+  height: 115px;
+  width: 177px;
+  -moz-border-radius-topleft: 28px;
+  -moz-border-radius-topright: 28px;
+  -moz-border-radius-bottomright: 28px;
+  -moz-border-radius-bottomleft: 28px;
+  border-top-left-radius: 28px;
+  border-bottom-left-radius: 28px;
+  border-top-right-radius: 28px;
+  border-bottom-right-radius: 28px;
+  border: 5px solid #fcefa1;
+  background-color: #fcefa1;
+  -webkit-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.3);
+  -moz-transform: skewX(350deg);
+  -o-transform: skewX(350deg);
+  -webkit-transform: skewX(350deg);
+  transform: skewX(350deg); }
+  #main_logo #main_logo_inner {
+    width: 177px;
+    -moz-border-radius-topleft: 25px;
+    -moz-border-radius-topright: 25px;
+    -moz-border-radius-bottomright: 25px;
+    -moz-border-radius-bottomleft: 25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    font-family: CoolveticaRg-Regular;
+    font-size: 44px;
+    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+    color: #fcefa1;
+    background-color: #df6020;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffa080", endColorstr="#df6020");
+    /*progid:DXImageTransform.Microsoft.Light(); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff8040), color-stop(0.74, #f87838), to(#df6020));
+    /* for webkit browsers */
+    background: -moz-linear-gradient(top, #ff8040, #df6020);
+    /* for firefox 3.6+ */
+    text-align: center; }
+    #main_logo #main_logo_inner #main_logo_content {
+      position: relative;
+      float: left;
+      z-index: 10;
+      color: #fcefa1;
+      height: 64px; }
+      #main_logo #main_logo_inner #main_logo_content .rarr_logo {
+        position: relative;
+        float: left;
+        width: 100%;
+        top: -32px;
+        left: 12px;
+        font-size: 64px; }
+
+#main_logo_glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 175px;
+  height: 55%;
+  margin-top: 1px;
+  margin-left: 1px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  -moz-border-radius-topleft: 24px;
+  -moz-border-radius-topright: 24px;
+  background-color: rgba(255, 255, 255, 0.3);
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.5)), color-stop(0.45, rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0)));
+  background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0) 100%); }
+
+#main_logo_inner {
+  height: 100px;
+  padding-top: 15px; }
+
 .pager {
   position: absolute;
   width: 100%; }
@@ -344,7 +422,7 @@ div.section.borderless {
 
 .heading.overdue {
   background-color: #fdfcf8;
-  color: #ee3434; }
+  color: #df6020; }
 
 .controls {
   padding-top: 1em;
@@ -601,7 +679,7 @@ button.button {
 
 .controls.overdue {
   background-color: #fdfcf8;
-  color: #ee3434;
+  color: #df6020;
   background: #dddcd8;
   background: -webkit-gradient(linear, left top, left bottom, from(white), to(#cdccc8));
   /* for webkit browsers */
@@ -727,7 +805,7 @@ button.button {
   width: auto; }
 
 div.checked {
-  color: #ee3434; }
+  color: #df6020; }
 
 .control_font {
   margin-top: .65em;
