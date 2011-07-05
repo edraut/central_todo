@@ -6,6 +6,6 @@
 	 	data-ajax_behavior="ajax_link"
 		data-ajax_method="GET"
 		data-ajax_success_element="task_project_<%= @task.id %>"
-		class="small"> 
+		class="small"><%= (@task.project.nil? ? 'add to a plan' : 'change plan') %> </span>
 </div>
 <% if @task.project %><div class="block"><%= @task.project.title %></div><% end %>

@@ -20,7 +20,7 @@
   		<%= f.check_box :state, {:'data-behavior' => 'auto_submit', :'data-role' => 'none'}, task.archived? ? 'archived' : 'complete', 'active' %>
     </div>
   	<div class="line_item_height <% if sortable == true %>fifty_eight<% else %>seventy<% end %> row_item">
-      <span <% if task.done? %>class="completed"<% end %>>
+      <span <% if task.done? %>class="completed"<% end %> onclick="void(0)" data-page_turner="true" data-page_loader="<%= (defined? pager_target) ? pager_target : "task_page_#{task.id}" %>" data-page_target="task_page_<%= task.id %>" style="visibility:hidden;">
         <%= truncate_clean(task.title, :length => 256, :omission => '...', :max_word_length => (session.has_key? :screen_width and (session[:screen_width].to_i < 500)) ? 20 : 256) %>
       </span>
       <% unless controller_name == 'labels' and ['show','edit'].include? action_name %>

@@ -3,9 +3,9 @@
 <div class="row padding">
   <% if sortable %>
   <div data-drag_handle="true" class="row_item eightteen control_font">&nbsp;&nbsp;&equiv;</div>
-	<div class="row_item seventy" onclick="void(0)" data-button="true" href="<%= plan_url(project) %>">
+	<div class="row_item seventy" onclick="void(0)" data-page_turner="true" data-page_target="project_page_<%= project.id %>" data-page_loader="multiple_projects_page_<%= (@nav_tab == 'contacts') ? @all_projects.map{|t| t.id}.join('_') : project.folder.projects.active.ordered.map{|t| t.id}.join('_') %>" style="visibility:hidden;">
 	<% else %>
-	<div class="row_item eighty_eight" onclick="void(0)" data-button="true" href="<%= plan_url(project) %>">
+	<div class="row_item eighty_eight" onclick="void(0)" data-page_turner="true" data-page_target="project_page_<%= project.id %>" data-page_loader="multiple_projects_page_<%= (@nav_tab == 'contacts') ? @all_projects.map{|t| t.id}.join('_') : project.folder.projects.active.ordered.map{|t| t.id}.join('_') %>" style="visibility:hidden;">
 	<% end %>
     <div class="row_item<% if project.all_complete? %> completed<% end %>"><h3>
 	  <%= truncate_clean(project.title, :length => 256, :omission => '...', :max_word_length => (session.has_key? :screen_width and (session[:screen_width].to_i < 500)) ? 20 : 256) %>

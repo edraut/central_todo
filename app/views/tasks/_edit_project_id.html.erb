@@ -16,7 +16,7 @@
 	  <% if (!@task.project or (@task.project and @task.project.user_id == @this_user.id)) and @this_user.projects.active.any? %>
     <div class="span-5 last">
     	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
-    	  <div class="button_content">save</div>
+    	  <div class="button_content">move to plan</div>
     	</div>
     	<div class="text_with_button small">
   		or   <%= link_to (@task.project ? 'cancel' : 'leave blank'), task_url(@task),

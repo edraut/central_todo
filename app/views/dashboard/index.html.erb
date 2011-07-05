@@ -93,10 +93,11 @@
           Hi there. You've created a folder, but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by <a data-modal_trigger="true" data-modal_id="folder_new_project_form_nav" data-modal_insert_value="<%= folder.id %>" data-modal_display_name="<%= folder.title %>">clicking here to add your first plan to your "<%= folder.title %>" folder.</a>
         <% else %>
           <h3>Adding tasks to a plan</h3>
-          There are two ways to add a task to a plan:
+          There are three ways to add a task to a plan:
           <ul>
             <li>Create a task by clicking the 'add a task' button above this box. When the task appears in the unorganized task list on this page, hover over the task to reveal the 'add plan' control. Click on 'add plan'.</li>
-            <li>Go to the full view for the plan you want to add tasks to and click the 'add a task' button on the right side of the page.
+            <li>Click on the Plan tab to the left and hover over the name of the plan you want to add a task to. A gray control bar will appear, click on the circled plus sign to add a task to that plan.</li>
+            <li>Go to the full view for the plan by clicking on the plan name in the Plan tab and click the 'add a task' button on the right side of the plan task list page.
           </ul>
         <% end %>
       </div>

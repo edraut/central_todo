@@ -299,6 +299,9 @@ select.with_text_field {
 .section_margin_top {
   margin-top: 20px; }
 
+.section_margin_top_shaved {
+  margin-top: 17px; }
+
 .small_margin_top {
   margin-top: 10px; }
 

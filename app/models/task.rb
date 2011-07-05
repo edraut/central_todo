@@ -12,6 +12,7 @@ class Task < ActiveRecord::Base
   
   #named_scopes
   scope :unorganized, where( {:project_id => nil} )
+  scope :organized, where( 'tasks.project_id is not null')
   scope :with_due_date, where( "tasks.due_date is not null" )
   scope :without_due_date, where( "tasks.due_date is null" )
   scope :overdue, lambda{ where(["tasks.due_date < :now",{:now => Time.now}]) }

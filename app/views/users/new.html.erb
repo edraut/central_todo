@@ -2,8 +2,8 @@
   <h1>Sign up</h1>
 </div>
 <div class="span-12 last section">
-	<% form_for @user do |f| %>
-    <% if @user.errors.any? %> <div class="error"><ul><%= @user.errors.full_messages.map{|em| '<li>' + em + '</li>'}.join.html_safe %></ul></div><br /> <% end %>
+	<% form_for @user, :url => users_url do |f| %>
+    <% if @user.errors.any? %> <div class="error"><b>Some problems prevented your account from being created. Please adjust your information to accommodate these requirements.</b><br/><ul><%= @user.errors.full_messages.map{|em| '<li>' + em + '</li>'}.join.html_safe %></ul></div><br /> <% end %>
 	  <div class="span-12 last">
 	    <h2> Account Information </h2>
       <%= f.label :email %><br/>
@@ -60,31 +60,3 @@
     </div>
 	<% end %>
 </div>
-<%= javascript_tag do %>
-rates = {'BasicRate':{},'SuperRate':{},'UnlimitedRate':{}};
-<% (BasicRate.all + SuperRate.all + UnlimitedRate.all).each do |rate| %>
-  rates['<%= rate.class.name %>']['<%= rate.frequency %>'] = {'amount':'<%= rate.amount.format %>','frequency':'<%= rate.frequency_display %>'};
-<% end %>
-function selectOption(e){
-  e.stopPropagation();
-  jQuery(this).add(jQuery(this).siblings()).css('top', (-26 * jQuery(this).parent().children().index(jQuery(this))) + 'px');
-  jQuery(this).parent().height(26);
-  jQuery(this).parent().children('.selectable').unbind('click',selectOption);
-  hiddenFieldProxy(e);
-  setPriceDisplay();
-}
-function setPriceDisplay(){
-  jQuery('#option_amount').html(rates[jQuery('#rate_class_field').val()][jQuery('#frequency_field').val()].amount);
-  jQuery('#option_frequency').html(rates[jQuery('#rate_class_field').val()][jQuery('#frequency_field').val()].frequency);
-}
-jQuery(document).ready(function(){
-  jQuery('.selectable_group').click(function(e){
-    jQuery(this).height(jQuery(this).children().length * 26);
-    jQuery(this).children('.selectable').css('top','0px');
-    jQuery(this).children('.selectable').bind('click',selectOption);
-  })
-  bindClickToSelect();
-  bindHiddenFieldProxy();
-  setPriceDisplay();
-})
-<% end %>

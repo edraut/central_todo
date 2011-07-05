@@ -11,7 +11,7 @@
     <% these_projects = @this_user.shared_projects.active.where(:user_id => @task.project.user_id) %>
 		<%= f.select :project_id, these_projects.map{|p| [p.title,p.id]}, {}, :class => 'span-11', :rows => 4 %>
   <% end %>
-	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light "><div class="button_content">move to project</div></div>
+	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light "><div class="button_content">move to plan</div></div>
   	<div class="row_item last padding_top_button small">&nbsp;or
     	<span onclick="void(0)" href="<%= task_url(@task, :attribute => 'project_id') %>"
     	 	data-ajax_behavior="ajax_link"

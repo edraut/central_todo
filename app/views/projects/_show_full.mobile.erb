@@ -20,13 +20,14 @@
 	<div data-role="list" id="unarchived_items_wrapper" class="block" data-behavior="expander" data-state="contracted" data-id="new_task_form">
     <div class="row">
   	  <div class="row_item padding_left">
-    		<h2 id="active_task_title"><% if @project.tasks.unarchived.any? %>Active Tasks<% else %>No active tasks.<% end %></h2>
+    		<h2 id="active_task_title"><% if @project.tasks.unarchived.any? %>Active Tasks<% elsif @project.tasks.any? %>No active tasks.<% elsif @this_user.tasks.any? %>Add a Task<% else %>Add your first task.<% end %></h2>
       </div>
       <% unless @project.archived? %>
   	  <div class="row_item">&nbsp;&nbsp;</div>
       <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
       <% end %>
     </div>
+    <% if @this_user.tasks.any? %>
     <div id="project_<%= @project.id %>_task_list" class="block" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-sort_id="plan_<%= @project.id %>_task_list">
 		<% @project.tasks.active.ordered.each_with_index do |task,index| %>
 		  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" data-sort_element="true" data-sort_id="plan_<%= @project.id %>_task_list" class="section" data-list_index="<%= index %>">
@@ -34,6 +35,7 @@
 			</div>
 		<% end %>
 		</div>
+		<% end %>
 	</div>
 	<div class="block"><div class="padding">
 <div id="archive_completed_items" class="list_action" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %>>

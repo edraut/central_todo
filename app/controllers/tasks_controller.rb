@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :require_user
-  before_filter :get_task, :only => [:show,:comments,:edit,:update,:destroy,:convert,:show_full]
+  before_filter :get_task, :only => [:show,:comments,:edit,:update,:destroy,:convert,:show_full,:multiple]
   before_filter :set_nav_tab
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
   before_filter :get_app_context, :only => [:show,:comments,:edit,:update,:destroy,:show_full,:multiple]
@@ -27,7 +27,6 @@ class TasksController < ApplicationController
   end
   
   def multiple
-    @tasks = Task.recent.find(params[:ids].split(',').map{|id| id.to_i})
     respond_with(@tasks) do |format|
       format.mobile {render :partial => 'show_multiple' and return}
     end
@@ -197,17 +196,21 @@ class TasksController < ApplicationController
   end
   
   def get_task
-    @task = Task.find(params[:id])
-    if @task.class.name == 'Array'
-      @tasks = @task
-    end
-    @project = @task.project
-    if(@project)
-      @folder = @project.folder_for(@this_user)
-    end
-    if @task.user_id != @this_user.id and (!(@task.project.sharer_ids + [@task.project.user_id]).include? @this_user.id)
-      flash[:notice] = "You don't have privileges to access that task."
-      redirect_to root_url and return
+    if action_name == 'multiple'
+      @tasks = Task.recent.find(params[:ids].split(',').map{|id| id.to_i})
+    else
+      @task = Task.find(params[:id])
+      if @task.class.name == 'Array'
+        @tasks = @task
+      end
+      @project = @task.project
+      if(@project)
+        @folder = @project.folder_for(@this_user)
+      end
+      if @task.user_id != @this_user.id and (!(@task.project.sharer_ids + [@task.project.user_id]).include? @this_user.id)
+        flash[:notice] = "You don't have privileges to access that task."
+        redirect_to root_url and return
+      end
     end
   end
   
@@ -215,10 +218,21 @@ class TasksController < ApplicationController
     if params.has_key? :app_context
       @app_context = params[:app_context]
     else
-      if @task.project and @task.project.folder_for(@this_user).nil? and @this_user.shared_project_ids.include? @task.project_id
-        @app_context = @task.project.user_id
+      if @tasks
+        task = @tasks.first
+        if task.project.nil?
+          @app_context = 'dashboard'
+        elsif task.project.user_id == @this_user.id
+          @app_context = 'folder'
+        else
+          @app_context = @task.project.user_id
+        end
       else
-        @app_context = 'folder'
+        if @task.project and @task.project.folder_for(@this_user).nil? and @this_user.shared_project_ids.include? @task.project_id
+          @app_context = @task.project.user_id
+        else
+          @app_context = 'folder'
+        end
       end
     end
   end

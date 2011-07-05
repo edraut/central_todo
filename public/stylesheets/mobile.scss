@@ -7,7 +7,9 @@ $light-blue: #EAF5F5;
 $pale-blue: #f0f8f8;
 $blue-wash: #fbffff;
 $green1: #B7D99B;
+$green2: #A7C98B;
 $green3: #97B97B;
+$green4: #87A96B;
 $green5: #77995B;
 $green7: #57793B;
 $light-carmine: #E55;
@@ -52,61 +54,61 @@ $compact-line-height: 20px;
 }
 @mixin black-gradient {
 	background: $gray8;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray11}", endColorstr="#{$black}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray9), to($gray12)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray11,  $black); /* for firefox 3.6+ */
 }
 @mixin black-gradient-down {
 	background: $gray8;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray9}", endColorstr="#{$gray6}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray9), to($gray6)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray9,  $gray6); /* for firefox 3.6+ */
 }
 @mixin dark-gradient {
 	background: $gray8;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray6}", endColorstr="#{$gray9}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray6), to($gray9)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray6,  $gray9); /* for firefox 3.6+ */
 }
 @mixin dark-gradient-down {
 	background: $gray8;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray9}", endColorstr="#{$gray6}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray9), to($gray6)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray9,  $gray6); /* for firefox 3.6+ */
 }
 @mixin light-gradient {
 	background: $gray2;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="white", endColorstr="#{$gray3}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from(white), to($gray3)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  white,  $gray3); /* for firefox 3.6+ */
 }
 @mixin light-gradient-down {
 	background: $gray2;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray3}", endColorstr="white"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray3), to(white)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray3,  white); /* for firefox 3.6+ */
 }
+@mixin green-gradient {
+	background: $green3;
+	background: -webkit-gradient(linear, left top, left bottom, from($green1), to($green5)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $green1,  $green5); /* for firefox 3.6+ */
+}
+@mixin green-gradient-down {
+	background: $green3;
+	background: -webkit-gradient(linear, left top, left bottom, from($green2), to($green4)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $green2,  $green4); /* for firefox 3.6+ */
+}
 @mixin medium-gradient {
 	background: $gray5;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray3}", endColorstr="#{$gray6}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray3), to($gray6)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray3,  $gray6); /* for firefox 3.6+ */
 }
 @mixin medium-gradient-down {
 	background: $gray5;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray6}", endColorstr="#{$gray3}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray6), to($gray3)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray6,  $gray3); /* for firefox 3.6+ */
 }
 @mixin gradient2 {
 	background: $gray3;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray1}", endColorstr="#{$gray4}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray1), to($gray4)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray1,  $gray4); /* for firefox 3.6+ */
 }
 @mixin gradient2-down {
 	background: $gray3;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#{$gray4}", endColorstr="#{$gray1}"); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($gray4), to($gray1)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $gray4,  $gray1); /* for firefox 3.6+ */
 }
@@ -114,31 +116,26 @@ $compact-line-height: 20px;
 	background-color: rgba(255, 255, 255, 0.5);
 	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), color-stop(.3,rgba(255, 255, 255, 0.4)), to(rgba(255, 255, 255, 0)));
 	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.07) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF"); /* for IE */
 }
 @mixin glare-gradient-dark {
 	background-color: rgba(255, 255, 255, 0.2);
 	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), color-stop(.3,rgba(255,255,255,0.3)), to(rgba(255, 255, 255, 0)));
 	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9AFFFFFF", endColorstr="#00FFFFFF"); /* for IE */
 }
 @mixin glare-gradient-extra-dark {
 	background-color: rgba(255, 255, 255, 0.1);
 	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.3)), color-stop(.3,rgba(255,255,255,0.15)), to(rgba(255, 255, 255, 0)));
 	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 30%, rgba(255, 255, 255, 0) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9AFFFFFF", endColorstr="#00FFFFFF"); /* for IE */
 }
 @mixin glare-light {
 	background-color: rgba(255, 255, 255, 0.1);
-	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 1)), color-stop(.3,rgba(255, 255, 255, 0.6)), to(rgba(255, 255, 255, 0.1)));
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 1)), color-stop(.3,rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0.2)));
 	background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#DDFFFFFF", endColorstr="#26FFFFFF"); /* for IE */
 }
 @mixin gray1-overflow-fade{
 	background-color: rgba(237, 236, 232, 0);
 	background: -webkit-gradient(linear, left top, right top, from(rgba(237, 236, 232, 0)), to(rgba(237, 236, 232, 1)));
 	background: -moz-linear-gradient(left, rgba(237, 236, 232, 0) 0%, rgba(237, 236, 232, 1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00EDECE8", endColorstr="#FFEDECE8", gradientType=1); /* for IE */
 }
 @mixin full-width {
   position: relative;
@@ -162,7 +159,10 @@ p {
 }
 a{
   text-decoration: none;
-  color: $gray10;
+  color: $green7;
+}
+a.coolvetica {
+	color: $gray12;
 }
 h2{
 	font-size: 1.5em;
@@ -202,6 +202,10 @@ input[type="submit"]{
   margin-top: -.4em;
   margin-bottom: .5em;
 }
+.coolvetica {
+	font-family: CoolveticaRg-Regular;
+}
+
 div#testone.testone{
 	position:relative;
 	height: 120px;
@@ -228,6 +232,21 @@ div#testone.testone{
 }
 .flash_dialog {
 	@include flash;
+}
+.error, .alert {
+	background:#FFA080;
+	color:#4D4C48;
+	border: 3px solid #fcefa1;
+}
+.explanatory {
+	position: relative;
+	float: left;
+  background-color: $paper;
+  padding: 5%;
+	width: 89%;
+	border: 3px solid $light-yellow;
+	line-height: 1.3;
+	margin-bottom: 1em;
 }
 .dialog {
 	position: absolute;
@@ -639,6 +658,29 @@ a.button.small {
 		background: none;
 	}
 }
+.button.green, a.button.green {
+	@include green-gradient;
+  border:1px solid $gray4;
+  border-top:1px solid $gray3;
+  border-left:1px solid $gray3;
+  color:$gray8;
+	text-shadow: 0px 1px 1px rgba(255,255,255,1);
+	.glare {
+		height: 55%;
+		margin: 2% 10px 0 7px;
+		border-radius: 1em;
+		@include glare-gradient2;
+	}
+}
+.button.green:active, a.button.green:active {
+	@include green-gradient-down;
+  border:1px solid $gray3;
+  border-top:1px solid $gray4;
+  border-left:1px solid $gray4;
+	.glare {
+		background: none;
+	}
+}
 .button.control_font, .button.small_control_font, a.button.control_font, a.button.small_control_font {
 	padding-left: .4em;
 	padding-right: .4em;
@@ -862,6 +904,13 @@ div.checked {
 .mytime .Black { background-color: $black; color: $paper; a{ color: $paper; } a:hover{ color: $gray1 } }
 .mytime .Gray { background-color: $gray6; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
 .mytime .White { background-color: $paper; color: $black; a{ color: $black; } a:hover{ color: $gray10 } }
+
+#beta_label {
+	padding: .3em;
+	background-color: $gray2;
+	color: $paper;
+	font-size: 24px;
+}
 
 /* reset
 html { 
