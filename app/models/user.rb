@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   #constants
+  
+  attr_accessor :card_hash
 
   #associations
   has_many :tasks, :dependent => :destroy
@@ -148,6 +150,7 @@ class User < ActiveRecord::Base
   def add_credit_card(card_hash = self.card_hash)
     self.cim_id ||= get_new_cim_id
     if self.cim_id.blank?
+      self.errors.add_to_base('It appears there is a problem processing your credit card information. Please contact us at support@getgolist.com.')
       return false
     else
       credit_card = ActiveMerchant::Billing::CreditCard.new(

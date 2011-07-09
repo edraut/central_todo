@@ -78,7 +78,10 @@ function buttonControl(e){
 			return false;
 		};
 	}
-	if(target.attr('data-submit')){
+	if(target.data('submit')){
+		if(target.data('submit_value')){
+			target.parents('form').find('input[name="submit_value"]');
+		}
 		target.parents('form').submit();
 		e.preventDefault();
 		e.stopPropagation();

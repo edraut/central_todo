@@ -2,7 +2,7 @@
   <h1>Sign up</h1>
 </div>
 <div class="span-12 last section">
-	<% form_for @user, :url => users_url do |f| %>
+	<% form_for @user, :as => :user, :url => users_url do |f| %>
     <% if @user.errors.any? %> <div class="error"><b>Some problems prevented your account from being created. Please adjust your information to accommodate these requirements.</b><br/><ul><%= @user.errors.full_messages.map{|em| '<li>' + em + '</li>'}.join.html_safe %></ul></div><br /> <% end %>
 	  <div class="span-12 last">
 	    <h2> Account Information </h2>

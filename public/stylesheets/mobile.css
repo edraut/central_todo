@@ -254,8 +254,9 @@ div#testone.testone {
         float: left;
         width: 100%;
         top: -32px;
-        left: 12px;
-        font-size: 64px; }
+        left: 0px;
+        font-size: 64px;
+        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; }
 
 #main_logo_glare {
   position: absolute;

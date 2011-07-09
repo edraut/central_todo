@@ -15,6 +15,10 @@ GEM
       rack-mount (~> 0.6.14)
       rack-test (~> 0.5.7)
       tzinfo (~> 0.3.23)
+    activemerchant (1.15.0)
+      activesupport (>= 2.3.8)
+      braintree (>= 2.0.0)
+      builder (>= 2.0.0)
     activemodel (3.0.7)
       activesupport (= 3.0.7)
       builder (~> 2.1.2)
@@ -31,6 +35,8 @@ GEM
     arel (2.0.9)
     authlogic (2.1.6)
       activesupport
+    braintree (2.10.1)
+      builder (>= 2.0.0)
     builder (2.1.2)
     capistrano (2.5.21)
       highline
@@ -96,6 +102,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemerchant
   authlogic
   capistrano
   money

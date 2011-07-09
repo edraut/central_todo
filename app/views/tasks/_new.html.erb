@@ -11,10 +11,10 @@
 		<div class="span-<% if hierarchical %>14<% else %>16<% end %> last">
 		  <%= f.label :title, 'New Task Title' %>
 	  </div>
-		<div class="span-<% if hierarchical %>10<% else %>12<% end %>">
-			<%= f.text_field :title, :id => "project_#{project.id}_new_task_title", :class => ("span-" + ((hierarchical) ? "10" : "12")) %>
+		<div class="span-<% if hierarchical %>8<% else %>10<% end %>">
+			<%= f.text_field :title, :id => "project_#{project.id}_new_task_title", :class => ("span-" + ((hierarchical) ? "8" : "10")) %>
 		</div>
-		<div class="span-<% if hierarchical %>4<% else %>4<% end %> last">
+		<div class="span-6 last">
 			<%= f.hidden_field :state, :id => "project_#{project.id}_new_task_state" %>
 			<%= f.hidden_field :project_id, :id => "project_#{project.id}_new_task_project_id" %>
       <% if hierarchical %>
@@ -22,8 +22,11 @@
       <% elsif sortable %>
 			  <%= hidden_field_tag :app_context, 'project', :id => "project_#{project.id}_new_task_app_context" %>
   		<% end %>
-    	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
-    	  <div class="button_content">add task</div>
+    	<div class="row_item button round small light" data-button="true" data-submit="true" data-submit_value="top" onclick="void(0)">
+    	  <div class="button_content">add to top</div>
+    	</div>
+    	<div class="row_item button round small light" data-button="true" data-submit="true" data-submit_value="bottom" onclick="void(0)">
+    	  <div class="button_content">add to bottom</div>
     	</div>
     	<div class="text_with_button small" onclick="void(0)" data-behavior="expander" data-action="contract" data-id="project_<%= project.id %>_new_task_form">
 			or close

@@ -56,13 +56,13 @@
         <% if @this_user.folders.empty? %>
           <div class="explanatory">
             <h2><%= link_to 'Add your first folder', plans_url %></h2>
-            Hi there. You don't have any folders or plans yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. Folders organize your plans. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by <%= link_to 'tapping here to add your first folder.', plans_url %>
+            Hi there. You don't have any folders or plans yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. Folders organize your plans. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by tapping to open the Plans tab above, then tapping on the button with the plus-sign in the Plans tab to create your first folder.
           </div>
         <% elsif @this_user.projects.empty? %>
           <% folder = @this_user.folders.first %>
           <div class="explanatory">
             <h2>Add your first plan</h2>
-            Hi there. You've created a folder, but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by tapping on the Plans tab above then tapping on "<%= folder.title %>". This will bring you to the folder view for "<%= folder.title %>", where you can tap the button with the plus-sign to add your first plan to your "<%= folder.title %>" folder.
+            Hi there. You've created a folder named "<%= folder.title %>", but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by tapping on the Plans tab above then tapping on "<%= folder.title %>". This will bring you to the folder view for "<%= folder.title %>", where you can tap the button with the plus-sign to add your first plan to your "<%= folder.title %>" folder.
           </div>
         <% elsif @this_user.tasks.organized.empty? %>
           <div class="explanatory">
