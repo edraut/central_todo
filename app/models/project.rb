@@ -97,6 +97,17 @@ class Project < ActiveRecord::Base
     self.tasks.update_all "state = 'active'"
   end
   
+  def move_to_top(task)
+    if self.tasks.unarchived.count > 1 and self.tasks.include? task
+      (self.tasks - [task]).each do |t|
+        t.position += 1
+        t.save
+      end
+      task.position = 1
+      task.save
+    end
+  end
+  
   def folder_for(user)
     if self.user_id == user.id
       self.folder

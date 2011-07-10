@@ -1,6 +1,7 @@
 <% sortable = false unless defined? sortable
 	needs_organization = false unless defined? needs_organization
 	hierarchical = fasle unless defined? hierarchical
+	move_to_top = false unless defined? move_to_top
 	if (['projects','folders'].include? controller_name and ['index','show','sort_tasks','create','update'].include? action_name)
 	  @app_context ||= 'project'
   end
@@ -119,3 +120,18 @@
   <% end %>
 <% end %>
 </div>
+<%= javascript_tag do %>
+jQuery(document).ready(function(){
+  if(jQuery('#project_<%= task.project.id %>_task_list') && jQuery('#project_<%= task.project.id %>_task_list').children().length > 5){
+    jQuery('#top_addition').hide();
+    jQuery('#positional_addition').show();
+  } else {
+    jQuery('#top_addition').show();
+    jQuery('#positional_addition').hide();
+  }
+  <% if move_to_top %>
+    item = jQuery('#task_<%= task.id %>');
+    item.parent().prepend(item);
+  <% end %>
+})
+<% end %>

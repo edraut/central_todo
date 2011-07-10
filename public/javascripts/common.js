@@ -80,7 +80,8 @@ function buttonControl(e){
 	}
 	if(target.data('submit')){
 		if(target.data('submit_value')){
-			target.parents('form').find('input[name="submit_value"]');
+			submit_value_input = target.parents('form').find('input[name="submit_value"]');
+			submit_value_input.val(target.data('submit_value'));
 		}
 		target.parents('form').submit();
 		e.preventDefault();

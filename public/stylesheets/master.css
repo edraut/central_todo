@@ -1302,6 +1302,9 @@ h2 .button.small {
 .text_left {
   text-align: left; }
 
+.float_right {
+  float: right; }
+
 .vertical-padding {
   padding-top: 14px;
   padding-bottom: 14px; }

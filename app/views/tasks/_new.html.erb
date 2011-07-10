@@ -22,13 +22,21 @@
       <% elsif sortable %>
 			  <%= hidden_field_tag :app_context, 'project', :id => "project_#{project.id}_new_task_app_context" %>
   		<% end %>
-    	<div class="row_item button round small light" data-button="true" data-submit="true" data-submit_value="top" onclick="void(0)">
-    	  <div class="button_content">add to top</div>
-    	</div>
-    	<div class="row_item button round small light" data-button="true" data-submit="true" data-submit_value="bottom" onclick="void(0)">
-    	  <div class="button_content">add to bottom</div>
-    	</div>
-    	<div class="text_with_button small" onclick="void(0)" data-behavior="expander" data-action="contract" data-id="project_<%= project.id %>_new_task_form">
+  		<%= hidden_field_tag 'submit_value' %>
+		  <div id="positional_addition" <% unless project.tasks.active.count > 5 %>style="display:none;"<% end %>>
+      	<div class="row_item button round small light" data-button="true" data-submit="true" data-submit_value="top" onclick="void(0)">
+      	  <div class="button_content">add to top</div>
+      	</div>
+      	<div class="row_item button round small light" data-button="true" data-submit="true" data-submit_value="bottom" onclick="void(0)">
+      	  <div class="button_content">add to bottom</div>
+      	</div>
+      </div>
+      <div id="top_addition" <% if project.tasks.active.count > 5 %>style="display:none;"<% end %>>
+      	<div class="row_item button round small light" data-button="true" data-submit="true" data-submit_value="top" onclick="void(0)">
+      	  <div class="button_content">add task</div>
+      	</div>
+      </div>
+    	<div class="text_with_button small float_right" onclick="void(0)" data-behavior="expander" data-action="contract" data-id="project_<%= project.id %>_new_task_form">
 			or close
       </div>
 		</div>

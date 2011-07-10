@@ -65,14 +65,14 @@ class TasksController < ApplicationController
       @item = @task
       case params[:app_context]
       when 'project'
-        if @task.project.task_ids.count > 5
-          flash.now[:ajax_dialog] = render_to_string :partial => '/tasks/move_to_top'
-          @ajax_dialog_javascript = '/tasks/move_to_top_javascript'
-        end
         if @tasks and @tasks.count > 1
           render :partial => 'show_multiple_line_items', :locals => {:tasks => @tasks, :project => @project, :sortable => true} and return
         else
-          render :partial => 'show', :locals => {:task => @task, :project => @project, :sortable => true}, :layout => 'new_task' and return
+          if @task.project and params[:submit_value] and params[:submit_value] == 'top'
+            @task.project.move_to_top(@task)
+            @move_to_top = true
+          end
+          render :partial => 'show', :locals => {:task => @task, :project => @project, :sortable => true, :move_to_top => @move_to_top}, :layout => 'new_task' and return
         end
       when 'hierarchical'
         render :partial => 'show', :locals => {:task => @task, :project => @project, :hierarchical => true}, :layout => 'new_task' and return
