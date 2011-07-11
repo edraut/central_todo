@@ -1,0 +1,45 @@
+<div class="span-16 last section_margin_top">
+		<h2>Credit Card Info</h2>
+</div>
+<div class="span-16 last section">
+  <%= form_for @user, :as => :user, :url => user_url(@user), :html => {
+  	:'data-ajax_behavior' => 'ajax_form',
+  	:'data-ajax_method' => 'PUT',
+  	:'data-ajax_success_element' => 'account_card',
+  	:'data-ajax_error_element' => 'account_card'
+  } do |f| %>
+  <% if @user.errors.any? %> <div class="error"><b>Some problems prevented your card from being accepted.</b><br/><ul><%= @user.errors.full_messages.map{|em| '<li>' + em + '</li>'}.join.html_safe %></ul></div><br /> <% end %>
+    <div class="span-16 last">
+      <%= label 'card[name]', "Name on Card" %><br/>
+      <%= text_field_tag 'card[name]', nil %><br/>
+      <br/>
+      <%= label 'card[number]', "Credit Card Number" %><br/>
+      <%= text_field_tag 'card[number ]', nil %><br/>
+      <br/>
+      <%= label 'card[cvv]', "Security Code" %><br/>
+      <%= text_field_tag 'card[cvv]', nil %><br/>
+      <br/>
+    </div>
+    <div class="span-16 last">
+      <div class="span-12">
+            <%= label nil, "Expiration Date" %><br/>
+        <%= select_tag 'card[month]', options_for_select( Array.new(12){|i| i+1}.map{|m| [m,m]},1) %> /
+        <%= select_tag 'card[year]', options_for_select( Array.new(10){|i| i + Date.today.year}.map{|year| [year,year]},Date.today.year) %>
+
+      	<%= hidden_field_tag 'attribute', 'card', :id => 'attribute_card_field' %>
+      </div>
+    	<div class="span-4 last text_right">
+      	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+      	  <div class="button_content">save</div>
+      	</div>
+      	<div class="text_with_button small">
+        	<%= link_to 'cancel', account_user_url(@user),
+        	 	:'data-ajax_behavior' => 'ajax_link',
+        		:'data-ajax_method' => 'GET',
+        		:'data-ajax_success_element' => 'account_card',
+        		:'data-ajax_data' => "{attribute: 'card'}"%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

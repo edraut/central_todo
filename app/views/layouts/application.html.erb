@@ -328,25 +328,39 @@
 	<% if @this_user %>
   <div style="display:none;" class="form_modal" data-modal="true" data-modal_id="new_folder_form_nav">
     <% if @this_user.is_a? PaidAccount %>
-    <h2>Create a new Folder</h2>
-    <div class="span-16 section_margin_top">
-      <%= form_for Folder.new(:user_id => @this_user.id) do |f| %>
-        <div class="span-12">
-          <%= f.label :title, 'Folder Title' %>
-    			<%= f.text_field :title, :class => "span-12" %>
-    		</div>
-    		<div class="span-4 last">
-    			<%= f.hidden_field :user_id %>
-    			<%= hidden_field_tag :return_to, request.request_uri %>
-        	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
-        	  <div class="button_content">add folder</div>
-        	</div>
-        	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="new_folder_form_nav">
-    			or cancel
+      <% if @this_user.in_good_standing? %>
+        <h2>Create a new Folder</h2>
+        <div class="span-16 section_margin_top">
+          <%= form_for Folder.new(:user_id => @this_user.id) do |f| %>
+            <div class="span-12">
+              <%= f.label :title, 'Folder Title' %>
+        			<%= f.text_field :title, :class => "span-12" %>
+        		</div>
+        		<div class="span-4 last">
+        			<%= f.hidden_field :user_id %>
+        			<%= hidden_field_tag :return_to, request.request_uri %>
+            	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+            	  <div class="button_content">add folder</div>
+            	</div>
+            	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="new_folder_form_nav">
+        			or cancel
+              </div>
+        		</div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="span-16 last">
+          <div class="span-15 last">
+            Your account is currently on hold. Please visit the account view and update your credit card information before proceeding. Thanks!
           </div>
-    		</div>
+          <div class="span-3 prepend-13 last padding_bottom">
+          	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="new_folder_form_nav">
+      			close
+            </div>
+          </div>
+        </div>
+      
       <% end %>
-    </div>
     <% else %>
       <div class="span-16 last">
         <div class="span-15 last">
@@ -362,27 +376,40 @@
   </div>
   <div style="display:none;" class="form_modal" data-modal="true" data-modal_id="folder_new_project_form_nav">
     <% if @this_user.is_a? PaidAccount %>
-    <div id="folder_new_project_form_wrapper_nav" class="span-15 last section_margin_top">
-      <h2>Add a new plan to the folder "<span data-modal_display_name="true"></span>"</h2>
-    	<%= form_for Project.new(:folder_id => nil, :state => 'active'), :url => plans_url, :html => {:id => "folder_new_project_form_nav"} do |f| %>
-        <div class="span-15 last">
-      		<div class="span-8">
-      			<%= f.text_field :title, :id => "folder_new_project_title_nav", :class => "span-8" %>
-      		</div>
-      		<div class="span-4 last">
-      			<%= f.hidden_field :state, :id => "folder_new_project_state_nav" %>
-      			<%= f.hidden_field :folder_id, :id => "folder_new_project_folder_id", :'data-modal_insert' => true %>
-      			<%= hidden_field_tag :return_to, request.request_uri %>
-          	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
-          	  <div class="button_content">add plan</div>
-          	</div>
-          	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="folder_new_project_form_nav">
-      			or cancel
+      <% if @this_user.in_good_standing? %>
+        <div id="folder_new_project_form_wrapper_nav" class="span-15 last section_margin_top">
+          <h2>Add a new plan to the folder "<span data-modal_display_name="true"></span>"</h2>
+        	<%= form_for Project.new(:folder_id => nil, :state => 'active'), :url => plans_url, :html => {:id => "folder_new_project_form_nav"} do |f| %>
+            <div class="span-15 last">
+          		<div class="span-8">
+          			<%= f.text_field :title, :id => "folder_new_project_title_nav", :class => "span-8" %>
+          		</div>
+          		<div class="span-4 last">
+          			<%= f.hidden_field :state, :id => "folder_new_project_state_nav" %>
+          			<%= f.hidden_field :folder_id, :id => "folder_new_project_folder_id", :'data-modal_insert' => true %>
+          			<%= hidden_field_tag :return_to, request.request_uri %>
+              	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+              	  <div class="button_content">add plan</div>
+              	</div>
+              	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="folder_new_project_form_nav">
+          			or cancel
+                </div>
+          		</div>
             </div>
-      		</div>
+        	<% end %>
         </div>
-    	<% end %>
-    </div>
+      <% else %>
+        <div class="span-16 last">
+          <div class="span-15 last">
+            Your account is currently on hold. Please visit the account view and update your credit card information before proceeding. Thanks!
+          </div>
+          <div class="span-3 prepend-13 last padding_bottom">
+          	<div class="text_with_button small" onclick="void(0)" data-modal_closer="true" data-modal_id="new_folder_form_nav">
+      			close
+            </div>
+          </div>
+        </div>
+      <% end %>
     <% else %>
       <div class="span-16 last">
         <div class="span-15 last">

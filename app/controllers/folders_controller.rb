@@ -1,5 +1,6 @@
 class FoldersController < ApplicationController
   before_filter :require_user
+  before_filter :require_valid_account
   before_filter :get_folder, :only => [:show,:edit,:update,:destroy,:sort_plans,:show_full]
   before_filter :set_nav_tab
   
@@ -23,10 +24,14 @@ class FoldersController < ApplicationController
   
   def create
     if @this_user.is_a? PaidAccount
-      @folder = Folder.new(params[:folder].merge!(:user_id => @this_user.id))
-      unless @folder.save
-        flash[:notice] = @folder.errors.full_messages
-      end
+      if @this_user.in_good_standing?
+        @folder = Folder.new(params[:folder].merge!(:user_id => @this_user.id))
+        unless @folder.save
+          flash[:notice] = @folder.errors.full_messages
+        end
+      else
+        flash[:notice] = "Your account is on hold. Please update your credit card info in the account view before proceeding."
+        redirect_to dashboard_url and return
     else
       flash[:notice] = "You need to upgrade to a paid account to create folders"
       redirect_to dashboard_url and return

@@ -1,0 +1,23 @@
+<div class="span-16 last section_margin_top">
+	<div class="span-13">
+		<h2>Credit Card Info</h2>
+	</div>
+	<div class="span-3 last">
+		<%= link_to 'edit card info', edit_user_url(@user, :attribute => 'card'),
+		 	:'data-ajax_behavior' => 'ajax_link',
+			:'data-ajax_method' => 'GET',
+			:'data-ajax_success_element' => 'account_card'
+		%>
+	</div>
+</div>
+<div class="span-16 last section">
+  <% if @user.card_last_four.blank? %>
+  	We don't have a card on file for your account. Please click 'edit card info' and enter your card information to activate your account.
+	<% elsif !@user.card_valid? %>
+	  XXXXXXXXXXXX<%= @user.card_last_four %>
+	  We can't charge this card, please update your card information, or if you think this card should be valid contact your card provider to verify.
+    Thank you.
+  <% else %>
+	  XXXXXXXXXXXX<%= @user.card_last_four %>
+	<% end %>
+</div>

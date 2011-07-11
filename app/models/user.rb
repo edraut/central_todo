@@ -34,22 +34,23 @@ class User < ActiveRecord::Base
   #special behaviors
   acts_as_authentic
 
-  state_machine :state, :initial => :active do
-    event :validate_account do
-      transition :not_valid => :active
+  state_machine :state, :initial => :can_log_in do
+    event :hold_account do
+      transition any => :can_log_in
     end
-    event :deactivate do
-      transition :active => :inactive
+    event :activate_account do
+      transition any => :in_good_standing
     end
-    state :not_valid
-    state :active
-    state :inactive
+    state :can_log_in
+    state :in_good_standing
   end
     
   #validations
   validates :tos_agreed, :acceptance => { :accept => true }
   #callbacks
   before_save :handle_sms
+  before_save :handle_validity
+  # after_create :handle_first_credit_card_attempt
   
   #class methods
   def self.generate_code(size = 5)
@@ -143,6 +144,23 @@ class User < ActiveRecord::Base
     Notifier.password_reset_instructions(self).deliver
   end  
 
+  def handle_first_credit_card_attempt
+    self.add_credit_card
+    return true
+  end
+  
+  def handle_validity
+    if self.card_valid?
+      unless self.in_good_standing?
+        self.activate_account
+      end
+    else
+      if self.in_good_standing?
+        self.hold_account
+      end
+    end
+  end
+  
   ############################################################################################
   ########### Begin CIM methods, copyright 2008 Eric Draut, all rights reserved ##############
   ############################################################################################
@@ -168,7 +186,6 @@ class User < ActiveRecord::Base
         return false
       else
         self.card_valid = true
-        self.save
       end
     end
   end

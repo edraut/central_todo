@@ -120,18 +120,20 @@
   <% end %>
 <% end %>
 </div>
-<%= javascript_tag do %>
-jQuery(document).ready(function(){
-  if(jQuery('#project_<%= task.project.id %>_task_list') && jQuery('#project_<%= task.project.id %>_task_list').children().length > 5){
-    jQuery('#top_addition').hide();
-    jQuery('#positional_addition').show();
-  } else {
-    jQuery('#top_addition').show();
-    jQuery('#positional_addition').hide();
-  }
-  <% if move_to_top %>
-    item = jQuery('#task_<%= task.id %>');
-    item.parent().prepend(item);
+<% if task.project %>
+  <%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    if(jQuery('#project_<%= task.project.id %>_task_list') && jQuery('#project_<%= task.project.id %>_task_list').children().length > 5){
+      jQuery('#top_addition').hide();
+      jQuery('#positional_addition').show();
+    } else {
+      jQuery('#top_addition').show();
+      jQuery('#positional_addition').hide();
+    }
+    <% if move_to_top %>
+      item = jQuery('#task_<%= task.id %>');
+      item.parent().prepend(item);
+    <% end %>
+  })
   <% end %>
-})
 <% end %>

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => :show
+  before_filter :require_valid_account, :only => [:show]
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
   before_filter :set_nav_tab
   respond_to :html, :mobile
@@ -37,14 +38,19 @@ class UsersController < ApplicationController
     end
     rate = rate_class.where(:frequency => params[:frequency]).first
     @user = PaidAccount.new(params[:user].merge(:time_zone => Time.zone.name, :rate_id => rate.id))
-    if @user.add_credit_card(params[:card]) && @user.save
-        for project_email in ProjectEmail.find(:all, :conditions => ["lower(email) = :email",{:email => @user.email.downcase}])
-          project_email.convert_to_sharer
-        end
-        @user_session = UserSession.new(:email => @user.email, :password => params[:user][:password])
-        @user_session.save
-        session[:signed_up] = true
+    @user.card_hash = params[:card]
+    if @user.save
+      for project_email in ProjectEmail.find(:all, :conditions => ["lower(email) = :email",{:email => @user.email.downcase}])
+        project_email.convert_to_sharer
+      end
+      @user_session = UserSession.new(:email => @user.email, :password => params[:user][:password])
+      @user_session.save
+      session[:signed_up] = true
+      if @user.add_credit_card
         redirect_back_or_default dashboard_url
+      else
+        redirect_to account_user_url(@user)
+      end
     else
       respond_with(@user) do |format|
         format.mobile { render @render_type => 'new' and return }
@@ -133,6 +139,9 @@ class UsersController < ApplicationController
               @sms_verification_failed = true
             end
           end
+        elsif params[:card]
+          @user.card_hash = params[:card]
+          success = @user.add_credit_card
         else
           @user.attributes = params[:user]
           @send_sms_verification = @user.sms_number_changed? ? true : false

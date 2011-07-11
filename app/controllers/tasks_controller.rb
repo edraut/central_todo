@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_filter :require_user
+  before_filter :require_valid_account
   before_filter :get_task, :only => [:show,:comments,:edit,:update,:destroy,:convert,:show_full,:multiple]
   before_filter :set_nav_tab
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]

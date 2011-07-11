@@ -2,10 +2,22 @@
 <h1>Account Info</h1>
 </div>
 <div class="span-17 last page_content">
+  <% if @user.can_log_in? %>
+    <div class="span-15 last error">
+      We're having a problem with your credit card. Please enter your card info again under 'Credit Card Info' below.
+    </div>
+  <% end %>
   <div id="account_email" class="span-15 last">
   	<%= render :partial => 'show_email' %>
   </div>
   <div id="account_name" class="span-15 last">
   	<%= render :partial => 'show_name' %>
+  </div>
+  <div id="account_card" class="span-15 last">
+    <% if @user.can_log_in? %>
+    	<%= render :partial => 'edit_card' %>
+    <% else %>
+    	<%= render :partial => 'show_card' %>
+    <% end %>
   </div>
 </div>

@@ -41,6 +41,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_valid_account
+    unless @this_user.in_good_standing?
+      redirect_to dashboard_url and return
+    end
+  end
   
   def handle_xhr
     if request.xhr?
