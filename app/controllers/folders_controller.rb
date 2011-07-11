@@ -32,6 +32,7 @@ class FoldersController < ApplicationController
       else
         flash[:notice] = "Your account is on hold. Please update your credit card info in the account view before proceeding."
         redirect_to dashboard_url and return
+      end
     else
       flash[:notice] = "You need to upgrade to a paid account to create folders"
       redirect_to dashboard_url and return
