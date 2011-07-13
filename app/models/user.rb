@@ -32,8 +32,10 @@ class User < ActiveRecord::Base
   }
   scope :recent, order('id desc')
   #special behaviors
-  acts_as_authentic
-
+  acts_as_authentic do |c|
+    c.logged_in_timeout = 2.weeks
+  end
+  
   state_machine :state, :initial => :can_log_in do
     event :hold_account do
       transition any => :can_log_in

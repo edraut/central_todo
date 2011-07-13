@@ -12,7 +12,7 @@ class UserSessionsController < ApplicationController
   
   def create
     @user_session = UserSession.new(params[:user_session])
-    @user_session.remember_me = (params[:user_session][:remember_me] == '1')
+    @user_session.remember_me = true
     if @user_session.save
       redirect_back_or_default dashboard_url
     else

@@ -1,7 +1,7 @@
 before "deploy:cold", "config_files:create"
 after "deploy:update_code", "config_files:symlink"
 after "deploy:update", "deploy:cleanup"
-# after 'deploy:update_code', 'bundler:bundle_new_release'
+after 'deploy:update_code', 'bundler:bundle_new_release'
 
 require 'erb'
 
@@ -109,6 +109,9 @@ namespace :bundler do
   task :create_symlink, :roles => [:app, :push] do
     shared_dir = File.join(shared_path, 'bundle')
     release_dir = File.join(current_release, '.bundle')
+    run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
+    shared_dir = File.join(shared_path, 'vendor_bundle')
+    release_dir = File.join(current_release, 'vendor/bundle')
     run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
   end
  

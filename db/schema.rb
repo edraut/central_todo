@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(:version => 20110609000023) do
     t.string   "last_login_ip"
     t.string   "current_login_ip"
     t.string   "cim_id"
-    t.boolean  "card_valid"
+    t.boolean  "card_valid",          :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "show_help_text",      :default => true
