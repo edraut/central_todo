@@ -1,9 +1,9 @@
 <div class="span-16 last section_margin_top">
 	<div class="span-13">
-		<h2>Credit Card Info</h2>
+		<h2>Billing Info</h2>
 	</div>
 	<div class="span-3 last">
-		<%= link_to 'edit card info', edit_user_url(@user, :attribute => 'card'),
+		<%= link_to 'edit billing info', edit_user_url(@user, :attribute => 'card'),
 		 	:'data-ajax_behavior' => 'ajax_link',
 			:'data-ajax_method' => 'GET',
 			:'data-ajax_success_element' => 'account_card'
@@ -11,13 +11,24 @@
 	</div>
 </div>
 <div class="span-16 last section">
-  <% if @user.card_last_four.blank? %>
-  	We don't have a card on file for your account. Please click 'edit card info' and enter your card information to activate your account.
-	<% elsif !@user.card_valid? %>
-	  XXXXXXXXXXXX<%= @user.card_last_four %>
-	  We can't charge this card, please update your card information, or if you think this card should be valid contact your card provider to verify.
-    Thank you.
+  <% if @user.class.name == 'PaidAccount' %>
+    <% if @user.card_last_four.blank? %>
+    	We don't have a card on file for your account. Please click 'edit billing info' and enter your card information to activate your account.
+  	<% elsif !@user.card_valid? %>
+  	  Last four numbers on your card: XXXXXXXXXXXX<%= @user.card_last_four %>
+  	  We can't charge this card, please update your card information, or if you think this card should be valid contact your card provider to verify.
+      Thank you.
+    <% else %>
+  	  Last four numbers on your card: XXXXXXXXXXXX<%= @user.card_last_four %>
+  	<% end %>
+  	<div class="span-16 last section_margin_top">
+  	  <% if @user.free_trial? %>
+    	  If you'd like to end your 30-day trial, switch to the Collaborator account before the end of <%= @user.free_trial_end_date.to_formatted_s(:full) %> and pay nothing.
+      <% else %>
+      	If you'd like to switch to a no-charge account, click on 'edit billing info' to the right to downgrade to a Collaborator account. <br/>&nbsp;<br/>
+    	<% end %>
+  	</div>
   <% else %>
-	  XXXXXXXXXXXX<%= @user.card_last_four %>
-	<% end %>
+    You have a no-charge Collaborator account. If you'd like to upgrade so you can create your own plans, click on 'edit billing info' to the right.
+  <% end %>
 </div>

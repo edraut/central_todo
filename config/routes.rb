@@ -23,6 +23,7 @@ CentralTodo::Application.routes.draw do
       get 'settings'
       get 'account'
       get 'show_full'
+      get 'tos_agreement'
     end
   end
   match 'sign_up' => 'users#new'

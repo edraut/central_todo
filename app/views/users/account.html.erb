@@ -3,9 +3,15 @@
 </div>
 <div class="span-17 last page_content">
   <% if @user.can_log_in? %>
-    <div class="span-15 last error">
-      We're having a problem with your credit card. Please enter your card info again under 'Credit Card Info' below.
-    </div>
+    <% if @just_changed %>
+      <div class="span-15 last explanatory">
+        Please enter your card info under 'Credit Card Info' below in order to activate your upgraded account.
+      </div>
+    <% else %>
+      <div class="span-15 last error">
+        We're having a problem with your credit card. Please enter your card info again under 'Credit Card Info' below.
+      </div>
+    <% end %>
   <% end %>
   <div id="account_email" class="span-15 last">
   	<%= render :partial => 'show_email' %>

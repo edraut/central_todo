@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   #constants
   
-  attr_accessor :card_hash
+  attr_accessor :card_hash, :no_tos
 
   #associations
   has_many :tasks, :dependent => :destroy
@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     c.logged_in_timeout = 2.weeks
   end
   
-  state_machine :state, :initial => :can_log_in do
+  state_machine :state, :initial => :can_log_in, :action => nil do
     event :hold_account do
       transition any => :can_log_in
     end
@@ -48,10 +48,11 @@ class User < ActiveRecord::Base
   end
     
   #validations
-  validates :tos_agreed, :acceptance => { :accept => true }
+  validates_with UserValidator
   #callbacks
   before_save :handle_sms
   before_save :handle_validity
+
   # after_create :handle_first_credit_card_attempt
   
   #class methods
@@ -151,18 +152,22 @@ class User < ActiveRecord::Base
     return true
   end
   
-  def handle_validity
-    if self.card_valid?
-      unless self.in_good_standing?
-        self.activate_account
-      end
-    else
-      if self.in_good_standing?
-        self.hold_account
-      end
+  def account_level
+    case self.class.name
+    when 'PaidAccount'
+      self.rate_id
+    when 'FreeAccount'
+      'Collaborator'
     end
   end
   
+  def free_trial?
+    Date.today <= (self.created_at + 30.days).to_date
+  end
+  
+  def free_trial_end_date
+    (self.created_at + 30.days).to_date
+  end
   ############################################################################################
   ########### Begin CIM methods, copyright 2008 Eric Draut, all rights reserved ##############
   ############################################################################################
@@ -271,3 +276,4 @@ class User < ActiveRecord::Base
   ###########################################
   
 end
+

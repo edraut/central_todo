@@ -1,45 +1,74 @@
 <div class="span-16 last section_margin_top">
-		<h2>Credit Card Info</h2>
+		<h2>Billing Info</h2>
 </div>
 <div class="span-16 last section">
+  <% if @user.class.name == 'PaidAccount' %>
+    <% if @user.card_last_four.blank? %>
+      Enter your credit card information here.
+  	<% elsif !@user.card_valid? %>
+      We're having trouble processing the card we have on file for you, ending in <%= @user.card_last_four %>. You can enter new card information here.
+    <% else %>
+      We currently have the card ending in <%= @user.card_last_four %>.<br/> You can change your credit card here, or leave these fields blank to keep this card.
+    <% end %>
+  <% else %>
+    If you'd like to upgrade to a full account with the ability to create your own plans and share them with others, select a payment plan, then enter your credit card information in the form that appears.
+  <% end %>
   <%= form_for @user, :as => :user, :url => user_url(@user), :html => {
   	:'data-ajax_behavior' => 'ajax_form',
   	:'data-ajax_method' => 'PUT',
   	:'data-ajax_success_element' => 'account_card',
   	:'data-ajax_error_element' => 'account_card'
   } do |f| %>
-  <% if @user.errors.any? %> <div class="error"><b>Some problems prevented your card from being accepted.</b><br/><ul><%= @user.errors.full_messages.map{|em| '<li>' + em + '</li>'}.join.html_safe %></ul></div><br /> <% end %>
-    <div class="span-16 last">
-      <%= label 'card[name]', "Name on Card" %><br/>
-      <%= text_field_tag 'card[name]', nil %><br/>
-      <br/>
-      <%= label 'card[number]', "Credit Card Number" %><br/>
-      <%= text_field_tag 'card[number ]', nil %><br/>
-      <br/>
-      <%= label 'card[cvv]', "Security Code" %><br/>
-      <%= text_field_tag 'card[cvv]', nil %><br/>
-      <br/>
-    </div>
-    <div class="span-16 last">
-      <div class="span-12">
+  <div class="span-16 last section_margin_top">
+    <% if @user.class.name == 'PaidAccount' %>
+      If you'd like to upgrade or downgrade your account, please select an option. Keep in mind that the Collaborator account does not include the ability to create or view your own plans, only the plans of other Get Go user who share with you.
+    <% end %>
+    <%= select_tag :account_level, options_for_select([['Basic $7.99/mo (15 active plan limit)',BasicRate.where(:frequency => 'month').first.id],['Basic $79.99/yr (15 active plan limit)',BasicRate.where(:frequency => 'year').first.id],['Super $14.99/mo (50 active plan limit)',SuperRate.where(:frequency => 'month').first.id],['Super $149.99/yr (50 active plan limit)',SuperRate.where(:frequency => 'year').first.id],['Unlimited $29.99/mo (no plan limit)',UnlimitedRate.where(:frequency => 'month').first.id],['Unlimited $299.99/yr (no plan limit)',UnlimitedRate.where(:frequency => 'year').first.id],['Collaborator no charge','Collaborator']],@user.account_level), {:id => 'account_level_select'} %>
+  </div>
+    <div id="card_info" <% if @user.class.name == 'FreeAccount' and @user.errors.empty? %>style="display:none;"<% end %> class="span-16 last section_margin_top">
+      <% if @user.errors.any? %> <div class="error"><b>Some problems prevented your card from being accepted.</b><br/><ul><%= @user.errors.full_messages.map{|em| '<li>' + em + '</li>'}.join.html_safe %></ul></div><br /> <% end %>
+      <div class="span-16 last">
+        <%= label 'card[name]', "Name on Card" %><br/>
+        <%= text_field_tag 'card[name]', nil %><br/>
+        <br/>
+        <%= label 'card[number]', "Credit Card Number" %><br/>
+        <%= text_field_tag 'card[number]', nil %><br/>
+        <br/>
+        <%= label 'card[cvv]', "Security Code" %><br/>
+        <%= text_field_tag 'card[cvv]', nil %><br/>
+        <br/>
+        <%= label 'card[zip]', "Billing Zip Code" %><br/>
+        <%= text_field_tag 'card[zip]', nil %><br/>
+        <br/>
+      </div>
+      <div class="span-16 last">
             <%= label nil, "Expiration Date" %><br/>
         <%= select_tag 'card[month]', options_for_select( Array.new(12){|i| i+1}.map{|m| [m,m]},1) %> /
         <%= select_tag 'card[year]', options_for_select( Array.new(10){|i| i + Date.today.year}.map{|year| [year,year]},Date.today.year) %>
 
       	<%= hidden_field_tag 'attribute', 'card', :id => 'attribute_card_field' %>
       </div>
-    	<div class="span-4 last text_right">
-      	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
-      	  <div class="button_content">save</div>
-      	</div>
-      	<div class="text_with_button small">
-        	<%= link_to 'cancel', account_user_url(@user),
-        	 	:'data-ajax_behavior' => 'ajax_link',
-        		:'data-ajax_method' => 'GET',
-        		:'data-ajax_success_element' => 'account_card',
-        		:'data-ajax_data' => "{attribute: 'card'}"%>
-        </div>
+    </div>
+  	<div class="span-16 last text_right section_margin_top">
+    	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+    	  <div class="button_content">save</div>
+    	</div>
+    	<div class="text_with_button small">
+      	<%= link_to 'cancel', account_user_url(@user),
+      	 	:'data-ajax_behavior' => 'ajax_link',
+      		:'data-ajax_method' => 'GET',
+      		:'data-ajax_success_element' => 'account_card',
+      		:'data-ajax_data' => "{attribute: 'card'}"%>
       </div>
     </div>
   <% end %>
 </div>
+<%= javascript_tag do %>
+  jQuery('#account_level_select').change(function(e){
+    if(jQuery(this).val() == 'Collaborator'){
+      jQuery('#card_info').hide();
+    } else {
+      jQuery('#card_info').show();
+    }
+  });
+<% end %>

@@ -176,6 +176,13 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+  def handle_tos
+    unless @this_user.tos_agreed?
+      redirect_to tos_agreement_user_url(@this_user)
+    end
+  end
+  
   private
     def get_method
       if params.has_key? '_method'
@@ -185,7 +192,7 @@ class ApplicationController < ActionController::Base
       end
     end
     def get_this_user
-      if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions' and (controller_name != 'tasks' or action_name != 'show')
+      if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions' and (controller_name != 'users' or action_name != 'tos_agreement')
         store_location
       end
       @this_user = current_user
@@ -205,7 +212,7 @@ class ApplicationController < ActionController::Base
     end
     def require_user 
       unless current_user 
-        if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions'
+        if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions' and (controller_name != 'users' or action_name != 'tos_agreement')
           store_location
         end
         flash[:notice] = "Please log in to view that page." 
@@ -230,7 +237,7 @@ class ApplicationController < ActionController::Base
     
     def require_no_user 
       if current_user 
-        if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions'
+        if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions' and (controller_name != 'users' or action_name != 'tos_agreement')
           store_location
         end
         flash[:notice] = "Please log out to access this page" 

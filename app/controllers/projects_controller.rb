@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
+  before_filter :handle_tos
   before_filter :require_valid_account
   before_filter :get_project, :only => [:show,:edit,:comments,:update,:destroy,:archive_completed_tasks,:sort_tasks,:templatize,:show_full]
   before_filter :set_nav_tab
@@ -145,12 +146,13 @@ class ProjectsController < ApplicationController
         flash.now[:ajax_notice] = "#{@sharer.handle} now has access to this list"
       else
         tmp_pass = User.generate_code(8)
-        @sharer = FreeAccount.create(:email => params[:sharer_email], :password => tmp_pass, :password_confirmation => tmp_pass)
+        @sharer = FreeAccount.new(:email => params[:sharer_email], :password => tmp_pass, :password_confirmation => tmp_pass, :no_tos => true)
+        @sharer.save
         ProjectSharer.create(:user_id => @sharer.id,:project_id => @project.id,:folder_id => @sharer.folder_ids.first)
         Notifier.share_plan(@project,@sharer,tmp_pass).deliver
         flash.now[:ajax_notice] = "We created a free account for #{params[:sharer_email]} and sent a welcome email including information about the plan you shared."
       end
-      @project.sharers.reload
+      @project.reload
       attribute = 'sharing'
     else
       if params[:attribute]

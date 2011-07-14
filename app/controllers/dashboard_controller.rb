@@ -1,5 +1,6 @@
 class DashboardController < ApplicationController
   before_filter :require_user
+  before_filter :handle_tos
   before_filter :set_nav_tab
   respond_to :html, :mobile
   def index

@@ -1,5 +1,6 @@
 class FoldersController < ApplicationController
   before_filter :require_user
+  before_filter :handle_tos
   before_filter :require_valid_account
   before_filter :get_folder, :only => [:show,:edit,:update,:destroy,:sort_plans,:show_full]
   before_filter :set_nav_tab

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => :show
+  before_filter :handle_tos, :only => [:show]
   before_filter :require_valid_account, :only => [:show]
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
   before_filter :set_nav_tab
@@ -140,8 +141,30 @@ class UsersController < ApplicationController
             end
           end
         elsif params[:card]
+          if params[:account_level] == 'Collaborator'
+            @user.type = 'FreeAccount'
+            @user.save
+            @user = User.find(@user.id)
+          else
+            @user.rate_id = params[:account_level].to_i
+            if @user.class.name == 'FreeAccount'
+              @user.type = 'PaidAccount'
+              @user.save
+              @user = User.find(@user.id)
+            else
+              @user.save
+            end
+          end          
           @user.card_hash = params[:card]
-          success = @user.add_credit_card
+          if @user.card_valid? and params[:card][:number].blank?
+            success = true
+          else
+            success = @user.add_credit_card
+            if success
+              @user.save
+              flash[:ajax_notice] = "Thank you, we've successfully added your credit card to your Get Go account."
+            end
+          end
         else
           @user.attributes = params[:user]
           @send_sms_verification = @user.sms_number_changed? ? true : false
@@ -160,7 +183,11 @@ class UsersController < ApplicationController
           end
         end
       else
-        redirect_to account_user_url(@this_user)
+        if @user.update_attributes(params[:user])
+          redirect_back_or_default dashboard_url
+        else
+          redirect_to account_user_url(@this_user)
+        end
       end
     end
   end

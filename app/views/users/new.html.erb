@@ -27,10 +27,13 @@
         <%= label 'card[number]', "Credit Card Number" %><br/>
         <%= text_field_tag 'card[number]', nil %><br/>
         <br/>
+        <%= label 'card[cvv]', "Security Code" %><br/>
+        <%= text_field_tag 'card[cvv]', nil %><br/>
+        <br/>
         <div class="span-12">
           <div class="span-5">
-          <%= label 'card[cvv]', "Security Code" %><br/>
-          <%= text_field_tag 'card[cvv]', nil %><br/>
+            <%= label 'card[zip]', "Billing Zip Code" %><br/>
+            <%= text_field_tag 'card[zip]', nil %><br/>
           </div>
           <div class="span-7 last">
             <div class="span-6">

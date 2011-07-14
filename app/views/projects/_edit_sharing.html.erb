@@ -12,6 +12,8 @@
     add email
     <%= text_field_tag :sharer_email %>
     <%= hidden_field_tag :project_id %>
+    <%= hidden_field_tag 'attribute', 'sharing', :id => "project_attribute_sharing" %>
+		
     </div>
   	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
   	  <div class="button_content">share</div>
