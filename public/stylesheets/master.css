@@ -949,7 +949,7 @@ h2 .button.small {
   .button.carmine a:hover, a.button.carmine a:hover {
     color: #dddcd8; }
 
-.button.light:active, a.button.light:active {
+.button.light:active, a.button.light:active, .button.light.pseudo_active {
   background: #dddcd8;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dddcd8", endColorstr="#cdccc8");
   /* for IE */
@@ -957,7 +957,7 @@ h2 .button.small {
   /* for webkit browsers */
   background: -moz-linear-gradient(top, #dddcd8 0%, #cdccc8 85%, #cdccc8 100%);
   /* for firefox 3.6+ */ }
-  .button.light:active .glare, a.button.light:active .glare {
+  .button.light:active .glare, a.button.light:active .glare, .button.light.pseudo_active .glare {
     background-color: rgba(255, 255, 255, 0.1);
     background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.7)), color-stop(0.3, rgba(255, 255, 255, 0.4)), to(rgba(255, 255, 255, 0.1)));
     background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 30%, rgba(255, 255, 255, 0.1) 100%);
@@ -1071,7 +1071,7 @@ h2 .button.small {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF");
     /* for IE */ }
 
-.button.color2:active, a.button.color2:active {
+.button.color2:active, a.button.color2:active, .button.color2.pseudo_active {
   background: #cdccc8;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#bdbcb8", endColorstr="#edece8");
   /* for IE */

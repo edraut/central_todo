@@ -48,7 +48,13 @@ function captureReturn(e){
 	{
 		// user presses the "return" key
 		case 13:
-			jQuery(this).parents('form').submit();
+			submit = jQuery(this).parents('form').find("[data-submit]");
+			if(submit){
+				submit.addClass('pseudo_active');
+				submit.click();
+			} else {
+				jQuery(this).parents('form').submit();
+			}
 			break;
 	};
 };

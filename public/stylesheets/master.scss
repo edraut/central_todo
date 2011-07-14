@@ -1197,7 +1197,7 @@ h2 .button.small {
 		color: $gray2;
 	}
 }
-.button.light:active, a.button.light:active {
+.button.light:active, a.button.light:active, .button.light.pseudo_active {
 	@include light-gradient-flat-down;
 	.glare {
 		@include glare-light-down;
@@ -1269,7 +1269,7 @@ h2 .button.small {
 		@include glare-gradient2;
 	}
 }
-.button.color2:active, a.button.color2:active {
+.button.color2:active, a.button.color2:active, .button.color2.pseudo_active {
 	@include gradient2-down;
   border:1px solid $gray4;
   border-top:1px solid $gray5;
