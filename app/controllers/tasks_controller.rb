@@ -199,7 +199,7 @@ class TasksController < ApplicationController
   
   def get_task
     if action_name == 'multiple'
-      @tasks = Task.recent.find(params[:ids].split(',').map{|id| id.to_i})
+      @tasks = Task.ordered.find(params[:ids].split(',').map{|id| id.to_i})
     else
       @task = Task.find(params[:id])
       if @task.class.name == 'Array'

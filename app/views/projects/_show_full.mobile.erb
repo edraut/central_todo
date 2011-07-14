@@ -31,7 +31,7 @@
     <div id="project_<%= @project.id %>_task_list" class="block" data-sort_container="true" data-sort_url="<%= sort_tasks_plan_url(@project) %>" data-sort_id="plan_<%= @project.id %>_task_list">
 		<% @project.tasks.active.ordered.each_with_index do |task,index| %>
 		  <div id="task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" data-sort_element="true" data-sort_id="plan_<%= @project.id %>_task_list" class="section" data-list_index="<%= index %>">
-				<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true} %>
+				<%= render :partial => '/tasks/show', :locals => {:task => task, :sortable => true, :pager_target => "multiple_tasks_page_#{@project.tasks.active.ordered.map{|t| t.id}.join('_')}"} %>
 			</div>
 		<% end %>
 		</div>
