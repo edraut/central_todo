@@ -1,0 +1,20 @@
+<div class="row">&nbsp;</div>
+<div class="row padding_bottom">
+  <strong>Notifications</strong>
+</div>
+Notifications are <% if alertable.heads_ups.where(:user_id => @this_user.id).any? %> on <% else %> off <% end %> for this project.<br/>
+<% if alertable.heads_ups.where(:user_id => @this_user.id).any? %>
+  <% heads_up = alertable.heads_ups.where(:user_id => @this_user.id).first %>
+  <div onclick="void(0)" class="row_item button small round light" data-ajax_behavior="ajax_link" href="<%=  heads_up_url(heads_up)%>" data-ajax_method="DELETE" data-ajax_success_element="<%= alertable.class.name.underscore %>_<%= alertable.id %>_notifications"><div class="button_content">turn them off</div></div>
+<% else %>
+  <%= form_for HeadsUp.new(:alertable_id => alertable.id, :alertable_type => alertable.class.name), :as => :heads_up, :url => heads_ups_url, :html => {
+    :'data-ajax_behavior' => 'ajax_form',
+    :'data-ajax_method' => 'POST',
+    :'data-ajax_success_element' => "#{alertable.class.name.underscore}_#{alertable.id}_notifications"
+  } do |f| %>
+    <%= f.hidden_field :alertable_id %>
+    <%= f.hidden_field :alertable_type %>
+    <div onclick="void(0)" class="row_item button small round light" data-button="true" data-submit="true"><div class="button_content">turn them on</div></div>
+  <% end %>
+<% end %>
+<div class="row">&nbsp;</div>

@@ -11,6 +11,7 @@ class Project < ActiveRecord::Base
   has_many :project_emails, :dependent => :destroy
   has_many :comments, :as => :commentable, :dependent => :destroy
   has_many :reminders, :as => :remindable, :dependent => :destroy
+  has_many :heads_ups, :as => :alertable, :dependent => :destroy
   
   #named_scopes
   scope :unorganized_for, lambda {|user| 

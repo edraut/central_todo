@@ -9,6 +9,7 @@ class Task < ActiveRecord::Base
   has_many :labels, :through => :task_labels
   has_many :reminders, :as => :remindable, :dependent => :destroy
   has_many :comments, :as => :commentable, :dependent => :destroy
+  has_many :heads_ups, :as => :alertable, :dependent => :destroy
   
   #named_scopes
   scope :unorganized, where( {:project_id => nil} )

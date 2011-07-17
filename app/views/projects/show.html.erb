@@ -9,12 +9,17 @@
   <p>You archived this plan. If you would like to re-activate it, click on the 'edit plan' tab above and uncheck 'archived'.</p>
   <% else %>
 	<div id="unarchived_item_list" class="span-16 last">
-		<div id="task_list_heading" class="span-16 last">
-			<div id="unarchived_item_heading" class="span-14<% if @project.all_complete? %> completed<% end %>">
-				<h2><%= @project.title %></h2>
-			</div>
+    <div class="span-16 last">
+  		<div id="task_list_heading" class="span-13">
+  			<div id="unarchived_item_heading" class="span-14<% if @project.all_complete? %> completed<% end %>">
+  				<h2><%= @project.title %></h2>
+  			</div>
+  		</div>
+      <% unless @project.due_date.blank? %>
+  			<div class="span-3 last quiet">due: <%= @project.due_date.to_formatted_s(:friendly) %></div>
+  		<% end %>
 		</div>
-
+    <div class="span-16 last quiet"><%= truncate_clean(@project.description, :length => 128, :omission => link_to ('... see more', edit_plan_url(@project))).html_safe %></div>
 		<div id="task_list_heading" class="span-16 last section_margin_top" data-behavior="expander" data-state="contracted" data-id="project_<%= @project.id %>_new_task_form">
       <div id="archive_completed_items" class="list_action button round light" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %> onclick="void(0)" data-button="true">
       <div class="button_content">

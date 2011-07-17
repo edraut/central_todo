@@ -2,7 +2,7 @@
 <div class="block border_bottom">
   <div class="padding">
     <div class="block padding_bottom">
-        <%= comment.body %>
+      <%= textilize(comment.body).html_safe %>
     </div>
     <div class="block">
       <% if editable and comment.user_id == @this_user.id %>

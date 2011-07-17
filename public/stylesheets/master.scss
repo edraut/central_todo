@@ -267,14 +267,14 @@ a.coolvetica:hover {
 	text-decoration: none;
 }
 a.quiet, div.quiet, span.quiet {
-	font-size: 12px;
+	font-size: 14px;
 	line-height: $compact-line-height;
 }
 div.small, a.small, span.small {
   line-height: $compact-line-height;
 }
 div.quiet, span.quiet {
-  color: $blue
+  color: $gray7;
 }
 a.loud, div.loud, span.loud {
 	font-size: 18px;
@@ -1306,6 +1306,7 @@ h2 .button.small {
   background-color: $blue5;
   color: $black;
   font-weight: bold;
+	text-shadow: 0px 1px 1px rgba(255,255,255,1);
 }
 .attach_above {
   border-top: 1px solid $gray3;
@@ -1410,6 +1411,12 @@ h2 .button.small {
 }
 .flash_dialog {
 	@include flash;
+}
+.help_dialog {
+	position: absolute;
+	top: 0;
+	left: -296px;
+	z-index: 12;
 }
 .checked {
 	color: $carmine;

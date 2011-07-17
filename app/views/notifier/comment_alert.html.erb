@@ -1,0 +1,14 @@
+<center>
+<h1>
+  New Comment
+</h1>
+<h2>from <%= @comment.user.handle %>
+</h2>
+</center>
+<p>
+<strong>re: <%= @comment.commentable.class.display_name %> "<%= @comment.commentable.title %>"</strong>
+--
+<%= @comment.body %>
+--
+ You can see this <%= @comment.commentable.class.display_name.downcase %> online at <%= APP_NAME %> by clicking <a href="<%= @url %>">here</a>. If your email application doesn't properly show the preceding link cut and paste this into your browser's address bar: <%= @url %>
+</p>

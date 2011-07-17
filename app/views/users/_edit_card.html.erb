@@ -21,7 +21,7 @@
   } do |f| %>
   <div class="span-16 last section_margin_top">
     <% if @user.class.name == 'PaidAccount' %>
-      If you'd like to upgrade or downgrade your account, please select an option. Keep in mind that the Collaborator account does not include the ability to create or view your own plans, only the plans of other Get Go user who share with you.
+      If you'd like to change your payment plan, please select an option. Keep in mind that the Collaborator account does not include the ability to create or view your own plans, only the plans of other Get Go user who share with you. Switching to a Collaborator account will result in permanently losing any plans you've created.
     <% end %>
     <%= select_tag :account_level, options_for_select([['Basic $7.99/mo (15 active plan limit)',BasicRate.where(:frequency => 'month').first.id],['Basic $79.99/yr (15 active plan limit)',BasicRate.where(:frequency => 'year').first.id],['Super $14.99/mo (50 active plan limit)',SuperRate.where(:frequency => 'month').first.id],['Super $149.99/yr (50 active plan limit)',SuperRate.where(:frequency => 'year').first.id],['Unlimited $29.99/mo (no plan limit)',UnlimitedRate.where(:frequency => 'month').first.id],['Unlimited $299.99/yr (no plan limit)',UnlimitedRate.where(:frequency => 'year').first.id],['Collaborator no charge','Collaborator']],@user.account_level), {:id => 'account_level_select'} %>
   </div>

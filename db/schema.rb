@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110609000023) do
+ActiveRecord::Schema.define(:version => 20110714221932) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(:version => 20110609000023) do
     t.string  "title"
     t.integer "user_id"
     t.integer "position"
+  end
+
+  create_table "heads_ups", :force => true do |t|
+    t.integer  "alertable_id"
+    t.string   "alertable_type"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "labels", :force => true do |t|
@@ -156,7 +164,7 @@ ActiveRecord::Schema.define(:version => 20110609000023) do
     t.string   "last_login_ip"
     t.string   "current_login_ip"
     t.string   "cim_id"
-    t.boolean  "card_valid",          :default => false
+    t.boolean  "card_valid"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "show_help_text",      :default => true

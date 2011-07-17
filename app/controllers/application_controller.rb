@@ -144,7 +144,14 @@ class ApplicationController < ActionController::Base
       end
     when 'dashboard'
       @nav_tab = 'dashboard'
-      @subnav_tab = 'overview'
+      case action_name
+      when 'unorganized'
+        @subnav_tab = 'unorganized'
+      when 'completed'
+        @subnav_tab = 'completed'
+      else
+        @subnav_tab = 'overview'
+      end
     when 'plan_templates'
       @nav_tab = 'plans'
       @subnav_tab = 'plan_templates'

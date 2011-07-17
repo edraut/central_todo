@@ -36,5 +36,8 @@
     	class="delete" data-role="delete">&otimes;</a>
   </div>
   <% end %>
+  <div id="project_<%= @project.id %>_notifications">
+    <%= render :partial => '/heads_ups/show_notifications', :locals => {:alertable => @project} %>
+  </div>
 </div>
 <% end %>

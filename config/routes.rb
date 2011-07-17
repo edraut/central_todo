@@ -78,6 +78,7 @@ CentralTodo::Application.routes.draw do
     end
   end
   resources :reminders
+  resources :heads_ups
   resources :folders do
     collection do
       get 'sort'

@@ -468,6 +468,8 @@ div.section.borderless {
   cursor: pointer;
   text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.7);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  .button a, a.button a {
+    color: #5d5c58; }
 
 .centered_div {
   position: relative;

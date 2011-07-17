@@ -1,6 +1,6 @@
 	<div class="span-12">
 		<div class="line_item_height span-12 last">
-      <%= comment.body %>
+      <%= textilize(comment.body).html_safe %>
 		</div>
 	</div>
 	<div class="span-4 last">
