@@ -7,8 +7,8 @@
 </center>
 <p>
 <strong>re: <%= @comment.commentable.class.display_name %> "<%= @comment.commentable.title %>"</strong>
---
+<br/>--<br/>
 <%= @comment.body %>
---
+<br/>--<br/>
  You can see this <%= @comment.commentable.class.display_name.downcase %> online at <%= APP_NAME %> by clicking <a href="<%= @url %>">here</a>. If your email application doesn't properly show the preceding link cut and paste this into your browser's address bar: <%= @url %>
 </p>
