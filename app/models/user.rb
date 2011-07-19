@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   def shared_comments
     Comment.select("distinct comments.id, comments.user_id, comments.commentable_id, comments.commentable_type, comments.body, comments.created_at, comments.updated_at").
       joins("left outer join projects p on p.id = comments.commentable_id and comments.commentable_type = 'Project' left outer join project_sharers pps on pps.project_id = p.id left outer join tasks t on t.id = comments.commentable_id and comments.commentable_type = 'Task' left outer join projects tp on tp.id = t.project_id left outer join project_sharers tpps on tp.id = tpps.project_id").
-      where("(comments.commentable_type = 'Project' and (p.user_id = #{self.id} or pps.user_id = #{self.id})) or (comments.commentable_type = 'Task' and (t.user_id = #{self.id} or tp.user_id = #{self.id} or tpps.user_id = #{self.id}))")
+      where("(comments.commentable_type = 'Project' and (p.user_id = #{self.id} or pps.user_id = #{self.id}) and comments.user_id != #{self.id}) or (comments.commentable_type = 'Task' and (t.user_id = #{self.id} or tp.user_id = #{self.id} or tpps.user_id = #{self.id}) and comments.user_id != #{self.id})")
   end
   
   def available_reminder_types
