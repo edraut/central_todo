@@ -1,30 +1,27 @@
 <div class="span-17 last section_margin_top" id="header_wrapper">
-<h1>Schedule</h1>
+<h1>Upcoming Due Dates</h1>
 </div>
 <div class="span-17 last page_content">
   <% if @due_date_items.any?%>
   <div class="span-16">
-  <div class="span-16 last section_margin_top">
-    <h2>Due Dates</h2>
-  </div>
-  <div class="span-16 last list_section">
-    <% for due_date in @due_dates %>
-    <div class="span-16 last section_heading<% if due_date < Date.today %> overdue<% end %>">
-      &nbsp; <%= due_date.to_formatted_s(:full) %>
+    <div class="span-16 last list_section">
+      <% for due_date in @due_dates %>
+      <div class="span-16 last section_heading<% if due_date < Date.today %> overdue<% end %>">
+        &nbsp; <%= due_date.to_formatted_s(:full) %>
+      </div>
+      <% for item in @due_date_items.select{|t| Time.parse(t['due_date']).to_date == due_date} %>
+  			<div class="span-16 last line_item_soft" id="due_date_<%= item['item_type'].downcase %>_<%= item['id'] %>">
+  			  <div class="span-1 small"><%= item['item_type'].constantize.display_name %>:</div>
+  			    <% if item['item_type'] == 'Project' %>
+  			      <a href="<%= plan_url(item['id'].to_i) %>" class="span-15 last"><%= item['title'] %></a>
+  			    <% else %>
+  		        <a href="<%= task_url(item['id'].to_i) %>" class="span-15 last"><%= item['title'] %></a>
+      			<% end %>
+  			</div>
+  		<% end %>
+      <% end %>
+      <%= will_paginate @due_date_items %>
     </div>
-    <% for item in @due_date_items.select{|t| Time.parse(t['due_date']).to_date == due_date} %>
-			<div class="span-16 last line_item_soft" id="due_date_<%= item['item_type'].downcase %>_<%= item['id'] %>">
-			  <div class="span-1 small"><%= item['item_type'].constantize.display_name %>:</div>
-			    <% if item['item_type'] == 'Project' %>
-			      <a href="<%= plan_url(item['id'].to_i) %>" class="span-15 last"><%= item['title'] %></a>
-			    <% else %>
-		        <a href="<%= task_url(item['id'].to_i) %>" class="span-15 last"><%= item['title'] %></a>
-    			<% end %>
-			</div>
-		<% end %>
-    <% end %>
-    <%= will_paginate @due_date_items %>
-  </div>
   </div>
   <% else %>
   <div class="span-16 last section_margin_top">
