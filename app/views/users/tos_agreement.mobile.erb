@@ -1,0 +1,26 @@
+<div class="page_layout">
+  <h2>Terms of Service</h2>
+  <div class="list_container">
+    <div class="section">
+      <div class="padding">
+        <div class="block">
+          You must agree to the Terms of Service before using your account.
+        </div>
+        
+        <%= form_for @this_user, :as => :user, :url => user_url(@this_user) do |f| %>
+          <div class="block">
+          I have read and I agree to the<br/> <%= link_to 'Terms of Service', terms_url %> and the<br/> <%= link_to 'Privacy Policy', privacy_url %>.
+          </div>
+          <div class="block">
+            <%= f.check_box :tos_agreed %>
+          </div>
+          <div class="block">
+          	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
+          	  <div class="button_content">submit</div>
+          	</div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

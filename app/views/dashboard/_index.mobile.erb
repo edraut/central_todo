@@ -1,5 +1,5 @@
 <%  if @this_user.tasks.active.unorganized.any?
-      @tasks = @this_user.tasks.active.unorganized.recent.three
+      @tasks = @this_user.tasks.active.unorganized.ordered.three
     end
 %>
 <div id="dashboard_overview" class="pager" data-children_pages="({'<%= dashboard_completed_url %>':'dashboard_completed_page','<%= recent_comments_url %>':'recent_comments_page'<% if @this_user.tasks.active.unorganized.any? %>,'<%= dashboard_unorganized_url %>':'tasks_page','<%= multiple_tasks_url(:ids => @tasks.map{|t| t.id}.join(','), :app_context => 'folder') %>':'multiple_tasks_page_<%= @tasks.map{|t| t.id}.join('_') %>'<% end %>})">
