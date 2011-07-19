@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => :show
-  before_filter :handle_tos, :only => [:index,:show]
-  before_filter :require_valid_account, :only => [:show]
+  before_filter :require_user, :only => [:show,:account,:index,:multiple]
+  before_filter :handle_tos, :only => [:index,:show,:account,:multiple]
+  before_filter :require_valid_account, :only => [:index,:show]
   before_filter :handle_broken_browser_methods, :only => [:show, :create, :update]
   before_filter :set_nav_tab
   respond_to :html, :mobile
