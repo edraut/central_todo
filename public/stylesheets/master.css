@@ -225,7 +225,8 @@ select.with_text_field {
   position: relative;
   float: left;
   width: 702px;
-  text-align: center; }
+  text-align: center;
+  color: #77995b; }
 
 .top_nav_text_shadow {
   filter: progid:DXImageTransform.Microsoft.dropShadow(color="#443D3C38",offX=-1,offY=-1, positive=true); }
