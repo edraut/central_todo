@@ -3,8 +3,11 @@
     <h3 class="coolvetica">We've got you covered</h3>
   </div>
   <div class="list_container text_center">
-  <div class="block border_bottom padding">
-    <h2 class="coolvetica">Basic</h2>
+    <div class="block border_bottom padding">
+      <h2>All plans below include a 30-day free trial.</h2>
+    </div>
+    <div class="block border_bottom padding">
+      <h2 class="coolvetica">Basic</h2>
       <strong>$7.99/mo</strong><br/>
       Unlimited Sharing<br/>
       15 Active Plans<br/>
@@ -21,9 +24,9 @@
       	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'BasicRate',:frequency => 'year', :protocol => (request.domain == 'getgolist.com') ? 'https://' : 'http://')%></div>
       	</div>
       </div>
-  </div>
-  <div class="block border_bottom padding">
-    <h2 class="coolvetica">Super</h2>
+    </div>
+    <div class="block border_bottom padding">
+      <h2 class="coolvetica">Super</h2>
       <strong>$14.99/mo</strong><br/>
       Unlimited Sharing<br/>
       50 Active Plans<br/>
@@ -40,9 +43,9 @@
       	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'SuperRate', :frequency => 'year', :protocol => (request.domain == 'getgolist.com') ? 'https://' : 'http://')%></div>
       	</div>
       </div>
-  </div>
-  <div class="block border_bottom padding">
-    <h2 class="coolvetica">Unlimited</h2>
+    </div>
+    <div class="block border_bottom padding">
+      <h2 class="coolvetica">Unlimited</h2>
       <strong>$29.99/mo</strong><br/>
       Unlimited Sharing<br/>
       Unlimited Active Plans<br/>
@@ -60,5 +63,6 @@
       	  <div class="button_content"><%= link_to 'Choose yearly', new_user_url(:rate_class => 'UnlimitedRate',:frequency => 'year', :protocol => (request.domain == 'getgolist.com') ? 'https://' : 'http://')%></div>
       	</div>
       </div>
+    </div>
   </div>
 </div>

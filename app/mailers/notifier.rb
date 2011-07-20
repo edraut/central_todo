@@ -44,7 +44,7 @@ class Notifier < ActionMailer::Base
   def comment_alert(user,comment)  
     @comment = comment
     @url = "http://#{DOMAIN_NAME}/#{@comment.commentable_type.constantize.display_name.downcase.pluralize}/#{@comment.commentable_id}/comments"
-    mail( :from => "'#{APP_NAME} Reminders' <notifications@#{DOMAIN_NAME}>",
+    mail( :from => "'#{APP_NAME} Notifications' <notifications@#{DOMAIN_NAME}>",
           :subject => "#{@comment.user.handle} commented on a #{@comment.commentable.class.display_name} -- #{truncate_clean(@comment.commentable.title,{:length => 100, :omission => '...'})}",
           :to => user.email)
   end  

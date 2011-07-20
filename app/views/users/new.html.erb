@@ -6,21 +6,27 @@
     <% if @user.errors.any? %> <div class="error"><b>Some problems prevented your account from being created. Please adjust your information to accommodate these requirements.</b><br/><ul><%= @user.errors.full_messages.map{|em| '<li>' + em + '</li>'}.join.html_safe %></ul></div><br /> <% end %>
 	  <div class="span-12 last">
 	    <h2> Account Information </h2>
-      <%= f.label :email %><br/>
-  		<%= f.text_field :email %><br />
-  		<br />
-  		<%= f.label :password %><br />
-  		<%= f.password_field :password %><br />
-  		<br />
-  		<%= f.label :password_confirmation %><br />
-  		<%= f.password_field :password_confirmation, :'data-return_submit' => true %><br />
-      <br/>
-      <%= hidden_field_tag :rate_class, params[:rate_class], :id => "rate_class_field" %>
-      <%= hidden_field_tag :frequency, params[:frequency], :id => "frequency_field" %>
+  	  <div class="span-12 last section_margin_top">
+        <%= f.label :email %><br/>
+    		<%= f.text_field :email %><br />
+    		<br />
+    		<%= f.label :password %><br />
+    		<%= f.password_field :password %><br />
+    		<br />
+    		<%= f.label :password_confirmation %><br />
+    		<%= f.password_field :password_confirmation, :'data-return_submit' => true %><br />
+        <br/>
+        <%= hidden_field_tag :rate_class, params[:rate_class], :id => "rate_class_field" %>
+        <%= hidden_field_tag :frequency, params[:frequency], :id => "frequency_field" %>
+      </div>
     </div>
     <div class="span-12 last">
         <div class="section_rule">&nbsp;</div>
         <h2> Payment Information </h2>
+        <div class="span-11 explanatory section_margin_top">
+          We believe in fair dealing, and we hate monkey-business. We will not charge your card until the 30-day free trial is up. You may cancel your free trial at any time during the 30-day free trial and pay nothing. Click on 'Support' in the top nav bar at any time during your trial to learn how to cancel your account.
+        </div>
+        <div class="span-12 last section_margin_top">
         <%= label 'card[name]', "Name on Card" %><br/>
         <%= text_field_tag 'card[name]', nil %><br/>
         <br/>
@@ -30,7 +36,8 @@
         <%= label 'card[cvv]', "Security Code" %><br/>
         <%= text_field_tag 'card[cvv]', nil %><br/>
         <br/>
-        <div class="span-12">
+        </div>
+        <div class="span-12 last">
           <div class="span-5">
             <%= label 'card[zip]', "Billing Zip Code" %><br/>
             <%= text_field_tag 'card[zip]', nil %><br/>

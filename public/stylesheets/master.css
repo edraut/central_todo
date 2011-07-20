@@ -221,6 +221,12 @@ select.with_text_field {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#64FFFFFF", endColorstr="#11FFFFFF");
     /* for IE */ }
 
+.free_trial_block {
+  position: relative;
+  float: left;
+  width: 702px;
+  text-align: center; }
+
 .top_nav_text_shadow {
   filter: progid:DXImageTransform.Microsoft.dropShadow(color="#443D3C38",offX=-1,offY=-1, positive=true); }
 
@@ -295,6 +301,12 @@ select.with_text_field {
   padding: 20px;
   border: 3px solid #fff8d0;
   line-height: 1.3; }
+
+.question {
+  font-size: 18px; }
+
+.answer {
+  margin-top: 1em; }
 
 .section_margin_top {
   margin-top: 20px; }
