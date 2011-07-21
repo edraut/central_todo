@@ -48,6 +48,7 @@ class UsersController < ApplicationController
       @user_session.save
       session[:signed_up] = true
       if @user.add_credit_card
+        @user.save
         redirect_back_or_default dashboard_url
       else
         redirect_to account_user_url(@user)
