@@ -1313,6 +1313,9 @@ h2 .button.small {
 .coolvetica {
   font-family: CoolveticaRg-Regular; }
 
+.yellow_text, #top_nav a.yellow_text {
+  color: #fcefa1; }
+
 .text_right {
   text-align: right; }
 

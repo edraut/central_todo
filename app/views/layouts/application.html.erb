@@ -69,8 +69,8 @@
   						hello <%= @this_user.handle %>
   						<%= link_to '(sign out)', sign_out_url, :class => 'quiet' %>
   					<% else %>
-  						<%= link_to 'Sign Up', '/page/Pricing' %> or
-  						<%= link_to 'Sign in', sign_in_url %>
+  						<%= link_to 'Sign Up', '/page/Pricing', :class => 'yellow_text' %> or
+  						<%= link_to 'Sign in', sign_in_url, :class => 'yellow_text' %>
   					<% end %>
   				</div>
         </div>

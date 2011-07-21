@@ -1514,6 +1514,9 @@ h2 .button.small {
 .coolvetica {
 	font-family: CoolveticaRg-Regular;
 }
+.yellow_text, #top_nav a.yellow_text {
+	color: $yellow;
+}
 .text_right {
 	@include text-right;
 }
