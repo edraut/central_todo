@@ -23,7 +23,7 @@
   	<% end %>
   	<div class="span-16 last section_margin_top">
   	  <% if @user.free_trial? %>
-    	  There are <%= (@user.free_trial_end_date - Date.today).days.to_i %> days left in your 30 day trial. Click 'edit billing info' for more information.
+    	  There are <%= (@user.free_trial_end_date - Date.today).days %> left in your 30 day trial. Click 'edit billing info' for more information.
       <% else %>
       	If you'd like to change your payment plan, click on 'edit billing info' to the right. <br/>&nbsp;<br/>
     	<% end %>
