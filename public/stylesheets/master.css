@@ -259,6 +259,9 @@ select.with_text_field {
   padding: 1em;
   border: 3px solid #adaca8; }
 
+.form_modal.help {
+  background: #fdfcf8; }
+
 #ajax_loading {
   position: absolute;
   padding: 1em;
@@ -1232,6 +1235,9 @@ h2 .button.small {
   top: 0;
   left: -296px;
   z-index: 12; }
+
+.help_dialog.main_body {
+  left: 224px; }
 
 .checked {
   color: #df6020; }

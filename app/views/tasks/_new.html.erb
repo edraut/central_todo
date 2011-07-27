@@ -12,7 +12,7 @@
 		  <%= f.label :title, 'New Task Title' %>
 	  </div>
 		<div class="span-<% if hierarchical %>8<% else %>10<% end %>">
-			<%= f.text_field :title, :id => "project_#{project.id}_new_task_title", :class => ("span-" + ((hierarchical) ? "8" : "10")) %>
+			<%= f.text_field :title, :id => "project_#{project.id}_new_task_title", :'data-primary_input' => 'true', :class => ("span-" + ((hierarchical) ? "8" : "10")) %>
 		</div>
 		<div class="span-6 last">
 			<%= f.hidden_field :state, :id => "project_#{project.id}_new_task_state" %>

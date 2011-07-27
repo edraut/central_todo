@@ -343,7 +343,6 @@ function slidePage(direction,page_target_id){
 	current_page = jQuery('.current_page');
 	current_page_selector = '#'+current_page.attr('id');
 	current_page = jQuery(current_page_selector);
-	// page_target.parent().show();
 	page_target.find("[data-page_turner],[data-tab_switcher],[data-page_back]").css('visibility','hidden');
 	hideLowerElements(page_target);
 	page_target.show(0,function(){
@@ -397,8 +396,12 @@ function loadPages(pages){
 			});
 		}
   };
+console.log(jQuery('#pager_wrapper').data('loaded_page_urls'));
 	for(url in pages){
+		console.log(url);
+		console.log(jQuery('#pager_wrapper').data('loaded_page_urls')[url]);
 		if(!jQuery('#pager_wrapper').data('loaded_page_urls')[url]){
+			console.log('loading url:' + url);
 			jQuery('#pager_wrapper').data('loaded_page_ids')[pages[url]] = url;
 	    ajax_params.url = url;
 	    jQuery.ajax(ajax_params);

@@ -4,6 +4,7 @@ class UserSessionsController < ApplicationController
   
   def new
     @user_session = UserSession.new
+    @focus_primary_input = true
     respond_with(@user_session) do |format|
       format.mobile { render @render_type => 'new', :layout => @this_layout}
       format.html { render @render_type => 'new'}

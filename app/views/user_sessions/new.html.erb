@@ -6,7 +6,7 @@
   	<% form_for :user_session, @user_session, :url => user_session_url do |f| %>
   	  <% if @user_session.errors.any? %> <%= @user_session.errors.full_messages %><br/> <% end %>
   	  <%= f.label :email %><br />
-  	  <%= f.text_field :email %><br />
+  	  <%= f.text_field :email, :id => 'primary_input' %><br />
   	  <br />
   	  <%= f.label :password %><br />
   	  <%= f.password_field :password, :'data-return_submit' => true %><br />

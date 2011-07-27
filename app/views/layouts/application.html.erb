@@ -97,6 +97,15 @@
                    'archived tasks' => archived_unorganized_tasks_url
                  }
                  subnav_tags = ['overview','unorganized','comments','schedule','completed','archived tasks']
+                 if @this_user.shared_comments.recent.empty?
+                   subnav_tags.delete('comments')
+                 end
+                 if @this_user.tasks.unarchived.unorganized.empty?
+                   subnav_tags.delete('unorganized')
+                 end
+                 if @this_user.tasks.unorganized.archived.empty?
+                   subnav_tags.delete('archived tasks')
+                 end
                else
                  subnav_links = {
                    'overview' => dashboard_url,
@@ -222,6 +231,11 @@
             <div onclick="void(0)" class="loud" <% unless @nav_tab == 'contacts' %> data-behavior="expander" data-action="expand" data-state="contracted" data-id="contact_list" data-switch="hide"<% end %>>Contacts</div>
             <div onclick="void(0)" class="loud" <% unless @nav_tab == 'contacts' %> data-behavior="expander" data-action="contract" data-state="expanded" data-id="contact_list" data-switch="hide"<% end %> style="display: none;">Contacts</div>
 						<div class="expandable_subnav" id="contact_subnav" <% unless @nav_tab == 'contacts' %> style="display:none;" data-behavior="expander" data-state="expanded" data-id="contact_list"<% end %>>
+              <% if User.contacts_for(@this_user).empty? %>
+                <div class="expandable_subnav">
+                  <span onclick="void(0)" data-modal_trigger="true" data-modal_id="contacts_intro_help">learn about contacts</span>
+                </div>
+              <% end %>
 						  <% for contact in User.contacts_for(@this_user) %>
 					      <%  selected = (@nav_tab == 'contacts' and @user and !@project and @user.id == @subnav_tab and @user.id == contact.id)
 					          super_selected = (@nav_tab == 'contacts' and @project and (@project.user_id == contact.id or @project.project_sharers.detect{|ps| ps.user_id = contact.id})) %>
@@ -326,6 +340,9 @@
 	<div style="display:none;" id="main_modal_view">
 	</div>
 	<% if @this_user %>
+	<% if User.contacts_for(@this_user).empty? %>
+    <%= render :partial => '/context_help/contacts_intro_help' %>
+  <% end %>
   <div style="display:none;" class="form_modal" data-modal="true" data-modal_id="new_folder_form_nav">
     <% if @this_user.is_a? PaidAccount %>
       <% if @this_user.in_good_standing? %>
@@ -466,7 +483,6 @@
       jQuery("[data-behavior='expander'][data-state='expanded'][data-id='new_task_form']")
         .show();
         popButtons();
-      jQuery('#primary_input').focus();
 		<% end %>
 		<% unless @this_user %>
   		jQuery("a:not(.button a,#top_nav_wrapper a)").css('text-decoration','underline');
@@ -478,6 +494,9 @@
     <%= render :partial => '/projects/go_to_javascript' %>
     <% flash.discard %>
   	<% end %>
+    <% if @focus_primary_input %>
+      jQuery('#primary_input').focus();
+    <% end %>
 	})
 <% end %>
 <% if session[:signed_up] %>

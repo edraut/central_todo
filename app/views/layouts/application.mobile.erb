@@ -7,11 +7,11 @@
   <%= csrf_meta_tag %>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta content='True' name='HandheldFriendly' />
-  <meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' />
-  <meta name="viewport" content="width=device-width" />
+  <meta content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no" name="viewport" />
 
 </head>
 <body class="mytime">
+  <!-- <%= @subnav_tab.class.name %> : <%= controller_name %> : <%= @app_context %>-->
 <%= render :partial => 'layouts/application' %>
 <%= javascript_tag do %>
   jQuery(document).ready(function(){

@@ -175,7 +175,7 @@ function expandExpander(data_id) {
 			jQuery(this).hide();
 		}
 	});
-	popButtons();
+	popButtons();	
 }
 function contractExpander(data_id) {
 	jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + data_id + "']").each(function(){

@@ -19,11 +19,11 @@ jQuery(document).ready(function(){
 	bindLineItemControls();
 	bindTabs();
 	bindSortables();
-	bindFocusTaskInput();
 	bindHoverShowMore();
 	bindHoverReveal();
 	bindLabelSubmit();
 	bindModalTriggers();
+	bindFocusAfterExpand();
 	jQuery("[data-drag_handle]").live('mousedown',handleSortBegin);
 	jQuery("[data-role='top_nav_element']").each(function(i){
 		vertCenterDiv(jQuery(this),jQuery('#top_nav_wrapper'));
@@ -422,4 +422,13 @@ function popButtons(){
 			}
 		}
 	});
+}
+function focusAfterExpand(expander){
+  jQuery("[data-behavior='expander'][data-state='expanded'][data-id='" + expander.data('id') + "']").find("[data-primary_input]").focus()
+}
+function bindFocusAfterExpand(){
+	jQuery("[data-behavior='expander'][data-action='expand']").click(function(e){
+    x = jQuery(this);
+    setTimeout(function(){focusAfterExpand(x)},750);
+  });
 }

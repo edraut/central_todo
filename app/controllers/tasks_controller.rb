@@ -54,6 +54,9 @@ class TasksController < ApplicationController
       end
       @task = @tasks.detect{|t| !t.title.blank?}
       @project = @task.project
+      if @project
+        @focus_primary_input = true
+      end
     else
       @task = Task.new(params[:task].merge!(:user_id => @this_user.id))
       if @task.user_id != @this_user.id

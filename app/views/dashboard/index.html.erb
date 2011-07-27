@@ -265,5 +265,10 @@
   <% end %>
 </div>
 <%= javascript_tag do %>
-  focusPrimaryInput();
+ jQuery(document).ready(function(){
+   jQuery('[data-behavior="expander"][data-action="expand"][data-id="new_task_form"]')
+    .bind('click',function(e){
+      setTimeout("jQuery('#primary_input').focus()",750);
+    });
+  });
 <% end %>

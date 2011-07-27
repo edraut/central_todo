@@ -141,11 +141,6 @@ function bindHiddenMultiProxy(){
 function focusPrimaryInput(){
 	jQuery('#primary_input').focus();
 }
-function bindFocusTaskInput(){
-	jQuery("[data-behavior='expander'][data-id='new_task_form']").live('click',function(e){
-      focusPrimaryInput();
-    });
-}
 function handleArchivementSuccess(move){
 	jQuery('#archive_completed_items').hide();
 	move = typeof(move) != 'undefined' ? move : false;

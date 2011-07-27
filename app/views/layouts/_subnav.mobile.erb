@@ -38,8 +38,7 @@
         elsif @nav_tab
           case @nav_tab
           when 'dashboard'
-            case @subnav_tab
-            when 'unorganized'
+            if(action_name == 'multiple' and @tasks.first.project.nil?) or (action_name == 'show' and @task.project.nil?)
               this_title = 'All Unorganized Tasks'
               this_target = 'tasks_page'
             else
