@@ -376,6 +376,9 @@ function loadPages(pages){
 				new_page.after(new_page.children());
 				new_pages.hide();
 				new_pages.each(function(){
+					if(jQuery('#pager_wrapper').data('loaded_page_ids')[jQuery(this).attr('id')]){
+						jQuery(this).remove();
+					}
 					jQuery('#pager_wrapper').data('loaded_page_ids')[jQuery(this).attr('id')] = jQuery(this).data('direct_url');
 					jQuery('#pager_wrapper').data('loaded_page_urls')[jQuery(this).data('direct_url')] = jQuery(this).attr('id');
 				})
@@ -396,12 +399,9 @@ function loadPages(pages){
 			});
 		}
   };
-console.log(jQuery('#pager_wrapper').data('loaded_page_urls'));
 	for(url in pages){
-		console.log(url);
-		console.log(jQuery('#pager_wrapper').data('loaded_page_urls')[url]);
-		if(!jQuery('#pager_wrapper').data('loaded_page_urls')[url]){
-			console.log('loading url:' + url);
+		this_id = pages[url];
+		if(!jQuery('#pager_wrapper').data('loaded_page_ids')[pages[url]]){
 			jQuery('#pager_wrapper').data('loaded_page_ids')[pages[url]] = url;
 	    ajax_params.url = url;
 	    jQuery.ajax(ajax_params);
