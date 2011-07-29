@@ -5,22 +5,18 @@ class Reminder < ActiveRecord::Base
 
   scope :by_time, order('lead_time')
   scope :for_user, lambda { |user| where(:user_id => user.id)}
-  scope :next_minute,
+  scope :today,
     select("distinct(reminders.*)").
     joins("left outer join projects on projects.id = reminders.remindable_id and reminders.remindable_type = 'Project' left outer join tasks on tasks.id = reminders.remindable_id and reminders.remindable_type = 'Task'").
     where(["reminders.state != 'completed'
             and
-            ((
-              projects.due_date - ((reminders.lead_time || reminders.time_units)::interval + interval '1 minute') < now() at time zone 'UTC'
-              and
-              projects.due_date > (now() at time zone 'UTC' - interval '1 minute')
+            (
+              projects.due_date - ((reminders.lead_time || reminders.time_units)::interval) = current_date at time zone 'UTC'
             )
             or
             (
-              tasks.due_date - ((reminders.lead_time || reminders.time_units)::interval + interval '1 minute') < now() at time zone 'UTC'
-              and
-              tasks.due_date > (now() at time zone 'UTC' - interval '1 minute')
-            ))",{}])
+              tasks.due_date - ((reminders.lead_time || reminders.time_units)::interval) = current_date at time zone 'UTC'
+            )",{}])
   
   state_machine :initial => :active, :action => nil do
     state :active

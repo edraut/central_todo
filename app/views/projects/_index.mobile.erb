@@ -3,52 +3,66 @@
     <div class="row_item">
     <h2>Folders</h2>
     </div>
-    <div class="row_item">&nbsp;&nbsp;</div>
-    <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_folder_form" data-button="true">+</div>
-    <div class="block">
-    <div class="dialog" style="visibility:hidden;" data-behavior="expander" data-state="expanded" data-style="visibility" data-id="new_folder_form">
+    <% if @this_user.in_good_standing? %>
+      <% if @this_user.is_a? PaidAccount %>
+    
+        <div class="row_item">&nbsp;&nbsp;</div>
+        <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_folder_form" data-button="true">+</div>
+        <div class="block">
+        <div class="dialog" style="visibility:hidden;" data-behavior="expander" data-state="expanded" data-style="visibility" data-id="new_folder_form">
   
-      <b>Add a Folder</b>
-      <%= form_for Folder.new(:user_id => @this_user.id) do |f| %>
-    		<%= f.text_field :title, :class => "span-12" %>
-    		<%= f.hidden_field :user_id %>
-    		<div class="row">
-        	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light "><div class="button_content">save</div></div>
-        	<div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_folder_form" style="display: none;" data-button="true">&nbsp;or (close)</div>
+          <b>Add a Folder</b>
+          <%= form_for Folder.new(:user_id => @this_user.id) do |f| %>
+        		<%= f.text_field :title, :class => "span-12" %>
+        		<%= f.hidden_field :user_id %>
+        		<div class="row">
+            	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light "><div class="button_content">save</div></div>
+            	<div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_folder_form" style="display: none;" data-button="true">&nbsp;or (close)</div>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-    </div>
-    <% if @this_user.folders.any? %>
-      <div class="list_container" data-sort_container="true" data-sort_id="folder_list" data-sort_url="<%= sort_folders_url %>">
-        <% @this_user.folders.ordered.each_with_index do |folder,index| %>
-          <div id="folder_<%= folder.id %>" class="block border_bottom" data-sort_element="true" data-sort_id="folder_list" data-list_index="<%= index %>">
-            <div class="row padding">
-          	  <div class="row_item eightteen control_font" data-drag_handle="true">&nbsp;&nbsp;&equiv;</div>
-              <div class="row_item seventy" onclick="void(0)" data-page_turner="true" data-page_target="folder_page_<%= folder.id %>" data-page_loader="multiple_folders_page_<%= @this_user.folders.ordered.map{|t| t.id}.join('_') %>" style="visibility:hidden;">
-        		    <div class="row_item"><h3><%= folder.title %> <span class="small">(</span><span class="small" data-sort_count="true" data-sort_id="folder_plan_list" data-sort_count_id="folder_<%= folder.id %>_plan_list"><%= folder.projects.active.count %></span><span class="small">)</span> &nbsp;</h3></div>
+        <% if @this_user.folders.any? %>
+          <div class="list_container" data-sort_container="true" data-sort_id="folder_list" data-sort_url="<%= sort_folders_url %>">
+            <% @this_user.folders.ordered.each_with_index do |folder,index| %>
+              <div id="folder_<%= folder.id %>" class="block border_bottom" data-sort_element="true" data-sort_id="folder_list" data-list_index="<%= index %>">
+                <div class="row padding">
+              	  <div class="row_item eightteen control_font" data-drag_handle="true">&nbsp;&nbsp;&equiv;</div>
+                  <div class="row_item seventy" onclick="void(0)" data-page_turner="true" data-page_target="folder_page_<%= folder.id %>" data-page_loader="multiple_folders_page_<%= @this_user.folders.ordered.map{|t| t.id}.join('_') %>" style="visibility:hidden;">
+            		    <div class="row_item"><h3><%= folder.title %> <span class="small">(</span><span class="small" data-sort_count="true" data-sort_id="folder_plan_list" data-sort_count_id="folder_<%= folder.id %>_plan_list"><%= folder.projects.active.count %></span><span class="small">)</span> &nbsp;</h3></div>
+                  </div>
+                  <div class="row_item twelve">
+                    <div onclick="void(0)" class="row_item control_font" data-page_turner="true" data-page_target="folder_page_<%= folder.id %>" data-page_loader="multiple_folders_page_<%= @this_user.folders.ordered.map{|t| t.id}.join('_') %>" style="visibility:hidden;">
+                      &nbsp;&nbsp;&rang;
+                    </div>
+                  </div>
+              	</div>
               </div>
-              <div class="row_item twelve">
-                <div onclick="void(0)" class="row_item control_font" data-page_turner="true" data-page_target="folder_page_<%= folder.id %>" data-page_loader="multiple_folders_page_<%= @this_user.folders.ordered.map{|t| t.id}.join('_') %>" style="visibility:hidden;">
-                  &nbsp;&nbsp;&rang;
-                </div>
-              </div>
-          	</div>
+            <% end %>
           </div>
+          <% if @this_user.projects.empty? %>
+            <% folder = @this_user.folders.first %>
+            <div class="explanatory row eighty_eight">
+              <h3>Add your first plan</h3>
+              Hi there. You've created a folder named "<%= folder.title %>", but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by tapping on the Plans tab above then tapping on "<%= folder.title %>". This will bring you to the folder view for "<%= folder.title %>", where you can tap the button with the plus-sign to add your first plan to your "<%= folder.title %>" folder.
+            </div>
+          <% end %>
+        <% else %>
+          <div class="explanatory row eighty_eight">
+            <h2>Add your first folder</h2>
+            Hi there. You don't have any folders or plans yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. Folders organize your plans. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by clicking the button with the plus-sign above to create your first folder.
+          </div>
+      
         <% end %>
-      </div>
-      <% if @this_user.projects.empty? %>
-        <% folder = @this_user.folders.first %>
-        <div class="explanatory">
-          <h3>Add your first plan</h3>
-          Hi there. You've created a folder named "<%= folder.title %>", but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by tapping on the Plans tab above then tapping on "<%= folder.title %>". This will bring you to the folder view for "<%= folder.title %>", where you can tap the button with the plus-sign to add your first plan to your "<%= folder.title %>" folder.
+      <% else %>
+        <div class="explanatory row eighty_eight">
+          You currently have a free account for collaborators. Upgrade to a paid account now and create your own plans and folders, share them with friends and colleagues, and more!
         </div>
       <% end %>
     <% else %>
-      <div class="explanatory">
-        <h2>Add your first folder</h2>
-        Hi there. You don't have any folders or plans yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. Folders organize your plans. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by clicking the button with the plus-sign above to create your first folder.
+      <div class="explanatory row eighty_eight">
+        <h2>Your Account is on Hold</h2>
+        Please visit the account view by clicking on the account button at the top and update your credit card information so we can activate your account. Thanks!
       </div>
-      
     <% end %>
   </div>
 </div>

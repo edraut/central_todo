@@ -7,8 +7,19 @@
       <div class="span-16 last section_margin_top">
           <h2>Unorganized Tasks</h2>
       </div>
-      <div class="span-16 last" data-behavior="expander" data-state="contracted" data-id="new_task_form">
+      <div class="span-16 last padding_bottom" data-behavior="expander" data-state="contracted" data-id="new_task_form">
         <div class="list_action button round light" onclick="void(0)" data-behavior="expander" data-action="expand" data-id="new_task_form"><div class="button_content">add a task</div></div>
+        <% if @this_user.tasks.active.unorganized.any? %>
+          <div id="archive_completed_items" class="list_action button round light" style="display: none;" onclick="void(0)" data-button="true">
+            <div class="button_content">
+            	<%= link_to 'archive completed tasks', archive_completed_tasks_url,
+            	 	:'data-ajax_behavior' => 'ajax_link',
+            		:'data-ajax_method' => 'GET',
+            		:'data-ajax_success_callback' => "handleArchivementSuccess();",
+            		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %>
+            </div>
+          </div>
+        <% end %>
       </div>
       <div id="new_task_form" class="span-16 last section_margin_top" data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
         <div class="span-16 last">Enter a task</div>
@@ -33,17 +44,6 @@
       	</div>
       </div> <!-- new unorganized task form -->
       <% if @this_user.tasks.active.unorganized.any? %>
-        <div class="span-16 last padding_bottom">
-          <div id="archive_completed_items" class="list_action button round light" style="display: none;" onclick="void(0)" data-button="true">
-            <div class="button_content">
-            	<%= link_to 'archive completed tasks', archive_completed_tasks_url,
-            	 	:'data-ajax_behavior' => 'ajax_link',
-            		:'data-ajax_method' => 'GET',
-            		:'data-ajax_success_callback' => "handleArchivementSuccess();",
-            		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %>
-            </div>
-          </div>
-        </div>
         <div class="span-16 last list_section" id="unarchived_items_wrapper">
           <div class="span-16 last list_topper">&nbsp;</div>
       		<% @this_user.tasks.active.unorganized.recent.three.each_with_index do |task, index| %>

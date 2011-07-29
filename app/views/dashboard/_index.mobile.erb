@@ -1,175 +1,192 @@
+<% if @this_user.in_good_standing? %>
+  <% if @this_user.is_a? PaidAccount %>
 <%  if @this_user.tasks.active.unorganized.any?
       @tasks = @this_user.tasks.active.unorganized.ordered.three
     end
 %>
-<div id="dashboard_overview" class="pager" data-children_pages="({'<%= dashboard_completed_url %>':'dashboard_completed_page','<%= recent_comments_url %>':'recent_comments_page'<% if @this_user.tasks.active.unorganized.any? %>,'<%= dashboard_unorganized_url + '?load_all=true' %>':'tasks_page','<%= multiple_tasks_url(:ids => @tasks.map{|t| t.id}.join(','), :app_context => 'dashboard') %>':'multiple_tasks_page_<%= @tasks.map{|t| t.id}.join('_') %>'<% end %>})">
+  <% end %>
+<% end %>
+<div id="dashboard_overview" class="pager" data-children_pages="({'<%= recent_comments_url %>':'recent_comments_page'<% if @this_user.in_good_standing? and @this_user.is_a? PaidAccount %>,'<%= dashboard_completed_url %>':'dashboard_completed_page',<% if @this_user.tasks.active.unorganized.any? %>,'<%= dashboard_unorganized_url + '?load_all=true' %>':'tasks_page','<%= multiple_tasks_url(:ids => @tasks.map{|t| t.id}.join(','), :app_context => 'dashboard') %>':'multiple_tasks_page_<%= @tasks.map{|t| t.id}.join('_') %>'<% end %> <% end %>})">
   <div class="page_layout">
-    <div data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
-      <h2>Add Tasks</h2>
-    	<%= form_for @task do |f| %>
-  			<%= text_field_tag :title_1, '', :id => "inbox_text_field_1" %>
-  			<%= text_field_tag :title_2, '', :id => "inbox_text_field_2" %>
-  			<%= text_field_tag :title_3, '', :id => "inbox_text_field_3" %>
-  			<%= f.hidden_field :user_id %>
-  			<%= f.hidden_field :state, :value => 'active' %>
-        <div class="row">
-        	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light"><div class="button_content">add tasks</div></div>
-          <div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&nbsp;or (close)</div>      
-        </div>
-    	<% end %>
-    </div>
-    <div data_role="list" class="block" id="unarchived_items_wrapper">
-      <div class="row">
-        <div class="row_item">
-          <h2>Unorganized Tasks</h2>
-        </div>
-        <div class="row_item">&nbsp;&nbsp;</div>
-        <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
-      </div>
-      <% if @this_user.tasks.active.unorganized.any? %>
-        <div class="list_container">
-        	<% for task in @tasks %>
-        		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
-        		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized', :pager_target => "multiple_tasks_page_#{@tasks.map{|t| t.id}.join('_')}"} %>
-        		</div>
-        	<% end %>
-        	<% if @this_user.tasks.active.unorganized.count > 3 %>
-            <div class="text_right">
-              <div class="padding quiet">
-                <div onclick="void(0)" data-page_turner="true" data-page_target="tasks_page" style="visibility:hidden;">
-                  see all unorganized tasks &rang;
-                </div>
-              </div>
+    <% if @this_user.in_good_standing? %>
+      <% if @this_user.is_a? PaidAccount %>
+    <%  if @this_user.tasks.active.unorganized.any?
+          @tasks = @this_user.tasks.active.unorganized.ordered.three
+        end
+    %>
+        <div data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
+          <h2>Add Tasks</h2>
+        	<%= form_for @task do |f| %>
+      			<%= text_field_tag :title_1, '', :id => "inbox_text_field_1" %>
+      			<%= text_field_tag :title_2, '', :id => "inbox_text_field_2" %>
+      			<%= text_field_tag :title_3, '', :id => "inbox_text_field_3" %>
+      			<%= f.hidden_field :user_id %>
+      			<%= f.hidden_field :state, :value => 'active' %>
+            <div class="row">
+            	<div onclick="void(0)" data-button="true" data-submit="true" class="row_item button round small light"><div class="button_content">add tasks</div></div>
+              <div class="row_item small padding_top_button" onclick="void(0)" data-behavior="expander" data-action="contract" data-state="expanded" data-id="new_task_form" style="display: none;" data-button="true">&nbsp;or (close)</div>      
             </div>
         	<% end %>
         </div>
-      	<div class="block"><div class="padding">
-          <div id="archive_completed_items" class="list_action" style="display: none;">
-          	<span href="<%= archive_completed_tasks_url %>"
-          	  onclick="void(0)"
-          	 	data-ajax_behavior="ajax_link"
-          		data-ajax_method="GET"
-          		data-ajax_success_callback="handleArchivementSuccess(false);"
-          		class="button round color2">archive completed tasks</span>
-          </div>
-        </div></div>
-        <% if @this_user.folders.empty? %>
-          <div class="explanatory">
-            <h2><%= link_to 'Add your first folder', plans_url %></h2>
-            Hi there. You don't have any folders or plans yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. Folders organize your plans. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by tapping to open the Plans tab above, then tapping on the button with the plus-sign in the Plans tab to create your first folder.
-          </div>
-        <% elsif @this_user.projects.empty? %>
-          <% folder = @this_user.folders.first %>
-          <div class="explanatory">
-            <h2>Add your first plan</h2>
-            Hi there. You've created a folder named "<%= folder.title %>", but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by tapping on the Plans tab above then tapping on "<%= folder.title %>". This will bring you to the folder view for "<%= folder.title %>", where you can tap the button with the plus-sign to add your first plan to your "<%= folder.title %>" folder.
-          </div>
-        <% elsif @this_user.tasks.organized.empty? %>
-          <div class="explanatory">
-            <h3>Adding tasks to a plan</h3>
-            To add an existing task to a plan from your phone:
-            <ul>
-              <li>Tap on the task in the unorganized task list above on this page. When the the task page appears, scroll down to the Plan section and Tap 'add to a plan' and choose the plan to which you want to add the task. Click on 'move to plan' to save your choice.</li>
-            </ul>
-          </div>
-        <% end %>
-      <% elsif @this_user.tasks.count > 0 %> <%# any unorganized tasks? %>
-        You've organized all your tasks.
-      <% else %> <%# any unorganized tasks? %>
-        <div class="explanatory">
-          <% if @this_user.folders.empty? %>
-            <h3>Welcome!</h3>
-            You can enter your first task by tapping on the button with the plus-sign above this box on the right side. This is your dashboard, so you can quickly add tasks here when you're busy. When you have time to organize you can come back to this page and organize your tasks into plans and folders, and add labels. Many people find it works to organize all your new tasks at the end of each day.
-            <br/>&nbsp;<br/>
-            <h3>Plans and Folders</h3>
-            Organize your tasks by creating folders and plans. A folder organizes plans, and plans are lists of tasks that accomplish a single goal. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by tapping on the Plans tab above to add your first folder.
-          <% elsif @this_user.projects.empty? %>
-            <% folder = @this_user.folders.first %>
-            <h3>Add your first plan</h3>
-            Hi there. You've created a folder, but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by tapping on the Plans tab above then tapping on "<%= folder.title %>". This will bring you to the folder view for "<%= folder.title %>", where you can tap the button with the plus-sign to add your first plan to your "<%= folder.title %>" folder.</a>
-          <% else %>
-            <% project = @this_user.projects.first %>
-            <h3>Add the first task to your plan "<%= project.title %>"</h3>
-            There are two easy ways to add a task to a plan from your phone:
-            <ul>
-              <li>Create a task by tapping the button with the plus-sign above this box. When the task appears in the unorganized task list on this page, tap on it. When the task Info page appears, scroll down to the Plan section and Tap 'add to a plan' and choose the plan to which you want to add the task. Click on 'move to plan' to save your choice.</li>
-              <li>Tap the Plans tab above, then tap the folder that contains your plan, then tap your plan. When you can see the Tasks tab for your plan, tap the button with the plus sign in the Tasks tab to add a task to that plan.</li>
-            </ul>
-          <% end %>
-        </div>
-      <% end %> <%# any unorganized tasks? %>
-    </div> <!-- end unorganized task list-->
-    <% if (@this_user.shared_comments.recent.any?) or (Task.for_user(@this_user).only_once.complete.recent.any?) %>
-      <div data_role="list" class="block" id="unarchived_items_wrapper">
-        <h2>Recent Activity</h2>
-        <div class="list_container">
-          <% if @this_user.shared_comments.recent.any? %>
-            <% for comment in @this_user.shared_comments.recent.two %>
-              <div class="block">
-                <div class="padding">
-                  <div class="section heading small">
-                    <div class="padding">
-                      <div style="width:40%;" class="row_item line_fixed_width">
-                        <div class="overflow_fade">&nbsp;</div>
-                        <div style="width:1000px" class="row_item">
-                          <%= comment.user.handle %>
-                        </div>
-                      </div>
-                      <div style="width:10%;" class="allcaps row_item attribution">&nbsp;re:</div>
-                      <div style="width:50%;" class="line_fixed_width row_item">
-                        <div class="overflow_fade">&nbsp;</div>
-                        <div style="width:1000px" class="row_item">
-                          <%= link_to truncate_clean(comment.commentable.title,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row small_padding_top">
-                    &nbsp;&nbsp;<%= link_to truncate_clean(comment.body,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-            <div class="block text_right quiet padding">
-              <div onclick="void(0)" data-page_turner="true" data-page_target="recent_comments_page" style="visibility:hidden;">
-                go to recent comments &nbsp;&nbsp;&rang;
-              </div>
+        <div data_role="list" class="block" id="unarchived_items_wrapper">
+          <div class="row">
+            <div class="row_item">
+              <h2>Unorganized Tasks</h2>
             </div>
-          <% end %>
-          <% if Task.for_user(@this_user).only_once.complete.recent.any? %>
-            <% for task in Task.for_user(@this_user).only_once.complete.recent.three %>
-              <div class="block padding_top">
-                <div class="padding">
-                  <div class="section heading small">
-                    <div class="padding">
-                      <div style="width:35%;" class="row_item text_right">
-                        Completed by:
-                      </div>
-                      <div style="width:65%;" class="row_item line_fixed_width">
-                        <div class="overflow_fade">&nbsp;</div>
-                        <div style="width: 1000px">
-                          &nbsp;&nbsp;<%= task.user.handle %>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row small_padding_top">
-                    <div class="row_item">&nbsp;&nbsp;</div>
-                    <div class="row_item completed">
-                      <%= link_to task.title, task_url(task) %>
+            <div class="row_item">&nbsp;&nbsp;</div>
+            <div class="row_item control_font button round color2 circle" onclick="void(0)" data-behavior="expander" data-action="expand" data-state="contracted" data-id="new_task_form" data-button="true">+</div>
+          </div>
+          <% if @this_user.tasks.active.unorganized.any? %>
+            <div class="list_container">
+            	<% for task in @tasks %>
+            		<div id="unorganized_task_<%= task.id %>" data-role="list_item" data-id="task_<%= task.id %>" class="section">
+            		<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true, :prefix => 'unorganized', :pager_target => "multiple_tasks_page_#{@tasks.map{|t| t.id}.join('_')}"} %>
+            		</div>
+            	<% end %>
+            	<% if @this_user.tasks.active.unorganized.count > 3 %>
+                <div class="text_right">
+                  <div class="padding quiet">
+                    <div onclick="void(0)" data-page_turner="true" data-page_target="tasks_page" style="visibility:hidden;">
+                      see all unorganized tasks &rang;
                     </div>
                   </div>
                 </div>
+            	<% end %>
+            </div>
+          	<div class="block"><div class="padding">
+              <div id="archive_completed_items" class="list_action" style="display: none;">
+              	<span href="<%= archive_completed_tasks_url %>"
+              	  onclick="void(0)"
+              	 	data-ajax_behavior="ajax_link"
+              		data-ajax_method="GET"
+              		data-ajax_success_callback="handleArchivementSuccess(false);"
+              		class="button round color2">archive completed tasks</span>
+              </div>
+            </div></div>
+            <% if @this_user.folders.empty? %>
+              <div class="explanatory row eighty_eight">
+                <h2><%= link_to 'Add your first folder', plans_url %></h2>
+                Hi there. You don't have any folders or plans yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. Folders organize your plans. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by tapping to open the Plans tab above, then tapping on the button with the plus-sign in the Plans tab to create your first folder.
+              </div>
+            <% elsif @this_user.projects.empty? %>
+              <% folder = @this_user.folders.first %>
+              <div class="explanatory row eighty_eight">
+                <h2>Add your first plan</h2>
+                Hi there. You've created a folder named "<%= folder.title %>", but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by tapping on the Plans tab above then tapping on "<%= folder.title %>". This will bring you to the folder view for "<%= folder.title %>", where you can tap the button with the plus-sign to add your first plan to your "<%= folder.title %>" folder.
+              </div>
+            <% elsif @this_user.tasks.organized.empty? %>
+              <div class="explanatory row eighty_eight">
+                <h3>Adding tasks to a plan</h3>
+                To add an existing task to a plan from your phone:
+                <ul>
+                  <li>Tap on the task in the unorganized task list above on this page. When the the task page appears, scroll down to the Plan section and Tap 'add to a plan' and choose the plan to which you want to add the task. Click on 'move to plan' to save your choice.</li>
+                </ul>
               </div>
             <% end %>
-            <div class="block text_right quiet padding">
-              <div onclick="void(0)" data-page_turner="true" data-page_target="dashboard_completed_page" style="visibility:hidden;">
-                go to recently completed tasks &nbsp;&nbsp;&rang;
-              </div>
+          <% elsif @this_user.tasks.count > 0 %> <%# any unorganized tasks? %>
+            You've organized all your tasks.
+          <% else %> <%# any unorganized tasks? %>
+            <div class="explanatory row eighty_eight">
+              <% if @this_user.folders.empty? %>
+                <h3>Welcome!</h3>
+                You can enter your first task by tapping on the button with the plus-sign above this box on the right side. This is your dashboard, so you can quickly add tasks here when you're busy. When you have time to organize you can come back to this page and organize your tasks into plans and folders, and add labels. Many people find it works to organize all your new tasks at the end of each day.
+                <br/>&nbsp;<br/>
+                <h3>Plans and Folders</h3>
+                Organize your tasks by creating folders and plans. A folder organizes plans, and plans are lists of tasks that accomplish a single goal. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by tapping on the Plans tab above to add your first folder.
+              <% elsif @this_user.projects.empty? %>
+                <% folder = @this_user.folders.first %>
+                <h3>Add your first plan</h3>
+                Hi there. You've created a folder, but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can get started by tapping on the Plans tab above then tapping on "<%= folder.title %>". This will bring you to the folder view for "<%= folder.title %>", where you can tap the button with the plus-sign to add your first plan to your "<%= folder.title %>" folder.</a>
+              <% else %>
+                <% project = @this_user.projects.first %>
+                <h3>Add the first task to your plan "<%= project.title %>"</h3>
+                There are two easy ways to add a task to a plan from your phone:
+                <ul>
+                  <li>Create a task by tapping the button with the plus-sign above this box. When the task appears in the unorganized task list on this page, tap on it. When the task Info page appears, scroll down to the Plan section and Tap 'add to a plan' and choose the plan to which you want to add the task. Click on 'move to plan' to save your choice.</li>
+                  <li>Tap the Plans tab above, then tap the folder that contains your plan, then tap your plan. When you can see the Tasks tab for your plan, tap the button with the plus sign in the Tasks tab to add a task to that plan.</li>
+                </ul>
+              <% end %>
             </div>
-          <% end %>
+          <% end %> <%# any unorganized tasks? %>
+        </div> <!-- end unorganized task list-->
+      <% end %>
+      <% if (@this_user.shared_comments.recent.any?) or (Task.for_user(@this_user).only_once.complete.recent.any?) %>
+        <div data_role="list" class="block" id="unarchived_items_wrapper">
+          <h2>Recent Activity</h2>
+          <div class="list_container">
+            <% if @this_user.shared_comments.recent.any? %>
+              <% for comment in @this_user.shared_comments.recent.two %>
+                <div class="block">
+                  <div class="padding">
+                    <div class="section heading small">
+                      <div class="padding">
+                        <div style="width:40%;" class="row_item line_fixed_width">
+                          <div class="overflow_fade">&nbsp;</div>
+                          <div style="width:1000px" class="row_item">
+                            <%= comment.user.handle %>
+                          </div>
+                        </div>
+                        <div style="width:10%;" class="allcaps row_item attribution">&nbsp;re:</div>
+                        <div style="width:50%;" class="line_fixed_width row_item">
+                          <div class="overflow_fade">&nbsp;</div>
+                          <div style="width:1000px" class="row_item">
+                            <%= link_to truncate_clean(comment.commentable.title,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row small_padding_top">
+                      &nbsp;&nbsp;<%= link_to truncate_clean(comment.body,{:length => 120,:omission => "..."}), (comment.commentable_type == 'Project' ? comments_plan_url(comment.commentable_id) : comments_task_url(comment.commentable_id)) %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              <div class="block text_right quiet padding">
+                <div onclick="void(0)" data-page_turner="true" data-page_target="recent_comments_page" style="visibility:hidden;">
+                  go to recent comments &nbsp;&nbsp;&rang;
+                </div>
+              </div>
+            <% end %>
+            <% if Task.for_user(@this_user).only_once.complete.recent.any? %>
+              <% for task in Task.for_user(@this_user).only_once.complete.recent.three %>
+                <div class="block padding_top">
+                  <div class="padding">
+                    <div class="section heading small">
+                      <div class="padding">
+                        <div style="width:35%;" class="row_item text_right">
+                          Completed by:
+                        </div>
+                        <div style="width:65%;" class="row_item line_fixed_width">
+                          <div class="overflow_fade">&nbsp;</div>
+                          <div style="width: 1000px">
+                            &nbsp;&nbsp;<%= task.user.handle %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row small_padding_top">
+                      <div class="row_item">&nbsp;&nbsp;</div>
+                      <div class="row_item completed">
+                        <%= link_to task.title, task_url(task) %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              <div class="block text_right quiet padding">
+                <div onclick="void(0)" data-page_turner="true" data-page_target="dashboard_completed_page" style="visibility:hidden;">
+                  go to recently completed tasks &nbsp;&nbsp;&rang;
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
+    <% end %>
+  <% else %>
+    <div class="explanatory row eighty_eight">
+      <h2>Your Account is on Hold</h2>
+      Please visit the account view by clicking on the account button at the top and update your credit card information so we can activate your account. Thanks!
     </div>
   <% end %>
   </div>
