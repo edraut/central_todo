@@ -21,15 +21,6 @@
 		</div>
     <div class="span-16 last quiet"><%= truncate_clean(@project.description, :length => 128, :omission => link_to ('... see more', edit_plan_url(@project))).html_safe %></div>
 		<div id="task_list_heading" class="span-16 last section_margin_top" data-behavior="expander" data-state="contracted" data-id="project_<%= @project.id %>_new_task_form">
-      <div id="archive_completed_items" class="list_action button round light" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %> onclick="void(0)" data-button="true">
-      <div class="button_content">
-    	<%= link_to 'archive completed tasks', archive_completed_tasks_plan_url(@project),
-    	 	:'data-ajax_behavior' => 'ajax_link',
-    		:'data-ajax_method' => 'GET',
-    		:'data-ajax_success_callback' => "handleArchivementSuccess(true);",
-    		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %>
-        </div>
-    	</div>
 			<% if @project.tasks.unarchived.with_due_date.count > 0 %>
 		  <div class="list_action button round light" onclick="void(0)" data-button="true">
         <div class="button_content">
@@ -42,6 +33,15 @@
             <a href="#" data-behavior="expander" data-action="expand" data-id="project_<%= @project.id %>_new_task_form">add a task</a>
           </div>
         </div>
+        <div id="archive_completed_items" class="list_action button round light" <% unless @project.tasks.complete.any? %>style="display: none;"<% end %> onclick="void(0)" data-button="true">
+          <div class="button_content">
+          	<%= link_to 'archive completed tasks', archive_completed_tasks_plan_url(@project),
+        	 	:'data-ajax_behavior' => 'ajax_link',
+        		:'data-ajax_method' => 'GET',
+        		:'data-ajax_success_callback' => "handleArchivementSuccess(true);",
+        		:'data-ajax_error_callback' => "jQuery(this).after('<div id=\"flash_notice\" class=\"flash_notice\"> Oops! We couldn't archive those completed tasks, please contact customer support.</div>');setTimeOut(\"jQuery('#flash_notice').fadeOut(1000);\",3000);" %>
+          </div>
+      	</div>
 		</div>
     <%= render :partial => '/tasks/new', :locals => {:project => @project, :sortable => true} %>
 		<div id="unarchived_items_wrapper" class="span-16 last list_section section_margin_top" data-role="list">

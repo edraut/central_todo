@@ -23,12 +23,12 @@
       </div>
       <div id="new_task_form" class="span-16 last section_margin_top" data-behavior="expander" data-state="expanded" data-id="new_task_form" style="display:none;">
         <div class="span-16 last">Enter a task</div>
-      	<div class="span-16 last">
+      	<div class="span-16 last margin_bottom">
       		<%= form_for @task do |f| %>
-      			<div class="span-12">
-      				<%= f.text_field :title, :id => "primary_input", :class => "span-12" %>
+      			<div class="span-11">
+      				<%= f.text_field :title, :id => "primary_input", :class => "span-11" %>
       			</div>
-      			<div class="span-4 last">
+      			<div class="span-5 last">
       				<%= f.hidden_field :user_id %>
       				<%= f.hidden_field :state, :value => 'active' %>
             	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
