@@ -19,7 +19,7 @@
   	  <span class="verified">verified.</span>
   	<% else %>
   	  <span class="pending">not verified.</span> Please enter the code we sent in a text message to your cell phone. It may take a few minutes to reach your phone. <% if @sms_verification_failed %><span class="error">The code you entered didn't match, please double check what we sent you in our text message, or try another cell number</span><% end %>
-      <%= form_for @user, :html => {
+      <%= form_for @user, :as => :user, :url => user_url(@user.id), :html => {
       	:'data-ajax_behavior' => 'ajax_form',
       	:'data-ajax_method' => 'PUT',
       	:'data-ajax_success_element' => 'account_sms_number',
