@@ -1,53 +1,52 @@
 <% @all_projects = (@projects_shared_from + @projects_shared_to).uniq.sort{|a,b| a.id <=> b.id} %>
 <div id="contact_page_<%= @user.id %>" class="pager" data-children_pages="({<% if @all_projects.any? %>'<%= multiple_plans_url(:ids => @all_projects.map{|t| t.id}.join(','), :app_context => @user.id) %>':'multiple_projects_page_<%= @all_projects.map{|t| t.id}.join('_') %>',<% end %>'<%= users_url %>':'all_contacts'})" data-direct_url="<%= user_path(@user) %>">
 <%= render :partial => '/layouts/subnav' %>
-<div class="page_layout">
-  <% if @projects_shared_from.any? %>
-    <h2>Plans <%= @user.handle %> Shared with You</h2>
-    <div class="list_container">
-      <% @projects_shared_from.each_with_index do |project,index| %>
-      <div class="row border_bottom" data-list_index="<%= index %>">
-  			<%= render :partial => '/projects/show', :locals => {:project => project} %>
+  <div class="page_layout">
+    <% if @projects_shared_from.any? %>
+      <h2>Plans <%= @user.handle %> Shared with You</h2>
+      <div class="list_container">
+        <% @projects_shared_from.each_with_index do |project,index| %>
+        <div class="row border_bottom" data-list_index="<%= index %>">
+    			<%= render :partial => '/projects/show', :locals => {:project => project} %>
+        </div>
+        <% end %>
       </div>
-      <% end %>
-    </div>
   	<% else %>
   	  <% arch_projects_shared_from = @user.projects.archived.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @this_user.id})
-     %>
+       %>
       <% if arch_projects_shared_from.any? %>
         <h2>Archived Plans <%= @user.handle %> Shared with You</h2>
         <div id="shared_from_plan_list" class="span-16 last list_section">
           <% arch_projects_shared_from.each_with_index do |project,index| %>
-          <div id="project_<%= project.id %>" class="span-17 last" data-role="list_item" data-list_index="<%= index %>">
-      			<%= render :partial => '/projects/show', :locals => {:project => project} %>
-      		</div>
+            <div id="project_<%= project.id %>" class="span-17 last" data-role="list_item" data-list_index="<%= index %>">
+        			<%= render :partial => '/projects/show', :locals => {:project => project} %>
+        		</div>
         	<% end %>
       	</div>
-    	</div>
       <% end %>
-  <% end %>
-  <% if @projects_shared_to.any? %>
-  <div class="block">&nbsp;</div>
-  <h2>Plans You Shared with <%= @user.handle %></h2>
-  <div class="list_container">
-  <% for project in @projects_shared_to %>
-    <div class="row border_bottom">
-        <%= render :partial => '/projects/show', :locals => {:project => project} %>
-    </div>
-  <% end %>
-  </div>
-  <% else %>
-    <% arch_projects_shared_to = @this_user.projects.archived.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @user.id}) %>
-    <% if arch_projects_shared_to.any? %>
-    <h2>Archived Plans You Shared with <%= @user.handle %></h2>
-    <div class="list_container">
-      <% for project in arch_projects_shared_to %>
-        <div class="row border_bottom">
-    			<%= render :partial => '/projects/show', :locals => {:project => project} %>
+    <% end %>
+    <% if @projects_shared_to.any? %>
+      <div class="block">&nbsp;</div>
+      <h2>Plans You Shared with <%= @user.handle %></h2>
+      <div class="list_container">
+        <% for project in @projects_shared_to %>
+          <div class="row border_bottom">
+              <%= render :partial => '/projects/show', :locals => {:project => project} %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <% arch_projects_shared_to = @this_user.projects.archived.joins(:project_sharers).where("project_sharers.user_id = :user_id",{:user_id => @user.id}) %>
+      <% if arch_projects_shared_to.any? %>
+        <h2>Archived Plans You Shared with <%= @user.handle %></h2>
+        <div class="list_container">
+          <% for project in arch_projects_shared_to %>
+            <div class="row border_bottom">
+        			<%= render :partial => '/projects/show', :locals => {:project => project} %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     <% end %>
-    </div>
-  <% end %>
-</div>
+  </div>
 </div>
