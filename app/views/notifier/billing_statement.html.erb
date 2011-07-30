@@ -1,0 +1,9 @@
+<center>
+<h1>
+  Billing Statement
+</h1>
+</center>
+<p>We successfully billed your card for <%= @user.rate.amount.format %>, which covers your <%= @user.rate.class.display_name %> plan for the 30 days ending on <%= @user.billing_date %>.<br/>
+  Thank you for using <b>Get Go!</b>
+</p>
+<p>If you have any questions, please contact <a href="mailto:support@getgolist.com">support</a>.</p>

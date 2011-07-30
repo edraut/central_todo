@@ -1002,6 +1002,9 @@ a.selected {
 .highlight {
 	background-color: $light-blue;
 }
+.public .section .highlight {
+	background-color: $paper;
+}
 .line_item, .line_item_quiet {
   select {
 		position: relative;

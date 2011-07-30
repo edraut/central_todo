@@ -736,6 +736,9 @@ a.selected {
 .highlight {
   background-color: #eaf5f5; }
 
+.public .section .highlight {
+  background-color: #fdfcf8; }
+
 .line_item, .line_item_quiet {
   border-bottom: 1px solid #dddcd8;
   padding: .4em 0;

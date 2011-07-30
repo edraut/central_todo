@@ -1,0 +1,8 @@
+<center>
+<h1>
+  Billing Failure
+</h1>
+</center>
+<p>Hey, it happens. We attempted unsuccessfully to charge your card for the <%= @user.charge_attempts.ordinalize %> time. We will attempt to charge your card once a day. After 5 attempts, we will deactivate your account. When your account is deactivated, you may reactivate it by either resolving the issue with your existing card, or entering new card info in your account view.</p>
+<p>If you have any questions, please contact <a href="mailto:support@getgolist.com">support</a>.</p>
+

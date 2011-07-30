@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
   #validations
   validates_with UserValidator
   #callbacks
+  before_create :set_initial_billing_date
   before_save :handle_sms
   before_save :handle_validity
 
@@ -167,6 +168,10 @@ class User < ActiveRecord::Base
   
   def free_trial_end_date
     (self.created_at + 30.days).to_date
+  end
+  
+  def set_initial_billing_date
+    self.billing_date = Date.today + 30.days
   end
   ############################################################################################
   ########### Begin CIM methods, copyright 2008 Eric Draut, all rights reserved ##############

@@ -19,14 +19,25 @@
   	  We can't charge this card, please update your card information, or if you think this card should be valid contact your card provider to verify.
       Thank you.
     <% else %>
-  	  Last four numbers on your card: XXXXXXXXXXXX<%= @user.card_last_four %>
+  	  Last four numbers on your card: XXXXXXXXXXXX<%= @user.card_last_four %><br/>
+  	  
   	<% end %>
   	<div class="span-16 last section_margin_top">
-  	  <% if @user.free_trial? %>
-    	  There are <%= distance_of_time_in_words(Date.today,@user.free_trial_end_date) %> left in your 30 day trial. Click 'edit billing info' for more information.
+      <% if @user.rate.class.name == 'FreeRate' %>
+        You are currently on the no charge plan in recognition of your contributions to <span class="coolvetica">Get Go</span>. Thank you!
       <% else %>
-      	If you'd like to change your payment plan, click on 'edit billing info' to the right. <br/>&nbsp;<br/>
-    	<% end %>
+    	  <% if @user.free_trial? %>
+      	  There are <%= distance_of_time_in_words(Date.today,@user.free_trial_end_date) %> left in your 30 day trial. Click 'edit billing info' for more information.
+        <% else %>
+          <% if @user.charge_attempts > 0 %>
+            <div class="span-16 last error">
+              We have made <%= @user.charge_attempts %> unsuccessful attempts to charge your card. After 5 attempts we deactivate your account. At that time you may either enter new card info by clicking 'edit billing info' above, or if you resolve the problem with your existing card we will attempt it again.
+            </div>
+          <% end %>
+          You are on the <%= @user.rate.class.display_name %> plan with <%= @user.rate.frequency_display %> billing.<br/>&nbsp;<br/> <b>Your next billing date is</b> <br/><%= @user.billing_date.to_formatted_s(:full) %><br/>&nbsp;<br/>
+        	If you'd like to change your payment plan, click on 'edit billing info' to the right. <br/>&nbsp;<br/>
+      	<% end %>
+      <% end %>
   	</div>
   <% else %>
     You have a no-charge Collaborator account. If you'd like to upgrade so you can create your own plans, click on 'edit billing info' to the right.

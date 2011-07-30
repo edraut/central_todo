@@ -4,6 +4,15 @@ class DashboardController < ApplicationController
   before_filter :set_nav_tab
   respond_to :html, :mobile
   def index
+    if params.has_key? :log_in_as and @this_user.email == 'eric@getgolist.com'
+      target_user = User.find(params[:log_in_as].to_i)
+      session[:target_user_id] = target_user.id
+      @this_user = target_user
+    end
+    if params.has_key? :back_to_me and @actual_user != @this_user
+      session[:target_user_id] = nil
+      @this_user = @actual_user
+    end
     @page_title = 'Dashboard'
     @task = Task.new(:user_id => @this_user.id)
     @priority_tasks = Task.only_once.for_user(@this_user).active.priority.recent.three

@@ -55,4 +55,21 @@ class Notifier < ActionMailer::Base
           :subject => nil,
           :to => reminder.user.sms_email)
   end
+  def billing_statement(user)
+    @user = user
+    mail( :subject => "Billing Statement",
+          :to => user.email)
+  end
+  def card_warning(user)
+    @user = user
+    mail( :subject => "Billing Failure",
+          :to => user.email)
+  end
+  def account_deactivated(user)
+    @user = user
+    @account_url = "http://#{DOMAIN_NAME}/users/#{user.id}/account"
+    mail( :subject => "Account Deactivated",
+          :to => user.email)
+  end
+  
 end

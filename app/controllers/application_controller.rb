@@ -202,7 +202,9 @@ class ApplicationController < ActionController::Base
       if !request.xhr? and !(['delete','put','post'].include? @this_method) and controller_name != 'user_sessions' and (controller_name != 'users' or action_name != 'tos_agreement')
         store_location
       end
-      @this_user = current_user
+      @actual_user = current_user
+      @this_user = User.find(session[:target_user_id]) if session[:target_user_id]
+      @this_user ||= current_user
       Time.zone = @this_user.time_zone if @this_user
     end
     
