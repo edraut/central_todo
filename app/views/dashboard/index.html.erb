@@ -4,6 +4,60 @@
 <div class="span-17 last page_content">
   <% if @this_user.in_good_standing? %>
     <% if @this_user.is_a? PaidAccount %>
+      <% if @this_user.tasks.active.unorganized.any? %>
+        <% if @this_user.folders.empty? %>
+          <div class="span-15 last explanatory section_margin_top">
+            <h2>Add your first folder</h2>
+            Hi there. You don't have any folders or plans yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. Folders organize your plans. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by clicking on the Plans tab to the left, then expanding the 'Misc.' section at the bottom. Hover over the 'All Folders' link, and a gray control bar will appear. Click on the circled plus sign to add a new folder.
+  <br/>&nbsp;<br/>          
+            You can always find these instructions again by clicking on 'Help' above.
+          </div>
+        <% elsif @this_user.projects.empty? %>
+          <% folder = @this_user.folders.first %>
+          <div class="span-15 last explanatory section_margin_top">
+            <h2>Add your first plan</h2>
+            Hi there. You've created a folder named "<%= folder.title %>", but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can create a plan by clicking on the Plans tab to the left, then hovering over the folder name "<%= folder.title %>". A gray control bar will appear, click on the circled plus sign to add a plan to this folder.
+            <br/>&nbsp;<br/>          
+                      You can always find these instructions again by clicking on 'Help' above.
+          </div>
+        <% elsif @this_user.tasks.organized.empty? %>
+          <div class="span-15 last explanatory section_margin_top">
+            <h3>Adding existing tasks to a plan</h3>
+            In the unorganized task list below, hover over the task to reveal the 'add plan' control. Click on 'add plan' to choose your plan.
+            <br/>&nbsp;<br/>          
+                      You can always find these instructions again by clicking on 'Help' above.
+          </div>
+        <% end %>
+      <% elsif @this_user.tasks.count == 0 %> <%# any unorganized tasks? %>
+        <div class="span-15 last section_margin_top explanatory">
+          <% if @this_user.folders.empty? %>
+            <h3>Welcome!</h3>
+            You can enter your first task by clicking on the 'add a task' button below this box on the right side. This is your dashboard, so you can quickly add tasks here when you're busy. When you have time to organize you can come back to this page and organize your tasks into plans and folders, and add labels. Many people find it works to organize all your new tasks at the end of each day.
+            <br/>&nbsp;<br/>
+            <h3>Plans and Folders</h3>
+            Organize your tasks by creating folders and plans. A folder organizes plans, and plans are lists of tasks that accomplish a single goal. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by clicking on the Plans tab to the left, then expanding the 'Misc.' section at the bottom. Hover over the 'All Folders' link, and a gray control bar will appear. Click on the circled plus sign to add a new folder.
+            <br/>&nbsp;<br/>          
+                      You can always find these instructions again by clicking on 'Help' above.
+          <% elsif @this_user.projects.empty? %>
+            <% folder = @this_user.folders.first %>
+            <h3>Add your first plan</h3>
+            Hi there. You've created a folder named "<%= folder.title %>", but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can create a plan by clicking on the Plans tab to the left, then hovering over the folder name "<%= folder.title %>". A gray control bar will appear, click on the circled plus sign to add a plan to this folder.
+            <br/>&nbsp;<br/>          
+                      You can always find these instructions again by clicking on 'Help' above.
+          <% else %>
+            <% project = @this_user.projects.first %>
+            <h3>Adding tasks to a plan</h3>
+            You've created a plan named "<%= project.title %>". There are three ways to add a task to your plan:
+            <ul>
+              <li>Create a task by clicking the 'add a task' button below this box. When the task appears in the unorganized task list on this page, hover over the task to reveal the 'add plan' control. Click on 'add plan'.</li>
+              <li>Click on the Plan tab to the left, click on the expander next to your folder name, then hover over the name of the plan you want to add a task to. A gray control bar will appear, click on the circled plus sign to add a task to that plan.</li>
+              <li>Go to the full view for the plan by clicking on the plan name in the Plan tab and click the 'add a task' button on the right side of the plan task list page.
+            </ul>
+            <br/>&nbsp;<br/>          
+                      You can always find these instructions again by clicking on 'Help' above.
+          <% end %>
+        </div>
+      <% end %>
       <div class="span-16 last section_margin_top">
           <h2>Unorganized Tasks</h2>
       </div>
@@ -57,53 +111,9 @@
             </div>
       		<% end %>
         </div>
-        <% if @this_user.folders.empty? %>
-          <div class="span-15 last explanatory section_margin_top">
-            <h2>Add your first folder</h2>
-            Hi there. You don't have any folders or plans yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. Folders organize your plans. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by <a data-modal_trigger="true" data-modal_id="new_folder_form_nav">clicking here to add your first folder</a>
-          
-          </div>
-        <% elsif @this_user.projects.empty? %>
-          <% folder = @this_user.folders.first %>
-          <div class="span-15 last explanatory section_margin_top">
-            <h2>Add your first plan</h2>
-            Hi there. You've created a folder named "<%= folder.title %>", but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can create a plan by clicking on the Plans tab to the left, then hovering over the folder name "<%= folder.title %>". A gray control bar will appear, click on the circled plus sign to add a plan to this folder.
-          </div>
-        <% elsif @this_user.tasks.organized.empty? %>
-          <div class="span-15 last explanatory section_margin_top">
-            <h3>Adding existing tasks to a plan</h3>
-            To add an existing task to a plan on the desktop:
-            <ul>
-              <li>In the unorganized task list above, hover over the task to reveal the 'add plan' control. Click on 'add plan' to choose your plan.</li>
-            </ul>
-          </div>
-        <% end %>
       <% elsif @this_user.tasks.count > 0 %> <%# any unorganized tasks? %>
         <div class="span-15 last section_margin_top">
           You've organized all your current tasks.
-        </div>
-      <% else %> <%# any unorganized tasks? %>
-        <div class="span-15 last section_margin_top explanatory">
-          <% if @this_user.folders.empty? %>
-            <h3>Welcome!</h3>
-            You can enter your first task by clicking on the 'add a task' button above this box on the right side. This is your dashboard, so you can quickly add tasks here when you're busy. When you have time to organize you can come back to this page and organize your tasks into plans and folders, and add labels. Many people find it works to organize all your new tasks at the end of each day.
-            <br/>&nbsp;<br/>
-            <h3>Plans and Folders</h3>
-            Organize your tasks by creating folders and plans. A folder organizes plans, and plans are lists of tasks that accomplish a single goal. One simple approach is to create two folders: "Work" and "Personal". That way you can keep your work and personal plans separate. You can get started by <a data-modal_trigger="true" data-modal_id="new_folder_form_nav">clicking here to add your first folder</a>
-          <% elsif @this_user.projects.empty? %>
-            <% folder = @this_user.folders.first %>
-            <h3><a data-modal_trigger="true" data-modal_id="folder_new_project_form_nav" data-modal_insert_value="<%= folder.id %>" data-modal_display_name="<%= folder.title %>">Add your first plan &nbsp;<span class="control_font plus_icon">&oplus;</span></a></h3>
-            Hi there. You've created a folder named "<%= folder.title %>", but you don't have any plans in your folder yet. Plans are lists of tasks that all work together to accomplish a single goal; like a team plan for a work project, or a personal grocery list. You can create a plan by clicking on the Plans tab to the left, then hovering over the folder name "<%= folder.title %>". A gray control bar will appear, click on the circled plus sign to add a plan to this folder.
-          <% else %>
-            <% project = @this_user.projects.first %>
-            <h3>Adding tasks to a plan</h3>
-            You've created a plan named "<%= project.title %>". There are three ways to add a task to your plan:
-            <ul>
-              <li>Create a task by clicking the 'add a task' button above this box. When the task appears in the unorganized task list on this page, hover over the task to reveal the 'add plan' control. Click on 'add plan'.</li>
-              <li>Click on the Plan tab to the left, click on the expander next to your folder name, then hover over the name of the plan you want to add a task to. A gray control bar will appear, click on the circled plus sign to add a task to that plan.</li>
-              <li>Go to the full view for the plan by clicking on the plan name in the Plan tab and click the 'add a task' button on the right side of the plan task list page.
-            </ul>
-          <% end %>
         </div>
       <% end %> <%# any unorganized tasks? %>
       <% if Project.unorganized_for(@this_user).active.count > 0 %>

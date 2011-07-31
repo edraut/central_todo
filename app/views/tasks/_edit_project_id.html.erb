@@ -4,7 +4,9 @@
 	} do |f| %>
 	  <% if !@task.project or (@task.project and @task.project.user_id == @this_user.id) %>
 	    <% if @this_user.projects.active.any? %>
-    		<%= f.grouped_collection_select :project_id, @this_user.folders, :'projects.active', :title, :id, :title, {:prompt => 'none'} %>
+	      <div class="span-11">
+      		<%= f.grouped_collection_select :project_id, @this_user.folders, :'projects.active', :title, :id, :title, {:prompt => 'none'} %>
+    		</div>
     	<% else %>
         You don't have any active plans. You can add a plan in any folder you've created by clicking on the Plans tab on the left.
     	<% end %>
