@@ -61,25 +61,30 @@ class ProjectsController < ApplicationController
   def create
     if @this_user.is_a? PaidAccount
       if @this_user.in_good_standing?
-        if params[:plan_template_id]
-          @plan_template = PlanTemplate.find(params[:plan_template_id].to_i)
-          @project = @plan_template.generate_plan
-          @project.folder_id = params[:project][:folder_id]
-          unless params[:project][:title].blank?
-            @project.title = params[:project][:title]
+        if (@this_user.rate.project_limit == 0) or (@this_user.projects.active.count < @this_user.rate.project_limit)
+          if params[:plan_template_id]
+            @plan_template = PlanTemplate.find(params[:plan_template_id].to_i)
+            @project = @plan_template.generate_plan
+            @project.folder_id = params[:project][:folder_id]
+            unless params[:project][:title].blank?
+              @project.title = params[:project][:title]
+            end
+            @project.save
+          else
+            @project = Project.new(params[:project].merge!(:user_id => @this_user.id))
+            @project.save
           end
-          @project.save
+          if(params[:return_to])
+            @item = @project
+            flash[:ajax_dialog] = render_to_string :partial => '/projects/go_to'
+            @ajax_dialog_javascript = '/projects/go_to_javascript'
+            redirect_to params[:return_to] + ((params[:return_to] =~ /\?/) ? '&' : '?' ) + "item_type=Project&item_id=#{@project.id}" and return
+          else
+            redirect_to plan_url(@project) and return
+          end
         else
-          @project = Project.new(params[:project].merge!(:user_id => @this_user.id))
-          @project.save
-        end
-        if(params[:return_to])
-          @item = @project
-          flash[:ajax_dialog] = render_to_string :partial => '/projects/go_to'
-          @ajax_dialog_javascript = '/projects/go_to_javascript'
-          redirect_to params[:return_to] + ((params[:return_to] =~ /\?/) ? '&' : '?' ) + "item_type=Project&item_id=#{@project.id}" and return
-        else
-          redirect_to plan_url(@project) and return
+          flash[:notice] = "You currently have #{@this_user.projects.active.count} plans, which is your limit. You may upgrade your account in the Account tab to create more active plans."
+          redirect_to dashboard_url and return
         end
       else
         flash[:notice] = "Your account is on hold. Please update your credit card info in the account view before proceeding."

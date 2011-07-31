@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110729165337) do
+ActiveRecord::Schema.define(:version => 20110731180353) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20110729165337) do
     t.integer "amount"
     t.string  "frequency"
     t.string  "type"
+    t.integer "project_limit"
   end
 
   create_table "reminders", :force => true do |t|
