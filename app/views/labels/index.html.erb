@@ -8,9 +8,11 @@
   <% end %>
 	<div class="span-16 last section_margin_top">
     <div class="span-16 last" data-behavior="expander" data-state="contracted" data-id="new_label_form">
-      <div class="span-10">
-      	<b>You haven't created any labels yet</b>
-      </div>
+  	  <% if @this_user.labels.empty? %>
+        <div class="span-10">
+        	<b>You haven't created any labels yet</b>
+        </div>
+      <% end %>
       <div class="list_action button round light" onclick="void(0)" data-behavior="expander" data-action="expand" data-id="new_label_form"><div class="button_content">add a label</div></div>
     </div>
     <div class="span-16 last" style="display:none;" data-behavior="expander" data-state="expanded" data-id="new_label_form">
