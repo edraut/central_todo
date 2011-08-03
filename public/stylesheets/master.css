@@ -1207,9 +1207,7 @@ h2 .button.small {
   color: #df6020; }
 
 .archived, .archived a {
-  color: #edece8; }
-  .archived .hierarchical, .archived a .hierarchical {
-    color: #bdbcb8; }
+  color: #bdbcb8; }
   .archived .section_heading div, .archived .section_heading a, .archived a .section_heading div, .archived a .section_heading a {
     text-shadow: 0px 1px 1px white;
     color: #9d9c98; }

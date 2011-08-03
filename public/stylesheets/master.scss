@@ -1401,10 +1401,7 @@ h2 .button.small {
   color: $carmine;
 }
 .archived, .archived a {
-	color: $gray1;
-	.hierarchical {
-		color: $gray4;
-	}
+	color: $gray4;
 	.section_heading div, .section_heading a {
 		text-shadow: 0px 1px 1px rgba(255,255,255,1);
 		color: $gray6;

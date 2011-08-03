@@ -482,6 +482,7 @@
         .hide();
       jQuery("[data-behavior='expander'][data-state='expanded'][data-id='new_task_form']")
         .show();
+        setTimeout("jQuery('#primary_input').focus()",750);
         popButtons();
 		<% end %>
 		<% unless @this_user %>

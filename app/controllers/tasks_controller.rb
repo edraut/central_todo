@@ -197,7 +197,12 @@ class TasksController < ApplicationController
       render :nothing => true, :status => 200 and return
     end
     flash[:notice] = "Your task was successfully deleted."
-    redirect_to (session[:return_to] || dashboard_url) and return
+    if @task.project
+      this_render = plan_url(@task.project)
+    else
+      this_render = dashboard_url
+    end
+    redirect_to this_render and return
   end
   
   def get_task
