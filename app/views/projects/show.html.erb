@@ -16,7 +16,7 @@
   			</div>
   		</div>
       <% unless @project.due_date.blank? %>
-  			<div class="span-3 last quiet">due: <%= @project.due_date.to_formatted_s(:friendly) %></div>
+  			<div class="span-3 last quiet">due: <%= @project.due_date.to_formatted_s(:short) %></div>
   		<% end %>
 		</div>
     <div class="span-16 last quiet"><%= truncate_clean(@project.description, :length => 128, :omission => link_to ('... see more', edit_plan_url(@project))).html_safe %></div>

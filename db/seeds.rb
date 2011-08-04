@@ -12,6 +12,7 @@ support_page = Page.create({ :name => 'Support', :template => 'support', :descri
 support_page = Page.create({ :name => 'Terms of Service', :template => 'terms', :description => "Get Go Terms of Service"})
 support_page = Page.create({ :name => 'Privacy Policy', :template => 'privacy', :description => "Get Go Privacy Policy"})
 contact_page = Page.create({ :name => 'Contact', :template => 'contact', :description => "Get Go Contact Information"})
+tour_page = Page.create({ :name => 'Tour', :template => 'tour', :description => "Check out some screen shots of Get Go in action."})
 free = FreeRate.create({:amount => Money.new(0),:frequency => 'never'})
 basic_monthly = BasicRate.create({:amount => Money.new(799),:frequency => 'month'})
 basic_yearly = BasicRate.create({:amount => Money.new(7999),:frequency => 'year'})

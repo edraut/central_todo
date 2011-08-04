@@ -57,6 +57,9 @@
               <div class="row_item top_nav_text_shadow <%= (@nav_tab == 'pages' and @subnav_tab == 'Features') ? 'selected' : '' %>">
                 <%= link_to 'Features', '/page/Features' %>
               </div>
+              <div class="row_item top_nav_text_shadow <%= (@nav_tab == 'pages' and @subnav_tab == 'Tour') ? 'selected' : '' %>">
+                <%= link_to 'Tour', '/page/Tour' %>
+              </div>
               <div class="row_item top_nav_text_shadow <%= (@nav_tab == 'pages' and @subnav_tab == 'Pricing') ? 'selected' : '' %>">
                 <%= link_to 'Plans/Pricing', '/page/Pricing' %>
               </div>
@@ -404,7 +407,7 @@
           		<div class="span-4 last">
           			<%= f.hidden_field :state, :id => "folder_new_project_state_nav" %>
           			<%= f.hidden_field :folder_id, :id => "folder_new_project_folder_id", :'data-modal_insert' => true %>
-          			<%= hidden_field_tag :return_to, request.request_uri %>
+          			<%= hidden_field_tag :return_to, request.url %>
               	<div class="row_item button round small light" data-button="true" data-submit="true" onclick="void(0)">
               	  <div class="button_content">add plan</div>
               	</div>
@@ -465,6 +468,9 @@
   <div style="display:none;" id="ajax_loading">working to complete your request...</div>
   <% end %>
 <%= javascript_tag do %>
+	<% unless flash[:ajax_dialog].blank? %>
+    <%= render :partial => '/projects/go_to_javascript' %>
+  <% end %>
 	jQuery(document).ready(function(){
   	<% unless flash[:notice].blank? %>
   		function clearFlash(){
@@ -492,7 +498,6 @@
   	jQuery('body').append('<div id="flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>" style="display:none;" class="flash_dialog"><%= escape_javascript(flash[:ajax_dialog]) %></div>');
 		repositionDialog('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>', 'center');
 		jQuery('#flash_dialog_<%= @item.class.name.underscore %>_<%= @item.id %>').fadeIn(500);
-    <%= render :partial => '/projects/go_to_javascript' %>
     <% flash.discard %>
   	<% end %>
     <% if @focus_primary_input %>

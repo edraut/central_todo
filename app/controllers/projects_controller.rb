@@ -75,9 +75,11 @@ class ProjectsController < ApplicationController
             @project.save
           end
           if(params[:return_to])
-            @item = @project
-            flash[:ajax_dialog] = render_to_string :partial => '/projects/go_to'
-            @ajax_dialog_javascript = '/projects/go_to_javascript'
+            if params[:return_to] =~ /dashboard/
+              @item = @project
+              flash[:ajax_dialog] = render_to_string :partial => '/projects/go_to'
+              @ajax_dialog_javascript = '/projects/go_to_javascript'
+            end
             redirect_to params[:return_to] + ((params[:return_to] =~ /\?/) ? '&' : '?' ) + "item_type=Project&item_id=#{@project.id}" and return
           else
             redirect_to plan_url(@project) and return
@@ -105,7 +107,7 @@ class ProjectsController < ApplicationController
     @sortable = true
     get_archived_tasks
     respond_with(@project) do |format|
-      format.mobile { render @render_type => 'show'}
+      format.mobile { render @render_type => 'show' and return}
       format.html {render :action => 'show' and return}
     end
   end
@@ -223,7 +225,7 @@ class ProjectsController < ApplicationController
       end
       flash.now[:notice] = "These tasks are now sorted by due date."
       show
-      render :action => 'show' and return
+      return
     else
       @project.task_ids = params[:task].map{|tid| tid.to_i}
       tasks = @project.tasks

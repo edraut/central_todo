@@ -262,6 +262,11 @@ select.with_text_field {
 .form_modal.help {
   background: #fdfcf8; }
 
+.tour_modal_closer {
+  position: absolute;
+  right: 20px;
+  bottom: 10px; }
+
 #ajax_loading {
   position: absolute;
   padding: 1em;
@@ -1114,6 +1119,14 @@ h2 .button.small {
 [onclick="void(0)"] {
   cursor: pointer; }
 
+.task_project_link {
+  position: absolute;
+  width: 600px;
+  text-align: center;
+  top: 3px; }
+  .task_project_link a {
+    color: #8e8d89; }
+
 .list_action {
   position: relative;
   float: right;
@@ -1322,6 +1335,9 @@ h2 .button.small {
 
 .yellow_text, #top_nav a.yellow_text {
   color: #fcefa1; }
+
+.green_text, .green_text h2 {
+  color: #77995b; }
 
 .text_right {
   text-align: right; }

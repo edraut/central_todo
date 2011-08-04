@@ -107,6 +107,10 @@ class FoldersController < ApplicationController
   
   def show
     @item = @folder
+    if params.has_key? :item_type and params.has_key? :item_id
+      item_class = params[:item_type].constantize
+      @item = item_class.find(params[:item_id].to_i)
+    end
     return if handle_attribute_partials('show')
     respond_with(@folder) do |format|
       format.any {render @render_type => 'show' and return}

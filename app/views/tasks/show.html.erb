@@ -5,6 +5,11 @@
   <%= render :partial => 'tabs' %>
 </div>
 <div class="span-17 last page_content">
+  <% if @task.project and false %>
+  <div class="task_project_link last small quiet">
+    &lang; &nbsp; <%= link_to @task.project.title, plan_url(@task.project) %>
+  </div>
+  <% end %>
   <div id="task_title" class="span-16 last padding_bottom">
 	<%= render :partial => 'show_title' %>
 	</div>
