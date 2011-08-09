@@ -19,3 +19,5 @@ public/images/*.acorn
 public/images/GetGo*
 public/.sass-cache
 tmp
+bin
+bin/*
