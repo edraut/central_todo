@@ -131,8 +131,8 @@
               <div onclick="void(0)" class="loud" <% unless @nav_tab == 'plans' %> data-behavior="expander" data-action="expand" data-state="contracted" data-id="folder_list"<% end %>>Plans</div>
               <div onclick="void(0)" class="loud" <% unless @nav_tab == 'plans' %> data-behavior="expander" data-action="contract" data-state="expanded" data-id="folder_list"<% end %> style="display: none;">Plans</div>
   						<div class="expandable_subnav" id="folder_subnav" data-sort_container="true" data-sort_mirror="#folder_list" data-sort_type="folder" data-sort_id="folder_list" data-sort_url="<%= sort_folders_url %>" <% unless @nav_tab == 'plans' %> style="display:none;" data-behavior="expander" data-state="expanded" data-id="folder_list"<% end %>>
-  						  <% if @this_user.folders.any? %>
-    						  <% for folder in @this_user.folders.ordered %>
+  						  <% if @this_user.folders.active.any? %>
+    						  <% for folder in @this_user.folders.active.ordered %>
   						      <%  selected = (@nav_tab == 'plans' and @folder and !@project and @folder.id == @subnav_tab and @folder.id == folder.id)
   						          super_selected = (@nav_tab == 'plans' and @project and @project.folder_for(@this_user) == folder) %>
                     <div id="folder_<%= folder.id %>_nav" class="expandable_subnav" data-sort_element="true" data-sort_id="folder_list">
@@ -195,17 +195,17 @@
                       <div class="expanded_subnav allcaps">&nbsp;Misc.</div>
                     </div>
         						<div id="folder_misc_subnav" class="expandable_subnav margin_bottom" <% unless selected or super_selected %>style="display:none;"<% end %> data-behavior="expander"  data-state="expanded" data-id="folder_misc">
-        						  <% if Project.for_user(@this_user).only_once.archived.count > 0 %>
-        							<div class="expandable_subnav">
-                        <div class="expanded_subnav_indent<% if @subnav_tab == 'archived' %> selected<% end %>">
-        								  &nbsp;<%= link_to "Archived Plans", archived_plans_url %>
-        								</div>
-        							</div>
-        							<% end %>
         						  <% if @this_user.plan_templates.any? %>
         							<div class="expandable_subnav">
                         <div class="expanded_subnav_indent<% if @subnav_tab == 'plan_templates' %> selected<% end %>">
         								  &nbsp;<%= link_to "Plan Templates", plan_templates_url %>
+        								</div>
+        							</div>
+        							<% end %>
+        						  <% if @this_user.folders.archived.any? %>
+        							<div class="expandable_subnav">
+                        <div class="expanded_subnav_indent<% if @subnav_tab == 'archived_folders' %> selected<% end %>">
+        								  &nbsp;<%= link_to "Archived Folders", archived_folders_url %>
         								</div>
         							</div>
         							<% end %>
@@ -216,7 +216,7 @@
                             <a class="plus_icon" data-modal_trigger="true" data-modal_id="new_folder_form_nav">&nbsp;&oplus;&nbsp;</a>
                         		</div>
                       		</div>
-        								  &nbsp;<%= link_to "All Folders", plans_url %>
+        								  &nbsp;<%= link_to "Active Folders Full View", plans_url %>
         								</div>
         							</div>
                     </div>

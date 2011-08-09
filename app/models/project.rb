@@ -80,8 +80,6 @@ class Project < ActiveRecord::Base
       case new_state
       when 'archived'
         self.archive
-      when 'complete'
-        self.finish
       when 'active'
         self.activate
       end

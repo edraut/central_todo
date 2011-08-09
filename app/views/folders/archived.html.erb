@@ -1,0 +1,33 @@
+<div class="span-17 last section_margin_top" id="header_wrapper">
+	<div class="span-9"><h1>Archived Folders</h1></div>
+</div>
+<div class="span-17 last page_content">
+
+  <% for folder in @folders %>
+    <div id="folder_<%= folder.id %>" class="span-17 last padding_top padding_bottom" data-sort_element_id="<%= folder.id %>" data-sort_element_type="folder">
+    	<div class="span-16 last" data-binding="hover_show_more" data-hover_div="[data-hover_id='folder_line_item_<%= folder.id %>']" data-hover_fade_time="50" data-hover_fadein_time="50">
+    	  <div class="span-13">
+      		<h2> <%= link_to folder.title, folder_url(folder) %></h2>
+      	</div>
+  		  <div style="display:none;" class="span-1_5 line_item_height" data-hover_id="folder_line_item_<%= folder.id %>">
+          <%= form_for folder do |f| %>
+            <%= f.hidden_field :state, :value => 'active' %>
+            <span onclick="void(0)" class="green_text" data-button="true" data-submit="true">activate</span>
+          <% end %>
+        </div>
+      	<div style="display:none;" class="span-1_5 last text_right" data-hover_id="folder_line_item_<%= folder.id %>">
+      	  <span>
+          <a href="<%= folder_url(folder) %>"
+      			data-ajax_behavior="ajax_link"
+      			data-ajax_method="DELETE"
+      			data-ajax_success_callback="jQuery('#folder_<%= folder.id %>').remove();handleListDisplay();"
+      			data-ajax_data="{_method: 'DELETE'}"
+      			data-ajax_confirm="Are you sure you want to delete this folder? You'll delete all the plans and tasks inside as well."
+      			class="delete" data-role="delete">&otimes;</a>
+      		</span>&nbsp;&nbsp;
+      	</div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>

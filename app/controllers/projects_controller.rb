@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
   
   def index
     @project = Project.new(:user_id => @this_user.id)
-    @folders = @this_user.folders.ordered.includes(:projects)
+    @folders = @this_user.folders.active.ordered.includes(:projects)
     @sortable = true
     respond_with(@projects) do |format|
       format.mobile { render @render_type => 'index'}
@@ -85,7 +85,7 @@ class ProjectsController < ApplicationController
             redirect_to plan_url(@project) and return
           end
         else
-          flash[:notice] = "You currently have #{@this_user.projects.active.count} plans, which is your limit. You may upgrade your account in the Account tab to create more active plans."
+          flash[:notice] = "You currently have #{@this_user.projects.active.count} active plans, which is your limit. You may upgrade your account in the Account tab to create more active plans."
           redirect_to dashboard_url and return
         end
       else
@@ -173,18 +173,33 @@ class ProjectsController < ApplicationController
         project_sharer.save
       else
         @these_params = params[:project].dup
+        if @these_params.has_key? :state and @these_params[:state] == 'active' and @this_user.rate.project_limit != 0 and @this_user.projects.active.count >= @this_user.rate.project_limit
+          flash[:notice] = "You currently have #{@this_user.projects.active.count} active plans, which is your limit. You may upgrade your account in the Account tab to create or unarchive more active plans."
+          if @project.user_id == @this_user.id
+            redirect_to folder_url(@project.folder_id) and return
+          else
+            redirect_to user_url(@project.user_id) and return
+          end
+        end
         @state_changed = @project.handle_attributes(@these_params)
         @project.save
       end
       flash.now[:ajax_notice] = "Your changes were saved."
     end
     @item = @project
-    if attribute
+    if attribute and request.xhr?
       respond_with(@project) do | format |
         format.any {render :partial => 'show_' + attribute, :locals => {:project => @project}, :layout => 'ajax_section' and return}
       end
       return
-    else
+    elsif !request.xhr?
+      if(@project.archived?)
+        if @project.user_id == @this_user.id
+          redirect_to folder_url(@project.folder_id) and return
+        else
+          redirect_to user_url(@project.user_id) and return
+        end
+      end
       @item = @project
       if @render_type == :action
         get_archived_tasks

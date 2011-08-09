@@ -18,7 +18,7 @@
   	jQuery('#flash_notice').fadeIn(500);
   	setTimeout(clearFlash,2500);
   	<% end %>
-  	<% if @item.respond_to?(params[:attribute]) %>
+  	<% if @item.respond_to?(params[:attribute]) and !(@item.respond_to?('state_events') && @item.state_events.include?(params[:attribute].to_sym)) %>
   	jQuery("[data-resource_attr='<%= @item.class.name.underscore %>_<%= params[:attribute] %>'][data-resource_id='<%= @item.id %>']").html('<%= @item.send(params[:attribute]) %>');
     <% end %>
   	addDatePicker("[data-behavior='date_picker']");

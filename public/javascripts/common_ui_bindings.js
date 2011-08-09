@@ -9,7 +9,7 @@ function getActualLinkTarget(alleged_link_target){
 }
 function bindLinkToForm(){
     jQuery("[data-behavior='link_to_form']").live('click',function(e){
-        var form_string = jQuery('<form method="post" action="' + jQuery(this).attr('href') +'" style="display: none;"><input type="hidden" name="authenticity_token" value="'+ authenticity_token + '"><input type="hidden" name="_method" value="' + jQuery(this).attr('data-method') + '"></form>');
+        var form_string = jQuery('<form method="post" action="' + jQuery(this).attr('href') +'" style="display: none;"><input type="hidden" name="authenticity_token" value="'+ authenticity_token + '"><input type="hidden" name="_method" value="' + jQuery(this).data('method') + '"></form>');
         jQuery(this).after(form_string);
         form_string.submit();
         e.preventDefault();
@@ -40,6 +40,7 @@ function clickMultiSelect(e){
 }
 function bindAutoSubmit(){
 	jQuery("[data-behavior='auto_submit']").live('change',function(e){
+		console.log('auto_submit');
 		jQuery(e.target).parents('form').submit();
 	})
 }

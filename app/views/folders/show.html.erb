@@ -3,43 +3,73 @@
 </div>
 <div class="span-17 last page_content">
   <div id="folder_title" class="span-16 last padding_bottom">
-	<%= render :partial => 'show_title' %>
+  	<%= render :partial => 'show_title' %>
 	</div>
-  <% if Project.for_folder(@folder).count > 0 %>
   <% if @this_user.is_a? PaidAccount %>
-  <div class="span-16 last section_margin_top" data-behavior="expander" data-state="contracted" data-id="folder_<%= @folder.id %>_new_project_form">
-    <div onclick="void(0)" class="list_action button round light" data-behavior="expander" data-action="expand" data-id="folder_<%= @folder.id %>_new_project_form"><div class="button_content">add a plan</div></div>
-  </div>
-  <%= render :partial => '/projects/new', :locals => {:folder => @folder} %>
-  <% end %>
-	<div id="unarchived_items_wrapper" data-role="list" class="span-16 last section_margin_top">
-    <div id="folder_<%= @folder.id %>_plan_list" class="span-16 last list_section">
-		<% for project in Project.for_folder(@folder).active.only_once.shared_order %>
-			<div id="project_<%= project.id %>" class="span-17 last" data-role="list_item" data-sort_element_id="<%= project.id %>" data-sort_element_type="project">
-  			<%= render :partial => '/projects/show', :locals => {:project => project, :sortable => true, :hierarchical => true} %>
-			</div>
-		<% end %>
-    </div>
-    <% for folder in (@this_user.folders - [@folder]) %>
-      <div id="folder_<%= folder.id %>_plan_list" class="span-16 last list_section" style="display:none;">
-  		<% for project in Project.for_folder(folder).active.only_once.shared_order %>
-  			<div id="project_<%= project.id %>" class="span-17 last" data-role="list_item" data-sort_element_id="<%= project.id %>" data-sort_element_type="project">
-    			<%= render :partial => '/projects/show', :locals => {:project => project, :sortable => true, :hierarchical => true} %>
-  			</div>
-  		<% end %>
+    <div class="span-16 last section_margin_top" data-behavior="expander" data-state="contracted" data-id="folder_<%= @folder.id %>_new_project_form">
+      <div onclick="void(0)" class="list_action button round light" data-behavior="expander" data-action="expand" data-id="folder_<%= @folder.id %>_new_project_form"><div class="button_content">add a plan</div></div>
+      <div class="list_action attributes button round light" onclick="void(0)"  data-behavior="check_box_proxy" data-check_box="folder_state_checkbox">
+        <div class="button_content" id="folder_archive">
+          <%= render :partial => 'show_archive' %>
+        </div>
       </div>
+    </div>
+    <%= render :partial => '/projects/new', :locals => {:folder => @folder} %>
+      <% if Project.for_folder(@folder).count > 0 %>
+    	<div id="unarchived_items_wrapper" data-role="list" class="span-16 last section_margin_top">
+        <div id="folder_<%= @folder.id %>_plan_list" class="span-16 last list_section">
+      		<% for project in Project.for_folder(@folder).active.only_once.shared_order %>
+      			<div id="project_<%= project.id %>" class="span-17 last" data-role="list_item" data-sort_element_id="<%= project.id %>" data-sort_element_type="project">
+        			<%= render :partial => '/projects/show', :locals => {:project => project, :sortable => true, :hierarchical => true} %>
+      			</div>
+      		<% end %>
+        </div>
+        <% for folder in (@this_user.folders - [@folder]) %>
+          <div id="folder_<%= folder.id %>_plan_list" class="span-16 last list_section" style="display:none;">
+        		<% for project in Project.for_folder(folder).active.only_once.shared_order %>
+        			<div id="project_<%= project.id %>" class="span-17 last" data-role="list_item" data-sort_element_id="<%= project.id %>" data-sort_element_type="project">
+          			<%= render :partial => '/projects/show', :locals => {:project => project, :sortable => true, :hierarchical => true} %>
+        			</div>
+        		<% end %>
+          </div>
+        <% end %>
+      </div>
+      <% if @folder.projects.archived.any? %>
+      <div class="span-17 section_margin_top">
+        <h3>Archived Plans</h3>
+      	<div id="archived_items_wrapper" data-role="list" class="span-16 last section_margin_top">
+          <div id="folder_<%= @folder.id %>_archived_plan_list" class="span-16 last list_section">
+        		<% for project in @folder.projects.archived.ordered %>
+        			<div id="project_<%= project.id %>" class="span-17 last">
+                <div class="span-13 archived"><%= project.title %></div>
+                <div class="span-3 last">
+                  <%= form_for project, :url => plan_url(project) do |f| %>
+                    <%= f.hidden_field :state, :value => 'active' %>
+                    <span onclick="void(0)" class="green_text" data-button="true" data-submit="true">activate</span>
+                  <% end %>
+                </div>
+        			</div>
+        		<% end %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    <% else %>
+      <div class="span-16 last section_margin_top">
+        <p>The folder <strong><%= @folder.title %></strong> doesn't have any active plans right now.</p>
+      </div>
+      <% if @this_user.show_help_text %>
+        <div class="span-16 last">
+          <p class="explanatory">
+            Plans are groups of tasks that work together to accomplish a goal. If I want to sell my old car I could make a plan named 'Sell Car'. I could then add tasks 'Fix taillight', 'Research market value', and 'Place ad'. This page is where you create and review your plans. When you've created a plan, you can click on the arrow to the right of the plan title to go to the task list for your plan.
+          </p>
+        </div>
+      <% end %>
     <% end %>
-  </div>
   <% else %>
-  <div class="span-16 last section_margin_top">
-    <p>The folder <strong><%= @folder.title %></strong> doesn't have any active plans right now.</p>
-  </div>
-  <% if @this_user.show_help_text %>
-  <div class="span-16 last">
-    <p class="explanatory">
-      Plans are groups of tasks that work together to accomplish a goal. If I want to sell my old car I could make a plan named 'Sell Car'. I could then add tasks 'Fix taillight', 'Research market value', and 'Place ad'. This page is where you create and review your plans. When you've created a plan, you can click on the arrow to the right of the plan title to go to the task list for your plan.
-    </p>
-  </div>
-  <% end %>
+    <div class="explanatory span-15 last">
+      <h2>Your Account is on Hold</h2>
+      Please visit the account view by clicking on the account tab and update your credit card information so we can activate your account. Thanks!
+    </div>
   <% end %>
 </div>

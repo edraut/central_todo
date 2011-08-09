@@ -83,6 +83,7 @@ CentralTodo::Application.routes.draw do
     collection do
       get 'sort'
       get 'multiple'
+      get 'archived'
     end
     member do
       get 'sort_plans'

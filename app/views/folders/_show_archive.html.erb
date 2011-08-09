@@ -1,0 +1,6 @@
+<%= form_for @folder do |f| %>
+	<%= f.check_box :state, {:'data-behavior' => 'auto_submit', :id => 'folder_state_checkbox'}, 'archived', 'active' %>
+  <%= hidden_field_tag 'attribute','archive' %>
+	<%= hidden_field_tag '_method', 'put' %>
+    archived
+<% end %>

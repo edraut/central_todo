@@ -8,25 +8,29 @@ function handleArchivementLink(){
 	}
 }
 function checkBoxProxy(e){
+	console.log('check_box_proxy');
 	target = jQuery(e.target);
 	if(!target.attr('data-check_box')){
 		target = target.parents("[data-check_box]");
 	}
-	checkbox = jQuery('#' + target.attr('data-check_box'));
-	if(checkbox.is("input[type='checkbox']")){
-		if(checkbox.is(':checked')){
-			checkbox.attr('checked', false);
+	checkbox = jQuery('#' + target.data('check_box'));
+	if(!checkbox.data('proxy_note_changed')){
+		console.log('proxying checkbox now');
+		if(checkbox.is("input[type='checkbox']")){
+			if(checkbox.is(':checked')){
+				checkbox.attr('checked', false);
+			}else{
+				checkbox.attr('checked', true);
+			}
 		}else{
-			checkbox.attr('checked', true);
-		}
-	}else{
-		if(checkbox.val() == 'f'){
-			checkbox.val('t');
-		}else{
-			checkbox.val('f');
-		}
-	};
-	checkbox.change();
+			if(checkbox.val() == 'f'){
+				checkbox.val('t');
+			}else{
+				checkbox.val('f');
+			}
+		};
+		checkbox.change();
+	}
 }
 function hiddenFieldProxy(e){
 	target = jQuery(e.target);
@@ -129,6 +133,12 @@ function bindButtonControl(){
 function bindCheckBoxProxy(){
 	jQuery("[data-behavior='check_box_proxy']").die('click');
 	jQuery("[data-behavior='check_box_proxy']").live('click',checkBoxProxy);
+	jQuery("[data-behavior='check_box_proxy']").each(function(){
+		jQuery("#" + jQuery(this).data('check_box')).live('change',function(e){
+			console.log('noting checkbox change');
+			jQuery(this).data('proxy_note_changed',true);
+		})
+	})
 }
 function bindHiddenFieldProxy(){
 	jQuery("[data-behavior='hidden_field_proxy']").die('click');

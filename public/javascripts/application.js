@@ -92,7 +92,6 @@ function repositionDialog(selector,vertical_position){
 		var window_height = jQuery(window).height();
 		var dialog_top =  window_height/2-jQuery(selector).outerHeight()/2+scroll_top;
 		var dialog_left = window_width/2-jQuery(selector).outerWidth()/2;
-		console.log(dialog_top + ":" + dialog_left);
 	}
 	if(vertical_position == 'top'){
 		var dialog_top = scroll_top;

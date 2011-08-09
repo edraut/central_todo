@@ -7,6 +7,10 @@ class FoldersController < ApplicationController
   
   respond_to :html, :mobile
   
+  def archived
+    @folders = @this_user.folders.archived.ordered
+  end
+  
   def multiple
     @folders = Folder.ordered.find(params[:ids].split(',').map{|id| id.to_i})
     respond_with(@folders) do |format|
@@ -87,12 +91,23 @@ class FoldersController < ApplicationController
     else
       attribute = false
     end
-    if @folder.update_attributes(params[:folder]) and attribute
-      flash.now[:ajax_notice] = "Your changes were saved."
-      respond_with(@folder) do | format |
-        format.any {render :partial => 'show_' + attribute, :layout => 'ajax_section' and return}
+    @these_params = params[:folder].dup
+    @state_changed = @folder.handle_attributes(@these_params)
+    if @folder.save
+      if attribute and request.xhr?
+        flash.now[:ajax_notice] = "Your changes were saved."
+        respond_with(@folder) do | format |
+          format.any {render :partial => 'show_' + attribute, :layout => 'ajax_section' and return}
+        end
+        return
+      elsif !request.xhr?
+        if(@folder.archived?)
+          redirect_to plans_url and return
+        end
+        respond_with(@folder) do |format|
+          format.any {render @render_type => 'show' and return}
+        end
       end
-      return
     end
   end
   
