@@ -1,12 +1,12 @@
 <div class="span-17 last section_margin_top" id="header_wrapper">
   <h1>Sign up</h1>
 </div>
-<div class="span-12 last section">
+<div class="span-7 section">
 	<% form_for @user, :as => :user, :url => @user.new_record? ? users_url : user_url(@user) do |f| %>
     <% if @user.errors.any? %> <div class="error"><b>Some problems prevented your account from being created. Please adjust your information to accommodate these requirements.</b><br/><ul><%= @user.errors.full_messages.map{|em| '<li>' + em + '</li>'}.join.html_safe %></ul></div><br /> <% end %>
-	  <div class="span-12 last">
+	  <div class="span-7 last">
 	    <h2> Account Information </h2>
-  	  <div class="span-12 last section_margin_top">
+  	  <div class="span-7 last section_margin_top">
         <%= f.label :email %><br/>
     		<%= f.text_field :email %><br />
     		<br />
@@ -20,7 +20,7 @@
         <%= hidden_field_tag :frequency, params[:frequency], :id => "frequency_field" %>
       </div>
     </div>
-    <div class="span-12 last">
+    <div class="span-7 last">
         <div class="section_rule">&nbsp;</div>
         <!-- <h2> Payment Information </h2>
         <div class="span-11 explanatory section_margin_top">
@@ -37,11 +37,11 @@
         <%# text_field_tag 'card[cvv]', nil %><br/>
         <br/>
         </div> -->
-        <div class="span-12 last">
-          <div class="span-5">
+        <div class="span-7 last">
+          <!-- <div class="span-5">
             <%# label 'card[zip]', "Billing Zip Code" %><br/>
             <%# text_field_tag 'card[zip]', nil %><br/>
-          </div>
+          </div> -->
           <div class="span-7 last">
             <div class="span-6">
             I have read and I agree to the<br/> <%= link_to 'Terms of Service', terms_url %> and the<br/> <%= link_to 'Privacy Policy', privacy_url %>.
@@ -57,8 +57,8 @@
     </div>
     <div class="span-12 last">
       <div class="span-7">
-        <%# select_tag 'card[month]', options_for_select( Array.new(12){|i| i+1}.map{|m| [m,m]},1) %> /
-        <%# select_tag 'card[year]', options_for_select( Array.new(10){|i| i + Date.today.year}.map{|year| [year,year]},Date.today.year) %>
+        <!-- <%# select_tag 'card[month]', options_for_select( Array.new(12){|i| i+1}.map{|m| [m,m]},1) %> /
+        <%# select_tag 'card[year]', options_for_select( Array.new(10){|i| i + Date.today.year}.map{|year| [year,year]},Date.today.year) %> -->
       </div>
       <div id="create_account_button">
         <div id="create_account_stretcher">
@@ -70,3 +70,4 @@
     </div>
 	<% end %>
 </div>
+<div class="span-7 prepend-3 last"><h2> Yep, it's that easy. </h2></div>
