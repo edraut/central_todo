@@ -29,7 +29,7 @@
         You are currently on the no charge plan in recognition of your contributions to <span class="coolvetica">Get Go</span>. Thank you!
       <% else %>
     	  <% if @user.free_trial? %>
-      	  There are <%= distance_of_time_in_words(Date.today,@user.free_trial_end_date) %> left in your 30 day trial. Click 'edit billing info' for more information.
+      	  You have <%= distance_of_time_in_words(Date.today,@user.free_trial_end_date) %> left in your 30 day trial. Click 'edit billing info' for more information.
         <% else %>
           <% if @user.charge_attempts > 0 %>
             <div class="span-16 last error">
