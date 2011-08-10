@@ -71,5 +71,16 @@ class Notifier < ActionMailer::Base
     mail( :subject => "Account Deactivated",
           :to => user.email)
   end
-  
+  def free_trial_ending(user)
+    @user = user
+    @account_url = "http://#{DOMAIN_NAME}/users/#{user.id}/account"
+    mail( :subject => "Free trial almost over",
+          :to => user.email)
+  end
+  def free_trial_over(user)
+    @user = user
+    @account_url = "http://#{DOMAIN_NAME}/users/#{user.id}/account"
+    mail( :subject => "Free trial ended",
+          :to => user.email)
+  end
 end

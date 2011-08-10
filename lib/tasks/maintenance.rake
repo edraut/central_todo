@@ -22,6 +22,16 @@ namespace :maintenance do
     end
     Rails.logger.flush
   end
+  task :handle_free_trials => :environment do
+    PaidAccount.free_trial_ending.no_card.each do |u|
+      Notifier.free_trial_ending(u).deliver
+    end
+    PaidAccount.free_trial_over.no_card.each do |u|
+      Notifier.free_trial_over(u).deliver
+      u.card_valid = false
+      u.save
+    end
+  end
   task :charge_cards => :environment do
     gateway = ActiveMerchant::Billing::AuthorizeNetCimGateway.new( :login => AUTH_NET_LOGIN, :password => AUTH_NET_TRANS_ID )
     PaidAccount.chargeable.bill_today.each do |u|

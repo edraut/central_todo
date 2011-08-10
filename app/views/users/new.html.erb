@@ -22,25 +22,25 @@
     </div>
     <div class="span-12 last">
         <div class="section_rule">&nbsp;</div>
-        <h2> Payment Information </h2>
+        <!-- <h2> Payment Information </h2>
         <div class="span-11 explanatory section_margin_top">
           We will not charge your card until the 30-day free trial is up. You may cancel your free trial at any time during the 30-day free trial and pay nothing. Click on 'Help' in the top nav bar at any time during your trial to learn how to cancel your account.
         </div>
         <div class="span-12 last section_margin_top">
-        <%= label 'card[name]', "Name on Card" %><br/>
-        <%= text_field_tag 'card[name]', nil %><br/>
+        <%# label 'card[name]', "Name on Card" %><br/>
+        <%# text_field_tag 'card[name]', nil %><br/>
         <br/>
-        <%= label 'card[number]', "Credit Card Number" %><br/>
-        <%= text_field_tag 'card[number]', nil %><br/>
+        <%# label 'card[number]', "Credit Card Number" %><br/>
+        <%# text_field_tag 'card[number]', nil %><br/>
         <br/>
-        <%= label 'card[cvv]', "Security Code" %><br/>
-        <%= text_field_tag 'card[cvv]', nil %><br/>
+        <%# label 'card[cvv]', "Security Code" %><br/>
+        <%# text_field_tag 'card[cvv]', nil %><br/>
         <br/>
-        </div>
+        </div> -->
         <div class="span-12 last">
           <div class="span-5">
-            <%= label 'card[zip]', "Billing Zip Code" %><br/>
-            <%= text_field_tag 'card[zip]', nil %><br/>
+            <%# label 'card[zip]', "Billing Zip Code" %><br/>
+            <%# text_field_tag 'card[zip]', nil %><br/>
           </div>
           <div class="span-7 last">
             <div class="span-6">
@@ -53,12 +53,12 @@
         </div>
         &nbsp;
         <br/>
-        <%= label nil, "Expiration Date" %><br/>
+        <%# label nil, "Expiration Date" %><br/>
     </div>
     <div class="span-12 last">
       <div class="span-7">
-        <%= select_tag 'card[month]', options_for_select( Array.new(12){|i| i+1}.map{|m| [m,m]},1) %> /
-        <%= select_tag 'card[year]', options_for_select( Array.new(10){|i| i + Date.today.year}.map{|year| [year,year]},Date.today.year) %>
+        <%# select_tag 'card[month]', options_for_select( Array.new(12){|i| i+1}.map{|m| [m,m]},1) %> /
+        <%# select_tag 'card[year]', options_for_select( Array.new(10){|i| i + Date.today.year}.map{|year| [year,year]},Date.today.year) %>
       </div>
       <div id="create_account_button">
         <div id="create_account_stretcher">

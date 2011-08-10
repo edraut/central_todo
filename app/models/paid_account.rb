@@ -5,12 +5,12 @@ class PaidAccount < User
   scope :bill_today, where(["users.billing_date <= current_date"])
   
   def handle_validity
-    if self.card_valid?
+    if self.card_valid? or self.free_trial?
       unless self.in_good_standing?
         self.activate_account
       end
     else
-      if self.in_good_standing?
+      if self.in_good_standing? and !self.free_trial?
         self.hold_account
       end
     end

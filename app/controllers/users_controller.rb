@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     end
     rate = rate_class.where(:frequency => params[:frequency]).first
     @user = PaidAccount.new(params[:user].merge(:time_zone => Time.zone.name, :rate_id => rate.id))
-    @user.card_hash = params[:card]
+    # @user.card_hash = params[:card]
     if @user.save
       for project_email in ProjectEmail.find(:all, :conditions => ["lower(email) = :email",{:email => @user.email.downcase}])
         project_email.convert_to_sharer
@@ -47,12 +47,12 @@ class UsersController < ApplicationController
       @user_session = UserSession.new(:email => @user.email, :password => params[:user][:password])
       @user_session.save
       session[:signed_up] = true
-      if @user.add_credit_card
-        @user.save
+      # if @user.add_credit_card
+        # @user.save
         redirect_back_or_default dashboard_url
-      else
-        redirect_to account_user_url(@user)
-      end
+      # else
+        # redirect_to account_user_url(@user)
+      # end
     else
       respond_with(@user) do |format|
         format.mobile { render @render_type => 'new' and return }

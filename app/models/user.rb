@@ -30,13 +30,15 @@ class User < ActiveRecord::Base
     where("pr1.user_id = #{user.id}").
     order("users.id")
   }
+  scope :free_trial_ending, where("(date(created_at) + interval '26 days') = current_date")
+  scope :free_trial_over, where("(date(created_at) + interval '31 days') = current_date")
   scope :recent, order('id desc')
   #special behaviors
   acts_as_authentic do |c|
     c.logged_in_timeout = 2.weeks
   end
   
-  state_machine :state, :initial => :can_log_in, :action => nil do
+  state_machine :state, :initial => :in_good_standing, :action => nil do
     event :hold_account do
       transition any => :can_log_in
     end
