@@ -66,4 +66,52 @@ namespace :maintenance do
       end
     end
   end
+  task (:generate_google_sitemap => :environment) do
+    include ActionController::UrlWriter  
+    default_url_options[:host] = 'getgolist.com' 
+      
+    filename = "#{RAILS_ROOT}/public/sitemap.xml"  
+    File.open(filename, "w") do |file|
+      xml = Builder::XmlMarkup.new(:target => file, :indent => 2)  
+      xml.instruct!  
+      xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do  
+        xml.url do
+          xml.loc root_url
+          xml.lastmod Time.now.xmlschema
+          xml.changefreq "weekly"
+          xml.priority 1.0
+        end
+        xml.url do
+          xml.loc features_url
+          xml.lastmod Time.now.xmlschema
+          xml.changefreq "weekly"
+          xml.priority 0.9
+        end
+        xml.url do
+          xml.loc tour_url
+          xml.lastmod Time.now.xmlschema
+          xml.changefreq "weekly"
+          xml.priority 0.8
+        end
+        xml.url do
+          xml.loc pricing_url
+          xml.lastmod Time.now.xmlschema
+          xml.changefreq "weekly"
+          xml.priority 0.7
+        end
+        xml.url do
+          xml.loc contact_url
+          xml.lastmod Time.now.xmlschema
+          xml.changefreq "weekly"
+          xml.priority 0.6
+        end
+        xml.url do
+          xml.loc support_url
+          xml.lastmod Time.now.xmlschema
+          xml.changefreq "weekly"
+          xml.priority 0.5
+        end
+      end
+    end
+  end 
 end

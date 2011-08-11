@@ -77,10 +77,10 @@
   				<div class="span-<% if @this_user %>13<% else %>10<% end %> last text_right top_nav_text_shadow" data-role="top_nav_element">
   					<% if current_user %>
   						hello <%= @this_user.handle %>
-  						<%= link_to '(sign out)', sign_out_url, :class => 'quiet' %>
+  						<%= link_to '(sign out)', sign_out_url, :class => 'quiet',:rel => "nofollow" %>
   					<% else %>
-  						<%= link_to 'Sign Up', '/page/Pricing', :class => 'yellow_text' %> or
-  						<%= link_to 'Sign in', sign_in_url, :class => 'yellow_text' %>
+  						<%= link_to 'Sign Up', '/page/Pricing', :class => 'yellow_text',:rel => "nofollow" %> or
+  						<%= link_to 'Sign in', sign_in_url, :class => 'yellow_text',:rel => "nofollow" %>
   					<% end %>
   				</div>
         </div>
