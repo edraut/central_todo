@@ -7,6 +7,9 @@
   <%= render :partial => '/layouts/base_javascripts' %>
   <%= csrf_meta_tag %>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <% if @page %>
+  	<meta name="title" content="Get Go: <%= @page.name %>" />
+  <% end %>
   <% if @html_meta_description %>
     <meta name="description" content="<%= @html_meta_description %>" />
   <% end %>
