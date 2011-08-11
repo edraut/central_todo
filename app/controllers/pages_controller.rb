@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_filter :get_page
+  before_filter :get_description
   respond_to :html, :mobile
   before_filter :set_nav_tab
 
@@ -12,6 +13,9 @@ class PagesController < ApplicationController
     end
   end
   
+  def get_description
+    @html_meta_description = @page.description
+  end
   def get_page
     @page = Page.where("lower(name) = lower(:name)",{:name => params[:name]}).first
   end

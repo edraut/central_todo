@@ -6,7 +6,7 @@
 %>
   <% end %>
 <% end %>
-<div id="dashboard_overview" class="pager" data-children_pages="({'<%= recent_comments_url %>':'recent_comments_page'<% if @this_user.in_good_standing? and @this_user.is_a? PaidAccount %>,'<%= dashboard_completed_url %>':'dashboard_completed_page',<% if @this_user.tasks.active.unorganized.any? %>,'<%= dashboard_unorganized_url + '?load_all=true' %>':'tasks_page','<%= multiple_tasks_url(:ids => @tasks.map{|t| t.id}.join(','), :app_context => 'dashboard') %>':'multiple_tasks_page_<%= @tasks.map{|t| t.id}.join('_') %>'<% end %> <% end %>})">
+<div id="dashboard_overview" class="pager" data-children_pages="({'<%= recent_comments_url %>':'recent_comments_page'<% if @this_user.in_good_standing? and @this_user.is_a? PaidAccount %>,'<%= dashboard_completed_url %>':'dashboard_completed_page'<% if @this_user.tasks.active.unorganized.any? %>,'<%= dashboard_unorganized_url + '?load_all=true' %>':'tasks_page','<%= multiple_tasks_url(:ids => @tasks.map{|t| t.id}.join(','), :app_context => 'dashboard') %>':'multiple_tasks_page_<%= @tasks.map{|t| t.id}.join('_') %>'<% end %> <% end %>})">
   <div class="page_layout">
     <% if @this_user.in_good_standing? %>
       <% if @this_user.is_a? PaidAccount %>

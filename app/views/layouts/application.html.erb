@@ -7,6 +7,10 @@
   <%= render :partial => '/layouts/base_javascripts' %>
   <%= csrf_meta_tag %>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <% if @html_meta_description %>
+    <meta name="description" content="<%= @html_meta_description %>" />
+  <% end %>
+	
   <!--
   /*
    * MyFonts Webfont Build ID 790549, 2011-04-21T12:55:54-0400

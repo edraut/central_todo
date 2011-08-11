@@ -368,10 +368,7 @@ function loadPages(pages){
       //handle misfire on loading page
     },
 		success: function(data, message){
-			console.log('loading ' + data);
 			new_page = jQuery(data).hide();
-			console.log('after hiding new dom element');
-			// new_page.hide();
 			jQuery('#pager_wrapper').append(new_page);
 			if(new_page.children().hasClass('pager')){
 				new_pages = new_page.children();
@@ -399,17 +396,13 @@ function loadPages(pages){
 			jQuery("[data-tab_switcher][data-tab_target='" + new_page.attr('id') + "']").each(function(){
 				jQuery(this).css('visibility','visible');
 			});
-			console.log('loaded ' + new_page.attr('id'));
 		}
   };
 	for(url in pages){
-		console.log(url + ":" + pages[url]);
-		console.log(jQuery('#pager_wrapper').data('loaded_page_ids')[pages[url]]);
 		if(!jQuery('#pager_wrapper').data('loaded_page_ids')[pages[url]]){
 			jQuery('#pager_wrapper').data('loaded_page_ids')[pages[url]] = url;
 	    ajax_params.url = url;
 	    jQuery.ajax(ajax_params);
-			console.log('after load attempt for ' + url)
 		}
   }
 }
