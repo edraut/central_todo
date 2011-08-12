@@ -238,12 +238,12 @@
 				</div>
 				<div id="contacts_nav" class="left_nav_wrapper last">
 					<div class="vert-line-nav-wrapper-main<% if @nav_tab == 'contacts' %> selected <% if @subnav_tab %>padding_bottom<% end %><% end %>">
-            <div onclick="void(0)" class="loud" <% unless @nav_tab == 'contacts' %> data-behavior="expander" data-action="expand" data-state="contracted" data-id="contact_list" data-switch="hide"<% end %>>Contacts</div>
-            <div onclick="void(0)" class="loud" <% unless @nav_tab == 'contacts' %> data-behavior="expander" data-action="contract" data-state="expanded" data-id="contact_list" data-switch="hide"<% end %> style="display: none;">Contacts</div>
+            <div onclick="void(0)" class="loud" <% unless @nav_tab == 'contacts' %> data-behavior="expander" data-action="expand" data-state="contracted" data-id="contact_list" data-switch="hide"<% end %>>Shared Plans</div>
+            <div onclick="void(0)" class="loud" <% unless @nav_tab == 'contacts' %> data-behavior="expander" data-action="contract" data-state="expanded" data-id="contact_list" data-switch="hide"<% end %> style="display: none;">Shared Plans</div>
 						<div class="expandable_subnav" id="contact_subnav" <% unless @nav_tab == 'contacts' %> style="display:none;" data-behavior="expander" data-state="expanded" data-id="contact_list"<% end %>>
               <% if User.contacts_for(@this_user).empty? %>
                 <div class="expandable_subnav">
-                  <span onclick="void(0)" data-modal_trigger="true" data-modal_id="contacts_intro_help">learn about contacts</span>
+                  <span onclick="void(0)" data-modal_trigger="true" data-modal_id="contacts_intro_help">learn about shared plans</span>
                 </div>
               <% end %>
 						  <% for contact in User.contacts_for(@this_user) %>

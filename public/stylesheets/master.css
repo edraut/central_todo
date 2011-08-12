@@ -1339,6 +1339,9 @@ h2 .button.small {
 .green_text, .green_text h2 {
   color: #77995b; }
 
+.big_font {
+  font-size: 22px; }
+
 .text_right {
   text-align: right; }
 

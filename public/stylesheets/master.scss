@@ -1540,6 +1540,9 @@ h2 .button.small {
 .green_text, .green_text h2 {
 	color: $green5;
 }
+.big_font {
+	font-size: 22px;
+}
 .text_right {
 	@include text-right;
 }
