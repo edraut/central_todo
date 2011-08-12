@@ -165,7 +165,11 @@ class User < ActiveRecord::Base
   end
   
   def free_trial?
-    Date.today <= (self.created_at + 30.days).to_date
+    if self.new_record?
+      return true
+    else
+      return Date.today <= (self.created_at + 30.days).to_date
+    end
   end
   
   def free_trial_end_date
