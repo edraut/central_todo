@@ -28,18 +28,23 @@
     <div id="card_info" <% if @user.class.name == 'FreeAccount' and @user.errors.empty? %>style="display:none;"<% end %> class="span-16 last section_margin_top">
       <% if @user.errors.any? %> <div class="error"><b>Some problems prevented your card from being accepted.</b><br/><ul><%= @user.errors.full_messages.map{|em| '<li>' + em + '</li>'}.join.html_safe %></ul></div><br /> <% end %>
       <div class="span-16 last">
-        <%= label 'card[name]', "Name on Card" %><br/>
-        <%= text_field_tag 'card[name]', nil %><br/>
-        <br/>
-        <%= label 'card[number]', "Credit Card Number" %><br/>
-        <%= text_field_tag 'card[number]', nil %><br/>
-        <br/>
-        <%= label 'card[cvv]', "Security Code" %><br/>
-        <%= text_field_tag 'card[cvv]', nil %><br/>
-        <br/>
-        <%= label 'card[zip]', "Billing Zip Code" %><br/>
-        <%= text_field_tag 'card[zip]', nil %><br/>
-        <br/>
+        <div class="span-9">
+          <%= label 'card[name]', "Name on Card" %><br/>
+          <%= text_field_tag 'card[name]', nil %><br/>
+          <br/>
+          <%= label 'card[number]', "Credit Card Number" %><br/>
+          <%= text_field_tag 'card[number]', nil %><br/>
+          <br/>
+          <%= label 'card[cvv]', "Security Code" %><br/>
+          <%= text_field_tag 'card[cvv]', nil %><br/>
+          <br/>
+          <%= label 'card[zip]', "Billing Zip Code" %><br/>
+          <%= text_field_tag 'card[zip]', nil %><br/>
+          <br/>
+        </div>
+        <div class="span-7 last section_margin_top">
+          <!-- (c) 2005, 2011. Authorize.Net is a registered trademark of CyberSource Corporation --> <div class="AuthorizeNetSeal"> <script type="text/javascript" language="javascript">var ANS_customer_id="cdb8bb2c-dd20-4980-a9e2-d945e6feec6f";</script> <script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js" ></script> <a href="http://www.authorize.net/" id="AuthorizeNetText" target="_blank">Credit Card Processing</a> </div>
+        </div>
       </div>
       <div class="span-16 last">
             <%= label nil, "Expiration Date" %><br/>
