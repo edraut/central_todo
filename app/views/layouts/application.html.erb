@@ -65,7 +65,7 @@
                 <%= link_to 'Features', '/page/Features' %>
               </div>
               <div class="row_item top_nav_text_shadow <%= (@nav_tab == 'pages' and @subnav_tab == 'Tour') ? 'selected' : '' %>">
-                <%= link_to 'Tour', '/page/Tour' %>
+                <%= link_to 'Show Me', '/page/Tour' %>
               </div>
               <div class="row_item top_nav_text_shadow <%= (@nav_tab == 'pages' and @subnav_tab == 'Pricing') ? 'selected' : '' %>">
                 <%= link_to 'Plans/Pricing', '/page/Pricing' %>
@@ -327,7 +327,7 @@
 				</div>
 				<% else %>
         <div class="span-6">
-          <div id="main_logo" onclick="document.location.href = '<%= root_url %>'">
+          <div id="main_logo" onclick="document.location.href = '<%= pricing_url %>'">
             <div id="main_logo_inner">
               <div id="main_logo_glare">&nbsp;</div>
               <div id="main_logo_content">
