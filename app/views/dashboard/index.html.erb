@@ -143,6 +143,64 @@
     <% end %> <%# PaidAccount -> unorganized tasks %>
     <div class="span-7 append-2">
       <div class="span-7 last section_margin_top">
+        <h2>Upcoming Due Dates</h2>
+      </div>
+      <% if @due_date_items.any?%>
+        <div class="span-7 last list_section">
+          <% for due_date in @due_dates %>
+            <div class="span-7 last section_heading<% if due_date < Date.today %> overdue<% end %> small_margin_top">
+              &nbsp; <%= due_date.to_formatted_s(:full) %>
+            </div>
+            <% for item in @due_date_items.select{|t| t.due_date.to_date == due_date} %>
+        			<div class="span-7 last line_item_soft" id="due_date_<%= item.class.display_name.downcase %>_<%= item.id %>">
+        			  <div class="span-1 small"><%= item.class.display_name %>:</div>
+        			    <% if item.class.name == 'Project' %>
+        			      <a href="<%= plan_url(item) %>" class="span-6 last"><%= item.title%></a>
+        			    <% else %>
+        		        <a href="<%= task_url(item) %>" class="span-6 last"><%= item.title%></a>
+            			<% end %>
+        			</div>
+        		<% end %>
+          <% end %>
+      		<% if (@due_date_task_count > 2) or (@due_date_project_count > 2) %>
+            <div class="span-7 last text_right section_margin_top">
+              <%= link_to 'See all', schedule_url %> &rarr;
+            </div>
+      		<% end %>
+        </div>
+      <% else %> <!-- scheduled -->
+        There are no scheduled tasks.
+      <% end %> <%# schedule %>
+    </div>
+    <%# if @priority_tasks.any? %>
+    <!-- <div class="span-7 append-2">
+    <div class="span-7 last section_margin_top">
+      <h2>Priority Tasks</h2>
+    </div>
+    <div class="span-7 last list_section">
+      <div class="span-7 last list_topper">&nbsp;</div>
+      <%# @priority_tasks.each_with_index do |task,index| %>
+        <div class="span-7 last line_item">
+          <a href="<%# task_url(task) %>"><%# task.title %></a>
+        </div>
+      <%# end %>
+      <%# if @total_priority_task_count > 3 %>
+        <div class=" text_right section_margin_top">
+          <%# link_to 'See all', priority_tasks_url %> &rarr;
+        </div>
+      <%# end %>
+    </div>
+    </div>
+    <%# else %>
+    <div class="span-7 append-2 section_margin_top">
+      <p>
+      You don't have any priority tasks.</p>
+      <%# if @this_user.show_help_text %><p class="explanatory">You can make any task a priority by clicking on the star to the left of the check box in a plan's task list.</p><%# end %>
+      </p>
+    </div> -->
+    <%# end %>
+    <div class="span-7">
+      <div class="span-7 last section_margin_top">
         <h2>Recent Activity</h2>
       </div>
       <% if (@this_user.shared_comments.recent.any?) or (Task.for_user(@this_user).only_once.complete.recent.any?) %>
@@ -208,64 +266,6 @@
       <% else %> <%# recent activity %>
         There is no recent activity.
       <% end %> <%# recent activity %>
-    </div>
-    <%# if @priority_tasks.any? %>
-    <!-- <div class="span-7 append-2">
-    <div class="span-7 last section_margin_top">
-      <h2>Priority Tasks</h2>
-    </div>
-    <div class="span-7 last list_section">
-      <div class="span-7 last list_topper">&nbsp;</div>
-      <%# @priority_tasks.each_with_index do |task,index| %>
-        <div class="span-7 last line_item">
-          <a href="<%# task_url(task) %>"><%# task.title %></a>
-        </div>
-      <%# end %>
-      <%# if @total_priority_task_count > 3 %>
-        <div class=" text_right section_margin_top">
-          <%# link_to 'See all', priority_tasks_url %> &rarr;
-        </div>
-      <%# end %>
-    </div>
-    </div>
-    <%# else %>
-    <div class="span-7 append-2 section_margin_top">
-      <p>
-      You don't have any priority tasks.</p>
-      <%# if @this_user.show_help_text %><p class="explanatory">You can make any task a priority by clicking on the star to the left of the check box in a plan's task list.</p><%# end %>
-      </p>
-    </div> -->
-    <%# end %>
-    <div class="span-7">
-      <div class="span-7 last section_margin_top">
-        <h2>Upcoming Due Dates</h2>
-      </div>
-      <% if @due_date_items.any?%>
-        <div class="span-7 last list_section">
-          <% for due_date in @due_dates %>
-            <div class="span-7 last section_heading<% if due_date < Date.today %> overdue<% end %> small_margin_top">
-              &nbsp; <%= due_date.to_formatted_s(:full) %>
-            </div>
-            <% for item in @due_date_items.select{|t| t.due_date.to_date == due_date} %>
-        			<div class="span-7 last line_item_soft" id="due_date_<%= item.class.display_name.downcase %>_<%= item.id %>">
-        			  <div class="span-1 small"><%= item.class.display_name %>:</div>
-        			    <% if item.class.name == 'Project' %>
-        			      <a href="<%= plan_url(item) %>" class="span-6 last"><%= item.title%></a>
-        			    <% else %>
-        		        <a href="<%= task_url(item) %>" class="span-6 last"><%= item.title%></a>
-            			<% end %>
-        			</div>
-        		<% end %>
-          <% end %>
-      		<% if (@due_date_task_count > 2) or (@due_date_project_count > 2) %>
-            <div class="span-7 last text_right section_margin_top">
-              <%= link_to 'See all', schedule_url %> &rarr;
-            </div>
-      		<% end %>
-        </div>
-      <% else %> <!-- scheduled -->
-        There are no scheduled tasks.
-      <% end %> <%# schedule %>
     </div>
   <% else %>
     <div class="explanatory span-15 last">

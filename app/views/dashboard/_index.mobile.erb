@@ -110,6 +110,46 @@
           <% end %> <%# any unorganized tasks? %>
         </div> <!-- end unorganized task list-->
       <% end %>
+        <div data_role="list" class="block" id="unarchived_items_wrapper">
+          <h2>Upcoming Due Dates</h2>
+          <div class="list_container">
+            <% if @due_date_items.any?%>
+              <% for due_date in @due_dates %>
+                <div class="block">
+                  <div class="padding">
+                    <div class="section heading small">
+                      <div class="padding">
+                        <div class="row line_fixed_width">
+                          <div class="overflow_fade">&nbsp;</div>
+                          <div style="width:1000px" class="row_item">
+                            <%= due_date.to_formatted_s(:full) %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% for item in @due_date_items.select{|t| t.due_date.to_date == due_date} %>
+                      <div class="row small_padding_top">
+                        <%= item.class.display_name %>:
+              			    <% if item.class.name == 'Project' %>
+              			      <a href="<%= plan_url(item) %>" class="span-6 last"><%= item.title%></a>
+              			    <% else %>
+              		        <a href="<%= task_url(item) %>" class="span-6 last"><%= item.title%></a>
+                  			<% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+              <div class="block text_right quiet padding">
+                <div onclick="void(0)" data-page_turner="true" data-page_target="recent_comments_page" style="visibility:hidden;">
+                  go to recent comments &nbsp;&nbsp;&rang;
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      
       <% if (@this_user.shared_comments.recent.any?) or (Task.for_user(@this_user).only_once.complete.recent.any?) %>
         <div data_role="list" class="block" id="unarchived_items_wrapper">
           <h2>Recent Activity</h2>
