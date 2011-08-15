@@ -3,7 +3,8 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   
   scope :by_date, order('updated_at')
-  scope :recent, order('comments.created_at desc').where("comments.created_at > (current_date at time zone 'UTC' - interval '2 week')")
+  scope :recent, order('comments.created_at desc')#.
+    #where("comments.created_at > (current_date at time zone 'UTC' - interval '2 week')")
   scope :two, limit(2)
   
   after_create :handle_alerts
