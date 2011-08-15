@@ -99,7 +99,6 @@
       </div> <!-- new unorganized task form -->
       <% if @this_user.tasks.active.unorganized.any? %>
         <div class="span-16 last list_section" id="unarchived_items_wrapper">
-          <div class="span-16 last list_topper">&nbsp;</div>
       		<% @this_user.tasks.active.unorganized.recent.three.each_with_index do |task, index| %>
       			<div class="span-16 last line_item" id="task_<%= task.id %>" data-role="list_item">
       			<%= render :partial => '/tasks/show', :locals => {:task => task, :needs_organization => true} %>

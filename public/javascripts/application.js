@@ -1,6 +1,6 @@
 function roundCorners(){
-	jQuery(".list_section").corner("20px");
-	jQuery(".section").corner("13px");
+	// jQuery(".list_section").corner("20px");
+	// jQuery(".section").corner("13px");
 	jQuery(".label").corner("4px");
 	jQuery(".line_item_expand_control_plan,.project_folder_select").corner("7px");
 	jQuery(".line_item_expand_control_labels").corner("tr bottom 7px");
