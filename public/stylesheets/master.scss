@@ -55,9 +55,9 @@ $compact-line-height-minus-two: 18px;
 $indent-width: 28px;
 $nav-indent-width: 15px;
 @mixin small-shadow {
-	-webkit-box-shadow: 1px 3px 6px 0px rgba(0, 0, 0, .35);
-	-moz-box-shadow: 1px 3px 8px 0px rgba(0, 0, 0, .35);
-	box-shadow: 1px 3px 6px 0px rgba(0, 0, 0, .35);
+	-webkit-box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, .35);
+	-moz-box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, .35);
+	box-shadow: 1px 2px 6px 0px rgba(0, 0, 0, .35);
 }
 @mixin tiny-shadow {
 	-webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .35);
@@ -607,6 +607,7 @@ select.with_text_field{
 		text-shadow: 0px 1px 1px rgba(255,255,255,.5);
 		border-top: 1px solid $gray1;
 		border-bottom: 1px solid $gray3;
+		border-right: 1px solid $gray2;
 		.delete {
 			color: $gray8
 		}
