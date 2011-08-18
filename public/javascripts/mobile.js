@@ -368,7 +368,8 @@ function loadPages(pages){
       //handle misfire on loading page
     },
 		success: function(data, message){
-			new_page = jQuery(data).hide();
+			new_page = jQuery(data);
+			new_page.css('display','none');
 			jQuery('#pager_wrapper').append(new_page);
 			if(new_page.children().hasClass('pager')){
 				new_pages = new_page.children();
